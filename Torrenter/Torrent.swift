@@ -75,13 +75,29 @@ class Torrent: NSObject {
     
     @objc var progress: String {
         get {
-            if self.is_seeding {
+            return String(format: "%.1f%%", self.getInfo().progress * 100)
+        }
+    }
+    
+    @objc var status: String {
+        get {
+            switch self.getInfo().status {
+            case state_t(rawValue: 1):
+                return "Checking files"
+            case state_t(rawValue: 2):
+                return "Downloading metadata"
+            case state_t(rawValue: 3):
+                return "Downloading"
+            case state_t(rawValue: 4):
+                return "Finished"
+            case state_t(rawValue: 5):
                 return "Seeding"
-            } else if self.is_finished {
-                return "Done"
-            } else {
-                return String(format: "%.1f%%", self.getInfo().progress * 100)
+            case state_t(rawValue: 6):
+                return "Allocating"
+            default:
+                return "Checking resume data"
             }
+            
         }
     }
 }

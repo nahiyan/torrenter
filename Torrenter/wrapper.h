@@ -11,6 +11,17 @@
 
 #include <stdbool.h>
 
+enum state_t
+{
+   checking_files,
+   downloading_metadata,
+   downloading,
+   finished,
+   seeding,
+   allocating,
+   checking_resume_data,
+};
+
 struct TorrentInfo {
     const char* name;
     float progress;
@@ -22,6 +33,7 @@ struct TorrentInfo {
     int list_peers;
     int download_rate;
     int upload_rate;
+    enum state_t status;
 };
 
 #endif /* wrapper_h */

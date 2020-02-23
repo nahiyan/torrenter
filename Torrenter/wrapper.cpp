@@ -66,6 +66,7 @@ extern "C" TorrentInfo torrent_get_info(int index) {
         torrent_info.list_peers = ts.list_peers;
         torrent_info.download_rate = ts.download_rate;
         torrent_info.upload_rate = ts.upload_rate;
+        torrent_info.status = (enum state_t) ts.state;
         
         return torrent_info;
     } catch(std::out_of_range) {
