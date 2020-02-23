@@ -11,7 +11,7 @@
 
 #include <stdbool.h>
 
-struct Torrent {
+struct TorrentInfo {
     const char* name;
     float progress;
     bool is_finished;

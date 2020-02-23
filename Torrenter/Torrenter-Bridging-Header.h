@@ -5,5 +5,5 @@
 #include "wrapper.h"
 
 void torrent_initiate(const char*, const char*);
-struct Torrent torrent_get(int);
+struct TorrentInfo torrent_get_info(int);
 int torrent_count();

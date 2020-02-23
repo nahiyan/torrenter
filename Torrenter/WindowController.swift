@@ -30,9 +30,16 @@ class WindowController: NSWindowController {
                 if panel.urls.count == 1 {
                     let filePath = panel.urls[0].relativePath
                     let downloadsDir = fileManager.homeDirectoryForCurrentUser.appendingPathComponent("Downloads").relativePath
-
+                    let torrentIndex: Int = Int(torrent_count())
+                    
+                    // Initiate the torrent
                     torrent_initiate(filePath, downloadsDir)
-                    viewController.torrentsList.reloadData()
+                    
+                    // Add torrent to the table
+                    let torrent: Torrent = Torrent(torrentIndex)
+                    viewController.torrents.addObject(torrent)
+
+                    viewController.reloadTorrentsTable()
                 }
             }
         })

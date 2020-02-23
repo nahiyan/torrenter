@@ -747,7 +747,7 @@
                                             <tableColumns>
                                                 <tableColumn editable="NO" width="225" minWidth="40" maxWidth="1000" id="U15-3h-IG4">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Name">
-                                                        <font key="font" metaFont="toolTip"/>
+                                                        <font key="font" metaFont="menu" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -772,6 +772,9 @@
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
+                                                                    <connections>
+                                                                        <binding destination="J7P-Bb-fE2" name="value" keyPath="objectValue.name" id="4e3-Rq-Ivz"/>
+                                                                    </connections>
                                                                 </textField>
                                                             </subviews>
                                                             <constraints>
@@ -784,10 +787,17 @@
                                                             </connections>
                                                         </tableCellView>
                                                     </prototypeCellViews>
+                                                    <connections>
+                                                        <binding destination="ANR-OF-cpm" name="value" keyPath="arrangedObjects" id="P63-4o-KTV">
+                                                            <dictionary key="options">
+                                                                <bool key="NSConditionallySetsEditable" value="YES"/>
+                                                            </dictionary>
+                                                        </binding>
+                                                    </connections>
                                                 </tableColumn>
                                                 <tableColumn editable="NO" width="109" minWidth="40" maxWidth="1000" id="mk7-gZ-hSE">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Progress">
-                                                        <font key="font" metaFont="toolTip"/>
+                                                        <font key="font" metaFont="menu" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -812,6 +822,9 @@
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
+                                                                    <connections>
+                                                                        <binding destination="kPF-lC-wDK" name="value" keyPath="objectValue.progress" id="Q7Y-tG-jD4"/>
+                                                                    </connections>
                                                                 </textField>
                                                             </subviews>
                                                             <constraints>
@@ -827,7 +840,7 @@
                                                 </tableColumn>
                                                 <tableColumn editable="NO" width="60" minWidth="40" maxWidth="1000" id="hWS-wj-bRa">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Seeds">
-                                                        <font key="font" metaFont="toolTip"/>
+                                                        <font key="font" metaFont="menu" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -852,6 +865,9 @@
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
+                                                                    <connections>
+                                                                        <binding destination="5VD-cQ-fzy" name="value" keyPath="objectValue.seeds" id="i3g-pW-28D"/>
+                                                                    </connections>
                                                                 </textField>
                                                             </subviews>
                                                             <constraints>
@@ -867,7 +883,7 @@
                                                 </tableColumn>
                                                 <tableColumn editable="NO" width="60" minWidth="40" maxWidth="1000" id="riG-IQ-r8c">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Peers">
-                                                        <font key="font" metaFont="toolTip"/>
+                                                        <font key="font" metaFont="menu" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -892,6 +908,9 @@
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
+                                                                    <connections>
+                                                                        <binding destination="9fQ-ob-7HN" name="value" keyPath="objectValue.peers" id="ksf-e2-XdN"/>
+                                                                    </connections>
                                                                 </textField>
                                                             </subviews>
                                                             <constraints>
@@ -907,7 +926,7 @@
                                                 </tableColumn>
                                                 <tableColumn editable="NO" width="100" minWidth="40" maxWidth="1000" id="st9-EU-Zbb">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Download Rate">
-                                                        <font key="font" metaFont="toolTip"/>
+                                                        <font key="font" metaFont="menu" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -932,6 +951,9 @@
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
+                                                                    <connections>
+                                                                        <binding destination="ky1-Vb-w2C" name="value" keyPath="objectValue.download_rate" id="oCm-Z5-VTm"/>
+                                                                    </connections>
                                                                 </textField>
                                                             </subviews>
                                                             <constraints>
@@ -947,7 +969,7 @@
                                                 </tableColumn>
                                                 <tableColumn editable="NO" width="100" minWidth="40" maxWidth="1000" id="zjw-lf-2VC">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Upload Rate">
-                                                        <font key="font" metaFont="toolTip"/>
+                                                        <font key="font" metaFont="menu" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -972,6 +994,9 @@
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
+                                                                    <connections>
+                                                                        <binding destination="FaF-RW-PTe" name="value" keyPath="objectValue.upload_rate" id="Pnz-rV-0vt"/>
+                                                                    </connections>
                                                                 </textField>
                                                             </subviews>
                                                             <constraints>
@@ -987,8 +1012,7 @@
                                                 </tableColumn>
                                             </tableColumns>
                                             <connections>
-                                                <action selector="test:" target="XfG-lQ-9wD" id="4C5-FI-1WL"/>
-                                                <outlet property="delegate" destination="XfG-lQ-9wD" id="Y2L-ed-2Af"/>
+                                                <binding destination="ANR-OF-cpm" name="content" keyPath="arrangedObjects" id="KmH-Xa-5rs"/>
                                             </connections>
                                         </tableView>
                                     </subviews>
@@ -1018,16 +1042,12 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="tableDownloadRateColumn" destination="st9-EU-Zbb" id="7Qv-p7-stb"/>
-                        <outlet property="tablePeersColumn" destination="riG-IQ-r8c" id="Qnw-dF-uRD"/>
-                        <outlet property="tableProgressColumn" destination="mk7-gZ-hSE" id="opz-zX-d8f"/>
-                        <outlet property="tableSeedsColumn" destination="hWS-wj-bRa" id="TVE-cm-AcQ"/>
-                        <outlet property="tableUploadRateColumn" destination="zjw-lf-2VC" id="7Md-uA-DtE"/>
-                        <outlet property="torrentNameColumn" destination="U15-3h-IG4" id="aU7-Dw-RqY"/>
-                        <outlet property="torrentsList" destination="Yd5-Gp-9Lo" id="RU0-M4-Hna"/>
+                        <outlet property="torrents" destination="ANR-OF-cpm" id="Hc7-Og-fkm"/>
+                        <outlet property="torrentsTable" destination="Yd5-Gp-9Lo" id="AS4-2Q-qkw"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <arrayController objectClassName="Torrent" id="ANR-OF-cpm"/>
             </objects>
             <point key="canvasLocation" x="87" y="772"/>
         </scene>
