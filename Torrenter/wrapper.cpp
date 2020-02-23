@@ -21,19 +21,17 @@ std::vector<lt::torrent_handle> torrent_handlers;
 std::vector<lt::session*> torrent_sessions;
 std::vector<std::string*> torrent_names;
 
+lt::session* torrent_session = new lt::session;
+
 // Load torrent from file and start it
 extern "C" void torrent_initiate(const char* filePath, const char* savePath) {
-    // Start session
-    lt::session* s = new lt::session;
-    torrent_sessions.push_back(s);
-    
     // Torrent params
     lt::add_torrent_params p;
     p.save_path = std::string(savePath);
     p.ti = std::make_shared<lt::torrent_info>(std::string(filePath));
 
     // Torrent handler
-    lt::torrent_handle th = s->add_torrent(p);
+    lt::torrent_handle th = torrent_session->add_torrent(p);
     torrent_handlers.push_back(th);
     
     // Register the name of the torrent
