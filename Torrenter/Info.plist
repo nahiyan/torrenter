@@ -26,6 +26,10 @@
 	<string>Copyright © 2020 Nahiyan Alamgir. All rights reserved.</string>
 	<key>NSMainStoryboardFile</key>
 	<string>Main</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>fonts/Font Awesome 5 Free-Solid-900.otf</string>
+	</array>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 </dict>
