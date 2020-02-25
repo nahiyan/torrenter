@@ -12,11 +12,19 @@ class ViewController: NSViewController {
     
     @IBOutlet var torrents: NSArrayController!
     @IBOutlet weak var torrentsTable: NSTableView!
+    var container: NSPersistentContainer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        let delegate: AppDelegate = NSApplication.shared.delegate as! AppDelegate
+        self.container = delegate.persistentContainer
+        
+        guard container != nil else {
+            fatalError("This view needs a persistent container.")
+        }
         
         // refresh the data periodically
         Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
