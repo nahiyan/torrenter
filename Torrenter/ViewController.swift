@@ -40,10 +40,10 @@ class ViewController: NSViewController {
 //            }
         }
         
-        let torrent: Torrent = Torrent()
-        torrent.filePath = "fuck"
-        torrent.savePath = "suck"
-        container.viewContext.insert(torrent)
+//        let torrent: Torrent = Torrent()
+//        torrent.filePath = "fuck"
+//        torrent.savePath = "suck"
+//        container.viewContext.insert(torrent)
     }
 
     override var representedObject: Any? {
