@@ -18,6 +18,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 fatalError("Unable to load persistent stores: \(error)")
             }
         }
+        
         return container
     }()
 

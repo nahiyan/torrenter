@@ -1,19 +1,29 @@
 //
-//  Torrent.swift
+//  TorrentEntity+CoreDataProperties.swift
 //  Torrenter
 //
-//  Created by Nahiyan Alamgir on 2/23/20.
+//  Created by Nahiyan Alamgir on 3/2/20.
 //  Copyright © 2020 Nahiyan Alamgir. All rights reserved.
+//
 //
 
 import Foundation
+import CoreData
 
-class Torrent: NSObject {
-    let index: Int
 
-    init(_ index: Int) {
-        self.index = index
+extension Torrent {
+
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<Torrent> {
+        return NSFetchRequest<Torrent>(entityName: "Torrent")
     }
+
+    @NSManaged public var filePath: String?
+    @NSManaged public var savePath: String?
+    
+    
+//    func setIndex(_ index: Int) -> Void {
+//        self.index = index
+//    }
     
     func getInfo() -> TorrentInfo {
         return torrent_get_info(Int32(index))
@@ -100,4 +110,5 @@ class Torrent: NSObject {
             
         }
     }
+
 }
