@@ -29,21 +29,18 @@ class ViewController: NSViewController {
         // refresh the data periodically
         Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
             self.reloadTorrentsTable()
-            
-//            let selectedRow: Int = self.torrentsTable.selectedRow
-//            let t:[Torrent] = self.torrents.arrangedObjects as! [Torrent]
-//
-//            if self.torrentsTable.isRowSelected(selectedRow) {
-//                print(String(cString: t[selectedRow].getInfo().name))
-//            } else {
-//                print("No row selected")
-//            }
         }
         
-//        let torrent: Torrent = Torrent()
-//        torrent.filePath = "fuck"
-//        torrent.savePath = "suck"
-//        container.viewContext.insert(torrent)
+        // Load all the torrents
+        let torrentInitializers: [TorrentInitializer] = TorrentInitializer.getAll(container)
+        torrentInitializers.forEach{ torrentInitializer in
+            let loadPath: String = torrentInitializer.loadPath
+            let savePath: String = torrentInitializer.savePath
+            let torrentIndex: Int = Int(torrent_count())
+            
+            torrent_initiate(loadPath, savePath)
+            torrents.addObject(Torrent(torrentIndex))
+        }
     }
 
     override var representedObject: Any? {
@@ -61,10 +58,3 @@ extension ViewController {
         torrentsTable.selectRowIndexes(IndexSet(integer: selectedRow), byExtendingSelection: false)
     }
 }
-
-// Manage Table View
-//extension ViewController: NSTableViewDelegate {
-//    func tableViewSelectionDidChange(_ notification: Notification) {
-//
-//    }
-//}

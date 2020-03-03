@@ -11,6 +11,10 @@ import Foundation
 class Torrent: NSObject {
     var index: Int = 0
     
+    override init() {
+        self.index = Int(torrent_count())
+    }
+    
     init(_ index: Int) {
         self.index = index
     }

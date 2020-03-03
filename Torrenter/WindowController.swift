@@ -28,16 +28,19 @@ class WindowController: NSWindowController {
         panel.begin(completionHandler: { (result) -> Void in
             if result == NSApplication.ModalResponse.OK {
                 if panel.urls.count == 1 {
-                    let filePath = panel.urls[0].relativePath
-                    let downloadsDir = fileManager.homeDirectoryForCurrentUser.appendingPathComponent("Downloads").relativePath
-                    let torrentIndex: Int = Int(torrent_count())
+                    let loadPath = panel.urls[0].relativePath
+                    // For now, it's the downloads folder
+                    let savePath = fileManager.homeDirectoryForCurrentUser.appendingPathComponent("Downloads").relativePath
                     
                     // Initiate the torrent
-                    torrent_initiate(filePath, downloadsDir)
+                    torrent_initiate(loadPath, savePath)
                     
                     // Add torrent to the table
-                    let torrent: Torrent = Torrent(torrentIndex)
+                    let torrent: Torrent = Torrent()
                     viewController.torrents.addObject(torrent)
+                    
+                    // Save torrent initializer using CoreData
+                    TorrentInitializer.insert(container: viewController.container, loadPath: loadPath, savePath: savePath)
 
                     viewController.reloadTorrentsTable()
                 }
