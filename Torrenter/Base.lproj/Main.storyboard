@@ -692,18 +692,19 @@
                         <toolbar key="toolbar" implicitIdentifier="577C91E2-38F3-4FD0-B4AC-953CF46B7D38" autosavesConfiguration="NO" displayMode="iconAndLabel" sizeMode="regular" id="KvP-C4-WK1">
                             <allowedToolbarItems>
                                 <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="ZYe-PM-Vap"/>
-                                <toolbarItem implicitItemIdentifier="D05E3B27-ACAA-47F5-A315-9FEFECAF04F9" label="" paletteLabel="Add Torrent" image="NSAddTemplate" sizingBehavior="auto" id="nAO-J9-QII">
+                                <toolbarItem implicitItemIdentifier="D05E3B27-ACAA-47F5-A315-9FEFECAF04F9" label="" paletteLabel="Add Torrent" image="plus" sizingBehavior="auto" id="nAO-J9-QII">
                                     <nil key="toolTip"/>
                                     <popUpButton key="view" verticalHuggingPriority="750" id="hRU-No-Pld">
                                         <rect key="frame" x="22" y="14" width="26" height="24"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <popUpButtonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" pullsDown="YES" arrowPosition="noArrow" selectedItem="91V-hS-K0F" id="KTR-eb-fgq">
+                                        <popUpButtonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="plus" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" pullsDown="YES" arrowPosition="noArrow" selectedItem="91V-hS-K0F" id="KTR-eb-fgq">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                             <menu key="menu" id="j62-HG-b3d">
                                                 <items>
-                                                    <menuItem state="on" image="NSAddTemplate" hidden="YES" id="91V-hS-K0F"/>
-                                                    <menuItem title="Load Torrent File" id="7oH-zs-3r8">
+                                                    <menuItem state="on" image="plus" hidden="YES" id="91V-hS-K0F"/>
+                                                    <menuItem title="Load Torrent File" image="I" id="7oH-zs-3r8">
+                                                        <attributedString key="attributedTitle"/>
                                                         <connections>
                                                             <action selector="addTorrent:" target="B8D-0N-5wS" id="NMQ-lI-4Ir"/>
                                                         </connections>
@@ -714,14 +715,36 @@
                                         </popUpButtonCell>
                                     </popUpButton>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="7C3EAD0D-3DEC-4CC8-95FB-5009A57CEC5F" label="" paletteLabel="Pause / Resume" sizingBehavior="auto" id="hEo-ku-Z3T">
+                                <toolbarItem implicitItemIdentifier="7C3EAD0D-3DEC-4CC8-95FB-5009A57CEC5F" label="" paletteLabel="Pause / Resume" image="play" sizingBehavior="auto" id="hEo-ku-Z3T">
                                     <nil key="toolTip"/>
                                     <button key="view" verticalHuggingPriority="750" id="3Kr-5s-Fk8">
-                                        <rect key="frame" x="0.0" y="14" width="138" height="25"/>
+                                        <rect key="frame" x="0.0" y="14" width="107" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="roundTextured" title="" bezelStyle="texturedRounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ZIB-hd-DSd">
+                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="play" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" enabled="NO" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ZIB-hd-DSd">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" size="11" name="FontAwesome5Free-Solid"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                    </button>
+                                </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="C1412B39-5FCE-49EE-8423-AAB392EF13C9" label="" paletteLabel="Remove" image="trash" sizingBehavior="auto" id="H5H-Tm-xeD">
+                                    <nil key="toolTip"/>
+                                    <button key="view" verticalHuggingPriority="750" id="bKt-bh-TNg">
+                                        <rect key="frame" x="0.0" y="14" width="119" height="24"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="trash" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" enabled="NO" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3hN-9U-ahE">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                    </button>
+                                </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="E1A5B569-AD91-4BA8-8ECB-7AACECC065E7" label="" paletteLabel="Stop" image="stop" sizingBehavior="auto" id="fOk-mi-k5C">
+                                    <nil key="toolTip"/>
+                                    <button key="view" verticalHuggingPriority="750" id="ct7-IT-kLA">
+                                        <rect key="frame" x="0.0" y="14" width="119" height="24"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="stop" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" enabled="NO" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="h6R-bW-O0D">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
                                         </buttonCell>
                                     </button>
                                 </toolbarItem>
@@ -740,7 +763,10 @@
                             </allowedToolbarItems>
                             <defaultToolbarItems>
                                 <toolbarItem reference="nAO-J9-QII"/>
+                                <toolbarItem reference="ZYe-PM-Vap"/>
                                 <toolbarItem reference="hEo-ku-Z3T"/>
+                                <toolbarItem reference="fOk-mi-k5C"/>
+                                <toolbarItem reference="H5H-Tm-xeD"/>
                                 <toolbarItem reference="ZYe-PM-Vap"/>
                                 <toolbarItem reference="zg7-wV-yLg"/>
                             </defaultToolbarItems>
@@ -781,7 +807,7 @@
                                             <tableColumns>
                                                 <tableColumn editable="NO" width="225" minWidth="40" maxWidth="1000" id="U15-3h-IG4">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Name">
-                                                        <font key="font" metaFont="controlContent" size="11"/>
+                                                        <font key="font" metaFont="menu" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -831,7 +857,7 @@
                                                 </tableColumn>
                                                 <tableColumn editable="NO" width="130" minWidth="40" maxWidth="1000" id="mk7-gZ-hSE">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Status">
-                                                        <font key="font" metaFont="controlContent" size="11"/>
+                                                        <font key="font" metaFont="menu" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -874,7 +900,7 @@
                                                 </tableColumn>
                                                 <tableColumn width="70" minWidth="10" maxWidth="3.4028234663852886e+38" id="9FE-WE-hag">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Progress">
-                                                        <font key="font" metaFont="controlContent" size="11"/>
+                                                        <font key="font" metaFont="menu" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </tableHeaderCell>
@@ -910,7 +936,7 @@
                                                 </tableColumn>
                                                 <tableColumn editable="NO" width="100" minWidth="40" maxWidth="1000" id="st9-EU-Zbb">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Download Rate">
-                                                        <font key="font" metaFont="controlContent" size="11"/>
+                                                        <font key="font" metaFont="menu" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -953,7 +979,7 @@
                                                 </tableColumn>
                                                 <tableColumn editable="NO" width="100" minWidth="40" maxWidth="1000" id="zjw-lf-2VC">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Upload Rate">
-                                                        <font key="font" metaFont="controlContent" size="11"/>
+                                                        <font key="font" metaFont="menu" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -996,7 +1022,7 @@
                                                 </tableColumn>
                                                 <tableColumn editable="NO" width="60" minWidth="40" maxWidth="1000" id="hWS-wj-bRa">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Seeds">
-                                                        <font key="font" metaFont="controlContent" size="11"/>
+                                                        <font key="font" metaFont="menu" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -1039,7 +1065,7 @@
                                                 </tableColumn>
                                                 <tableColumn editable="NO" width="248" minWidth="40" maxWidth="1000" id="riG-IQ-r8c">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Peers">
-                                                        <font key="font" metaFont="controlContent" size="11"/>
+                                                        <font key="font" metaFont="menu" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -1124,6 +1150,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="NSAddTemplate" width="11" height="11"/>
+        <image name="I" width="128" height="128"/>
+        <image name="play" width="10" height="12"/>
+        <image name="plus" width="12" height="12"/>
+        <image name="stop" width="12" height="12"/>
+        <image name="trash" width="12" height="14"/>
     </resources>
 </document>

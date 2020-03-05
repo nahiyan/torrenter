@@ -28,7 +28,7 @@
 	<string>Main</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>fonts/Font Awesome 5 Free-Solid-900.otf</string>
+		<string>fonts/fa_solid.otf</string>
 	</array>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
