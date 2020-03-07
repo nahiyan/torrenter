@@ -17,7 +17,9 @@ extension TorrentInitializer {
         return NSFetchRequest<TorrentInitializer>(entityName: "TorrentInitializer")
     }
 
-    @NSManaged public var loadPath: String
+    @NSManaged public var magnetUri: String?
+    @NSManaged public var loadPath: String?
     @NSManaged public var savePath: String
-
+    @NSManaged public var status: String?
+    
 }

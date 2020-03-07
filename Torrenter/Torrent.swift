@@ -7,16 +7,20 @@
 //
 
 import Foundation
+import CoreData
 
 class Torrent: NSObject {
     var index: Int = 0
+    let id: NSManagedObjectID
     
-    override init() {
+    init(_ id: NSManagedObjectID) {
         self.index = Int(torrent_count())
+        self.id = id
     }
     
-    init(_ index: Int) {
+    init(_ index: Int, _ id: NSManagedObjectID) {
         self.index = index
+        self.id = id
     }
     
     func getInfo() -> TorrentInfo {
@@ -29,13 +33,13 @@ class Torrent: NSObject {
         }
     }
     
-    @objc var is_seeding: Bool {
+    @objc var isSeeding: Bool {
         get {
             return self.getInfo().is_seeding
         }
     }
     
-    @objc var is_finished: Bool {
+    @objc var isFinished: Bool {
         get {
             return self.getInfo().is_finished
         }
@@ -53,7 +57,7 @@ class Torrent: NSObject {
         }
     }
     
-    @objc var download_rate: String {
+    @objc var downloadRate: String {
         get {
             let dataTransferRate: DataTransferRate = UnitConversion.dataTransferRate(Float(self.getInfo().download_rate))
             
@@ -65,7 +69,7 @@ class Torrent: NSObject {
         }
     }
     
-    @objc var upload_rate: String {
+    @objc var uploadRate: String {
         get {
             let dataTransferRate: DataTransferRate = UnitConversion.dataTransferRate(Float(self.getInfo().upload_rate))
             
@@ -85,23 +89,45 @@ class Torrent: NSObject {
     
     @objc var status: String {
         get {
+            var status: String;
+            
             switch self.getInfo().status {
             case state_t(rawValue: 1):
-                return "Checking files"
+                status = "Checking files"
             case state_t(rawValue: 2):
-                return "Downloading metadata"
+                status = "Downloading metadata"
             case state_t(rawValue: 3):
-                return "Downloading"
+                status = "Downloading"
             case state_t(rawValue: 4):
-                return "Finished"
+                status = "Finished"
             case state_t(rawValue: 5):
-                return "Seeding"
+                status = "Seeding"
             case state_t(rawValue: 6):
-                return "Allocating"
+                status = "Allocating"
             default:
-                return "Checking resume data"
+                status = "Checking resume data"
             }
             
+            if isPaused {
+                status += " (Paused)"
+            }
+            
+            return status
         }
     }
+    
+    @objc var isPaused: Bool {
+        get {
+            return torrent_is_paused(Int32(index))
+        }
+    }
+    
+    func pause() -> Void {
+        torrent_pause(Int32(index))
+    }
+    
+    func resume() -> Void {
+        torrent_resume(Int32(index))
+    }
+    
 }

@@ -2,9 +2,11 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19D76" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="DataModel">
     <entity name="TorrentInitializer" representedClassName="TorrentInitializer" syncable="YES" codeGenerationType="class">
         <attribute name="loadPath" optional="YES" attributeType="String"/>
+        <attribute name="magnetUri" optional="YES" attributeType="String"/>
         <attribute name="savePath" optional="YES" attributeType="String"/>
+        <attribute name="status" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="TorrentInitializer" positionX="-54" positionY="-9" width="128" height="73"/>
+        <element name="TorrentInitializer" positionX="-54" positionY="-9" width="128" height="103"/>
     </elements>
 </model>

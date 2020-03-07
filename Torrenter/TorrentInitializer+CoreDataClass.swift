@@ -45,8 +45,24 @@ public class TorrentInitializer: NSManagedObject {
         return []
     }
     
+    static func get(_ container: NSPersistentContainer, _ objectID: NSManagedObjectID) -> TorrentInitializer? {
+        do {
+            let object: TorrentInitializer = try container.viewContext.existingObject(with: objectID) as! TorrentInitializer
+            
+            return object
+        } catch {
+            print("Failed to get torrent initializer")
+        }
+        
+        return nil
+    }
+    
+    static func delete(_ container: NSPersistentContainer, object: TorrentInitializer) -> Void {
+        container.viewContext.delete(object)
+    }
+    
     // Insert a torrent initializer
-    static func insert(container: NSPersistentContainer, loadPath: String, savePath: String) -> Void {
+    static func insert(container: NSPersistentContainer, loadPath: String, savePath: String) -> NSManagedObjectID {
         // Save dummy torrent initializer
         let entity: NSEntityDescription = NSEntityDescription.entity(forEntityName: "TorrentInitializer", in: container.viewContext)!
         
@@ -59,6 +75,25 @@ public class TorrentInitializer: NSManagedObject {
         } catch {
             print("Failed to save torrent initializer.")
         }
+        
+        return torrentInitializer.objectID
+    }
+    
+    static func insert(container: NSPersistentContainer, magnetUri: String, savePath: String) -> NSManagedObjectID {
+        // Save dummy torrent initializer
+        let entity: NSEntityDescription = NSEntityDescription.entity(forEntityName: "TorrentInitializer", in: container.viewContext)!
+
+        let torrentInitializer = NSManagedObject(entity: entity, insertInto: container.viewContext)
+        torrentInitializer.setValue(magnetUri, forKey: "magnetUri")
+        torrentInitializer.setValue(savePath, forKey: "savePath")
+
+        do {
+           try container.viewContext.save()
+        } catch {
+           print("Failed to save torrent initializer.")
+        }
+        
+        return torrentInitializer.objectID
     }
     
     

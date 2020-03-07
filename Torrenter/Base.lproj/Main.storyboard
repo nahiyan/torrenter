@@ -706,10 +706,14 @@
                                                     <menuItem title="Load Torrent File" image="I" id="7oH-zs-3r8">
                                                         <attributedString key="attributedTitle"/>
                                                         <connections>
-                                                            <action selector="addTorrent:" target="B8D-0N-5wS" id="NMQ-lI-4Ir"/>
+                                                            <action selector="addTorrentFromFile:" target="B8D-0N-5wS" id="Rlf-cs-3sO"/>
                                                         </connections>
                                                     </menuItem>
-                                                    <menuItem title="Load Torrent Link" id="8TK-gO-60O"/>
+                                                    <menuItem title="Load Torrent Link" id="8TK-gO-60O">
+                                                        <connections>
+                                                            <action selector="addTorrentFromMagnetUri:" target="B8D-0N-5wS" id="WvR-3I-WrF"/>
+                                                        </connections>
+                                                    </menuItem>
                                                 </items>
                                             </menu>
                                         </popUpButtonCell>
@@ -724,17 +728,9 @@
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
-                                    </button>
-                                </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="C1412B39-5FCE-49EE-8423-AAB392EF13C9" label="" paletteLabel="Remove" image="trash" sizingBehavior="auto" id="H5H-Tm-xeD">
-                                    <nil key="toolTip"/>
-                                    <button key="view" verticalHuggingPriority="750" id="bKt-bh-TNg">
-                                        <rect key="frame" x="0.0" y="14" width="119" height="24"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="trash" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" enabled="NO" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3hN-9U-ahE">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
+                                        <connections>
+                                            <action selector="pauseResumeToggle:" target="B8D-0N-5wS" id="Z9A-3V-YCK"/>
+                                        </connections>
                                     </button>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="E1A5B569-AD91-4BA8-8ECB-7AACECC065E7" label="" paletteLabel="Stop" image="stop" sizingBehavior="auto" id="fOk-mi-k5C">
@@ -746,6 +742,23 @@
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
+                                        <connections>
+                                            <action selector="stop:" target="B8D-0N-5wS" id="ES1-4m-OTz"/>
+                                        </connections>
+                                    </button>
+                                </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="C1412B39-5FCE-49EE-8423-AAB392EF13C9" label="" paletteLabel="Remove" image="trash" sizingBehavior="auto" id="H5H-Tm-xeD">
+                                    <nil key="toolTip"/>
+                                    <button key="view" verticalHuggingPriority="750" id="bKt-bh-TNg">
+                                        <rect key="frame" x="0.0" y="14" width="119" height="24"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="trash" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" enabled="NO" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3hN-9U-ahE">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="remove:" target="B8D-0N-5wS" id="K00-ca-wMc"/>
+                                        </connections>
                                     </button>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="A640736E-9DA9-4EFC-9020-6997EEA122ED" label="Custom View" paletteLabel="Custom View" sizingBehavior="auto" id="zg7-wV-yLg">
@@ -776,6 +789,9 @@
                         </connections>
                     </window>
                     <connections>
+                        <outlet property="pauseResumeButton" destination="3Kr-5s-Fk8" id="TT4-fm-o10"/>
+                        <outlet property="removeButton" destination="bKt-bh-TNg" id="Jd3-yp-F48"/>
+                        <outlet property="stopButton" destination="ct7-IT-kLA" id="qBG-8A-kfh"/>
                         <segue destination="XfG-lQ-9wD" kind="relationship" relationship="window.shadowedContentViewController" id="cq2-FE-JQM"/>
                     </connections>
                 </windowController>
@@ -799,7 +815,7 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="T2g-f2-nPs" viewBased="YES" id="Yd5-Gp-9Lo">
-                                            <rect key="frame" x="0.0" y="0.0" width="968" height="189"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1018" height="189"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="5" height="25"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -807,7 +823,7 @@
                                             <tableColumns>
                                                 <tableColumn editable="NO" width="225" minWidth="40" maxWidth="1000" id="U15-3h-IG4">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Name">
-                                                        <font key="font" metaFont="menu" size="11"/>
+                                                        <font key="font" metaFont="controlContent" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -855,9 +871,9 @@
                                                         </binding>
                                                     </connections>
                                                 </tableColumn>
-                                                <tableColumn editable="NO" width="130" minWidth="40" maxWidth="1000" id="mk7-gZ-hSE">
+                                                <tableColumn editable="NO" width="180" minWidth="40" maxWidth="1000" id="mk7-gZ-hSE">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Status">
-                                                        <font key="font" metaFont="menu" size="11"/>
+                                                        <font key="font" metaFont="controlContent" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -869,11 +885,11 @@
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView id="kPF-lC-wDK">
-                                                            <rect key="frame" x="232" y="12" width="130" height="17"/>
+                                                            <rect key="frame" x="232" y="12" width="180" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Qpj-0Z-zoH">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="130" height="17"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="180" height="17"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="17" id="Na6-LB-ixu"/>
                                                                     </constraints>
@@ -900,7 +916,7 @@
                                                 </tableColumn>
                                                 <tableColumn width="70" minWidth="10" maxWidth="3.4028234663852886e+38" id="9FE-WE-hag">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Progress">
-                                                        <font key="font" metaFont="menu" size="11"/>
+                                                        <font key="font" metaFont="controlContent" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </tableHeaderCell>
@@ -912,7 +928,7 @@
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView id="Jz8-aV-Wy3">
-                                                            <rect key="frame" x="367" y="12" width="70" height="17"/>
+                                                            <rect key="frame" x="417" y="12" width="70" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Fx-Jf-XQy">
@@ -936,7 +952,7 @@
                                                 </tableColumn>
                                                 <tableColumn editable="NO" width="100" minWidth="40" maxWidth="1000" id="st9-EU-Zbb">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Download Rate">
-                                                        <font key="font" metaFont="menu" size="11"/>
+                                                        <font key="font" metaFont="controlContent" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -948,7 +964,7 @@
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView id="ky1-Vb-w2C">
-                                                            <rect key="frame" x="442" y="12" width="100" height="17"/>
+                                                            <rect key="frame" x="492" y="12" width="100" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="xKj-IJ-t0r">
@@ -962,7 +978,7 @@
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
                                                                     <connections>
-                                                                        <binding destination="ky1-Vb-w2C" name="value" keyPath="objectValue.download_rate" id="oCm-Z5-VTm"/>
+                                                                        <binding destination="ky1-Vb-w2C" name="value" keyPath="objectValue.downloadRate" id="shv-JT-dqE"/>
                                                                     </connections>
                                                                 </textField>
                                                             </subviews>
@@ -979,7 +995,7 @@
                                                 </tableColumn>
                                                 <tableColumn editable="NO" width="100" minWidth="40" maxWidth="1000" id="zjw-lf-2VC">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Upload Rate">
-                                                        <font key="font" metaFont="menu" size="11"/>
+                                                        <font key="font" metaFont="controlContent" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -991,7 +1007,7 @@
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView id="FaF-RW-PTe">
-                                                            <rect key="frame" x="547" y="12" width="100" height="17"/>
+                                                            <rect key="frame" x="597" y="12" width="100" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="dmI-Js-5cD">
@@ -1005,7 +1021,7 @@
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
                                                                     <connections>
-                                                                        <binding destination="FaF-RW-PTe" name="value" keyPath="objectValue.upload_rate" id="Pnz-rV-0vt"/>
+                                                                        <binding destination="FaF-RW-PTe" name="value" keyPath="objectValue.uploadRate" id="EhC-w0-vtd"/>
                                                                     </connections>
                                                                 </textField>
                                                             </subviews>
@@ -1022,7 +1038,7 @@
                                                 </tableColumn>
                                                 <tableColumn editable="NO" width="60" minWidth="40" maxWidth="1000" id="hWS-wj-bRa">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Seeds">
-                                                        <font key="font" metaFont="menu" size="11"/>
+                                                        <font key="font" metaFont="controlContent" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -1034,7 +1050,7 @@
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView id="5VD-cQ-fzy">
-                                                            <rect key="frame" x="652" y="12" width="60" height="17"/>
+                                                            <rect key="frame" x="702" y="12" width="60" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Rn9-Lx-FVc">
@@ -1065,7 +1081,7 @@
                                                 </tableColumn>
                                                 <tableColumn editable="NO" width="248" minWidth="40" maxWidth="1000" id="riG-IQ-r8c">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Peers">
-                                                        <font key="font" metaFont="menu" size="11"/>
+                                                        <font key="font" metaFont="controlContent" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -1077,7 +1093,7 @@
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView id="9fQ-ob-7HN">
-                                                            <rect key="frame" x="717" y="12" width="248" height="17"/>
+                                                            <rect key="frame" x="767" y="12" width="248" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="fAc-WW-S2R">
@@ -1108,6 +1124,7 @@
                                                 </tableColumn>
                                             </tableColumns>
                                             <connections>
+                                                <action selector="tableClicked:" target="XfG-lQ-9wD" id="FFk-Mw-xjb"/>
                                                 <binding destination="ANR-OF-cpm" name="content" keyPath="arrangedObjects" id="KmH-Xa-5rs"/>
                                                 <outlet property="delegate" destination="XfG-lQ-9wD" id="iUi-Lh-Wz5"/>
                                             </connections>
@@ -1126,7 +1143,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <tableHeaderView key="headerView" id="T2g-f2-nPs">
-                                    <rect key="frame" x="0.0" y="0.0" width="968" height="25"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="1018" height="25"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableHeaderView>
                             </scrollView>
@@ -1146,7 +1163,98 @@
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <arrayController objectClassName="Torrent" id="ANR-OF-cpm"/>
             </objects>
-            <point key="canvasLocation" x="86.5" y="771.5"/>
+            <point key="canvasLocation" x="87" y="706"/>
+        </scene>
+        <!--Window Controller-->
+        <scene sceneID="OnT-KD-PvH">
+            <objects>
+                <windowController storyboardIdentifier="magnetUriWindowController" id="jbh-yU-QmF" customClass="MagnetUriWindowController" customModule="Torrenter" customModuleProvider="target" sceneMemberID="viewController">
+                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" titleVisibility="hidden" id="zAc-0t-Lmf" customClass="MagnetUriWindow" customModule="Torrenter" customModuleProvider="target">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+                        <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+                        <rect key="contentRect" x="320" y="343" width="300" height="100"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="2048" height="1129"/>
+                        <connections>
+                            <outlet property="delegate" destination="jbh-yU-QmF" id="HXe-S1-YAg"/>
+                        </connections>
+                    </window>
+                    <connections>
+                        <segue destination="tv6-TA-imW" kind="relationship" relationship="window.shadowedContentViewController" id="jU2-E4-2qR"/>
+                    </connections>
+                </windowController>
+                <customObject id="eGC-kq-81C" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="27" y="-427"/>
+        </scene>
+        <!--Magnet Uri View Controller-->
+        <scene sceneID="dW5-YO-8r6">
+            <objects>
+                <viewController id="tv6-TA-imW" customClass="MagnetUriViewController" customModule="Torrenter" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="C1e-ey-DkM">
+                        <rect key="frame" x="0.0" y="0.0" width="727" height="61"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jru-cj-aap">
+                                <rect key="frame" x="20" y="20" width="687" height="21"/>
+                                <subviews>
+                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Rgs-If-Hl0">
+                                        <rect key="frame" x="0.0" y="0.0" width="548" height="21"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="Enter Magnet URI" drawsBackground="YES" id="Okt-Iv-B05">
+                                            <font key="font" usesAppearanceFont="YES"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="AxS-PL-8wr">
+                                        <rect key="frame" x="550" y="-7" width="65" height="32"/>
+                                        <buttonCell key="cell" type="push" title="Add" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Rcf-FF-j3v">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="addMagnetUri:" target="tv6-TA-imW" id="Bvj-Yb-pzs"/>
+                                        </connections>
+                                    </button>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0Kw-2r-MTb">
+                                        <rect key="frame" x="611" y="-7" width="82" height="32"/>
+                                        <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="XxC-47-zIX">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                            <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="cancel:" target="tv6-TA-imW" id="Zwy-D5-gxY"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <visibilityPriorities>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                </visibilityPriorities>
+                                <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                </customSpacing>
+                            </stackView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Jru-cj-aap" secondAttribute="trailing" constant="20" id="1B3-Lm-mtw"/>
+                            <constraint firstItem="Jru-cj-aap" firstAttribute="top" secondItem="C1e-ey-DkM" secondAttribute="top" constant="20" id="ToI-P3-IxK"/>
+                            <constraint firstAttribute="bottom" secondItem="Jru-cj-aap" secondAttribute="bottom" constant="20" id="f0O-wC-WpW"/>
+                            <constraint firstItem="Jru-cj-aap" firstAttribute="leading" secondItem="C1e-ey-DkM" secondAttribute="leading" constant="20" id="iQ4-Hf-Zkm"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="magnetUriTextField" destination="Rgs-If-Hl0" id="R6Q-1s-uPK"/>
+                    </connections>
+                </viewController>
+                <customObject id="cne-7k-yN2" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="740.5" y="-464.5"/>
         </scene>
     </scenes>
     <resources>
