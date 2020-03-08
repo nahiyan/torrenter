@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19D76" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="DataModel">
-    <entity name="TorrentInitializer" representedClassName="TorrentInitializer" syncable="YES" codeGenerationType="class">
+    <entity name="TorrentInitializer" representedClassName="TorrentInitializer" syncable="YES">
         <attribute name="loadPath" optional="YES" attributeType="String"/>
         <attribute name="magnetUri" optional="YES" attributeType="String"/>
         <attribute name="savePath" optional="YES" attributeType="String"/>

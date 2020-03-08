@@ -13,17 +13,18 @@
 
 enum state_t
 {
-   checking_files,
-   downloading_metadata,
-   downloading,
-   finished,
-   seeding,
-   allocating,
-   checking_resume_data,
+    checking_files,
+    downloading_metadata,
+    downloading,
+    finished,
+    seeding,
+    allocating,
+    checking_resume_data,
 };
 
-struct TorrentInfo {
-    const char* name;
+struct TorrentInfo
+{
+    const char *name;
     float progress;
     bool is_finished;
     bool is_seeding;

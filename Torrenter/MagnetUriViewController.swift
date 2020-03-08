@@ -9,22 +9,22 @@
 import Cocoa
 
 class MagnetUriViewController: NSViewController {
-    @IBOutlet weak var magnetUriTextField: NSTextField!
-    
+    @IBOutlet var magnetUriTextField: NSTextField!
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    
-    @IBAction func addMagnetUri(_ sender: Any) {
-        self.endSheet()
+
+    @IBAction func addMagnetUri(_: Any) {
+        endSheet()
     }
-    
-    @IBAction func cancel(_ sender: Any) {
-        self.endSheet()
+
+    @IBAction func cancel(_: Any) {
+        endSheet()
     }
-    
+
     private func endSheet() {
-        let window: NSWindow = self.view.window!
+        let window: NSWindow = view.window!
         NSApplication.shared.mainWindow!.endSheet(window)
     }
 }
