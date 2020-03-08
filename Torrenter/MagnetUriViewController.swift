@@ -9,8 +9,9 @@
 import Cocoa
 
 class MagnetUriViewController: NSViewController {
-    @IBOutlet var magnetUriTextField: NSTextField!
-
+    
+    @IBOutlet var magnetUriTextArea: NSTextView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }

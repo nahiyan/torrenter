@@ -31,6 +31,8 @@ class ViewController: NSViewController {
                 torrent.fetchInfo()
             }
             self.reloadTorrentsTable()
+
+            debug()
         }
 
         // Load all the torrents from CoreData

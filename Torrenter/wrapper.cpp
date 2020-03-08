@@ -21,6 +21,7 @@
 #include "libtorrent/torrent_status.hpp"
 #include "libtorrent/magnet_uri.hpp"
 #include "libtorrent/sha1_hash.hpp"
+#include "libtorrent/bitfield.hpp"
 
 // Global variables
 lt::session torrent_session = lt::session();
@@ -238,10 +239,32 @@ extern "C" bool torrent_exists_from_magnet_uri(const char *magnet_uri)
 
 extern "C" void debug()
 {
-    for (auto it = torrents.begin(); it != torrents.end(); ++it)
+    if (torrent_count() >= 1)
     {
-        std::cout << it->second.name << std::endl;
+        try
+        {
+            lt::typed_bitfield<lt::piece_index_t> pieces = torrents.at(0).handler.status().pieces;
+
+            int pieces_downloaded = 0;
+            int total_pieces = pieces.size();
+            for (int i = 0; i < pieces.size(); i++)
+            {
+                if (pieces[i])
+                    pieces_downloaded++;
+            }
+
+            std::cout << pieces_downloaded << "/" << total_pieces << std::endl;
+        }
+        catch (std::out_of_range)
+        {
+            std::cout << "Debug error" << std::endl;
+        }
     }
+
+    // for (auto it = torrents.begin(); it != torrents.end(); ++it)
+    // {
+    //     std::cout << it->second.name << std::endl;
+    // }
 }
 
 extern "C" int torrent_next_index()

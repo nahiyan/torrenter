@@ -23,6 +23,7 @@
 		4D895899241212AD00B289B0 /* MagnetUriWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D895898241212AD00B289B0 /* MagnetUriWindow.swift */; };
 		4D89589B2412139B00B289B0 /* MagnetUriViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D89589A2412139B00B289B0 /* MagnetUriViewController.swift */; };
 		4D8FAB152404FE240008E2A0 /* PersistentContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8FAB142404FE240008E2A0 /* PersistentContainer.swift */; };
+		4D92B9B12415232F008F1861 /* PiecesProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D92B9B02415232F008F1861 /* PiecesProgress.swift */; };
 		4D9B035223FC3CC3000C9DF5 /* wrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4D9B035123FC3CC3000C9DF5 /* wrapper.cpp */; };
 		4D9B035823FC446F000C9DF5 /* include in Resources */ = {isa = PBXBuildFile; fileRef = 4D9B035723FC446F000C9DF5 /* include */; };
 		4DE46F5D240D77C70082847C /* Torrent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE46F5C240D77C70082847C /* Torrent.swift */; };
@@ -70,6 +71,7 @@
 		4D89589A2412139B00B289B0 /* MagnetUriViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagnetUriViewController.swift; sourceTree = "<group>"; };
 		4D8FAB122404FAC20008E2A0 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		4D8FAB142404FE240008E2A0 /* PersistentContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentContainer.swift; sourceTree = "<group>"; };
+		4D92B9B02415232F008F1861 /* PiecesProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PiecesProgress.swift; sourceTree = "<group>"; };
 		4D9B034F23FC3BE4000C9DF5 /* Torrenter.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Torrenter.entitlements; sourceTree = "<group>"; };
 		4D9B035023FC3CC3000C9DF5 /* Torrenter-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Torrenter-Bridging-Header.h"; sourceTree = "<group>"; };
 		4D9B035123FC3CC3000C9DF5 /* wrapper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = wrapper.cpp; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				4D35832B23F9A25500C3662D /* Main.storyboard */,
+				4D92B9B02415232F008F1861 /* PiecesProgress.swift */,
 				4D9B035723FC446F000C9DF5 /* include */,
 				4D35832523F9A25200C3662D /* AppDelegate.swift */,
 				4D35832723F9A25200C3662D /* ViewController.swift */,
@@ -318,6 +321,7 @@
 				4D357C2F24017CAF0033494E /* WindowController.swift in Sources */,
 				4D895899241212AD00B289B0 /* MagnetUriWindow.swift in Sources */,
 				4D35832623F9A25200C3662D /* AppDelegate.swift in Sources */,
+				4D92B9B12415232F008F1861 /* PiecesProgress.swift in Sources */,
 				4D89589B2412139B00B289B0 /* MagnetUriViewController.swift in Sources */,
 				4D9B035223FC3CC3000C9DF5 /* wrapper.cpp in Sources */,
 				4D18ED29240E37530075D895 /* TorrentInitializer+CoreDataProperties.swift in Sources */,

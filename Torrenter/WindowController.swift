@@ -65,7 +65,7 @@ class WindowController: NSWindowController {
         let magnetUriWindow: NSWindow = magnetUriWindowController.window!
 
         NSApplication.shared.mainWindow!.beginSheet(magnetUriWindow, completionHandler: { (_) -> Void in
-            let magnetUri: String = (magnetUriWindow.contentViewController as! MagnetUriViewController).magnetUriTextField.stringValue
+            let magnetUri: String = (magnetUriWindow.contentViewController as! MagnetUriViewController).magnetUriTextArea.string
             if !torrent_exists_from_magnet_uri(magnetUri) {
                 // Save torrent initializer using CoreData
                 let objectID: NSManagedObjectID = TorrentInitializer.insert(container: viewController.container, magnetUri: magnetUri, savePath: savePath)
