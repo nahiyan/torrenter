@@ -20,10 +20,12 @@
 #include "libtorrent/torrent_info.hpp"
 #include "libtorrent/torrent_status.hpp"
 #include "libtorrent/magnet_uri.hpp"
+#include "libtorrent/sha1_hash.hpp"
 
 // Global variables
 lt::session torrent_session = lt::session();
 std::unordered_map<int, Torrent> torrents;
+int next_index = 0;
 
 // Number of torrents loaded in memory
 extern "C" int torrent_count()
@@ -46,7 +48,9 @@ extern "C" void torrent_initiate(const char *loadPath, const char *savePath, boo
     torrent.handler = torrent_session.add_torrent(params);
     torrent.name = torrent.handler.status().name;
 
-    torrents.insert(std::pair<int, Torrent>(torrent_count(), torrent));
+    torrents.insert(std::pair<int, Torrent>(next_index, torrent));
+
+    next_index++;
 }
 
 // Load torrent from Magnet URI
@@ -54,7 +58,7 @@ extern "C" void torrent_initiate_magnet_uri(const char *magnetUri, const char *s
 {
     // Torrent params
     lt::add_torrent_params params;
-    params = libtorrent::parse_magnet_uri(magnetUri);
+    params = lt::parse_magnet_uri(magnetUri);
     params.save_path = std::string(savePath);
 
     if (paused)
@@ -64,7 +68,9 @@ extern "C" void torrent_initiate_magnet_uri(const char *magnetUri, const char *s
     torrent.handler = torrent_session.add_torrent(params);
     torrent.name = torrent.handler.status().name;
 
-    torrents.insert(std::pair<int, Torrent>(torrent_count(), torrent));
+    torrents.insert(std::pair<int, Torrent>(next_index, torrent));
+
+    next_index++;
 
     //    bool hmd = th.status().has_metadata;
     //    while(!hmd) {
@@ -106,7 +112,7 @@ extern "C" TorrentInfo torrent_get_info(int index)
     }
     catch (std::out_of_range)
     {
-        std::cout << "Failed to fetch torrent info." << std::endl;
+        std::cout << "Failed to fetch torrent info." << index << std::endl;
 
         TorrentInfo torrent_info;
         return torrent_info;
@@ -162,7 +168,7 @@ extern "C" bool torrent_is_paused(int index)
     }
     catch (std::out_of_range)
     {
-        std::cout << "Failed to fetch flags to determine if a torrent is paused or not." << index << std::endl;
+        std::cout << "Failed to fetch flags to determine if a torrent is paused or not." << std::endl;
 
         return false;
     }
@@ -172,12 +178,73 @@ extern "C" void torrent_remove(int index)
 {
     try
     {
-        lt::torrent_handle &handle = torrents.at(index).handler;
-        torrent_session.remove_torrent(handle);
+        lt::torrent_handle &handler = torrents.at(index).handler;
+        torrent_session.remove_torrent(handler);
         torrents.erase(index);
     }
     catch (std::out_of_range)
     {
         std::cout << "Failed to remove torrent" << std::endl;
     }
+}
+
+extern "C" void torrent_info_hash(int index)
+{
+    try
+    {
+        std::cout << torrents.at(index).handler.info_hash() << std::endl;
+    }
+    catch (std::out_of_range)
+    {
+        std::cout << "Failed to get torrent info hash." << std::endl;
+    }
+}
+
+extern "C" bool torrent_exists(const char *loadPath)
+{
+    lt::torrent_info info = lt::torrent_info(std::string(loadPath));
+    lt::sha1_hash hash = info.info_hash();
+
+    bool exists = false;
+    for (auto it = torrents.begin(); it != torrents.end(); ++it)
+    {
+        if (it->second.handler.info_hash() == hash)
+        {
+            exists = true;
+            break;
+        }
+    }
+
+    return exists;
+}
+
+extern "C" bool torrent_exists_from_magnet_uri(const char *magnet_uri)
+{
+    lt::add_torrent_params params = lt::parse_magnet_uri(magnet_uri);
+    lt::sha1_hash hash = params.info_hash;
+
+    bool exists = false;
+    for (auto it = torrents.begin(); it != torrents.end(); ++it)
+    {
+        if (it->second.handler.info_hash() == hash)
+        {
+            exists = true;
+            break;
+        }
+    }
+
+    return exists;
+}
+
+extern "C" void debug()
+{
+    for (auto it = torrents.begin(); it != torrents.end(); ++it)
+    {
+        std::cout << it->second.name << std::endl;
+    }
+}
+
+extern "C" int torrent_next_index()
+{
+    return next_index;
 }

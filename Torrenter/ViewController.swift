@@ -27,6 +27,9 @@ class ViewController: NSViewController {
 
         // refresh the data periodically
         Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
+            for torrent in self.torrents.arrangedObjects as! [Torrent] {
+                torrent.fetchInfo()
+            }
             self.reloadTorrentsTable()
         }
 
@@ -34,10 +37,6 @@ class ViewController: NSViewController {
         let torrentInitializers: [TorrentInitializer] = TorrentInitializer.getAll(container)
         for torrentInitializer in torrentInitializers {
             let savePath: String = torrentInitializer.savePath
-
-            // Add torrent to list
-            let torrent: Torrent = Torrent(torrentInitializer.objectID)
-            torrents.addObject(torrent)
 
             // Indicate if the torrent should be paused or not
             let paused: Bool
@@ -57,6 +56,10 @@ class ViewController: NSViewController {
                     continue
                 }
             }
+
+            // Add torrent to list
+            let torrent: Torrent = Torrent(Int(torrent_next_index() - 1), torrentInitializer.objectID)
+            torrents.addObject(torrent)
         }
     }
 

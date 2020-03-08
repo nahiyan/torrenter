@@ -32,20 +32,25 @@ class WindowController: NSWindowController {
             if result == NSApplication.ModalResponse.OK {
                 if panel.urls.count == 1 {
                     let loadPath = panel.urls[0].relativePath
-                    // For now, it's the downloads folder
-                    let savePath = fileManager.homeDirectoryForCurrentUser.appendingPathComponent("Downloads").relativePath
 
-                    // Save torrent initializer using CoreData
-                    let objectID: NSManagedObjectID = TorrentInitializer.insert(container: viewController.container, loadPath: loadPath, savePath: savePath)
+                    if !torrent_exists(loadPath) {
+                        // For now, it's the downloads folder
+                        let savePath = fileManager.homeDirectoryForCurrentUser.appendingPathComponent("Downloads").relativePath
 
-                    // Add torrent to the table
-                    let torrent: Torrent = Torrent(objectID)
-                    viewController.torrents.addObject(torrent)
+                        // Save torrent initializer using CoreData
+                        let objectID: NSManagedObjectID = TorrentInitializer.insert(container: viewController.container, loadPath: loadPath, savePath: savePath)
 
-                    // Initiate the torrent
-                    torrent_initiate(loadPath, savePath, false)
+                        // Initiate the torrent
+                        torrent_initiate(loadPath, savePath, false)
 
-                    viewController.reloadTorrentsTable()
+                        // Add torrent to the table
+                        let torrent: Torrent = Torrent(Int(torrent_next_index() - 1), objectID)
+                        viewController.torrents.addObject(torrent)
+
+                        viewController.reloadTorrentsTable()
+                    } else {
+                        print("Torrent already exists")
+                    }
                 }
             }
         })
@@ -61,18 +66,21 @@ class WindowController: NSWindowController {
 
         NSApplication.shared.mainWindow!.beginSheet(magnetUriWindow, completionHandler: { (_) -> Void in
             let magnetUri: String = (magnetUriWindow.contentViewController as! MagnetUriViewController).magnetUriTextField.stringValue
+            if !torrent_exists_from_magnet_uri(magnetUri) {
+                // Save torrent initializer using CoreData
+                let objectID: NSManagedObjectID = TorrentInitializer.insert(container: viewController.container, magnetUri: magnetUri, savePath: savePath)
 
-            // Save torrent initializer using CoreData
-            let objectID: NSManagedObjectID = TorrentInitializer.insert(container: viewController.container, magnetUri: magnetUri, savePath: savePath)
+                // Initiate the torrent
+                torrent_initiate_magnet_uri(magnetUri, savePath, false)
 
-            // Add torrent to the table
-            let torrent: Torrent = Torrent(objectID)
-            viewController.torrents.addObject(torrent)
+                // Add torrent to the table
+                let torrent: Torrent = Torrent(Int(torrent_next_index() - 1), objectID)
+                viewController.torrents.addObject(torrent)
 
-            // Initiate the torrent
-            torrent_initiate_magnet_uri(magnetUri, savePath, false)
-
-            viewController.reloadTorrentsTable()
+                viewController.reloadTorrentsTable()
+            } else {
+                print("Torrent already exists")
+            }
         })
     }
 
