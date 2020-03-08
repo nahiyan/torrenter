@@ -1,0 +1,695 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4D0DEA992410AA580047F25B /* lib in Resources */ = {isa = PBXBuildFile; fileRef = 4D0DEA982410AA580047F25B /* lib */; };
+		4D18ED28240E37530075D895 /* TorrentInitializer+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D18ED26240E37530075D895 /* TorrentInitializer+CoreDataClass.swift */; };
+		4D18ED29240E37530075D895 /* TorrentInitializer+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D18ED27240E37530075D895 /* TorrentInitializer+CoreDataProperties.swift */; };
+		4D357C2F24017CAF0033494E /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D357C2E24017CAF0033494E /* WindowController.swift */; };
+		4D357C3124018DF00033494E /* UnitConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D357C3024018DF00033494E /* UnitConversion.swift */; };
+		4D35832623F9A25200C3662D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D35832523F9A25200C3662D /* AppDelegate.swift */; };
+		4D35832823F9A25200C3662D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D35832723F9A25200C3662D /* ViewController.swift */; };
+		4D35832A23F9A25500C3662D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D35832923F9A25500C3662D /* Assets.xcassets */; };
+		4D35832D23F9A25500C3662D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D35832B23F9A25500C3662D /* Main.storyboard */; };
+		4D35833923F9A25500C3662D /* TorrenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D35833823F9A25500C3662D /* TorrenterTests.swift */; };
+		4D35834423F9A25500C3662D /* TorrenterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D35834323F9A25500C3662D /* TorrenterUITests.swift */; };
+		4D6033512414D44000349F07 /* Model.xcdatamodeld in Resources */ = {isa = PBXBuildFile; fileRef = 4D8FAB112404FAC20008E2A0 /* Model.xcdatamodeld */; };
+		4D89589724120FC400B289B0 /* MagnetUriWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D89589624120FC400B289B0 /* MagnetUriWindowController.swift */; };
+		4D895899241212AD00B289B0 /* MagnetUriWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D895898241212AD00B289B0 /* MagnetUriWindow.swift */; };
+		4D89589B2412139B00B289B0 /* MagnetUriViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D89589A2412139B00B289B0 /* MagnetUriViewController.swift */; };
+		4D8FAB152404FE240008E2A0 /* PersistentContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8FAB142404FE240008E2A0 /* PersistentContainer.swift */; };
+		4D9B035223FC3CC3000C9DF5 /* wrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4D9B035123FC3CC3000C9DF5 /* wrapper.cpp */; };
+		4D9B035823FC446F000C9DF5 /* include in Resources */ = {isa = PBXBuildFile; fileRef = 4D9B035723FC446F000C9DF5 /* include */; };
+		4DE46F5D240D77C70082847C /* Torrent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE46F5C240D77C70082847C /* Torrent.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4D35833523F9A25500C3662D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4D35831A23F9A25200C3662D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4D35832123F9A25200C3662D;
+			remoteInfo = Torrenter;
+		};
+		4D35834023F9A25500C3662D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4D35831A23F9A25200C3662D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4D35832123F9A25200C3662D;
+			remoteInfo = Torrenter;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		4D0DEA982410AA580047F25B /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; name = lib; path = Torrenter/lib; sourceTree = "<group>"; };
+		4D18ED26240E37530075D895 /* TorrentInitializer+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TorrentInitializer+CoreDataClass.swift"; sourceTree = "<group>"; };
+		4D18ED27240E37530075D895 /* TorrentInitializer+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TorrentInitializer+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		4D3151E12414D5840093FEFB /* libtorrent-rasterbar.1.2.4.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libtorrent-rasterbar.1.2.4.dylib"; path = "Torrenter/lib/libtorrent/libtorrent-rasterbar.1.2.4.dylib"; sourceTree = "<group>"; };
+		4D357C2E24017CAF0033494E /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
+		4D357C3024018DF00033494E /* UnitConversion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitConversion.swift; sourceTree = "<group>"; };
+		4D35832223F9A25200C3662D /* Torrenter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Torrenter.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D35832523F9A25200C3662D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		4D35832723F9A25200C3662D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		4D35832923F9A25500C3662D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4D35832C23F9A25500C3662D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		4D35832E23F9A25500C3662D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4D35833423F9A25500C3662D /* TorrenterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TorrenterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D35833823F9A25500C3662D /* TorrenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TorrenterTests.swift; sourceTree = "<group>"; };
+		4D35833A23F9A25500C3662D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4D35833F23F9A25500C3662D /* TorrenterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TorrenterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D35834323F9A25500C3662D /* TorrenterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TorrenterUITests.swift; sourceTree = "<group>"; };
+		4D35834523F9A25500C3662D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4D7D231624003E7E00A3D118 /* wrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = wrapper.h; sourceTree = "<group>"; };
+		4D89589624120FC400B289B0 /* MagnetUriWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagnetUriWindowController.swift; sourceTree = "<group>"; };
+		4D895898241212AD00B289B0 /* MagnetUriWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagnetUriWindow.swift; sourceTree = "<group>"; };
+		4D89589A2412139B00B289B0 /* MagnetUriViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagnetUriViewController.swift; sourceTree = "<group>"; };
+		4D8FAB122404FAC20008E2A0 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		4D8FAB142404FE240008E2A0 /* PersistentContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentContainer.swift; sourceTree = "<group>"; };
+		4D9B034F23FC3BE4000C9DF5 /* Torrenter.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Torrenter.entitlements; sourceTree = "<group>"; };
+		4D9B035023FC3CC3000C9DF5 /* Torrenter-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Torrenter-Bridging-Header.h"; sourceTree = "<group>"; };
+		4D9B035123FC3CC3000C9DF5 /* wrapper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = wrapper.cpp; sourceTree = "<group>"; };
+		4D9B035723FC446F000C9DF5 /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; path = include; sourceTree = "<group>"; };
+		4DE46F5C240D77C70082847C /* Torrent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Torrent.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4D35831F23F9A25200C3662D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4D35833123F9A25500C3662D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4D35833C23F9A25500C3662D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4D3151E02414D5840093FEFB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4D3151E12414D5840093FEFB /* libtorrent-rasterbar.1.2.4.dylib */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4D35831923F9A25200C3662D = {
+			isa = PBXGroup;
+			children = (
+				4D0DEA982410AA580047F25B /* lib */,
+				4D35832423F9A25200C3662D /* Torrenter */,
+				4D35833723F9A25500C3662D /* TorrenterTests */,
+				4D35834223F9A25500C3662D /* TorrenterUITests */,
+				4D35832323F9A25200C3662D /* Products */,
+				4D3151E02414D5840093FEFB /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		4D35832323F9A25200C3662D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4D35832223F9A25200C3662D /* Torrenter.app */,
+				4D35833423F9A25500C3662D /* TorrenterTests.xctest */,
+				4D35833F23F9A25500C3662D /* TorrenterUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4D35832423F9A25200C3662D /* Torrenter */ = {
+			isa = PBXGroup;
+			children = (
+				4D35832B23F9A25500C3662D /* Main.storyboard */,
+				4D9B035723FC446F000C9DF5 /* include */,
+				4D35832523F9A25200C3662D /* AppDelegate.swift */,
+				4D35832723F9A25200C3662D /* ViewController.swift */,
+				4D357C2E24017CAF0033494E /* WindowController.swift */,
+				4D18ED26240E37530075D895 /* TorrentInitializer+CoreDataClass.swift */,
+				4D18ED27240E37530075D895 /* TorrentInitializer+CoreDataProperties.swift */,
+				4D89589624120FC400B289B0 /* MagnetUriWindowController.swift */,
+				4D895898241212AD00B289B0 /* MagnetUriWindow.swift */,
+				4D89589A2412139B00B289B0 /* MagnetUriViewController.swift */,
+				4D7D231624003E7E00A3D118 /* wrapper.h */,
+				4D9B035123FC3CC3000C9DF5 /* wrapper.cpp */,
+				4D9B035023FC3CC3000C9DF5 /* Torrenter-Bridging-Header.h */,
+				4D357C3024018DF00033494E /* UnitConversion.swift */,
+				4D9B034F23FC3BE4000C9DF5 /* Torrenter.entitlements */,
+				4D8FAB142404FE240008E2A0 /* PersistentContainer.swift */,
+				4DE46F5C240D77C70082847C /* Torrent.swift */,
+				4D35832E23F9A25500C3662D /* Info.plist */,
+				4D8FAB112404FAC20008E2A0 /* Model.xcdatamodeld */,
+				4D35832923F9A25500C3662D /* Assets.xcassets */,
+			);
+			path = Torrenter;
+			sourceTree = "<group>";
+		};
+		4D35833723F9A25500C3662D /* TorrenterTests */ = {
+			isa = PBXGroup;
+			children = (
+				4D35833823F9A25500C3662D /* TorrenterTests.swift */,
+				4D35833A23F9A25500C3662D /* Info.plist */,
+			);
+			path = TorrenterTests;
+			sourceTree = "<group>";
+		};
+		4D35834223F9A25500C3662D /* TorrenterUITests */ = {
+			isa = PBXGroup;
+			children = (
+				4D35834323F9A25500C3662D /* TorrenterUITests.swift */,
+				4D35834523F9A25500C3662D /* Info.plist */,
+			);
+			path = TorrenterUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4D35832123F9A25200C3662D /* Torrenter */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4D35834823F9A25500C3662D /* Build configuration list for PBXNativeTarget "Torrenter" */;
+			buildPhases = (
+				4D35831E23F9A25200C3662D /* Sources */,
+				4D35831F23F9A25200C3662D /* Frameworks */,
+				4D35832023F9A25200C3662D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Torrenter;
+			productName = Torrenter;
+			productReference = 4D35832223F9A25200C3662D /* Torrenter.app */;
+			productType = "com.apple.product-type.application";
+		};
+		4D35833323F9A25500C3662D /* TorrenterTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4D35834B23F9A25500C3662D /* Build configuration list for PBXNativeTarget "TorrenterTests" */;
+			buildPhases = (
+				4D35833023F9A25500C3662D /* Sources */,
+				4D35833123F9A25500C3662D /* Frameworks */,
+				4D35833223F9A25500C3662D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4D35833623F9A25500C3662D /* PBXTargetDependency */,
+			);
+			name = TorrenterTests;
+			productName = TorrenterTests;
+			productReference = 4D35833423F9A25500C3662D /* TorrenterTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		4D35833E23F9A25500C3662D /* TorrenterUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4D35834E23F9A25500C3662D /* Build configuration list for PBXNativeTarget "TorrenterUITests" */;
+			buildPhases = (
+				4D35833B23F9A25500C3662D /* Sources */,
+				4D35833C23F9A25500C3662D /* Frameworks */,
+				4D35833D23F9A25500C3662D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4D35834123F9A25500C3662D /* PBXTargetDependency */,
+			);
+			name = TorrenterUITests;
+			productName = TorrenterUITests;
+			productReference = 4D35833F23F9A25500C3662D /* TorrenterUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4D35831A23F9A25200C3662D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1020;
+				LastUpgradeCheck = 1130;
+				ORGANIZATIONNAME = "Nahiyan Alamgir";
+				TargetAttributes = {
+					4D35832123F9A25200C3662D = {
+						CreatedOnToolsVersion = 10.2.1;
+						LastSwiftMigration = 1130;
+					};
+					4D35833323F9A25500C3662D = {
+						CreatedOnToolsVersion = 10.2.1;
+						TestTargetID = 4D35832123F9A25200C3662D;
+					};
+					4D35833E23F9A25500C3662D = {
+						CreatedOnToolsVersion = 10.2.1;
+						TestTargetID = 4D35832123F9A25200C3662D;
+					};
+				};
+			};
+			buildConfigurationList = 4D35831D23F9A25200C3662D /* Build configuration list for PBXProject "Torrenter" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 4D35831923F9A25200C3662D;
+			productRefGroup = 4D35832323F9A25200C3662D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4D35832123F9A25200C3662D /* Torrenter */,
+				4D35833323F9A25500C3662D /* TorrenterTests */,
+				4D35833E23F9A25500C3662D /* TorrenterUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4D35832023F9A25200C3662D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D6033512414D44000349F07 /* Model.xcdatamodeld in Resources */,
+				4D0DEA992410AA580047F25B /* lib in Resources */,
+				4D9B035823FC446F000C9DF5 /* include in Resources */,
+				4D35832A23F9A25500C3662D /* Assets.xcassets in Resources */,
+				4D35832D23F9A25500C3662D /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4D35833223F9A25500C3662D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4D35833D23F9A25500C3662D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4D35831E23F9A25200C3662D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D8FAB152404FE240008E2A0 /* PersistentContainer.swift in Sources */,
+				4D357C3124018DF00033494E /* UnitConversion.swift in Sources */,
+				4DE46F5D240D77C70082847C /* Torrent.swift in Sources */,
+				4D35832823F9A25200C3662D /* ViewController.swift in Sources */,
+				4D357C2F24017CAF0033494E /* WindowController.swift in Sources */,
+				4D895899241212AD00B289B0 /* MagnetUriWindow.swift in Sources */,
+				4D35832623F9A25200C3662D /* AppDelegate.swift in Sources */,
+				4D89589B2412139B00B289B0 /* MagnetUriViewController.swift in Sources */,
+				4D9B035223FC3CC3000C9DF5 /* wrapper.cpp in Sources */,
+				4D18ED29240E37530075D895 /* TorrentInitializer+CoreDataProperties.swift in Sources */,
+				4D89589724120FC400B289B0 /* MagnetUriWindowController.swift in Sources */,
+				4D18ED28240E37530075D895 /* TorrentInitializer+CoreDataClass.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4D35833023F9A25500C3662D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D35833923F9A25500C3662D /* TorrenterTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4D35833B23F9A25500C3662D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D35834423F9A25500C3662D /* TorrenterUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4D35833623F9A25500C3662D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4D35832123F9A25200C3662D /* Torrenter */;
+			targetProxy = 4D35833523F9A25500C3662D /* PBXContainerItemProxy */;
+		};
+		4D35834123F9A25500C3662D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4D35832123F9A25200C3662D /* Torrenter */;
+			targetProxy = 4D35834023F9A25500C3662D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		4D35832B23F9A25500C3662D /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4D35832C23F9A25500C3662D /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		4D35834623F9A25500C3662D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_INSTALL_OBJC_HEADER = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
+			};
+			name = Debug;
+		};
+		4D35834723F9A25500C3662D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_INSTALL_OBJC_HEADER = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
+			};
+			name = Release;
+		};
+		4D35834923F9A25500C3662D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Torrenter/Torrenter.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Torrenter/include";
+				INFOPLIST_FILE = Torrenter/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Torrenter/include",
+					"@executable_path/../Frameworks",
+					/usr/local/include,
+					/Users/nahiyanalamgir/code/Torrenter/Torrenter/lib/libtorrent/,
+				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
+				OTHER_LDFLAGS = "$(PROJECT_DIR)/Torrenter/lib/libtorrent/libtorrent-rasterbar.1.2.4.dylib";
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.hedronium.Torrenter;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_INSTALL_OBJC_HEADER = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Torrenter/Torrenter-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(SWIFT_MODULE_NAME)-Swift.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
+				SWIFT_VERSION = 5.0;
+				SYSTEM_HEADER_SEARCH_PATHS = /usr/local/include;
+				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Torrenter/include";
+			};
+			name = Debug;
+		};
+		4D35834A23F9A25500C3662D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Torrenter/Torrenter.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Torrenter/include";
+				INFOPLIST_FILE = Torrenter/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Torrenter/include",
+					"@executable_path/../Frameworks",
+					/usr/local/include,
+					/Users/nahiyanalamgir/code/Torrenter/Torrenter/lib/libtorrent/,
+				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
+				OTHER_LDFLAGS = "$(PROJECT_DIR)/Torrenter/lib/libtorrent/libtorrent-rasterbar.1.2.4.dylib";
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.hedronium.Torrenter;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_INSTALL_OBJC_HEADER = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Torrenter/Torrenter-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(SWIFT_MODULE_NAME)-Swift.h";
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
+				SWIFT_VERSION = 5.0;
+				SYSTEM_HEADER_SEARCH_PATHS = /usr/local/include;
+				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Torrenter/include";
+			};
+			name = Release;
+		};
+		4D35834C23F9A25500C3662D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = TorrenterTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.hedronium.TorrenterTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Torrenter.app/Contents/MacOS/Torrenter";
+			};
+			name = Debug;
+		};
+		4D35834D23F9A25500C3662D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = TorrenterTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.hedronium.TorrenterTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Torrenter.app/Contents/MacOS/Torrenter";
+			};
+			name = Release;
+		};
+		4D35834F23F9A25500C3662D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = TorrenterUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.hedronium.TorrenterUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = Torrenter;
+			};
+			name = Debug;
+		};
+		4D35835023F9A25500C3662D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = TorrenterUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.hedronium.TorrenterUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = Torrenter;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4D35831D23F9A25200C3662D /* Build configuration list for PBXProject "Torrenter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4D35834623F9A25500C3662D /* Debug */,
+				4D35834723F9A25500C3662D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4D35834823F9A25500C3662D /* Build configuration list for PBXNativeTarget "Torrenter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4D35834923F9A25500C3662D /* Debug */,
+				4D35834A23F9A25500C3662D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4D35834B23F9A25500C3662D /* Build configuration list for PBXNativeTarget "TorrenterTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4D35834C23F9A25500C3662D /* Debug */,
+				4D35834D23F9A25500C3662D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4D35834E23F9A25500C3662D /* Build configuration list for PBXNativeTarget "TorrenterUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4D35834F23F9A25500C3662D /* Debug */,
+				4D35835023F9A25500C3662D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		4D8FAB112404FAC20008E2A0 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				4D8FAB122404FAC20008E2A0 /* Model.xcdatamodel */,
+			);
+			currentVersion = 4D8FAB122404FAC20008E2A0 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 4D35831A23F9A25200C3662D /* Project object */;
+}

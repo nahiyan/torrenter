@@ -1,4 +1,2 @@
 *.code-workspace
-*.xcodeproj
 test
-Torrenter/libtorrent-libtorrent-1_2_4
