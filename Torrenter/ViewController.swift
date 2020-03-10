@@ -12,8 +12,10 @@ class ViewController: NSViewController {
     @IBOutlet var torrents: NSArrayController!
     @IBOutlet var torrentsTable: NSTableView!
     var container: NSPersistentContainer!
-    @IBOutlet var piecesProgress: PiecesProgress!
 
+    @IBOutlet var piecesProgress: PiecesProgress!
+    @IBOutlet weak var progressPercentage: NSTextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -133,7 +135,6 @@ extension ViewController {
     }
 
     func showDetails() {
-        let torrent: Torrent = (torrents.arrangedObjects as! [Torrent])[torrentsTable.selectedRow]
         let detailsView = view.subviews[0].subviews[1]
 
         for _view in detailsView.subviews {
@@ -148,9 +149,17 @@ extension ViewController {
         if torrentsTable.selectedRow != -1 {
             let torrent: Torrent = (torrents.arrangedObjects as! [Torrent])[torrentsTable.selectedRow]
 
+            // progress bar based on status of pieces
             piecesProgress.pieces = torrent_pieces(Int32(torrent.index)).content
             piecesProgress.piecesCount = Int(torrent_pieces(Int32(torrent.index)).count)
             piecesProgress.needsDisplay = true
+
+            // progress percentage
+            if torrent.status == "Downloading" || torrent.status == "Finished" || torrent.status == "Seeding" {
+                progressPercentage.stringValue = torrent.progress
+            } else {
+                progressPercentage.stringValue = "0.0%"
+            }
         }
     }
 }

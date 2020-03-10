@@ -156,24 +156,17 @@ extern "C" void torrent_resume(int index)
 
 extern "C" bool torrent_is_paused(int index)
 {
-    int flags;
+    int64_t flags;
+    int64_t mask = 0x0000000000000001;
 
     try
     {
         flags = (int)torrents.at(index).handler.flags();
 
-        if (flags >= 32 && flags < 64)
-        {
-            return false;
-        }
-        else if (flags >= 16 && flags < 32)
-        {
+        if (((flags >> 4) & mask) == 1)
             return true;
-        }
         else
-        {
             return false;
-        }
     }
     catch (std::out_of_range)
     {
