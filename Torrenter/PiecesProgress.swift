@@ -7,14 +7,27 @@
 //
 
 import Cocoa
-// import CoreGraphics
 
 class PiecesProgress: NSView {
+    var pieces: UnsafeMutablePointer<Bool>?
+    var piecesCount: Int
+//    var pieces: [Bool] {
+//        get {
+//            return self._pieces
+//        }
+//        set {
+//            self.needsDisplay = true
+//            self._pieces = newValue
+//        }
+//    }
+
     override init(frame frameRect: NSRect) {
+        piecesCount = 0
         super.init(frame: frameRect)
     }
 
     required init(coder: NSCoder) {
+        piecesCount = 0
         super.init(coder: coder)!
     }
 
@@ -23,31 +36,29 @@ class PiecesProgress: NSView {
 
         let context: CGContext = NSGraphicsContext.current!.cgContext
 
-        var pieces: [Int] = []
-        let pieceCount: Int = 300
-        let rectWidth: CGFloat = dirtyRect.width / CGFloat(pieceCount)
-        var rects: [CGRect] = []
-        
-        print(rectWidth)
-        
-        for n in 0 ..< pieceCount {
-            pieces.append(Int.random(in: 0 ..< 2))
-
-            if pieces[n] == 1 {
-                let x: CGFloat = CGFloat(CGFloat(n) * rectWidth)
-                let y: CGFloat = 0.0
-                rects.append(CGRect(x: x, y: y, width: rectWidth, height: dirtyRect.height))
-            }
-        }
-
         // Paint the entire view white (as background)
         context.setFillColor(CGColor(red: 1, green: 1, blue: 1, alpha: 1))
         context.fill(dirtyRect)
+        
+        if pieces != nil {
+            let rectWidth: CGFloat = dirtyRect.width / CGFloat(piecesCount)
+            var rects: [CGRect] = []
 
-        // Paint the rects (representing each piece) blue
-        context.setFillColor(CGColor(red: 0, green: 0, blue: 1, alpha: 1))
-        context.fill(rects)
+            for n in 0 ..< piecesCount {
+                // pieces.append(Int.random(in: 0 ..< 2))
 
+                if pieces![n] {
+                    let x: CGFloat = CGFloat(CGFloat(n) * rectWidth)
+                    let y: CGFloat = 0.0
+                    rects.append(CGRect(x: x, y: y, width: rectWidth, height: dirtyRect.height))
+                }
+            }
+            
+            // Paint the rects (representing each piece) blue
+            context.setFillColor(CGColor(red: 0, green: 0, blue: 1, alpha: 1))
+            context.fill(rects)
+        }
+        
 //        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { _ in
 //            self.needsDisplay = true
 //        }

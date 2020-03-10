@@ -10,12 +10,16 @@
 #define torrent_h
 
 #include <string>
+#include <memory>
+
 #include "libtorrent/torrent_handle.hpp"
+#include "wrapper.h"
 
 struct Torrent
 {
     lt::torrent_handle handler;
     std::string name;
+    TorrentPieces pieces;
 };
 
 #endif /* torrent_h */

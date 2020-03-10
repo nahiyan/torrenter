@@ -22,6 +22,12 @@ enum state_t
     checking_resume_data,
 };
 
+struct TorrentPieces
+{
+    bool *content;
+    int count;
+};
+
 struct TorrentInfo
 {
     const char *name;

@@ -237,37 +237,82 @@ extern "C" bool torrent_exists_from_magnet_uri(const char *magnet_uri)
     return exists;
 }
 
+extern "C" int torrent_next_index()
+{
+    return next_index;
+}
+
+extern "C" TorrentPieces torrent_pieces(int index)
+{
+    try
+    {
+        Torrent torrent = torrents.at(index);
+
+        lt::typed_bitfield<lt::piece_index_t> pieces = torrent.handler.status().pieces;
+
+        torrent.pieces.count = pieces.size();
+        // delete[] torrent.pieces.content;
+        torrent.pieces.content = new bool[torrent.pieces.count];
+
+        for (int i = 0; i < torrent.pieces.count; i++)
+        {
+            if (pieces[i])
+                torrent.pieces.content[i] = true;
+            else
+                torrent.pieces.content[i] = false;
+        }
+
+        return torrent.pieces;
+    }
+    catch (std::out_of_range)
+    {
+        std::cout << "Failed to fetch torrent pieces" << std::endl;
+    }
+
+    return TorrentPieces();
+}
+
 extern "C" void debug()
 {
     if (torrent_count() >= 1)
     {
-        try
+        TorrentPieces pieces = torrent_pieces(0);
+        for (int i = 0; i < pieces.count; i++)
         {
-            lt::typed_bitfield<lt::piece_index_t> pieces = torrents.at(0).handler.status().pieces;
-
-            int pieces_downloaded = 0;
-            int total_pieces = pieces.size();
-            for (int i = 0; i < pieces.size(); i++)
-            {
-                if (pieces[i])
-                    pieces_downloaded++;
-            }
-
-            std::cout << pieces_downloaded << "/" << total_pieces << std::endl;
+            std::cout << pieces.content[i] << " ";
         }
-        catch (std::out_of_range)
-        {
-            std::cout << "Debug error" << std::endl;
-        }
+        std::cout << std::endl;
+        //        try
+        //        {
+        //            torrent_pieces()
+        //        }
+        //        catch (std::out_of_range)
+        //        {
+        //            std::cout << "Debug error" << std::endl;
+        //        }
+
+        // try
+        // {
+        //     lt::typed_bitfield<lt::piece_index_t> pieces = torrents.at(0).handler.status().pieces;
+
+        //     int pieces_downloaded = 0;
+        //     int total_pieces = pieces.size();
+        //     for (int i = 0; i < pieces.size(); i++)
+        //     {
+        //         if (pieces[i])
+        //             pieces_downloaded++;
+        //     }
+
+        //     std::cout << pieces_downloaded << "/" << total_pieces << std::endl;
+        // }
+        // catch (std::out_of_range)
+        // {
+        //     std::cout << "Debug error" << std::endl;
+        // }
     }
 
     // for (auto it = torrents.begin(); it != torrents.end(); ++it)
     // {
     //     std::cout << it->second.name << std::endl;
     // }
-}
-
-extern "C" int torrent_next_index()
-{
-    return next_index;
 }

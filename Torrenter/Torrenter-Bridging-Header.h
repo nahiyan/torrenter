@@ -17,3 +17,4 @@ bool torrent_exists(const char *);
 bool torrent_exists_from_magnet_uri(const char *);
 void debug();
 int torrent_next_index();
+struct TorrentPieces torrent_pieces(int);

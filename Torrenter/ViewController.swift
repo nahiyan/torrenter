@@ -12,6 +12,7 @@ class ViewController: NSViewController {
     @IBOutlet var torrents: NSArrayController!
     @IBOutlet var torrentsTable: NSTableView!
     var container: NSPersistentContainer!
+    @IBOutlet var piecesProgress: PiecesProgress!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,8 +32,9 @@ class ViewController: NSViewController {
                 torrent.fetchInfo()
             }
             self.reloadTorrentsTable()
+            self.refreshDetailsView()
 
-            debug()
+            // debug()
         }
 
         // Load all the torrents from CoreData
@@ -63,6 +65,9 @@ class ViewController: NSViewController {
             let torrent: Torrent = Torrent(Int(torrent_next_index() - 1), torrentInitializer.objectID)
             torrents.addObject(torrent)
         }
+
+        // No selection by default
+        hideDetails()
     }
 
     override var representedObject: Any? {
@@ -94,12 +99,18 @@ class ViewController: NSViewController {
             }
 
             removeButton.isEnabled = true
+
+            // Show details of the torrent
+            showDetails()
         } else {
             pauseResumeButton.isEnabled = false
             stopButton.isEnabled = false
             removeButton.isEnabled = false
 
             pauseResumeButton.image = NSImage(named: "play")
+
+            // Hide details of the torrent
+            hideDetails()
         }
     }
 }
@@ -109,5 +120,37 @@ extension ViewController {
         let selectedRow: Int = torrentsTable.selectedRow
         torrentsTable.reloadData()
         torrentsTable.selectRowIndexes(IndexSet(integer: selectedRow), byExtendingSelection: false)
+    }
+
+    func hideDetails() {
+        let detailsView = view.subviews[0].subviews[1]
+
+        for _view in detailsView.subviews {
+            _view.isHidden = true
+        }
+
+        detailsView.subviews[0].isHidden = false
+    }
+
+    func showDetails() {
+        let torrent: Torrent = (torrents.arrangedObjects as! [Torrent])[torrentsTable.selectedRow]
+        let detailsView = view.subviews[0].subviews[1]
+
+        for _view in detailsView.subviews {
+            _view.isHidden = false
+        }
+
+        detailsView.subviews[0].isHidden = true
+        refreshDetailsView()
+    }
+
+    func refreshDetailsView() {
+        if torrentsTable.selectedRow != -1 {
+            let torrent: Torrent = (torrents.arrangedObjects as! [Torrent])[torrentsTable.selectedRow]
+
+            piecesProgress.pieces = torrent_pieces(Int32(torrent.index)).content
+            piecesProgress.piecesCount = Int(torrent_pieces(Int32(torrent.index)).count)
+            piecesProgress.needsDisplay = true
+        }
     }
 }
