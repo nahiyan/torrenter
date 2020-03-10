@@ -9,17 +9,8 @@
 import Cocoa
 
 class PiecesProgress: NSView {
-    var pieces: UnsafeMutablePointer<Bool>?
+    var pieces: UnsafeMutablePointer<piece_state_t>?
     var piecesCount: Int
-//    var pieces: [Bool] {
-//        get {
-//            return self._pieces
-//        }
-//        set {
-//            self.needsDisplay = true
-//            self._pieces = newValue
-//        }
-//    }
 
     override init(frame frameRect: NSRect) {
         piecesCount = 0
@@ -39,28 +30,30 @@ class PiecesProgress: NSView {
         // Paint the entire view white (as background)
         context.setFillColor(CGColor(red: 1, green: 1, blue: 1, alpha: 1))
         context.fill(dirtyRect)
-        
+
         if pieces != nil {
             let rectWidth: CGFloat = dirtyRect.width / CGFloat(piecesCount)
-            var rects: [CGRect] = []
+            var finishedPieces: [CGRect] = []
+            var downloadingPieces: [CGRect] = []
 
             for n in 0 ..< piecesCount {
-                // pieces.append(Int.random(in: 0 ..< 2))
+                let x: CGFloat = CGFloat(CGFloat(n) * rectWidth)
+                let y: CGFloat = 0.0
 
-                if pieces![n] {
-                    let x: CGFloat = CGFloat(CGFloat(n) * rectWidth)
-                    let y: CGFloat = 0.0
-                    rects.append(CGRect(x: x, y: y, width: rectWidth, height: dirtyRect.height))
+                if pieces![n] == piece_finished {
+                    finishedPieces.append(CGRect(x: x, y: y, width: rectWidth, height: dirtyRect.height))
+                } else if pieces![n] == piece_downloading {
+                    downloadingPieces.append(CGRect(x: x, y: y, width: rectWidth, height: dirtyRect.height))
                 }
             }
-            
-            // Paint the rects (representing each piece) blue
+
+            // Paint the finished pieces blue
             context.setFillColor(CGColor(red: 0, green: 0, blue: 1, alpha: 1))
-            context.fill(rects)
+            context.fill(finishedPieces)
+
+            // Paint the pieces being downloaded green
+            context.setFillColor(CGColor(red: 0, green: 1, blue: 0, alpha: 1))
+            context.fill(downloadingPieces)
         }
-        
-//        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { _ in
-//            self.needsDisplay = true
-//        }
     }
 }

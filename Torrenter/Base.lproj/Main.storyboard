@@ -805,24 +805,24 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="Torrenter" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="884" height="714"/>
+                        <rect key="frame" x="0.0" y="0.0" width="884" height="364"/>
                         <autoresizingMask key="autoresizingMask" heightSizable="YES"/>
                         <subviews>
                             <splitView arrangesAllSubviews="NO" dividerStyle="thin" translatesAutoresizingMaskIntoConstraints="NO" id="XG3-c8-Aec">
-                                <rect key="frame" x="0.0" y="0.0" width="884" height="714"/>
+                                <rect key="frame" x="0.0" y="0.0" width="884" height="364"/>
                                 <subviews>
                                     <customView id="U5v-MD-BZe">
-                                        <rect key="frame" x="0.0" y="0.0" width="884" height="393"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="884" height="200"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="42" horizontalPageScroll="10" verticalLineScroll="42" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YZL-Dr-LLM">
-                                                <rect key="frame" x="0.0" y="0.0" width="884" height="393"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="884" height="200"/>
                                                 <clipView key="contentView" copiesOnScroll="NO" id="WIk-hN-1dM">
-                                                    <rect key="frame" x="0.0" y="0.0" width="884" height="378"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="884" height="185"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="T2g-f2-nPs" viewBased="YES" id="Yd5-Gp-9Lo">
-                                                            <rect key="frame" x="0.0" y="0.0" width="1018" height="353"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="1018" height="160"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <size key="intercellSpacing" width="5" height="25"/>
                                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1144,7 +1144,7 @@
                                                     </subviews>
                                                 </clipView>
                                                 <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="7h2-aA-qot">
-                                                    <rect key="frame" x="0.0" y="378" width="884" height="15"/>
+                                                    <rect key="frame" x="0.0" y="185" width="884" height="15"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </scroller>
                                                 <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="jWP-1o-fdl">
@@ -1165,11 +1165,11 @@
                                         </constraints>
                                     </customView>
                                     <customView identifier="detailsView" id="9Yn-NX-msb">
-                                        <rect key="frame" x="0.0" y="394" width="884" height="320"/>
+                                        <rect key="frame" x="0.0" y="201" width="884" height="163"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
-                                            <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pTR-EX-Hyi">
-                                                <rect key="frame" x="423" y="152" width="211" height="41"/>
+                                            <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pTR-EX-Hyi">
+                                                <rect key="frame" x="349" y="64" width="186" height="35"/>
                                                 <textFieldCell key="cell" lineBreakMode="clipping" allowsUndo="NO" alignment="center" title="No Selection" id="cGa-DS-xwH">
                                                     <font key="font" metaFont="systemBold" size="30"/>
                                                     <color key="textColor" name="tertiaryLabelColor" catalog="System" colorSpace="catalog"/>
@@ -1177,39 +1177,78 @@
                                                 </textFieldCell>
                                             </textField>
                                             <tabView translatesAutoresizingMaskIntoConstraints="NO" id="W7r-L6-RTb">
-                                                <rect key="frame" x="13" y="10" width="858" height="296"/>
+                                                <rect key="frame" x="13" y="10" width="858" height="139"/>
                                                 <font key="font" metaFont="system"/>
                                                 <tabViewItems>
                                                     <tabViewItem label="General" identifier="" id="w7s-yR-jRf">
                                                         <view key="view" id="3YU-ci-aO5">
-                                                            <rect key="frame" x="10" y="33" width="838" height="603"/>
+                                                            <rect key="frame" x="10" y="33" width="838" height="93"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
-                                                                <customView translatesAutoresizingMaskIntoConstraints="NO" id="nHp-N9-gfT" customClass="PiecesProgress" customModule="Torrenter" customModuleProvider="target">
-                                                                    <rect key="frame" x="50" y="100" width="738" height="403"/>
-                                                                </customView>
+                                                                <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aV0-uK-4gw">
+                                                                    <rect key="frame" x="20" y="0.0" width="798" height="73"/>
+                                                                    <subviews>
+                                                                        <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MUd-l3-F2K">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="172" height="73"/>
+                                                                            <subviews>
+                                                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BJQ-6W-Dca">
+                                                                                    <rect key="frame" x="-2" y="57" width="58" height="16"/>
+                                                                                    <textFieldCell key="cell" lineBreakMode="clipping" title="Progress" id="tR2-TI-ink">
+                                                                                        <font key="font" usesAppearanceFont="YES"/>
+                                                                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                                    </textFieldCell>
+                                                                                </textField>
+                                                                                <customView translatesAutoresizingMaskIntoConstraints="NO" id="nHp-N9-gfT" customClass="PiecesProgress" customModule="Torrenter" customModuleProvider="target">
+                                                                                    <rect key="frame" x="62" y="58" width="110" height="15"/>
+                                                                                    <constraints>
+                                                                                        <constraint firstAttribute="height" constant="15" id="c0u-Pb-QsG"/>
+                                                                                    </constraints>
+                                                                                </customView>
+                                                                            </subviews>
+                                                                            <constraints>
+                                                                                <constraint firstItem="BJQ-6W-Dca" firstAttribute="top" secondItem="MUd-l3-F2K" secondAttribute="top" id="86z-JD-ogr"/>
+                                                                                <constraint firstAttribute="trailing" secondItem="nHp-N9-gfT" secondAttribute="trailing" id="K05-0b-5xv"/>
+                                                                            </constraints>
+                                                                            <visibilityPriorities>
+                                                                                <integer value="1000"/>
+                                                                                <integer value="1000"/>
+                                                                            </visibilityPriorities>
+                                                                            <customSpacing>
+                                                                                <real value="3.4028234663852886e+38"/>
+                                                                                <real value="3.4028234663852886e+38"/>
+                                                                            </customSpacing>
+                                                                        </stackView>
+                                                                    </subviews>
+                                                                    <visibilityPriorities>
+                                                                        <integer value="1000"/>
+                                                                    </visibilityPriorities>
+                                                                    <customSpacing>
+                                                                        <real value="3.4028234663852886e+38"/>
+                                                                    </customSpacing>
+                                                                </stackView>
                                                             </subviews>
                                                             <constraints>
-                                                                <constraint firstAttribute="bottom" secondItem="nHp-N9-gfT" secondAttribute="bottom" constant="100" id="3Rf-3V-ueB"/>
-                                                                <constraint firstAttribute="trailing" secondItem="nHp-N9-gfT" secondAttribute="trailing" constant="50" id="8Cb-F7-O31"/>
-                                                                <constraint firstItem="nHp-N9-gfT" firstAttribute="leading" secondItem="3YU-ci-aO5" secondAttribute="leading" constant="50" id="gCs-GM-Ozx"/>
-                                                                <constraint firstItem="nHp-N9-gfT" firstAttribute="top" secondItem="3YU-ci-aO5" secondAttribute="top" constant="100" id="myy-pk-lED"/>
+                                                                <constraint firstAttribute="bottom" secondItem="aV0-uK-4gw" secondAttribute="bottom" id="GyT-bf-WEG"/>
+                                                                <constraint firstItem="aV0-uK-4gw" firstAttribute="top" secondItem="3YU-ci-aO5" secondAttribute="top" constant="20" id="HKi-Ms-8wK"/>
+                                                                <constraint firstItem="aV0-uK-4gw" firstAttribute="leading" secondItem="3YU-ci-aO5" secondAttribute="leading" constant="20" id="iUg-Lh-Yew"/>
+                                                                <constraint firstItem="aV0-uK-4gw" firstAttribute="centerX" secondItem="3YU-ci-aO5" secondAttribute="centerX" id="wDn-xx-aag"/>
                                                             </constraints>
                                                         </view>
                                                     </tabViewItem>
                                                     <tabViewItem label="Content" identifier="" id="fVM-Rj-0zd">
                                                         <view key="view" id="X4L-QM-9uy">
-                                                            <rect key="frame" x="10" y="33" width="838" height="250"/>
+                                                            <rect key="frame" x="10" y="33" width="838" height="243"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <box title="Information" translatesAutoresizingMaskIntoConstraints="NO" id="BHe-JQ-dvl">
-                                                                    <rect key="frame" x="7" y="6" width="824" height="244"/>
+                                                                    <rect key="frame" x="7" y="6" width="824" height="237"/>
                                                                     <view key="contentView" id="j8x-mb-mRq">
-                                                                        <rect key="frame" x="3" y="3" width="818" height="226"/>
+                                                                        <rect key="frame" x="3" y="3" width="818" height="219"/>
                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                         <subviews>
                                                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Mxf-58-7Cg">
-                                                                                <rect key="frame" x="14" y="178" width="81" height="32"/>
+                                                                                <rect key="frame" x="14" y="171" width="81" height="32"/>
                                                                                 <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Ecx-fd-oKe">
                                                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                                     <font key="font" metaFont="system"/>
@@ -1233,13 +1272,13 @@
                                                     </tabViewItem>
                                                     <tabViewItem label="Trackers" identifier="" id="ZPx-k6-7Nh">
                                                         <view key="view" id="nnF-af-BXa">
-                                                            <rect key="frame" x="10" y="33" width="852" height="270"/>
+                                                            <rect key="frame" x="10" y="33" width="838" height="243"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         </view>
                                                     </tabViewItem>
                                                     <tabViewItem label="Peers" identifier="" id="3H2-2l-sr1">
                                                         <view key="view" id="MKA-ah-gOW">
-                                                            <rect key="frame" x="10" y="33" width="852" height="270"/>
+                                                            <rect key="frame" x="10" y="33" width="838" height="243"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         </view>
                                                     </tabViewItem>

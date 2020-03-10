@@ -22,9 +22,16 @@ enum state_t
     checking_resume_data,
 };
 
+enum piece_state_t
+{
+    piece_unknown,
+    piece_downloading,
+    piece_finished,
+};
+
 struct TorrentPieces
 {
-    bool *content;
+    enum piece_state_t *content;
     int count;
 };
 

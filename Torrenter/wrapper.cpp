@@ -42,13 +42,17 @@ extern "C" void torrent_initiate(const char *loadPath, const char *savePath, boo
     params.save_path = std::string(savePath);
     params.ti = std::make_shared<lt::torrent_info>(std::string(loadPath));
 
-    if (paused)
-        params.flags = lt::torrent_flags::paused;
-
     Torrent torrent;
     torrent.handler = torrent_session.add_torrent(params);
     torrent.name = torrent.handler.status().name;
 
+    // Handle flags
+    if (paused)
+        torrent.handler.set_flags(lt::torrent_flags::paused, lt::torrent_flags::paused);
+
+    torrent.handler.set_flags(lt::torrent_flags::sequential_download, lt::torrent_flags::sequential_download);
+
+    // Insert torrent in the index-mapped list
     torrents.insert(std::pair<int, Torrent>(next_index, torrent));
 
     next_index++;
@@ -62,13 +66,17 @@ extern "C" void torrent_initiate_magnet_uri(const char *magnetUri, const char *s
     params = lt::parse_magnet_uri(magnetUri);
     params.save_path = std::string(savePath);
 
-    if (paused)
-        params.flags = lt::torrent_flags::paused;
-
     Torrent torrent;
     torrent.handler = torrent_session.add_torrent(params);
     torrent.name = torrent.handler.status().name;
 
+    // Handle flags
+    if (paused)
+        torrent.handler.set_flags(lt::torrent_flags::paused, lt::torrent_flags::paused);
+
+    torrent.handler.set_flags(lt::torrent_flags::sequential_download, lt::torrent_flags::sequential_download);
+
+    // Insert torrent in the index-mapped list
     torrents.insert(std::pair<int, Torrent>(next_index, torrent));
 
     next_index++;
@@ -246,20 +254,33 @@ extern "C" TorrentPieces torrent_pieces(int index)
 {
     try
     {
+        // torrent
         Torrent torrent = torrents.at(index);
 
+        // pieces
         lt::typed_bitfield<lt::piece_index_t> pieces = torrent.handler.status().pieces;
 
+        // Get the download queue
+        std::vector<lt::partial_piece_info> queue;
+        torrent.handler.get_download_queue(queue);
+
+        // update the piece info of the torrent
         torrent.pieces.count = pieces.size();
         // delete[] torrent.pieces.content;
-        torrent.pieces.content = new bool[torrent.pieces.count];
+        torrent.pieces.content = new piece_state_t[torrent.pieces.count];
 
+        // construct the array
         for (int i = 0; i < torrent.pieces.count; i++)
         {
             if (pieces[i])
-                torrent.pieces.content[i] = true;
+                torrent.pieces.content[i] = piece_finished;
             else
-                torrent.pieces.content[i] = false;
+                torrent.pieces.content[i] = piece_unknown;
+        }
+
+        for (auto it = queue.begin(); it != queue.end(); it++)
+        {
+            torrent.pieces.content[it->piece_index] = piece_downloading;
         }
 
         return torrent.pieces;
@@ -276,20 +297,25 @@ extern "C" void debug()
 {
     if (torrent_count() >= 1)
     {
-        TorrentPieces pieces = torrent_pieces(0);
-        for (int i = 0; i < pieces.count; i++)
+
+        try
         {
-            std::cout << pieces.content[i] << " ";
+            lt::torrent_handle handler = torrents.at(0).handler;
+
+            // Get the download queue
+            std::vector<lt::partial_piece_info> queue;
+            handler.get_download_queue(queue);
+
+            // See what's in the queue
+            for (auto it = queue.begin(); it != queue.end(); ++it)
+            {
+                std::cout << it->piece_index << std::endl;
+            }
         }
-        std::cout << std::endl;
-        //        try
-        //        {
-        //            torrent_pieces()
-        //        }
-        //        catch (std::out_of_range)
-        //        {
-        //            std::cout << "Debug error" << std::endl;
-        //        }
+        catch (std::out_of_range)
+        {
+            std::cout << "Debug error" << std::endl;
+        }
 
         // try
         // {
