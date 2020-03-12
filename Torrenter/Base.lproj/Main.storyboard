@@ -822,7 +822,7 @@
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="T2g-f2-nPs" viewBased="YES" id="Yd5-Gp-9Lo">
-                                                            <rect key="frame" x="0.0" y="0.0" width="1018" height="263"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="1123" height="263"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <size key="intercellSpacing" width="5" height="25"/>
                                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -963,7 +963,7 @@
                                                                     </prototypeCellViews>
                                                                 </tableColumn>
                                                                 <tableColumn editable="NO" width="100" minWidth="40" maxWidth="1000" id="st9-EU-Zbb">
-                                                                    <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Download Rate">
+                                                                    <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Size">
                                                                         <font key="font" metaFont="message" size="11"/>
                                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -990,7 +990,7 @@
                                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                                     </textFieldCell>
                                                                                     <connections>
-                                                                                        <binding destination="ky1-Vb-w2C" name="value" keyPath="objectValue.downloadRate" id="shv-JT-dqE"/>
+                                                                                        <binding destination="ky1-Vb-w2C" name="value" keyPath="objectValue.size" id="AJ4-NB-cah"/>
                                                                                     </connections>
                                                                                 </textField>
                                                                             </subviews>
@@ -1001,6 +1001,49 @@
                                                                             </constraints>
                                                                             <connections>
                                                                                 <outlet property="textField" destination="xKj-IJ-t0r" id="Goa-WD-cD7"/>
+                                                                            </connections>
+                                                                        </tableCellView>
+                                                                    </prototypeCellViews>
+                                                                </tableColumn>
+                                                                <tableColumn editable="NO" width="100" minWidth="40" maxWidth="1000" id="P4L-Ih-A4O">
+                                                                    <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Download Rate">
+                                                                        <font key="font" metaFont="message" size="11"/>
+                                                                        <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                                        <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                                                    </tableHeaderCell>
+                                                                    <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" title="Text Cell" id="wO6-ZQ-nL2">
+                                                                        <font key="font" metaFont="system"/>
+                                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                        <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                    </textFieldCell>
+                                                                    <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                                    <prototypeCellViews>
+                                                                        <tableCellView id="Wwj-Wp-zpz">
+                                                                            <rect key="frame" x="597" y="12" width="100" height="0.0"/>
+                                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                            <subviews>
+                                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="EgD-hh-NDA">
+                                                                                    <rect key="frame" x="0.0" y="-8" width="100" height="17"/>
+                                                                                    <constraints>
+                                                                                        <constraint firstAttribute="height" constant="17" id="IE5-5G-apC"/>
+                                                                                    </constraints>
+                                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="y8G-Va-24J">
+                                                                                        <font key="font" metaFont="system"/>
+                                                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                                    </textFieldCell>
+                                                                                    <connections>
+                                                                                        <binding destination="Wwj-Wp-zpz" name="value" keyPath="objectValue.downloadRate" id="njl-QI-BD2"/>
+                                                                                    </connections>
+                                                                                </textField>
+                                                                            </subviews>
+                                                                            <constraints>
+                                                                                <constraint firstItem="EgD-hh-NDA" firstAttribute="centerY" secondItem="Wwj-Wp-zpz" secondAttribute="centerY" id="Ie0-Nr-lKr"/>
+                                                                                <constraint firstItem="EgD-hh-NDA" firstAttribute="leading" secondItem="Wwj-Wp-zpz" secondAttribute="leading" constant="2" id="JR4-Nm-L5S"/>
+                                                                                <constraint firstItem="EgD-hh-NDA" firstAttribute="centerX" secondItem="Wwj-Wp-zpz" secondAttribute="centerX" id="lAU-hY-NeK"/>
+                                                                            </constraints>
+                                                                            <connections>
+                                                                                <outlet property="textField" destination="EgD-hh-NDA" id="nEH-MJ-Bk3"/>
                                                                             </connections>
                                                                         </tableCellView>
                                                                     </prototypeCellViews>
@@ -1019,7 +1062,7 @@
                                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                     <prototypeCellViews>
                                                                         <tableCellView id="FaF-RW-PTe">
-                                                                            <rect key="frame" x="597" y="12" width="100" height="0.0"/>
+                                                                            <rect key="frame" x="702" y="12" width="100" height="0.0"/>
                                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                             <subviews>
                                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="dmI-Js-5cD">
@@ -1062,7 +1105,7 @@
                                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                     <prototypeCellViews>
                                                                         <tableCellView id="5VD-cQ-fzy">
-                                                                            <rect key="frame" x="702" y="12" width="60" height="0.0"/>
+                                                                            <rect key="frame" x="807" y="12" width="60" height="0.0"/>
                                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                             <subviews>
                                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Rn9-Lx-FVc">
@@ -1105,7 +1148,7 @@
                                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                     <prototypeCellViews>
                                                                         <tableCellView id="9fQ-ob-7HN">
-                                                                            <rect key="frame" x="767" y="12" width="248" height="0.0"/>
+                                                                            <rect key="frame" x="872" y="12" width="248" height="0.0"/>
                                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                             <subviews>
                                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="fAc-WW-S2R">
@@ -1152,7 +1195,7 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </scroller>
                                                 <tableHeaderView key="headerView" id="T2g-f2-nPs">
-                                                    <rect key="frame" x="0.0" y="0.0" width="1018" height="25"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="1123" height="25"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </tableHeaderView>
                                             </scrollView>
@@ -1823,10 +1866,22 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="connections" destination="GqK-gF-hI2" id="HIe-ob-oyW"/>
+                        <outlet property="downloadLimit" destination="f4t-jc-rWn" id="xuq-Sv-WW2"/>
+                        <outlet property="downloadSpeed" destination="rGh-U5-wzy" id="UG0-Xq-1Gn"/>
+                        <outlet property="downloaded" destination="dob-PP-jRe" id="wct-mF-Q7R"/>
+                        <outlet property="peers" destination="ggy-uR-ftk" id="lJC-r2-Z0Q"/>
                         <outlet property="piecesProgress" destination="nHp-N9-gfT" id="ezP-yw-6GI"/>
                         <outlet property="progressPercentage" destination="ynM-O5-pH2" id="gZA-lR-E1W"/>
+                        <outlet property="reannounceIn" destination="R1i-Bb-3fy" id="Qyk-dE-tGO"/>
+                        <outlet property="seeds" destination="upw-bn-kdx" id="bEs-Ik-LCr"/>
+                        <outlet property="shareRatio" destination="u0e-6f-jTx" id="dHb-xi-k2n"/>
                         <outlet property="torrents" destination="ANR-OF-cpm" id="Hc7-Og-fkm"/>
                         <outlet property="torrentsTable" destination="Yd5-Gp-9Lo" id="AS4-2Q-qkw"/>
+                        <outlet property="uploadLimit" destination="xwx-BD-bpF" id="39q-gx-4Ek"/>
+                        <outlet property="uploadSpeed" destination="Ant-7f-Msh" id="DSM-gt-NfR"/>
+                        <outlet property="uploaded" destination="5xb-Hs-Sik" id="IB0-t3-Ft9"/>
+                        <outlet property="wasted" destination="IYp-Tq-jir" id="Uda-sb-lKx"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

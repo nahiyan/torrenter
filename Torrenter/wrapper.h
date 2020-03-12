@@ -45,6 +45,14 @@ struct TorrentInfo
     int num_peers;
     int list_seeds;
     int list_peers;
+    float size;
+    float downloaded;
+    float uploaded;
+    int next_announce;
+    float wasted;
+    int connections;
+    int download_limit;
+    int upload_limit;
     int download_rate;
     int upload_rate;
     enum state_t status;

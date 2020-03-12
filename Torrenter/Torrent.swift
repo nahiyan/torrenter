@@ -50,23 +50,104 @@ class Torrent: NSObject {
         return String(format: "%d / %d", info.num_peers, info.list_peers)
     }
 
-    @objc var downloadRate: String {
-        let dataTransferRate: DataTransferRate = UnitConversion.dataTransferRate(Float(info.download_rate))
+    @objc var connections: String {
+        return String(format: "%d", info.connections)
+    }
 
-        if dataTransferRate.unit == "MB/s" || dataTransferRate.unit == "GB/s" || dataTransferRate.unit == "TB/s" {
-            return String(format: "%.2f %@", dataTransferRate.value, dataTransferRate.unit)
+    @objc var wasted: String {
+        let data: Data = UnitConversion.dataAuto(Float(info.wasted))
+
+        if data.unit == "MB" || data.unit == "GB" || data.unit == "TB" {
+            return String(format: "%.2f %@", data.value, data.unit)
         } else {
-            return String(format: "%.0f %@", dataTransferRate.value, dataTransferRate.unit)
+            return String(format: "%.0f %@", data.value, data.unit)
+        }
+    }
+
+    @objc var downloadLimit: String {
+        if info.download_limit == -1 {
+            return String("\u{221E}")
+        } else {
+            let data: Data = UnitConversion.dataAuto(Float(info.download_limit))
+
+            if data.unit == "MB" || data.unit == "GB" || data.unit == "TB" {
+                return String(format: "%.2f %@", data.value, data.unit)
+            } else {
+                return String(format: "%.0f %@", data.value, data.unit)
+            }
+        }
+    }
+
+    @objc var uploadLimit: String {
+        if info.download_limit == -1 {
+            return String("\u{221E}")
+        } else {
+            let data: Data = UnitConversion.dataAuto(Float(info.upload_limit))
+
+            if data.unit == "MB" || data.unit == "GB" || data.unit == "TB" {
+                return String(format: "%.2f %@", data.value, data.unit)
+            } else {
+                return String(format: "%.0f %@", data.value, data.unit)
+            }
+        }
+    }
+
+    @objc var downloaded: String {
+        let data: Data = UnitConversion.dataAuto(info.downloaded)
+
+        if data.unit == "MB" || data.unit == "GB" || data.unit == "TB" {
+            return String(format: "%.2f %@", data.value, data.unit)
+        } else {
+            return String(format: "%.0f %@", data.value, data.unit)
+        }
+    }
+
+    @objc var uploaded: String {
+        let data: Data = UnitConversion.dataAuto(info.uploaded)
+
+        if data.unit == "MB" || data.unit == "GB" || data.unit == "TB" {
+            return String(format: "%.2f %@", data.value, data.unit)
+        } else {
+            return String(format: "%.0f %@", data.value, data.unit)
+        }
+    }
+
+    @objc var nextAnnounce: String {
+        return String(format: "%d seconds", info.next_announce)
+    }
+
+    @objc var size: String {
+        let size: Data = UnitConversion.dataAuto(info.size)
+
+        if size.unit == "MB" || size.unit == "GB" || size.unit == "TB" {
+            return String(format: "%.2f %@", size.value, size.unit)
+        } else {
+            return String(format: "%.0f %@", size.value, size.unit)
+        }
+    }
+
+    @objc var shareRatio: String {
+        let shareRatio: Float = Float(info.downloaded) / Float(info.uploaded)
+        return String(format: "%.2f", shareRatio)
+    }
+
+    @objc var downloadRate: String {
+        let data: Data = UnitConversion.dataAuto(Float(info.download_rate))
+
+        if data.unit == "MB" || data.unit == "GB" || data.unit == "TB" {
+            return String(format: "%.2f %@", data.value, data.unit + "/s")
+        } else {
+            return String(format: "%.0f %@", data.value, data.unit + "/s")
         }
     }
 
     @objc var uploadRate: String {
-        let dataTransferRate: DataTransferRate = UnitConversion.dataTransferRate(Float(info.upload_rate))
+        let data: Data = UnitConversion.dataAuto(Float(info.upload_rate))
 
-        if dataTransferRate.unit == "MB/s" || dataTransferRate.unit == "GB/s" || dataTransferRate.unit == "TB/s" {
-            return String(format: "%.2f %@", dataTransferRate.value, dataTransferRate.unit)
+        if data.unit == "MB" || data.unit == "GB" || data.unit == "TB" {
+            return String(format: "%.2f %@", data.value, data.unit + "/s")
         } else {
-            return String(format: "%.0f %@", dataTransferRate.value, dataTransferRate.unit)
+            return String(format: "%.0f %@", data.value, data.unit + "/s")
         }
     }
 

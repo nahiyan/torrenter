@@ -134,9 +134,20 @@ class WindowController: NSWindowController {
 
             do {
                 try viewController.container.viewContext.save()
+                viewController.torrentsTable.deselectAll(nil)
+                viewController.hideDetails()
+                deactivateButtons()
             } catch {
                 print("Failed to save CoreData context")
             }
         }
+    }
+
+    func deactivateButtons() {
+        pauseResumeButton.isEnabled = false
+        stopButton.isEnabled = false
+        removeButton.isEnabled = false
+
+        pauseResumeButton.image = NSImage(named: "play")
     }
 }

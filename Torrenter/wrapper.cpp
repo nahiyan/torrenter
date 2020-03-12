@@ -11,6 +11,7 @@
 #include <string>
 #include <unordered_map>
 #include <utility>
+#include <chrono>
 
 #include "torrent.h"
 #include "wrapper.h"
@@ -100,6 +101,7 @@ extern "C" TorrentInfo torrent_get_info(int index)
     try
     {
         lt::torrent_status status = torrents.at(index).handler.status();
+        lt::torrent_handle handler = torrents.at(index).handler;
 
         // Update the name of the torrent
         torrents.at(index).name = status.name;
@@ -113,6 +115,14 @@ extern "C" TorrentInfo torrent_get_info(int index)
         torrent_info.num_peers = status.num_peers;
         torrent_info.list_seeds = status.list_seeds;
         torrent_info.list_peers = status.list_peers;
+        torrent_info.size = status.total;
+        torrent_info.downloaded = status.total_done;
+        torrent_info.uploaded = status.all_time_upload;
+        torrent_info.next_announce = (int)std::chrono::duration_cast<std::chrono::seconds>(status.next_announce).count();
+        torrent_info.wasted = status.total_failed_bytes;
+        torrent_info.connections = status.num_connections;
+        torrent_info.download_limit = handler.download_limit();
+        torrent_info.upload_limit = handler.upload_limit();
         torrent_info.download_rate = status.download_rate;
         torrent_info.upload_rate = status.upload_rate;
         torrent_info.status = (enum state_t)status.state;

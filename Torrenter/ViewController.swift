@@ -14,8 +14,21 @@ class ViewController: NSViewController {
     var container: NSPersistentContainer!
 
     @IBOutlet var piecesProgress: PiecesProgress!
-    @IBOutlet weak var progressPercentage: NSTextField!
-    
+    @IBOutlet var progressPercentage: NSTextField!
+
+    @IBOutlet var downloaded: NSTextField!
+    @IBOutlet var downloadLimit: NSTextField!
+    @IBOutlet var uploadLimit: NSTextField!
+    @IBOutlet var uploadSpeed: NSTextField!
+    @IBOutlet var downloadSpeed: NSTextField!
+    @IBOutlet var shareRatio: NSTextField!
+    @IBOutlet var uploaded: NSTextField!
+    @IBOutlet var reannounceIn: NSTextField!
+    @IBOutlet var seeds: NSTextField!
+    @IBOutlet var peers: NSTextField!
+    @IBOutlet var connections: NSTextField!
+    @IBOutlet var wasted: NSTextField!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -105,11 +118,7 @@ class ViewController: NSViewController {
             // Show details of the torrent
             showDetails()
         } else {
-            pauseResumeButton.isEnabled = false
-            stopButton.isEnabled = false
-            removeButton.isEnabled = false
-
-            pauseResumeButton.image = NSImage(named: "play")
+            windowController.deactivateButtons()
 
             // Hide details of the torrent
             hideDetails()
@@ -160,6 +169,42 @@ extension ViewController {
             } else {
                 progressPercentage.stringValue = "0.0%"
             }
+
+            // downloaded
+            downloaded.stringValue = torrent.downloaded
+
+            // uploaded
+            uploaded.stringValue = torrent.uploaded
+
+            // download limit
+            downloadLimit.stringValue = torrent.downloadLimit
+
+            // upload limit
+            uploadLimit.stringValue = torrent.uploadLimit
+
+            // download speed
+            downloadSpeed.stringValue = torrent.downloadRate
+
+            // upload speed
+            uploadSpeed.stringValue = torrent.uploadRate
+
+            // share ratio
+            shareRatio.stringValue = torrent.shareRatio
+
+            // reannounce in
+            reannounceIn.stringValue = torrent.nextAnnounce
+
+            // seeds
+            seeds.stringValue = torrent.seeds
+
+            // peers
+            peers.stringValue = torrent.peers
+
+            // wasted
+            wasted.stringValue = torrent.wasted
+
+            // wasted
+            connections.stringValue = torrent.connections
         }
     }
 }
