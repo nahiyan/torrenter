@@ -388,9 +388,6 @@ void monitor_alerts()
         {
             switch (alert->type())
             {
-            case lt::add_torrent_alert::alert_type:
-                std::cout << "Torrent added." << std::endl;
-                break;
             case lt::save_resume_data_alert::alert_type:
             {
                 lt::save_resume_data_alert const *srd_alert = lt::alert_cast<lt::save_resume_data_alert>(alert);
@@ -405,9 +402,6 @@ void monitor_alerts()
 
                 break;
             }
-            default:
-                // std::cout << alert->message() << std::endl;
-                break;
             }
         }
 

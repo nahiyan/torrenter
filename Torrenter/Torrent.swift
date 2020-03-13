@@ -118,7 +118,8 @@ class Torrent: NSObject {
     }
 
     @objc var nextAnnounce: String {
-        return String(format: "%d seconds", info.next_announce)
+        let time: Time = UnitConversion.timeAuto(Float(info.next_announce))
+        return String(format: "%.0f %@", time.value, time.unit)
     }
 
     @objc var size: String {

@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		4D0DEA992410AA580047F25B /* lib in Resources */ = {isa = PBXBuildFile; fileRef = 4D0DEA982410AA580047F25B /* lib */; };
-		4D18ED28240E37530075D895 /* TorrentInitializer+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D18ED26240E37530075D895 /* TorrentInitializer+CoreDataClass.swift */; };
-		4D18ED29240E37530075D895 /* TorrentInitializer+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D18ED27240E37530075D895 /* TorrentInitializer+CoreDataProperties.swift */; };
 		4D357C2F24017CAF0033494E /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D357C2E24017CAF0033494E /* WindowController.swift */; };
 		4D357C3124018DF00033494E /* UnitConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D357C3024018DF00033494E /* UnitConversion.swift */; };
 		4D35832623F9A25200C3662D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D35832523F9A25200C3662D /* AppDelegate.swift */; };
@@ -324,9 +322,7 @@
 				4D92B9B12415232F008F1861 /* PiecesProgress.swift in Sources */,
 				4D89589B2412139B00B289B0 /* MagnetUriViewController.swift in Sources */,
 				4D9B035223FC3CC3000C9DF5 /* wrapper.cpp in Sources */,
-				4D18ED29240E37530075D895 /* TorrentInitializer+CoreDataProperties.swift in Sources */,
 				4D89589724120FC400B289B0 /* MagnetUriWindowController.swift in Sources */,
-				4D18ED28240E37530075D895 /* TorrentInitializer+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
