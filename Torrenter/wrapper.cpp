@@ -115,6 +115,11 @@ extern "C" void torrent_initiate_resume_data(const char *file_name)
     next_index++;
 }
 
+extern "C" void pause_session()
+{
+    torrent_session.pause();
+}
+
 // Get torrent struct representing the torrent itself
 extern "C" TorrentInfo torrent_get_info(int index)
 {
@@ -349,7 +354,7 @@ extern "C" void save_resume_data(int index)
         Torrent torrent = torrents.at(index);
         if (torrent.handler.need_save_resume_data())
         {
-            torrent.handler.save_resume_data();
+            torrent.handler.save_resume_data(lt::torrent_handle::flush_disk_cache | lt::torrent_handle::save_info_dict | lt::torrent_handle::only_if_modified);
         }
     }
     catch (std::out_of_range)

@@ -46,19 +46,22 @@ class ViewController: NSViewController {
         set_app_data_dir(appDataDir)
 
         // Load torrents from resume data
-        let resumeDataDir: String = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library", isDirectory: true).appendingPathComponent("Application Support", isDirectory: true).appendingPathComponent("Torrenter", isDirectory: true).appendingPathComponent("resume_files", isDirectory: true).relativePath
+        let resumeDataDir: URL = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library", isDirectory: true).appendingPathComponent("Application Support", isDirectory: true).appendingPathComponent("Torrenter", isDirectory: true).appendingPathComponent("resume_files", isDirectory: true)
 
         do {
-            let contents: [String] = try FileManager.default.contentsOfDirectory(atPath: resumeDataDir)
+            let contents: [String] = try FileManager.default.contentsOfDirectory(atPath: resumeDataDir.relativePath)
 
             for resumeFileName in contents {
-                // Initiate the torrent
-                let resumeFilePath: String = resumeDataDir.appendingPathComponent(resumeFileName, isDirectory: false).relativePath
-                torrent_initiate_resume_data(resumeFilePath)
+                let fileNameComponents: [String] = resumeFileName.components(separatedBy: ".")
 
-                // Add torrent to list
-                let torrent: Torrent = Torrent(Int(torrent_next_index() - 1))
-                torrents.addObject(torrent)
+                if fileNameComponents[fileNameComponents.count - 1] == "resume" {
+                    // Initiate the torrent
+                    torrent_initiate_resume_data(resumeFileName)
+
+                    // Add torrent to list
+                    let torrent: Torrent = Torrent(Int(torrent_next_index() - 1))
+                    torrents.addObject(torrent)
+                }
             }
         } catch {
             print("Error trying to read torrent resume files.")
@@ -72,6 +75,7 @@ class ViewController: NSViewController {
             self.reloadTorrentsTable()
             self.refreshDetailsView()
 
+            // pause_session()
             save_all_resume_data()
         }
 

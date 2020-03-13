@@ -38,13 +38,13 @@ class WindowController: NSWindowController {
                         let savePath = fileManager.homeDirectoryForCurrentUser.appendingPathComponent("Downloads").relativePath
 
                         // Save torrent initializer using CoreData
-                        let objectID: NSManagedObjectID = TorrentInitializer.insert(container: viewController.container, loadPath: loadPath, savePath: savePath)
+                        // let objectID: NSManagedObjectID = TorrentInitializer.insert(container: viewController.container, loadPath: loadPath, savePath: savePath)
 
                         // Initiate the torrent
                         torrent_initiate(loadPath, savePath, false)
 
                         // Add torrent to the table
-                        let torrent: Torrent = Torrent(Int(torrent_next_index() - 1), objectID)
+                        let torrent: Torrent = Torrent(Int(torrent_next_index() - 1))
                         viewController.torrents.addObject(torrent)
 
                         viewController.reloadTorrentsTable()
@@ -68,13 +68,13 @@ class WindowController: NSWindowController {
             let magnetUri: String = (magnetUriWindow.contentViewController as! MagnetUriViewController).magnetUriTextArea.string
             if !torrent_exists_from_magnet_uri(magnetUri) {
                 // Save torrent initializer using CoreData
-                let objectID: NSManagedObjectID = TorrentInitializer.insert(container: viewController.container, magnetUri: magnetUri, savePath: savePath)
+                // let objectID: NSManagedObjectID = TorrentInitializer.insert(container: viewController.container, magnetUri: magnetUri, savePath: savePath)
 
                 // Initiate the torrent
                 torrent_initiate_magnet_uri(magnetUri, savePath, false)
 
                 // Add torrent to the table
-                let torrent: Torrent = Torrent(Int(torrent_next_index() - 1), objectID)
+                let torrent: Torrent = Torrent(Int(torrent_next_index() - 1))
                 viewController.torrents.addObject(torrent)
 
                 viewController.reloadTorrentsTable()

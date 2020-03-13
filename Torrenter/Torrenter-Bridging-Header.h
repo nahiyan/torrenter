@@ -23,3 +23,4 @@ void set_app_data_dir(const char *);
 void spawn_alert_monitor();
 void save_resume_data(int);
 void save_all_resume_data();
+void pause_session();
