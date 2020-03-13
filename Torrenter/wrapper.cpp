@@ -12,6 +12,8 @@
 #include <unordered_map>
 #include <utility>
 #include <chrono>
+#include <thread>
+#include <memory>
 
 #include "torrent.h"
 #include "wrapper.h"
@@ -23,11 +25,17 @@
 #include "libtorrent/magnet_uri.hpp"
 #include "libtorrent/sha1_hash.hpp"
 #include "libtorrent/bitfield.hpp"
+#include "libtorrent/alert.hpp"
+#include "libtorrent/alert_types.hpp"
+#include "libtorrent/write_resume_data.hpp"
+#include "libtorrent/read_resume_data.hpp"
 
 // Global variables
 lt::session torrent_session = lt::session();
 std::unordered_map<int, Torrent> torrents;
 int next_index = 0;
+std::shared_ptr<std::thread> alert_monitor;
+std::string app_data_dir;
 
 // Number of torrents loaded in memory
 extern "C" int torrent_count()
@@ -81,18 +89,30 @@ extern "C" void torrent_initiate_magnet_uri(const char *magnetUri, const char *s
     torrents.insert(std::pair<int, Torrent>(next_index, torrent));
 
     next_index++;
+}
 
-    //    bool hmd = th.status().has_metadata;
-    //    while(!hmd) {
-    //        hmd = th.status().has_metadata;
-    //    }
-    //
-    //    if (hmd) {
-    //        std::shared_ptr<const lt::torrent_info> tf = th.torrent_file();
-    //        std::cout << tf->metadata_size() << std::endl;
-    //    } else {
-    //        std::cout << "No metadata" << std::endl;
-    //    }
+// Load torrent from resume data
+extern "C" void torrent_initiate_resume_data(const char *file_name)
+{
+    // Read resume data
+    std::ifstream ifs(app_data_dir + "/resume_files/" + file_name, std::ios_base::binary);
+    ifs.unsetf(std::ios_base::skipws);
+    std::vector<char> buf{std::istream_iterator<char>(ifs), std::istream_iterator<char>()};
+
+    // Torrent params
+    lt::add_torrent_params params;
+    params = lt::read_resume_data(buf);
+
+    Torrent torrent;
+    torrent.handler = torrent_session.add_torrent(params);
+    torrent.name = torrent.handler.status().name;
+
+    torrent.handler.set_flags(lt::torrent_flags::sequential_download, lt::torrent_flags::sequential_download);
+
+    // Insert torrent in the index-mapped list
+    torrents.insert(std::pair<int, Torrent>(next_index, torrent));
+
+    next_index++;
 }
 
 // Get torrent struct representing the torrent itself
@@ -319,29 +339,78 @@ extern "C" void debug()
         {
             std::cout << "Debug error" << std::endl;
         }
-
-        // try
-        // {
-        //     lt::typed_bitfield<lt::piece_index_t> pieces = torrents.at(0).handler.status().pieces;
-
-        //     int pieces_downloaded = 0;
-        //     int total_pieces = pieces.size();
-        //     for (int i = 0; i < pieces.size(); i++)
-        //     {
-        //         if (pieces[i])
-        //             pieces_downloaded++;
-        //     }
-
-        //     std::cout << pieces_downloaded << "/" << total_pieces << std::endl;
-        // }
-        // catch (std::out_of_range)
-        // {
-        //     std::cout << "Debug error" << std::endl;
-        // }
     }
+}
 
-    // for (auto it = torrents.begin(); it != torrents.end(); ++it)
-    // {
-    //     std::cout << it->second.name << std::endl;
-    // }
+extern "C" void save_resume_data(int index)
+{
+    try
+    {
+        Torrent torrent = torrents.at(index);
+        if (torrent.handler.need_save_resume_data())
+        {
+            torrent.handler.save_resume_data();
+        }
+    }
+    catch (std::out_of_range)
+    {
+        std::cout << "Failed to save resume data." << std::endl;
+    }
+}
+
+extern "C" void save_all_resume_data()
+{
+    for (std::pair<int, Torrent> torrent : torrents)
+    {
+        save_resume_data(torrent.first);
+    }
+}
+
+extern "C" void set_app_data_dir(const char *dir)
+{
+    app_data_dir = std::string(dir);
+}
+
+void monitor_alerts()
+{
+    while (true)
+    {
+        // retrieve the alerts
+        std::vector<lt::alert *> alerts;
+        torrent_session.pop_alerts(&alerts);
+
+        for (lt::alert *alert : alerts)
+        {
+            switch (alert->type())
+            {
+            case lt::add_torrent_alert::alert_type:
+                std::cout << "Torrent added." << std::endl;
+                break;
+            case lt::save_resume_data_alert::alert_type:
+            {
+                lt::save_resume_data_alert const *srd_alert = lt::alert_cast<lt::save_resume_data_alert>(alert);
+
+                std::string name = srd_alert->handle.status(lt::torrent_handle::query_name).name;
+
+                std::string resume_file = app_data_dir + "/resume_files/" + name + ".resume";
+
+                std::ofstream out(resume_file, std::ios_base::binary);
+                std::vector<char> buf = lt::write_resume_data_buf(srd_alert->params);
+                out.write(buf.data(), buf.size());
+
+                break;
+            }
+            default:
+                // std::cout << alert->message() << std::endl;
+                break;
+            }
+        }
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    }
+}
+
+extern "C" void spawn_alert_monitor()
+{
+    alert_monitor = std::make_shared<std::thread>(monitor_alerts);
 }

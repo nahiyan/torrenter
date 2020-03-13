@@ -11,20 +11,25 @@ import Foundation
 
 class Torrent: NSObject {
     var index: Int = 0
-    let id: NSManagedObjectID
+    // let id: NSManagedObjectID
     var info: TorrentInfo
 
-    init(_ id: NSManagedObjectID) {
-        index = Int(torrent_next_index())
-        self.id = id
+    // init(_ id: NSManagedObjectID) {
+    //     index = Int(torrent_next_index())
+    //     self.id = id
+    //     info = torrent_get_info(Int32(index))
+    // }
+
+    init(_ index: Int) {
+        self.index = index
         info = torrent_get_info(Int32(index))
     }
 
-    init(_ index: Int, _ id: NSManagedObjectID) {
-        self.index = index
-        self.id = id
-        info = torrent_get_info(Int32(index))
-    }
+    // init(_ index: Int, _ id: NSManagedObjectID) {
+    //     self.index = index
+    //     self.id = id
+    //     info = torrent_get_info(Int32(index))
+    // }
 
     func fetchInfo() {
         info = torrent_get_info(Int32(index))

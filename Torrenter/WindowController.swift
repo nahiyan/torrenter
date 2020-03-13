@@ -96,12 +96,12 @@ class WindowController: NSWindowController {
                 torrent.resume()
                 pauseResumeButton.image = NSImage(named: "pause")
 
-                TorrentInitializer.get(viewController.container, torrent.id)?.status = "default"
+                // TorrentInitializer.get(viewController.container, torrent.id)?.status = "default"
             } else {
                 torrent.pause()
                 pauseResumeButton.image = NSImage(named: "play")
 
-                TorrentInitializer.get(viewController.container, torrent.id)?.status = "paused"
+                // TorrentInitializer.get(viewController.container, torrent.id)?.status = "paused"
             }
 
             do {
@@ -123,8 +123,8 @@ class WindowController: NSWindowController {
             let torrent: Torrent = torrents[selectedRow]
 
             // Remove CoreData entry
-            let torrentInitializer: TorrentInitializer = TorrentInitializer.get(viewController.container, torrent.id)!
-            viewController.container.viewContext.delete(torrentInitializer)
+            // let torrentInitializer: TorrentInitializer = TorrentInitializer.get(viewController.container, torrent.id)!
+            // viewController.container.viewContext.delete(torrentInitializer)
 
             // Remove torrent from array
             viewController.torrents.removeObject(torrent)

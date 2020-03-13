@@ -41,6 +41,29 @@ class ViewController: NSViewController {
             fatalError("This view needs a persistent container.")
         }
 
+        // Set the app data dir
+        let appDataDir: String = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library", isDirectory: true).appendingPathComponent("Application Support", isDirectory: true).appendingPathComponent("Torrenter", isDirectory: true).relativePath
+        set_app_data_dir(appDataDir)
+
+        // Load torrents from resume data
+        let resumeDataDir: String = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library", isDirectory: true).appendingPathComponent("Application Support", isDirectory: true).appendingPathComponent("Torrenter", isDirectory: true).appendingPathComponent("resume_files", isDirectory: true).relativePath
+
+        do {
+            let contents: [String] = try FileManager.default.contentsOfDirectory(atPath: resumeDataDir)
+
+            for resumeFileName in contents {
+                // Initiate the torrent
+                let resumeFilePath: String = resumeDataDir.appendingPathComponent(resumeFileName, isDirectory: false).relativePath
+                torrent_initiate_resume_data(resumeFilePath)
+
+                // Add torrent to list
+                let torrent: Torrent = Torrent(Int(torrent_next_index() - 1))
+                torrents.addObject(torrent)
+            }
+        } catch {
+            print("Error trying to read torrent resume files.")
+        }
+
         // refresh the data periodically
         Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
             for torrent in self.torrents.arrangedObjects as! [Torrent] {
@@ -49,40 +72,43 @@ class ViewController: NSViewController {
             self.reloadTorrentsTable()
             self.refreshDetailsView()
 
-            // debug()
+            save_all_resume_data()
         }
 
         // Load all the torrents from CoreData
-        let torrentInitializers: [TorrentInitializer] = TorrentInitializer.getAll(container)
-        for torrentInitializer in torrentInitializers {
-            let savePath: String = torrentInitializer.savePath
+        // let torrentInitializers: [TorrentInitializer] = TorrentInitializer.getAll(container)
+        // for torrentInitializer in torrentInitializers {
+        //     let savePath: String = torrentInitializer.savePath
 
-            // Indicate if the torrent should be paused or not
-            let paused: Bool
-            if torrentInitializer.status == "paused" {
-                paused = true
-            } else {
-                paused = false
-            }
+        //     // Indicate if the torrent should be paused or not
+        //     let paused: Bool
+        //     if torrentInitializer.status == "paused" {
+        //         paused = true
+        //     } else {
+        //         paused = false
+        //     }
 
-            // Initiate torrent
-            if let loadPath: String = torrentInitializer.loadPath {
-                torrent_initiate(loadPath, savePath, paused)
-            } else {
-                if let magnetUri: String = torrentInitializer.magnetUri {
-                    torrent_initiate_magnet_uri(magnetUri, savePath, paused)
-                } else {
-                    continue
-                }
-            }
+        //     // Initiate torrent
+        //     if let loadPath: String = torrentInitializer.loadPath {
+        //         torrent_initiate(loadPath, savePath, paused)
+        //     } else {
+        //         if let magnetUri: String = torrentInitializer.magnetUri {
+        //             torrent_initiate_magnet_uri(magnetUri, savePath, paused)
+        //         } else {
+        //             continue
+        //         }
+        //     }
 
-            // Add torrent to list
-            let torrent: Torrent = Torrent(Int(torrent_next_index() - 1), torrentInitializer.objectID)
-            torrents.addObject(torrent)
-        }
+        //     // Add torrent to list
+        //     let torrent: Torrent = Torrent(Int(torrent_next_index() - 1), torrentInitializer.objectID)
+        //     torrents.addObject(torrent)
+        // }
 
         // No selection by default
         hideDetails()
+
+        // Write a dummy file
+        spawn_alert_monitor()
     }
 
     override var representedObject: Any? {
