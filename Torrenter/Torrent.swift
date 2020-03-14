@@ -11,25 +11,12 @@ import Foundation
 
 class Torrent: NSObject {
     var index: Int = 0
-    // let id: NSManagedObjectID
     var info: TorrentInfo
-
-    // init(_ id: NSManagedObjectID) {
-    //     index = Int(torrent_next_index())
-    //     self.id = id
-    //     info = torrent_get_info(Int32(index))
-    // }
 
     init(_ index: Int) {
         self.index = index
         info = torrent_get_info(Int32(index))
     }
-
-    // init(_ index: Int, _ id: NSManagedObjectID) {
-    //     self.index = index
-    //     self.id = id
-    //     info = torrent_get_info(Int32(index))
-    // }
 
     func fetchInfo() {
         info = torrent_get_info(Int32(index))
@@ -85,7 +72,7 @@ class Torrent: NSObject {
 
     @objc var uploadLimit: String {
         if info.download_limit == -1 {
-            return String("\u{221E}")
+            return "\u{221E}"
         } else {
             let data: Data = UnitConversion.dataAuto(Float(info.upload_limit))
 
@@ -122,6 +109,11 @@ class Torrent: NSObject {
         return String(format: "%.0f %@", time.value, time.unit)
     }
 
+    @objc var activeDuration: String {
+        let time: Time = UnitConversion.timeAuto(Float(info.active_duration))
+        return String(format: "%.0f %@", time.value, time.unit)
+    }
+
     @objc var size: String {
         let size: Data = UnitConversion.dataAuto(info.size)
 
@@ -132,9 +124,26 @@ class Torrent: NSObject {
         }
     }
 
+    @objc var timeRemaining: String {
+        let downloadRate: Float = Float(info.download_rate)
+        let downloadLeft: Float = info.total_wanted - info.total_wanted_done
+        let timeRemaining: Time = UnitConversion.timeAutoDiscrete(downloadLeft / downloadRate)
+
+        if info.status != state_t(rawValue: 3) {
+            return "-"
+        } else {
+            return String(format: "%.0f %@", timeRemaining.value, timeRemaining.unit)
+        }
+    }
+
     @objc var shareRatio: String {
         let shareRatio: Float = Float(info.downloaded) / Float(info.uploaded)
-        return String(format: "%.2f", shareRatio)
+
+        if shareRatio.isInfinite {
+            return "-"
+        } else {
+            return String(format: "%.2f", shareRatio)
+        }
     }
 
     @objc var downloadRate: String {

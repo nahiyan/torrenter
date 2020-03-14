@@ -56,6 +56,9 @@ struct TorrentInfo
     int download_rate;
     int upload_rate;
     enum state_t status;
+    int active_duration;
+    float total_wanted;
+    float total_wanted_done;
 };
 
 #endif /* wrapper_h */

@@ -36,17 +36,107 @@ class UnitConversion {
 
     static func timeAuto(_ value: Float) -> Time {
         if value < minute {
-            return Time(value, "seconds")
+            if value > 1 {
+                return Time(value, "seconds")
+            } else {
+                return Time(value, "second")
+            }
         } else if value >= minute, value < hour {
-            return Time(value / minute, "minutes")
+            let minutes: Float = value / minute
+
+            if minutes > 1 {
+                return Time(minutes, "minutes")
+            } else {
+                return Time(minutes, "minute")
+            }
         } else if value >= hour, value < day {
-            return Time(value / hour, "hours")
+            let hours: Float = value / hour
+
+            if hours > 1 {
+                return Time(hours, "hours")
+            } else {
+                return Time(hours, "hour")
+            }
         } else if value >= day, value < month {
-            return Time(value / day, "days")
+            let days: Float = value / day
+
+            if days > 1 {
+                return Time(days, "days")
+            } else {
+                return Time(days, "day")
+            }
         } else if value >= month, value < year {
-            return Time(value / month, "months")
+            let months: Float = value / month
+
+            if months > 1 {
+                return Time(months, "months")
+            } else {
+                return Time(months, "month")
+            }
         } else {
-            return Time(value / year, "years")
+            let years: Float = value / year
+
+            if years > 1 {
+                return Time(years, "years")
+            } else {
+                return Time(years, "year")
+            }
+        }
+    }
+
+    static func timeAutoDiscrete(_ value: Float) -> Time {
+        if value.isInfinite || value.isNaN {
+            return Time(0.0, "second")
+        } else {
+            if value < minute {
+                let seconds: Float = value.rounded()
+
+                if seconds > 1 {
+                    return Time(seconds, "seconds")
+                } else {
+                    return Time(seconds, "second")
+                }
+            } else if value >= minute, value < hour {
+                let minutes: Float = (value / minute).rounded()
+
+                if minutes > 1 {
+                    return Time(minutes, "minutes")
+                } else {
+                    return Time(minutes, "minute")
+                }
+            } else if value >= hour, value < day {
+                let hours: Float = (value / hour).rounded()
+
+                if hours > 1 {
+                    return Time(hours, "hours")
+                } else {
+                    return Time(hours, "hour")
+                }
+            } else if value >= day, value < month {
+                let days: Float = (value / day).rounded()
+
+                if days > 1 {
+                    return Time(days, "days")
+                } else {
+                    return Time(days, "day")
+                }
+            } else if value >= month, value < year {
+                let months: Float = (value / month).rounded()
+
+                if months > 1 {
+                    return Time(months, "months")
+                } else {
+                    return Time(months, "month")
+                }
+            } else {
+                let years: Float = (value / year).rounded()
+
+                if years > 1 {
+                    return Time(years, "years")
+                } else {
+                    return Time(years, "year")
+                }
+            }
         }
     }
 }

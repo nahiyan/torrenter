@@ -28,6 +28,8 @@ class ViewController: NSViewController {
     @IBOutlet var peers: NSTextField!
     @IBOutlet var connections: NSTextField!
     @IBOutlet var wasted: NSTextField!
+    @IBOutlet var activeDuration: NSTextField!
+    @IBOutlet var timeRemaining: NSTextField!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,39 +81,10 @@ class ViewController: NSViewController {
             save_all_resume_data()
         }
 
-        // Load all the torrents from CoreData
-        // let torrentInitializers: [TorrentInitializer] = TorrentInitializer.getAll(container)
-        // for torrentInitializer in torrentInitializers {
-        //     let savePath: String = torrentInitializer.savePath
-
-        //     // Indicate if the torrent should be paused or not
-        //     let paused: Bool
-        //     if torrentInitializer.status == "paused" {
-        //         paused = true
-        //     } else {
-        //         paused = false
-        //     }
-
-        //     // Initiate torrent
-        //     if let loadPath: String = torrentInitializer.loadPath {
-        //         torrent_initiate(loadPath, savePath, paused)
-        //     } else {
-        //         if let magnetUri: String = torrentInitializer.magnetUri {
-        //             torrent_initiate_magnet_uri(magnetUri, savePath, paused)
-        //         } else {
-        //             continue
-        //         }
-        //     }
-
-        //     // Add torrent to list
-        //     let torrent: Torrent = Torrent(Int(torrent_next_index() - 1), torrentInitializer.objectID)
-        //     torrents.addObject(torrent)
-        // }
-
         // No selection by default
         hideDetails()
 
-        // Write a dummy file
+        // Begin listening & responding to alerts
         spawn_alert_monitor()
     }
 
@@ -233,8 +206,14 @@ extension ViewController {
             // wasted
             wasted.stringValue = torrent.wasted
 
-            // wasted
+            // connections
             connections.stringValue = torrent.connections
+
+            // active duration
+            activeDuration.stringValue = torrent.activeDuration
+
+            // time remaining
+            timeRemaining.stringValue = torrent.timeRemaining
         }
     }
 }

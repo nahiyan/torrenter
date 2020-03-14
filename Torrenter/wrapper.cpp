@@ -151,6 +151,9 @@ extern "C" TorrentInfo torrent_get_info(int index)
         torrent_info.download_rate = status.download_rate;
         torrent_info.upload_rate = status.upload_rate;
         torrent_info.status = (enum state_t)status.state;
+        torrent_info.active_duration = (int)status.active_duration.count();
+        torrent_info.total_wanted = (float)status.total_wanted;
+        torrent_info.total_wanted_done = (float)status.total_wanted_done;
 
         return torrent_info;
     }
@@ -222,18 +225,6 @@ extern "C" void torrent_remove(int index)
     catch (std::out_of_range)
     {
         std::cout << "Failed to remove torrent" << std::endl;
-    }
-}
-
-extern "C" void torrent_info_hash(int index)
-{
-    try
-    {
-        std::cout << torrents.at(index).handler.info_hash() << std::endl;
-    }
-    catch (std::out_of_range)
-    {
-        std::cout << "Failed to get torrent info hash." << std::endl;
     }
 }
 

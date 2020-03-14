@@ -1866,6 +1866,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activeDuration" destination="51n-tR-MIZ" id="jEZ-Dw-eXT"/>
                         <outlet property="connections" destination="GqK-gF-hI2" id="HIe-ob-oyW"/>
                         <outlet property="downloadLimit" destination="f4t-jc-rWn" id="xuq-Sv-WW2"/>
                         <outlet property="downloadSpeed" destination="rGh-U5-wzy" id="UG0-Xq-1Gn"/>
@@ -1876,6 +1877,7 @@
                         <outlet property="reannounceIn" destination="R1i-Bb-3fy" id="Qyk-dE-tGO"/>
                         <outlet property="seeds" destination="upw-bn-kdx" id="bEs-Ik-LCr"/>
                         <outlet property="shareRatio" destination="u0e-6f-jTx" id="dHb-xi-k2n"/>
+                        <outlet property="timeRemaining" destination="wOP-af-efR" id="SJZ-2p-JKe"/>
                         <outlet property="torrents" destination="ANR-OF-cpm" id="Hc7-Og-fkm"/>
                         <outlet property="torrentsTable" destination="Yd5-Gp-9Lo" id="AS4-2Q-qkw"/>
                         <outlet property="uploadLimit" destination="xwx-BD-bpF" id="39q-gx-4Ek"/>
