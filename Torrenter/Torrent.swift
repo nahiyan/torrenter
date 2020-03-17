@@ -6,8 +6,7 @@
 //  Copyright © 2020 Nahiyan Alamgir. All rights reserved.
 //
 
-import CoreData
-import Foundation
+import Cocoa
 
 class Torrent: NSObject {
     var index: Int = 0
@@ -202,10 +201,34 @@ class Torrent: NSObject {
     }
 
     func pause() {
+        let viewController: ViewController = NSApplication.shared.mainWindow!.contentViewController as! ViewController
+
         torrent_pause(Int32(index))
+
+        viewController.updateActionButtonsAndDetailsView()
     }
 
     func resume() {
+        let viewController: ViewController = NSApplication.shared.mainWindow!.contentViewController as! ViewController
+
         torrent_resume(Int32(index))
+
+        viewController.updateActionButtonsAndDetailsView()
+    }
+
+    func remove() {
+        let viewController: ViewController = NSApplication.shared.mainWindow!.contentViewController as! ViewController
+        let windowController: WindowController = NSApplication.shared.mainWindow!.windowController as! WindowController
+
+        // Remove torrent from array
+        viewController.torrents.removeObject(self)
+
+        // Remove torrent from unordered map
+        torrent_remove(Int32(index))
+
+        // Reset table selection
+        viewController.torrentsTable.deselectAll(nil)
+        viewController.hideDetails()
+        windowController.deactivateButtons()
     }
 }

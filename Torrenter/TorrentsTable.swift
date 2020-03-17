@@ -28,14 +28,29 @@ class TorrentsTable: NSTableView {
                 playPauseItem?.title = "Pause"
                 playPauseItem?.action = #selector(pauseTorrent)
             }
+
+            // Remove item
+            let removeItem: NSMenuItem? = contextMenu.item(at: 1)
+            removeItem?.action = #selector(removeTorrent)
         }
+    }
+
+    func postOperation() {
+        let viewController: ViewController = NSApplication.shared.mainWindow!.contentViewController as! ViewController
+        viewController.updateActionButtonsAndDetailsView()
     }
 
     @objc func pauseTorrent() {
         torrent!.pause()
+        postOperation()
     }
 
     @objc func resumeTorrent() {
         torrent!.resume()
+        postOperation()
+    }
+
+    @objc func removeTorrent() {
+        torrent!.remove()
     }
 }

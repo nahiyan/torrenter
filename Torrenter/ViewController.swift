@@ -102,6 +102,10 @@ class ViewController: NSViewController {
     }
 
     @IBAction func tableClicked(_: Any) {
+        updateActionButtonsAndDetailsView()
+    }
+
+    func updateActionButtonsAndDetailsView() {
         let windowController: WindowController = NSApplication.shared.mainWindow!.windowController as! WindowController
         let pauseResumeButton: NSButton = windowController.pauseResumeButton
         let stopButton: NSButton = windowController.stopButton
@@ -139,18 +143,7 @@ class ViewController: NSViewController {
 extension ViewController {
     func initiateContextMenu() {
         contextMenu.addItem(withTitle: "Pause", action: nil, keyEquivalent: "")
-        contextMenu.addItem(withTitle: "Delete", action: nil, keyEquivalent: "")
-    }
-
-    @objc func setupContextMenu() {
-        if torrentsTable.selectedRow != -1 {
-            // Selected torrent
-            let torrent: Torrent = Torrent(torrentsTable.selectedRow)
-
-            torrentsTable.menu = contextMenu
-        } else {
-            torrentsTable.menu = nil
-        }
+        contextMenu.addItem(withTitle: "Remove", action: nil, keyEquivalent: "")
     }
 
     func reloadTorrentsTable() {

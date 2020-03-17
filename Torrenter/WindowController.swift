@@ -37,9 +37,6 @@ class WindowController: NSWindowController {
                         // For now, it's the downloads folder
                         let savePath = fileManager.homeDirectoryForCurrentUser.appendingPathComponent("Downloads").relativePath
 
-                        // Save torrent initializer using CoreData
-                        // let objectID: NSManagedObjectID = TorrentInitializer.insert(container: viewController.container, loadPath: loadPath, savePath: savePath)
-
                         // Initiate the torrent
                         torrent_initiate(loadPath, savePath, false)
 
@@ -67,9 +64,6 @@ class WindowController: NSWindowController {
         NSApplication.shared.mainWindow!.beginSheet(magnetUriWindow, completionHandler: { (_) -> Void in
             let magnetUri: String = (magnetUriWindow.contentViewController as! MagnetUriViewController).magnetUriTextArea.string
             if !torrent_exists_from_magnet_uri(magnetUri) {
-                // Save torrent initializer using CoreData
-                // let objectID: NSManagedObjectID = TorrentInitializer.insert(container: viewController.container, magnetUri: magnetUri, savePath: savePath)
-
                 // Initiate the torrent
                 torrent_initiate_magnet_uri(magnetUri, savePath, false)
 
@@ -94,16 +88,8 @@ class WindowController: NSWindowController {
 
             if torrent.isPaused {
                 torrent.resume()
-                pauseResumeButton.image = NSImage(named: "pause")
             } else {
                 torrent.pause()
-                pauseResumeButton.image = NSImage(named: "play")
-            }
-
-            do {
-                try viewController.container.viewContext.save()
-            } catch {
-                print("Failed to save CoreData context")
             }
         }
     }
@@ -117,25 +103,7 @@ class WindowController: NSWindowController {
 
         if selectedRow != -1 {
             let torrent: Torrent = torrents[selectedRow]
-
-            // Remove CoreData entry
-            // let torrentInitializer: TorrentInitializer = TorrentInitializer.get(viewController.container, torrent.id)!
-            // viewController.container.viewContext.delete(torrentInitializer)
-
-            // Remove torrent from array
-            viewController.torrents.removeObject(torrent)
-
-            // Remove torrent from unordered map
-            torrent_remove(Int32(torrent.index))
-
-            do {
-                try viewController.container.viewContext.save()
-                viewController.torrentsTable.deselectAll(nil)
-                viewController.hideDetails()
-                deactivateButtons()
-            } catch {
-                print("Failed to save CoreData context")
-            }
+            torrent.remove()
         }
     }
 
