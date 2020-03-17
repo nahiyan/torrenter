@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class PiecesProgress: NSView {
+class CompoundProgressBar: NSView {
     var pieces: UnsafeMutablePointer<piece_state_t>?
     var piecesCount: Int
 

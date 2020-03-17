@@ -13,7 +13,7 @@ class ViewController: NSViewController {
     @IBOutlet var torrentsTable: NSTableView!
     var container: NSPersistentContainer!
 
-    @IBOutlet var piecesProgress: PiecesProgress!
+    @IBOutlet var piecesProgress: CompoundProgressBar!
     @IBOutlet var progressPercentage: NSTextField!
 
     @IBOutlet var downloaded: NSTextField!
@@ -30,6 +30,8 @@ class ViewController: NSViewController {
     @IBOutlet var wasted: NSTextField!
     @IBOutlet var activeDuration: NSTextField!
     @IBOutlet var timeRemaining: NSTextField!
+
+    let contextMenu: NSMenu = NSMenu()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,6 +88,11 @@ class ViewController: NSViewController {
 
         // Begin listening & responding to alerts
         spawn_alert_monitor()
+
+        // Attach context menu
+        initiateContextMenu()
+        torrentsTable.menu = contextMenu
+        // torrentsTable.action = #selector(setupContextMenu)
     }
 
     override var representedObject: Any? {
@@ -130,6 +137,22 @@ class ViewController: NSViewController {
 }
 
 extension ViewController {
+    func initiateContextMenu() {
+        contextMenu.addItem(withTitle: "Pause", action: nil, keyEquivalent: "")
+        contextMenu.addItem(withTitle: "Delete", action: nil, keyEquivalent: "")
+    }
+
+    @objc func setupContextMenu() {
+        if torrentsTable.selectedRow != -1 {
+            // Selected torrent
+            let torrent: Torrent = Torrent(torrentsTable.selectedRow)
+
+            torrentsTable.menu = contextMenu
+        } else {
+            torrentsTable.menu = nil
+        }
+    }
+
     func reloadTorrentsTable() {
         let selectedRow: Int = torrentsTable.selectedRow
         torrentsTable.reloadData()

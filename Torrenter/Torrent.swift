@@ -105,7 +105,7 @@ class Torrent: NSObject {
     }
 
     @objc var nextAnnounce: String {
-        let time: Time = UnitConversion.timeAuto(Float(info.next_announce))
+        let time: Time = UnitConversion.timeAutoDiscrete(Float(info.next_announce))
         return String(format: "%.0f %@", time.value, time.unit)
     }
 

@@ -95,13 +95,9 @@ class WindowController: NSWindowController {
             if torrent.isPaused {
                 torrent.resume()
                 pauseResumeButton.image = NSImage(named: "pause")
-
-                // TorrentInitializer.get(viewController.container, torrent.id)?.status = "default"
             } else {
                 torrent.pause()
                 pauseResumeButton.image = NSImage(named: "play")
-
-                // TorrentInitializer.get(viewController.container, torrent.id)?.status = "paused"
             }
 
             do {
