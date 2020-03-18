@@ -921,7 +921,7 @@
                                                                         </tableCellView>
                                                                     </prototypeCellViews>
                                                                 </tableColumn>
-                                                                <tableColumn width="70" minWidth="10" maxWidth="3.4028234663852886e+38" id="9FE-WE-hag">
+                                                                <tableColumn identifier="progress" width="70" minWidth="10" maxWidth="3.4028234663852886e+38" id="9FE-WE-hag">
                                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Progress">
                                                                         <font key="font" metaFont="message" size="11"/>
                                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -935,30 +935,22 @@
                                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                     <prototypeCellViews>
                                                                         <tableCellView id="Jz8-aV-Wy3">
-                                                                            <rect key="frame" x="417" y="12" width="70" height="0.0"/>
+                                                                            <rect key="frame" x="417" y="12" width="70" height="18"/>
                                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                             <subviews>
-                                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="0Fx-Jf-XQy">
-                                                                                    <rect key="frame" x="0.0" y="-17" width="70" height="17"/>
-                                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="5Xe-p9-cKd">
-                                                                                        <font key="font" metaFont="system"/>
-                                                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                                                    </textFieldCell>
+                                                                                <progressIndicator wantsLayer="YES" maxValue="100" doubleValue="50" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="g5e-Nk-Osh">
+                                                                                    <rect key="frame" x="0.0" y="-1" width="70" height="20"/>
                                                                                     <connections>
-                                                                                        <binding destination="Jz8-aV-Wy3" name="value" keyPath="objectValue.progress" id="wuU-8X-cMC"/>
+                                                                                        <binding destination="Jz8-aV-Wy3" name="value" keyPath="objectValue.progress" id="ADQ-KU-nM7"/>
                                                                                     </connections>
-                                                                                </textField>
+                                                                                </progressIndicator>
                                                                             </subviews>
                                                                             <constraints>
-                                                                                <constraint firstItem="0Fx-Jf-XQy" firstAttribute="top" secondItem="Jz8-aV-Wy3" secondAttribute="top" id="FJq-xa-rGO"/>
-                                                                                <constraint firstItem="0Fx-Jf-XQy" firstAttribute="leading" secondItem="Jz8-aV-Wy3" secondAttribute="leading" constant="2" id="Vca-uE-5DL"/>
-                                                                                <constraint firstAttribute="bottom" secondItem="0Fx-Jf-XQy" secondAttribute="bottom" constant="-17" id="m81-oz-aBM"/>
-                                                                                <constraint firstAttribute="trailing" secondItem="0Fx-Jf-XQy" secondAttribute="trailing" constant="2" id="x7n-lb-JbZ"/>
+                                                                                <constraint firstAttribute="bottom" secondItem="g5e-Nk-Osh" secondAttribute="bottom" id="FbQ-6L-3vD"/>
+                                                                                <constraint firstItem="g5e-Nk-Osh" firstAttribute="top" secondItem="Jz8-aV-Wy3" secondAttribute="top" id="GLN-9a-FWJ"/>
+                                                                                <constraint firstItem="g5e-Nk-Osh" firstAttribute="leading" secondItem="Jz8-aV-Wy3" secondAttribute="leading" id="cxD-Be-qif"/>
+                                                                                <constraint firstAttribute="trailing" secondItem="g5e-Nk-Osh" secondAttribute="trailing" id="f9N-1j-T3F"/>
                                                                             </constraints>
-                                                                            <connections>
-                                                                                <outlet property="textField" destination="0Fx-Jf-XQy" id="uNW-z9-ynI"/>
-                                                                            </connections>
                                                                         </tableCellView>
                                                                     </prototypeCellViews>
                                                                 </tableColumn>

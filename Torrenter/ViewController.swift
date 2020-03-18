@@ -110,6 +110,7 @@ class ViewController: NSViewController {
         let pauseResumeButton: NSButton = windowController.pauseResumeButton
         let stopButton: NSButton = windowController.stopButton
         let removeButton: NSButton = windowController.removeButton
+        let progressColumnIndex: Int = torrentsTable.column(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "progress"))
 
         if torrentsTable.selectedRow != -1 {
             let torrent: Torrent = (torrents.arrangedObjects as! [Torrent])[torrentsTable.selectedRow]
@@ -123,7 +124,6 @@ class ViewController: NSViewController {
             }
 
             // Stop button
-            print(torrent.isFinished, torrent.isSeeding, torrent.isStopped)
             if (torrent.isFinished && !torrent.isSeeding) || torrent.isStopped {
                 stopButton.isEnabled = false
             } else {
@@ -133,6 +133,12 @@ class ViewController: NSViewController {
             // Remove button
             removeButton.isEnabled = true
 
+            // Progress indicator appearance
+            let progressIndicator: NSProgressIndicator = torrentsTable.view(atColumn: progressColumnIndex, row: torrentsTable.selectedRow, makeIfNecessary: false)!.subviews[0] as! NSProgressIndicator
+
+            resetProgressIndicators()
+            progressIndicator.appearance = NSAppearance(named: .darkAqua)
+
             // Show details of the torrent
             showDetails()
         } else {
@@ -140,6 +146,19 @@ class ViewController: NSViewController {
 
             // Hide details of the torrent
             hideDetails()
+
+            // Reset progress indicator appearance
+            resetProgressIndicators()
+        }
+    }
+
+    func resetProgressIndicators() {
+        let progressColumnIndex: Int = torrentsTable.column(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "progress"))
+
+        for rowIndex in 0 ... (torrentsTable!.numberOfRows - 1) {
+            let progressIndicator: NSProgressIndicator = torrentsTable.view(atColumn: progressColumnIndex, row: rowIndex, makeIfNecessary: false)!.subviews[0] as! NSProgressIndicator
+
+            progressIndicator.appearance = NSAppearance(named: .aqua)
         }
     }
 }

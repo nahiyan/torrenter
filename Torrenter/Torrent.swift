@@ -193,12 +193,6 @@ class Torrent: NSObject {
             }
         }
 
-        // if isStopped {
-        //     status += " (Stopped)"
-        // } else if isPaused {
-        //     status += " (Paused)"
-        // }
-
         return status
     }
 
