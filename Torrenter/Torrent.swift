@@ -109,7 +109,7 @@ class Torrent: NSObject {
     }
 
     @objc var activeDuration: String {
-        let time: Time = UnitConversion.timeAuto(Float(info.active_duration))
+        let time: Time = UnitConversion.timeAutoDiscrete(Float(info.active_duration))
         return String(format: "%.0f %@", time.value, time.unit)
     }
 
@@ -172,32 +172,42 @@ class Torrent: NSObject {
     @objc var status: String {
         var status: String
 
-        switch info.status {
-        case state_t(rawValue: 1):
-            status = "Checking files"
-        case state_t(rawValue: 2):
-            status = "Downloading metadata"
-        case state_t(rawValue: 3):
-            status = "Downloading"
-        case state_t(rawValue: 4):
-            status = "Finished"
-        case state_t(rawValue: 5):
-            status = "Seeding"
-        case state_t(rawValue: 6):
-            status = "Allocating"
-        default:
-            status = "Checking resume data"
+        if isPaused {
+            status = "Paused"
+        } else {
+            switch info.status {
+            case state_t(rawValue: 1):
+                status = "Checking files"
+            case state_t(rawValue: 2):
+                status = "Downloading metadata"
+            case state_t(rawValue: 3):
+                status = "Downloading"
+            case state_t(rawValue: 4):
+                status = "Finished"
+            case state_t(rawValue: 5):
+                status = "Seeding"
+            case state_t(rawValue: 6):
+                status = "Allocating"
+            default:
+                status = "Checking resume data"
+            }
         }
 
-        if isPaused {
-            status += " (Paused)"
-        }
+        // if isStopped {
+        //     status += " (Stopped)"
+        // } else if isPaused {
+        //     status += " (Paused)"
+        // }
 
         return status
     }
 
     @objc var isPaused: Bool {
         return torrent_is_paused(Int32(index))
+    }
+
+    @objc var isStopped: Bool {
+        return torrent_is_stopped(Int32(index))
     }
 
     func pause() {
@@ -212,6 +222,14 @@ class Torrent: NSObject {
         let viewController: ViewController = NSApplication.shared.mainWindow!.contentViewController as! ViewController
 
         torrent_resume(Int32(index))
+
+        viewController.updateActionButtonsAndDetailsView()
+    }
+
+    func stop() {
+        let viewController: ViewController = NSApplication.shared.mainWindow!.contentViewController as! ViewController
+
+        torrent_stop(Int32(index))
 
         viewController.updateActionButtonsAndDetailsView()
     }

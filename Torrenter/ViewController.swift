@@ -114,6 +114,7 @@ class ViewController: NSViewController {
         if torrentsTable.selectedRow != -1 {
             let torrent: Torrent = (torrents.arrangedObjects as! [Torrent])[torrentsTable.selectedRow]
 
+            // Play/pause button
             pauseResumeButton.isEnabled = true
             if torrent.isPaused {
                 pauseResumeButton.image = NSImage(named: "play")
@@ -121,12 +122,15 @@ class ViewController: NSViewController {
                 pauseResumeButton.image = NSImage(named: "pause")
             }
 
-            if torrent.isFinished, !torrent.isSeeding {
+            // Stop button
+            print(torrent.isFinished, torrent.isSeeding, torrent.isStopped)
+            if (torrent.isFinished && !torrent.isSeeding) || torrent.isStopped {
                 stopButton.isEnabled = false
             } else {
                 stopButton.isEnabled = true
             }
 
+            // Remove button
             removeButton.isEnabled = true
 
             // Show details of the torrent

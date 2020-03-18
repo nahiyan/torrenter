@@ -170,6 +170,7 @@ extern "C" void torrent_pause(int index)
 {
     try
     {
+        torrents.at(index).handler.unset_flags(lt::torrent_flags::stop_when_ready);
         torrents.at(index).handler.unset_flags(lt::torrent_flags::auto_managed);
         torrents.at(index).handler.pause();
     }
@@ -183,6 +184,7 @@ extern "C" void torrent_resume(int index)
 {
     try
     {
+        torrents.at(index).handler.unset_flags(lt::torrent_flags::stop_when_ready);
         torrents.at(index).handler.set_flags(lt::torrent_flags::auto_managed, lt::torrent_flags::auto_managed);
         torrents.at(index).handler.resume();
     }
@@ -213,6 +215,56 @@ extern "C" bool torrent_is_paused(int index)
         return false;
     }
 }
+
+extern "C" bool torrent_is_stopped(int index)
+{
+    int64_t flags;
+    int64_t mask = 0x0000000000000400;
+
+    try
+    {
+        flags = (int)torrents.at(index).handler.flags();
+
+        if ((flags & mask) == 1024)
+            return true;
+        else
+            return false;
+    }
+    catch (std::out_of_range)
+    {
+        std::cout << "Failed to fetch flags to determine if a torrent is stopped or not." << std::endl;
+
+        return false;
+    }
+}
+
+extern "C" void torrent_stop(int index)
+{
+    try
+    {
+        torrents.at(index).handler.unset_flags(lt::torrent_flags::auto_managed);
+        torrents.at(index).handler.unset_flags(lt::torrent_flags::paused);
+        torrents.at(index).handler.set_flags(lt::torrent_flags::stop_when_ready, lt::torrent_flags::stop_when_ready);
+    }
+    catch (std::out_of_range)
+    {
+        std::cout << "Failed to stop torrent." << std::endl;
+    }
+}
+
+// extern "C" void torrent_start(int index)
+// {
+//     try
+//     {
+//         torrents.at(index).handler.unset_flags(lt::torrent_flags::stop_when_ready);
+//         torrents.at(index).handler.unset_flags(lt::torrent_flags::paused);
+//         torrents.at(index).handler.set_flags(lt::torrent_flags::auto_managed, lt::torrent_flags::auto_managed);
+//     }
+//     catch (std::out_of_range)
+//     {
+//         std::cout << "Failed to start torrent." << std::endl;
+//     }
+// }
 
 extern "C" void torrent_remove(int index)
 {

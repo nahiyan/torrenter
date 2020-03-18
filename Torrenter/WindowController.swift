@@ -94,7 +94,16 @@ class WindowController: NSWindowController {
         }
     }
 
-    @IBAction func stop(_: Any) {}
+    @IBAction func stop(_: Any) {
+        let viewController: ViewController = window!.contentViewController as! ViewController
+        let selectedRow: Int = viewController.torrentsTable.selectedRow
+        let torrents: [Torrent] = viewController.torrents.arrangedObjects as! [Torrent]
+
+        if selectedRow != -1 {
+            let torrent: Torrent = torrents[selectedRow]
+            torrent.stop()
+        }
+    }
 
     @IBAction func remove(_: Any) {
         let viewController: ViewController = window!.contentViewController as! ViewController
