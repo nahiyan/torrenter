@@ -110,7 +110,7 @@ class ViewController: NSViewController {
         let pauseResumeButton: NSButton = windowController.pauseResumeButton
         let stopButton: NSButton = windowController.stopButton
         let removeButton: NSButton = windowController.removeButton
-        let progressColumnIndex: Int = torrentsTable.column(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "progress"))
+//        let progressColumnIndex: Int = torrentsTable.column(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "progress"))
 
         if torrentsTable.selectedRow != -1 {
             let torrent: Torrent = (torrents.arrangedObjects as! [Torrent])[torrentsTable.selectedRow]
@@ -134,10 +134,12 @@ class ViewController: NSViewController {
             removeButton.isEnabled = true
 
             // Progress indicator appearance
-            let progressIndicator: NSProgressIndicator = torrentsTable.view(atColumn: progressColumnIndex, row: torrentsTable.selectedRow, makeIfNecessary: false)!.subviews[0] as! NSProgressIndicator
+//            let progressIndicator: NSProgressIndicator = torrentsTable.view(atColumn: progressColumnIndex, row: torrentsTable.selectedRow, makeIfNecessary: false)!.subviews[0] as! NSProgressIndicator
+//
+//            resetProgressIndicators()
 
-            resetProgressIndicators()
-            progressIndicator.appearance = NSAppearance(named: .darkAqua)
+            // let contentFilter: CIFilter = CIFilter()
+            // progressIndicator.contentFilters.append(contentFilter)
 
             // Show details of the torrent
             showDetails()
@@ -148,19 +150,19 @@ class ViewController: NSViewController {
             hideDetails()
 
             // Reset progress indicator appearance
-            resetProgressIndicators()
+//            resetProgressIndicators()
         }
     }
 
-    func resetProgressIndicators() {
-        let progressColumnIndex: Int = torrentsTable.column(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "progress"))
-
-        for rowIndex in 0 ... (torrentsTable!.numberOfRows - 1) {
-            let progressIndicator: NSProgressIndicator = torrentsTable.view(atColumn: progressColumnIndex, row: rowIndex, makeIfNecessary: false)!.subviews[0] as! NSProgressIndicator
-
-            progressIndicator.appearance = NSAppearance(named: .aqua)
-        }
-    }
+//    func resetProgressIndicators() {
+//        let progressColumnIndex: Int = torrentsTable.column(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "progress"))
+//
+//        for rowIndex in 0 ... (torrentsTable!.numberOfRows - 1) {
+//            let progressIndicator: NSProgressIndicator = torrentsTable.view(atColumn: progressColumnIndex, row: rowIndex, makeIfNecessary: false)!.subviews[0] as! NSProgressIndicator
+//
+//            // progressIndicator.appearance = NSAppearance(named: .aqua)
+//        }
+//    }
 }
 
 extension ViewController {
