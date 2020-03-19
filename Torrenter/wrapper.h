@@ -59,6 +59,7 @@ struct TorrentInfo
     int active_duration;
     float total_wanted;
     float total_wanted_done;
+    const char *save_path;
 };
 
 #endif /* wrapper_h */

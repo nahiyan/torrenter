@@ -71,6 +71,9 @@ class ViewController: NSViewController {
             print("Error trying to read torrent resume files.")
         }
 
+        // Initial progress bar refresh
+        refreshProgressBars()
+
         // refresh the data periodically
         Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
             for torrent in self.torrents.arrangedObjects as! [Torrent] {
@@ -92,7 +95,6 @@ class ViewController: NSViewController {
         // Attach context menu
         initiateContextMenu()
         torrentsTable.menu = contextMenu
-        // torrentsTable.action = #selector(setupContextMenu)
     }
 
     override var representedObject: Any? {
@@ -110,7 +112,7 @@ class ViewController: NSViewController {
         let pauseResumeButton: NSButton = windowController.pauseResumeButton
         let stopButton: NSButton = windowController.stopButton
         let removeButton: NSButton = windowController.removeButton
-//        let progressColumnIndex: Int = torrentsTable.column(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "progress"))
+        let progressColumnIndex: Int = torrentsTable.column(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "progress"))
 
         if torrentsTable.selectedRow != -1 {
             let torrent: Torrent = (torrents.arrangedObjects as! [Torrent])[torrentsTable.selectedRow]
@@ -124,7 +126,7 @@ class ViewController: NSViewController {
             }
 
             // Stop button
-            if (torrent.isFinished && !torrent.isSeeding) || torrent.isStopped {
+            if torrent.isFinished, !torrent.isSeeding {
                 stopButton.isEnabled = false
             } else {
                 stopButton.isEnabled = true
@@ -134,12 +136,33 @@ class ViewController: NSViewController {
             removeButton.isEnabled = true
 
             // Progress indicator appearance
-//            let progressIndicator: NSProgressIndicator = torrentsTable.view(atColumn: progressColumnIndex, row: torrentsTable.selectedRow, makeIfNecessary: false)!.subviews[0] as! NSProgressIndicator
-//
-//            resetProgressIndicators()
+            // let progressIndicator: SimpleProgressBar = torrentsTable.view(atColumn: progressColumnIndex, row: torrentsTable.selectedRow, makeIfNecessary: false)!.subviews[0] as! SimpleProgressBar
 
-            // let contentFilter: CIFilter = CIFilter()
-            // progressIndicator.contentFilters.append(contentFilter)
+            resetProgressIndicators()
+
+            // progressIndicator.colorScheme = 1
+            // progressIndicator.needsDisplay = true
+
+            // var rowIndex: Int = 0
+            // for row in torrentsTable.subviews {
+            //     var colIndex: Int = 0
+            //     for column in row.subviews {
+            //         for child in column.subviews {
+            //             if (child as? SimpleProgressBar) != nil {
+            //                 // print((child as! SimpleProgressBar).progress)
+            //             }
+            //         }
+
+            //         colIndex += 1
+            //     }
+            //     rowIndex += 1
+            // }
+
+//            for rowIndex in 0...(torrentsTable.subviews.count - 1) {
+//                print(torrentsTable.subviews[rowIndex])
+//            }
+
+//            print((torrentsTable.subviews[0] as! NSTableRowView).subviews[2].subviews[0])
 
             // Show details of the torrent
             showDetails()
@@ -150,31 +173,48 @@ class ViewController: NSViewController {
             hideDetails()
 
             // Reset progress indicator appearance
-//            resetProgressIndicators()
+            resetProgressIndicators()
         }
     }
 
-//    func resetProgressIndicators() {
-//        let progressColumnIndex: Int = torrentsTable.column(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "progress"))
-//
-//        for rowIndex in 0 ... (torrentsTable!.numberOfRows - 1) {
-//            let progressIndicator: NSProgressIndicator = torrentsTable.view(atColumn: progressColumnIndex, row: rowIndex, makeIfNecessary: false)!.subviews[0] as! NSProgressIndicator
-//
-//            // progressIndicator.appearance = NSAppearance(named: .aqua)
-//        }
-//    }
+    func resetProgressIndicators() {
+        // let progressColumnIndex: Int = torrentsTable.column(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "progress"))
+
+        // for rowIndex in 0 ... (torrentsTable.numberOfRows - 1) {
+        //     let progressIndicator: SimpleProgressBar = torrentsTable.view(atColumn: progressColumnIndex, row: rowIndex, makeIfNecessary: false)!.subviews[0] as! SimpleProgressBar
+
+        //     progressIndicator.colorScheme = 0
+        //     progressIndicator.needsDisplay = true
+        // }
+    }
 }
 
 extension ViewController {
     func initiateContextMenu() {
         contextMenu.addItem(withTitle: "Pause", action: nil, keyEquivalent: "")
         contextMenu.addItem(withTitle: "Remove", action: nil, keyEquivalent: "")
+        contextMenu.addItem(NSMenuItem.separator())
+        contextMenu.addItem(withTitle: "Limit Download Rate", action: nil, keyEquivalent: "")
+        contextMenu.addItem(withTitle: "Limit Upload Rate", action: nil, keyEquivalent: "")
+        contextMenu.addItem(withTitle: "Limit Share Ratio", action: nil, keyEquivalent: "")
+        contextMenu.addItem(NSMenuItem.separator())
+        contextMenu.addItem(withTitle: "Download in Sequential Order", action: nil, keyEquivalent: "")
+        contextMenu.addItem(NSMenuItem.separator())
+        contextMenu.addItem(withTitle: "Force Recheck", action: nil, keyEquivalent: "")
+        contextMenu.addItem(withTitle: "Force Reannounce", action: nil, keyEquivalent: "")
+        contextMenu.addItem(NSMenuItem.separator())
+        contextMenu.addItem(withTitle: "Open Destination Directory", action: nil, keyEquivalent: "")
     }
 
     func reloadTorrentsTable() {
-        let selectedRow: Int = torrentsTable.selectedRow
+        let selectedRow = torrentsTable.selectedRow
+
+        // Reload table data and retain row selection
         torrentsTable.reloadData()
         torrentsTable.selectRowIndexes(IndexSet(integer: selectedRow), byExtendingSelection: false)
+
+        // Refresh progress bars
+        refreshProgressBars()
     }
 
     func hideDetails() {
@@ -196,6 +236,34 @@ extension ViewController {
 
         detailsView.subviews[0].isHidden = true
         refreshDetailsView()
+    }
+
+    func refreshProgressBars() {
+        // Refresh the progress bars
+        // for rowIndex in 0 ... (torrentsTable.numberOfRows - 1) {
+        //     let torrent: Torrent = (torrents.arrangedObjects as! [Torrent])[rowIndex]
+
+        //     let progressColumnIndex: Int = torrentsTable.column(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "progress"))
+
+        //     let progressBar: SimpleProgressBar = torrentsTable.view(atColumn: progressColumnIndex, row: rowIndex, makeIfNecessary: true)!.subviews[0] as! SimpleProgressBar
+
+        //     progressBar.progress = torrent.info.progress
+        //     progressBar.needsDisplay = true
+        // }
+
+        // var rowIndex: Int = 0
+        // for row in torrentsTable.subviews {
+        //     let torrent: Torrent = (torrents.arrangedObjects as! [Torrent])[rowIndex]
+        //     for column in row.subviews {
+        //         for child in column.subviews {
+        //             if let progressBar = child as? SimpleProgressBar {
+        //                 progressBar.progress = torrent.info.progress
+        //                 progressBar.needsDisplay = true
+        //             }
+        //         }
+        //     }
+        //     rowIndex += 1
+        // }
     }
 
     func refreshDetailsView() {

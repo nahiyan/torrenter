@@ -107,7 +107,7 @@ extern "C" void torrent_initiate_resume_data(const char *file_name)
     torrent.handler = torrent_session.add_torrent(params);
     torrent.name = torrent.handler.status().name;
 
-    torrent.handler.set_flags(lt::torrent_flags::sequential_download, lt::torrent_flags::sequential_download);
+    // torrent.handler.set_flags(lt::torrent_flags::sequential_download, lt::torrent_flags::sequential_download);
 
     // Insert torrent in the index-mapped list
     torrents.insert(std::pair<int, Torrent>(next_index, torrent));
@@ -130,6 +130,9 @@ extern "C" TorrentInfo torrent_get_info(int index)
 
         // Update the name of the torrent
         torrents.at(index).name = status.name;
+
+        // Update the save path of the torrent
+        torrents.at(index).save_path = status.save_path;
 
         TorrentInfo torrent_info;
         torrent_info.name = torrents.at(index).name.c_str();
@@ -154,6 +157,7 @@ extern "C" TorrentInfo torrent_get_info(int index)
         torrent_info.active_duration = (int)status.active_duration.count();
         torrent_info.total_wanted = (float)status.total_wanted;
         torrent_info.total_wanted_done = (float)status.total_wanted_done;
+        torrent_info.save_path = torrents.at(index).save_path.c_str();
 
         return torrent_info;
     }
@@ -194,16 +198,40 @@ extern "C" void torrent_resume(int index)
     }
 }
 
+extern "C" void torrent_force_recheck(int index)
+{
+    try
+    {
+        torrents.at(index).handler.force_recheck();
+    }
+    catch (std::out_of_range)
+    {
+        std::cout << "Failed to force recheck torrent." << std::endl;
+    }
+}
+
+extern "C" void torrent_force_reannounce(int index)
+{
+    try
+    {
+        torrents.at(index).handler.force_reannounce(0);
+    }
+    catch (std::out_of_range)
+    {
+        std::cout << "Failed to force reannounce torrent." << std::endl;
+    }
+}
+
 extern "C" bool torrent_is_paused(int index)
 {
     int64_t flags;
-    int64_t mask = 0x0000000000000001;
+    int64_t mask = 0x0000000000000010;
 
     try
     {
         flags = (int)torrents.at(index).handler.flags();
 
-        if (((flags >> 4) & mask) == 1)
+        if ((flags & mask) == mask)
             return true;
         else
             return false;
@@ -216,55 +244,48 @@ extern "C" bool torrent_is_paused(int index)
     }
 }
 
-extern "C" bool torrent_is_stopped(int index)
+extern "C" bool torrent_is_sequential(int index)
 {
     int64_t flags;
-    int64_t mask = 0x0000000000000400;
+    int64_t mask = 0x0000000000000200;
 
     try
     {
         flags = (int)torrents.at(index).handler.flags();
 
-        if ((flags & mask) == 1024)
+        if ((flags & mask) == mask)
             return true;
         else
             return false;
     }
     catch (std::out_of_range)
     {
-        std::cout << "Failed to fetch flags to determine if a torrent is stopped or not." << std::endl;
+        std::cout << "Failed to fetch flags to determine if a torrent is sequential or not." << std::endl;
 
         return false;
     }
 }
 
-extern "C" void torrent_stop(int index)
+extern "C" void torrent_sequential(int index, bool sequential)
 {
     try
     {
-        torrents.at(index).handler.unset_flags(lt::torrent_flags::auto_managed);
-        torrents.at(index).handler.unset_flags(lt::torrent_flags::paused);
-        torrents.at(index).handler.set_flags(lt::torrent_flags::stop_when_ready, lt::torrent_flags::stop_when_ready);
+        lt::torrent_handle &handler = torrents.at(index).handler;
+
+        if (sequential)
+        {
+            handler.set_flags(lt::torrent_flags::sequential_download, lt::torrent_flags::sequential_download);
+        }
+        else
+        {
+            handler.unset_flags(lt::torrent_flags::sequential_download);
+        }
     }
     catch (std::out_of_range)
     {
-        std::cout << "Failed to stop torrent." << std::endl;
+        std::cout << "Failed to set/unset torrent to sequential." << std::endl;
     }
 }
-
-// extern "C" void torrent_start(int index)
-// {
-//     try
-//     {
-//         torrents.at(index).handler.unset_flags(lt::torrent_flags::stop_when_ready);
-//         torrents.at(index).handler.unset_flags(lt::torrent_flags::paused);
-//         torrents.at(index).handler.set_flags(lt::torrent_flags::auto_managed, lt::torrent_flags::auto_managed);
-//     }
-//     catch (std::out_of_range)
-//     {
-//         std::cout << "Failed to start torrent." << std::endl;
-//     }
-// }
 
 extern "C" void torrent_remove(int index)
 {

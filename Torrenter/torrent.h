@@ -19,6 +19,7 @@ struct Torrent
 {
     lt::torrent_handle handler;
     std::string name;
+    std::string save_path;
     TorrentPieces pieces;
 };
 

@@ -19,7 +19,7 @@ class TorrentsTable: NSTableView {
             torrent = (viewController.torrents.arrangedObjects as! [Torrent])[torrentIndex]
             let contextMenu: NSMenu = viewController.contextMenu
 
-            // Play/pause item
+            // Play/pause item -> 0
             let playPauseItem: NSMenuItem? = contextMenu.item(at: 0)
             if torrent!.isPaused {
                 playPauseItem?.title = "Resume"
@@ -29,9 +29,41 @@ class TorrentsTable: NSTableView {
                 playPauseItem?.action = #selector(pauseTorrent)
             }
 
-            // Remove item
+            // Remove item -> 1
             let removeItem: NSMenuItem? = contextMenu.item(at: 1)
             removeItem?.action = #selector(removeTorrent)
+
+            // Separator -> 2
+            // Limit Download Rate -> 3
+            // Limit Upload Rate -> 4
+            // Limit Share Ratio -> 5
+            // Separator -> 6
+
+            // Download in sequential order -> 7
+            let downloadInSequentialOrderItem: NSMenuItem? = contextMenu.item(at: 7)
+
+            if torrent!.isSequential {
+                downloadInSequentialOrderItem?.state = .on
+            } else {
+                downloadInSequentialOrderItem?.state = .off
+            }
+            downloadInSequentialOrderItem?.action = #selector(downloadInSequentialOrder)
+
+            // Separator -> 8
+
+            // Force Recheck -> 9
+            let forceRecheckItem: NSMenuItem? = contextMenu.item(at: 9)
+            forceRecheckItem?.action = #selector(forceRecheckTorrent)
+
+            // Force Reannounce -> 10
+            let forceReannounceItem: NSMenuItem? = contextMenu.item(at: 10)
+            forceReannounceItem?.action = #selector(forceReannounceTorrent)
+
+            // Separator -> 11
+
+            // Open Destination Directory -> 12
+            let openDestDirItem: NSMenuItem? = contextMenu.item(at: 12)
+            openDestDirItem?.action = #selector(openDestDir)
         }
     }
 
@@ -52,5 +84,28 @@ class TorrentsTable: NSTableView {
 
     @objc func removeTorrent() {
         torrent!.remove()
+    }
+
+    @objc func downloadInSequentialOrder() {
+        if torrent!.isSequential {
+            torrent!.nonSequential()
+        } else {
+            torrent!.sequential()
+        }
+    }
+
+    @objc func forceRecheckTorrent() {
+        torrent!.forceRecheck()
+    }
+
+    @objc func forceReannounceTorrent() {
+        torrent!.forceReannounce()
+    }
+
+    @objc func openDestDir() {
+        let path: URL? = URL(fileURLWithPath: torrent!.savePath, isDirectory: true)
+        if path != nil {
+            print(NSWorkspace.shared.activateFileViewerSelecting([path!]))
+        }
     }
 }

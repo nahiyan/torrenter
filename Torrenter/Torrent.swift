@@ -166,6 +166,7 @@ class Torrent: NSObject {
     }
 
     @objc var progress: String {
+        // return info.progress
         return String(format: "%.1f%%", info.progress * 100)
     }
 
@@ -200,8 +201,28 @@ class Torrent: NSObject {
         return torrent_is_paused(Int32(index))
     }
 
-    @objc var isStopped: Bool {
-        return torrent_is_stopped(Int32(index))
+    @objc var savePath: String {
+        return String(cString: info.save_path)
+    }
+
+    @objc var isSequential: Bool {
+        return torrent_is_sequential(Int32(index))
+    }
+
+    func sequential() {
+        torrent_sequential(Int32(index), true)
+    }
+
+    func nonSequential() {
+        torrent_sequential(Int32(index), false)
+    }
+
+    func forceRecheck() {
+        torrent_force_recheck(Int32(index))
+    }
+
+    func forceReannounce() {
+        torrent_force_reannounce(Int32(index))
     }
 
     func pause() {
@@ -216,14 +237,6 @@ class Torrent: NSObject {
         let viewController: ViewController = NSApplication.shared.mainWindow!.contentViewController as! ViewController
 
         torrent_resume(Int32(index))
-
-        viewController.updateActionButtonsAndDetailsView()
-    }
-
-    func stop() {
-        let viewController: ViewController = NSApplication.shared.mainWindow!.contentViewController as! ViewController
-
-        torrent_stop(Int32(index))
 
         viewController.updateActionButtonsAndDetailsView()
     }
