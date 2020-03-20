@@ -35,7 +35,11 @@ class TorrentsTable: NSTableView {
 
             // Separator -> 2
             // Limit Download Rate -> 3
+
             // Limit Upload Rate -> 4
+            let limitUploadRateItem: NSMenuItem? = contextMenu.item(at: 4)
+            limitUploadRateItem?.action = #selector(limitUploadRate)
+
             // Limit Share Ratio -> 5
             // Separator -> 6
 
@@ -107,5 +111,24 @@ class TorrentsTable: NSTableView {
         if path != nil {
             print(NSWorkspace.shared.activateFileViewerSelecting([path!]))
         }
+    }
+
+    @objc func limitUploadRate() {
+        let viewController: ViewController = NSApplication.shared.mainWindow!.contentViewController as! ViewController
+
+        let torrent: Torrent = (viewController.torrents.arrangedObjects as! [Torrent])[clickedRow]
+
+        // Let the user enter a Magnet URI
+        let storyboard: NSStoryboard = NSApplication.shared.mainWindow!.windowController!.storyboard!
+        let uploadRateLimitWindowController = storyboard.instantiateController(withIdentifier: "uploadRateLimitWindowController") as! NSWindowController
+        let uploadRateLimitWindow: NSWindow = uploadRateLimitWindowController.window!
+
+        NSApplication.shared.mainWindow!.beginSheet(uploadRateLimitWindow, completionHandler: { (response: NSApplication.ModalResponse) -> Void in
+            if response == .OK {
+                let uploadRateLimit: Int32 = (uploadRateLimitWindow.contentViewController as! UploadRateLimitViewController).uploadRateLimit.intValue
+
+                torrent_set_upload_rate_limit(Int32(torrent.index), uploadRateLimit)
+            }
+        })
     }
 }

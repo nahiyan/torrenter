@@ -477,3 +477,16 @@ extern "C" void spawn_alert_monitor()
 {
     alert_monitor = std::make_shared<std::thread>(monitor_alerts);
 }
+
+extern "C" void torrent_set_upload_rate_limit(int index, int upload_rate_limit)
+{
+    try
+    {
+        Torrent torrent = torrents.at(index);
+        torrent.handler.set_upload_limit(upload_rate_limit);
+    }
+    catch (std::out_of_range)
+    {
+        std::cout << "Failed to set upload rate limit." << std::endl;
+    }
+}

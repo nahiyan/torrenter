@@ -53,9 +53,9 @@ class ViewController: NSViewController {
         let resumeDataDir: URL = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library", isDirectory: true).appendingPathComponent("Application Support", isDirectory: true).appendingPathComponent("Torrenter", isDirectory: true).appendingPathComponent("resume_files", isDirectory: true)
 
         do {
-            let contents: [String] = try FileManager.default.contentsOfDirectory(atPath: resumeDataDir.relativePath)
+            let resumeFileNames: [String] = try FileManager.default.contentsOfDirectory(atPath: resumeDataDir.relativePath)
 
-            for resumeFileName in contents {
+            for resumeFileName in resumeFileNames {
                 let fileNameComponents: [String] = resumeFileName.components(separatedBy: ".")
 
                 if fileNameComponents[fileNameComponents.count - 1] == "resume" {
@@ -79,10 +79,10 @@ class ViewController: NSViewController {
             for torrent in self.torrents.arrangedObjects as! [Torrent] {
                 torrent.fetchInfo()
             }
+
             self.reloadTorrentsTable()
             self.refreshDetailsView()
 
-            // pause_session()
             save_all_resume_data()
         }
 
@@ -112,7 +112,6 @@ class ViewController: NSViewController {
         let pauseResumeButton: NSButton = windowController.pauseResumeButton
         let stopButton: NSButton = windowController.stopButton
         let removeButton: NSButton = windowController.removeButton
-        let progressColumnIndex: Int = torrentsTable.column(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "progress"))
 
         if torrentsTable.selectedRow != -1 {
             let torrent: Torrent = (torrents.arrangedObjects as! [Torrent])[torrentsTable.selectedRow]
@@ -135,57 +134,20 @@ class ViewController: NSViewController {
             // Remove button
             removeButton.isEnabled = true
 
-            // Progress indicator appearance
-            // let progressIndicator: SimpleProgressBar = torrentsTable.view(atColumn: progressColumnIndex, row: torrentsTable.selectedRow, makeIfNecessary: false)!.subviews[0] as! SimpleProgressBar
-
-            resetProgressIndicators()
-
-            // progressIndicator.colorScheme = 1
-            // progressIndicator.needsDisplay = true
-
-            // var rowIndex: Int = 0
-            // for row in torrentsTable.subviews {
-            //     var colIndex: Int = 0
-            //     for column in row.subviews {
-            //         for child in column.subviews {
-            //             if (child as? SimpleProgressBar) != nil {
-            //                 // print((child as! SimpleProgressBar).progress)
-            //             }
-            //         }
-
-            //         colIndex += 1
-            //     }
-            //     rowIndex += 1
-            // }
-
-//            for rowIndex in 0...(torrentsTable.subviews.count - 1) {
-//                print(torrentsTable.subviews[rowIndex])
-//            }
-
-//            print((torrentsTable.subviews[0] as! NSTableRowView).subviews[2].subviews[0])
-
             // Show details of the torrent
             showDetails()
+
+            // Force refresh to reduce delay of change of progress bar color scheme after selection
+            refreshProgressBars()
         } else {
             windowController.deactivateButtons()
 
             // Hide details of the torrent
             hideDetails()
 
-            // Reset progress indicator appearance
-            resetProgressIndicators()
+            // Force refresh to reduce delay of change of progress bar color scheme after deselection
+            refreshProgressBars()
         }
-    }
-
-    func resetProgressIndicators() {
-        // let progressColumnIndex: Int = torrentsTable.column(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "progress"))
-
-        // for rowIndex in 0 ... (torrentsTable.numberOfRows - 1) {
-        //     let progressIndicator: SimpleProgressBar = torrentsTable.view(atColumn: progressColumnIndex, row: rowIndex, makeIfNecessary: false)!.subviews[0] as! SimpleProgressBar
-
-        //     progressIndicator.colorScheme = 0
-        //     progressIndicator.needsDisplay = true
-        // }
     }
 }
 
@@ -240,30 +202,16 @@ extension ViewController {
 
     func refreshProgressBars() {
         // Refresh the progress bars
-        // for rowIndex in 0 ... (torrentsTable.numberOfRows - 1) {
-        //     let torrent: Torrent = (torrents.arrangedObjects as! [Torrent])[rowIndex]
+        for rowIndex in 0 ... (torrentsTable.numberOfRows - 1) {
+            let torrent: Torrent = (torrents.arrangedObjects as! [Torrent])[rowIndex]
 
-        //     let progressColumnIndex: Int = torrentsTable.column(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "progress"))
+            let progressColumnIndex: Int = torrentsTable.column(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "progress"))
 
-        //     let progressBar: SimpleProgressBar = torrentsTable.view(atColumn: progressColumnIndex, row: rowIndex, makeIfNecessary: true)!.subviews[0] as! SimpleProgressBar
+            let progressBar: SimpleProgressBar = torrentsTable.view(atColumn: progressColumnIndex, row: rowIndex, makeIfNecessary: true)!.subviews[0] as! SimpleProgressBar
 
-        //     progressBar.progress = torrent.info.progress
-        //     progressBar.needsDisplay = true
-        // }
-
-        // var rowIndex: Int = 0
-        // for row in torrentsTable.subviews {
-        //     let torrent: Torrent = (torrents.arrangedObjects as! [Torrent])[rowIndex]
-        //     for column in row.subviews {
-        //         for child in column.subviews {
-        //             if let progressBar = child as? SimpleProgressBar {
-        //                 progressBar.progress = torrent.info.progress
-        //                 progressBar.needsDisplay = true
-        //             }
-        //         }
-        //     }
-        //     rowIndex += 1
-        // }
+            progressBar.progress = torrent.info.progress
+            progressBar.needsDisplay = true
+        }
     }
 
     func refreshDetailsView() {

@@ -62,23 +62,23 @@ class Torrent: NSObject {
             let data: Data = UnitConversion.dataAuto(Float(info.download_limit))
 
             if data.unit == "MB" || data.unit == "GB" || data.unit == "TB" {
-                return String(format: "%.2f %@", data.value, data.unit)
+                return String(format: "%.2f %@/s", data.value, data.unit)
             } else {
-                return String(format: "%.0f %@", data.value, data.unit)
+                return String(format: "%.0f %@/s", data.value, data.unit)
             }
         }
     }
 
     @objc var uploadLimit: String {
-        if info.download_limit == -1 {
+        if info.upload_limit == -1 {
             return "\u{221E}"
         } else {
             let data: Data = UnitConversion.dataAuto(Float(info.upload_limit))
 
             if data.unit == "MB" || data.unit == "GB" || data.unit == "TB" {
-                return String(format: "%.2f %@", data.value, data.unit)
+                return String(format: "%.2f %@/s", data.value, data.unit)
             } else {
-                return String(format: "%.0f %@", data.value, data.unit)
+                return String(format: "%.0f %@/s", data.value, data.unit)
             }
         }
     }
@@ -149,9 +149,9 @@ class Torrent: NSObject {
         let data: Data = UnitConversion.dataAuto(Float(info.download_rate))
 
         if data.unit == "MB" || data.unit == "GB" || data.unit == "TB" {
-            return String(format: "%.2f %@", data.value, data.unit + "/s")
+            return String(format: "%.2f %@/s", data.value, data.unit)
         } else {
-            return String(format: "%.0f %@", data.value, data.unit + "/s")
+            return String(format: "%.0f %@/s", data.value, data.unit)
         }
     }
 
@@ -159,9 +159,9 @@ class Torrent: NSObject {
         let data: Data = UnitConversion.dataAuto(Float(info.upload_rate))
 
         if data.unit == "MB" || data.unit == "GB" || data.unit == "TB" {
-            return String(format: "%.2f %@", data.value, data.unit + "/s")
+            return String(format: "%.2f %@/s", data.value, data.unit)
         } else {
-            return String(format: "%.0f %@", data.value, data.unit + "/s")
+            return String(format: "%.0f %@/s", data.value, data.unit)
         }
     }
 
