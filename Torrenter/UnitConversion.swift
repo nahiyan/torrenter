@@ -24,13 +24,27 @@ class UnitConversion {
         if value < kilobyte {
             return Data(value, "B")
         } else if value >= kilobyte, value < megabyte {
-            return Data(value / kilobyte, "KB")
+            return Data(value / kilobyte, "kB")
         } else if value >= megabyte, value < gigabyte {
             return Data(value / megabyte, "MB")
         } else if value >= gigabyte, value < terabyte {
             return Data(value / gigabyte, "GB")
         } else {
             return Data(value / terabyte, "TB")
+        }
+    }
+
+    static func dataAutoDiscrete(_ value: Float) -> Data {
+        if value < kilobyte {
+            return Data(value.rounded(), "B")
+        } else if value >= kilobyte, value < megabyte {
+            return Data((value / kilobyte).rounded(), "kB")
+        } else if value >= megabyte, value < gigabyte {
+            return Data((value / megabyte).rounded(), "MB")
+        } else if value >= gigabyte, value < terabyte {
+            return Data((value / gigabyte).rounded(), "GB")
+        } else {
+            return Data((value / terabyte).rounded(), "TB")
         }
     }
 
@@ -137,6 +151,21 @@ class UnitConversion {
                     return Time(years, "year")
                 }
             }
+        }
+    }
+
+    static func getBytes(_ data: Data) -> Int {
+        switch data.unit {
+        case "B":
+            return Int(data.value)
+        case "kB":
+            return Int(data.value * kilobyte)
+        case "MB":
+            return Int(data.value * megabyte)
+        case "GB":
+            return Int(data.value * gigabyte)
+        default:
+            return Int(data.value * terabyte)
         }
     }
 }

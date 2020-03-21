@@ -70,7 +70,7 @@ class Torrent: NSObject {
     }
 
     @objc var uploadLimit: String {
-        if info.upload_limit == -1 {
+        if info.upload_limit <= 0 {
             return "\u{221E}"
         } else {
             let data: Data = UnitConversion.dataAuto(Float(info.upload_limit))

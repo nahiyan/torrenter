@@ -10,9 +10,10 @@ import Cocoa
 
 class UploadRateLimitViewController: NSViewController {
     @IBOutlet var uploadRateLimit: NSTextField!
-    @IBOutlet weak var uploadRateLimitUnit: NSPopUpButton!
+    @IBOutlet var uploadRateLimitUnit: NSPopUpButton!
     @IBOutlet var unlimited: NSButton!
-    
+    var limit: Int32 = 0
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
@@ -21,12 +22,26 @@ class UploadRateLimitViewController: NSViewController {
 
         let torrent: Torrent = (viewController.torrents.arrangedObjects as! [Torrent])[viewController.torrentsTable.clickedRow]
 
-        if torrent.info.upload_limit == -1 {
+        if limit <= 0 {
             uploadRateLimit.isEnabled = false
+            uploadRateLimitUnit.isEnabled = false
             unlimited.state = .on
         } else {
             uploadRateLimit.isEnabled = true
-            uploadRateLimit.intValue = Int32(torrent.info.upload_limit)
+            uploadRateLimitUnit.isEnabled = true
+
+            let data: Data = UnitConversion.dataAutoDiscrete(Float(limit))
+            uploadRateLimit.intValue = Int32(data.value)
+
+            switch data.unit {
+            case "B":
+                uploadRateLimitUnit.selectItem(at: 0)
+            case "kB":
+                uploadRateLimitUnit.selectItem(at: 1)
+            default:
+                uploadRateLimitUnit.selectItem(at: 2)
+            }
+
             unlimited.state = .off
         }
     }
@@ -43,8 +58,10 @@ class UploadRateLimitViewController: NSViewController {
     @IBAction func unlimitedToggle(_: Any) {
         if unlimited.state == .on {
             uploadRateLimit.isEnabled = false
+            uploadRateLimitUnit.isEnabled = false
         } else {
             uploadRateLimit.isEnabled = true
+            uploadRateLimitUnit.isEnabled = true
         }
     }
 
