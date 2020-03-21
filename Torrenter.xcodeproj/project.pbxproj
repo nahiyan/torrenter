@@ -24,7 +24,7 @@
 		4D8FAB152404FE240008E2A0 /* PersistentContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8FAB142404FE240008E2A0 /* PersistentContainer.swift */; };
 		4D9B035223FC3CC3000C9DF5 /* wrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4D9B035123FC3CC3000C9DF5 /* wrapper.cpp */; };
 		4D9B035823FC446F000C9DF5 /* include in Resources */ = {isa = PBXBuildFile; fileRef = 4D9B035723FC446F000C9DF5 /* include */; };
-		4DAF791724250D8B00837630 /* UploadRateLimitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAF791624250D8B00837630 /* UploadRateLimitViewController.swift */; };
+		4DAF791724250D8B00837630 /* RateLimitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAF791624250D8B00837630 /* RateLimitViewController.swift */; };
 		4DC31F72241CC0C600C06C54 /* CompoundProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC31F71241CC0C600C06C54 /* CompoundProgressBar.swift */; };
 		4DE46F5D240D77C70082847C /* Torrent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE46F5C240D77C70082847C /* Torrent.swift */; };
 		4DF409BD2422099F007A7863 /* SimpleProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF409BC2422099F007A7863 /* SimpleProgressBar.swift */; };
@@ -77,7 +77,7 @@
 		4D9B035023FC3CC3000C9DF5 /* Torrenter-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Torrenter-Bridging-Header.h"; sourceTree = "<group>"; };
 		4D9B035123FC3CC3000C9DF5 /* wrapper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = wrapper.cpp; sourceTree = "<group>"; };
 		4D9B035723FC446F000C9DF5 /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; path = include; sourceTree = "<group>"; };
-		4DAF791624250D8B00837630 /* UploadRateLimitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadRateLimitViewController.swift; sourceTree = "<group>"; };
+		4DAF791624250D8B00837630 /* RateLimitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateLimitViewController.swift; sourceTree = "<group>"; };
 		4DC31F71241CC0C600C06C54 /* CompoundProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompoundProgressBar.swift; sourceTree = "<group>"; };
 		4DE46F5C240D77C70082847C /* Torrent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Torrent.swift; sourceTree = "<group>"; };
 		4DF409BC2422099F007A7863 /* SimpleProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleProgressBar.swift; sourceTree = "<group>"; };
@@ -143,7 +143,7 @@
 			children = (
 				4D35832B23F9A25500C3662D /* Main.storyboard */,
 				4DF409BC2422099F007A7863 /* SimpleProgressBar.swift */,
-				4DAF791624250D8B00837630 /* UploadRateLimitViewController.swift */,
+				4DAF791624250D8B00837630 /* RateLimitViewController.swift */,
 				4D1D86252420BEC600556AE2 /* TorrentsTable.swift */,
 				4D35832523F9A25200C3662D /* AppDelegate.swift */,
 				4D35832723F9A25200C3662D /* ViewController.swift */,
@@ -322,7 +322,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D8FAB152404FE240008E2A0 /* PersistentContainer.swift in Sources */,
-				4DAF791724250D8B00837630 /* UploadRateLimitViewController.swift in Sources */,
+				4DAF791724250D8B00837630 /* RateLimitViewController.swift in Sources */,
 				4D357C3124018DF00033494E /* UnitConversion.swift in Sources */,
 				4DE46F5D240D77C70082847C /* Torrent.swift in Sources */,
 				4D35832823F9A25200C3662D /* ViewController.swift in Sources */,

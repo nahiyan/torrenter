@@ -116,58 +116,54 @@ class TorrentsTable: NSTableView {
         }
     }
 
-    @objc func limitUploadRate() {
+    @objc func limitRate(isDownloadRate: Bool) {
         let viewController: ViewController = NSApplication.shared.mainWindow!.contentViewController as! ViewController
 
         let torrent: Torrent = (viewController.torrents.arrangedObjects as! [Torrent])[clickedRow]
 
         let storyboard: NSStoryboard = NSApplication.shared.mainWindow!.windowController!.storyboard!
-        let uploadRateLimitWindowController = storyboard.instantiateController(withIdentifier: "uploadRateLimitWindowController") as! NSWindowController
-        let uploadRateLimitWindow: NSWindow = uploadRateLimitWindowController.window!
-        (uploadRateLimitWindow.contentViewController as! UploadRateLimitViewController).limit = torrent.info.upload_limit
+        let uploadRateLimitWindowController = storyboard.instantiateController(withIdentifier: "rateLimitWindowController") as! NSWindowController
+        let rateLimitWindow: NSWindow = uploadRateLimitWindowController.window!
 
-        NSApplication.shared.mainWindow!.beginSheet(uploadRateLimitWindow, completionHandler: { (response: NSApplication.ModalResponse) -> Void in
+        // Set the rate limit of the view controller
+        let rateLimitViewController: RateLimitViewController = (rateLimitWindow.contentViewController as! RateLimitViewController)
+        if isDownloadRate {
+            rateLimitViewController.limit = torrent.info.download_limit
+        } else {
+            rateLimitViewController.limit = torrent.info.upload_limit
+        }
+
+        NSApplication.shared.mainWindow!.beginSheet(rateLimitWindow, completionHandler: { (response: NSApplication.ModalResponse) -> Void in
             if response == .OK {
-                let uploadRateLimit: Float = (uploadRateLimitWindow.contentViewController as! UploadRateLimitViewController).uploadRateLimit.floatValue
-                let uploadRateLimitUnit: String = (uploadRateLimitWindow.contentViewController as! UploadRateLimitViewController).uploadRateLimitUnit.selectedItem!.title
-                let unlimited: Bool = (uploadRateLimitWindow.contentViewController as! UploadRateLimitViewController).unlimited.state == .on
+                let rateLimit: Float = (rateLimitWindow.contentViewController as! RateLimitViewController).rateLimit.floatValue
+                let rateLimitUnit: String = (rateLimitWindow.contentViewController as! RateLimitViewController).rateLimitUnit.selectedItem!.title
+                let isUnlimited: Bool = (rateLimitWindow.contentViewController as! RateLimitViewController).isUnlimited.state == .on
 
-                let uploadRateLimitUnitModified: String = String(uploadRateLimitUnit[..<uploadRateLimitUnit.lastIndex(of: "/")!])
-                let uploadRateLimitInBytes: Int = UnitConversion.getBytes(Data(uploadRateLimit, uploadRateLimitUnitModified))
+                let rateLimitUnitModified: String = String(rateLimitUnit[..<rateLimitUnit.lastIndex(of: "/")!])
+                let rateLimitInBytes: Int = UnitConversion.getBytes(Data(rateLimit, rateLimitUnitModified))
 
-                if unlimited {
-                    torrent_set_upload_rate_limit(Int32(torrent.index), -1)
+                if isUnlimited {
+                    if isDownloadRate {
+                        torrent_set_download_rate_limit(Int32(torrent.index), -1)
+                    } else {
+                        torrent_set_upload_rate_limit(Int32(torrent.index), -1)
+                    }
                 } else {
-                    torrent_set_upload_rate_limit(Int32(torrent.index), Int32(uploadRateLimitInBytes))
+                    if isDownloadRate {
+                        torrent_set_download_rate_limit(Int32(torrent.index), Int32(rateLimitInBytes))
+                    } else {
+                        torrent_set_upload_rate_limit(Int32(torrent.index), Int32(rateLimitInBytes))
+                    }
                 }
             }
         })
     }
 
     @objc func limitDownloadRate() {
-        let viewController: ViewController = NSApplication.shared.mainWindow!.contentViewController as! ViewController
+        limitRate(isDownloadRate: true)
+    }
 
-        let torrent: Torrent = (viewController.torrents.arrangedObjects as! [Torrent])[clickedRow]
-
-        let storyboard: NSStoryboard = NSApplication.shared.mainWindow!.windowController!.storyboard!
-        let uploadRateLimitWindowController = storyboard.instantiateController(withIdentifier: "uploadRateLimitWindowController") as! NSWindowController
-        let uploadRateLimitWindow: NSWindow = uploadRateLimitWindowController.window!
-
-        NSApplication.shared.mainWindow!.beginSheet(uploadRateLimitWindow, completionHandler: { (response: NSApplication.ModalResponse) -> Void in
-            if response == .OK {
-                let uploadRateLimit: Float = (uploadRateLimitWindow.contentViewController as! UploadRateLimitViewController).uploadRateLimit.floatValue
-                let uploadRateLimitUnit: String = (uploadRateLimitWindow.contentViewController as! UploadRateLimitViewController).uploadRateLimitUnit.selectedItem!.title
-                let unlimited: Bool = (uploadRateLimitWindow.contentViewController as! UploadRateLimitViewController).unlimited.state == .on
-
-                let uploadRateLimitUnitModified: String = String(uploadRateLimitUnit[..<uploadRateLimitUnit.lastIndex(of: "/")!])
-                let uploadRateLimitInBytes: Int = UnitConversion.getBytes(Data(uploadRateLimit, uploadRateLimitUnitModified))
-
-                if unlimited {
-                    torrent_set_upload_rate_limit(Int32(torrent.index), -1)
-                } else {
-                    torrent_set_upload_rate_limit(Int32(torrent.index), Int32(uploadRateLimitInBytes))
-                }
-            }
-        })
+    @objc func limitUploadRate() {
+        limitRate(isDownloadRate: false)
     }
 }

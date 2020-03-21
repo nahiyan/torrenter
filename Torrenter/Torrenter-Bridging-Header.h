@@ -27,4 +27,5 @@ bool torrent_is_sequential(int);
 void torrent_sequential(int, bool);
 void torrent_force_recheck(int);
 void torrent_force_reannounce(int);
+void torrent_set_download_rate_limit(int, int);
 void torrent_set_upload_rate_limit(int, int);
