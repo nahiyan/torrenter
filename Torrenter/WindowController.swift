@@ -61,19 +61,24 @@ class WindowController: NSWindowController {
         let magnetUriWindowController = storyboard!.instantiateController(withIdentifier: "magnetUriWindowController") as! NSWindowController
         let magnetUriWindow: NSWindow = magnetUriWindowController.window!
 
-        NSApplication.shared.mainWindow!.beginSheet(magnetUriWindow, completionHandler: { (_) -> Void in
-            let magnetUri: String = (magnetUriWindow.contentViewController as! MagnetUriViewController).magnetUriTextArea.string
-            if !torrent_exists_from_magnet_uri(magnetUri) {
-                // Initiate the torrent
-                torrent_initiate_magnet_uri(magnetUri, savePath, false)
+        NSApplication.shared.mainWindow!.beginSheet(magnetUriWindow, completionHandler: { (response: NSApplication.ModalResponse) -> Void in
+            if response == .OK {
+                let magnetUri: String = (magnetUriWindow.contentViewController as! MagnetUriViewController).magnetUriTextArea.string
 
-                // Add torrent to the table
-                let torrent: Torrent = Torrent(Int(torrent_next_index() - 1))
-                viewController.torrents.addObject(torrent)
+                if magnetUri.count >= 1 {
+                    if !torrent_exists_from_magnet_uri(magnetUri) {
+                        // Initiate the torrent
+                        torrent_initiate_magnet_uri(magnetUri, savePath, false)
 
-                viewController.reloadTorrentsTable()
-            } else {
-                print("Torrent already exists")
+                        // Add torrent to the table
+                        let torrent: Torrent = Torrent(Int(torrent_next_index() - 1))
+                        viewController.torrents.addObject(torrent)
+
+                        viewController.reloadTorrentsTable()
+                    } else {
+                        print("Torrent already exists")
+                    }
+                }
             }
         })
     }
@@ -94,9 +99,7 @@ class WindowController: NSWindowController {
         }
     }
 
-    @IBAction func stop(_: Any) {
-        
-    }
+    @IBAction func stop(_: Any) {}
 
     @IBAction func remove(_: Any) {
         let viewController: ViewController = window!.contentViewController as! ViewController

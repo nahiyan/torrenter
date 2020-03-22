@@ -9,9 +9,8 @@
 import Cocoa
 
 class MagnetUriViewController: NSViewController {
-    
     @IBOutlet var magnetUriTextArea: NSTextView!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -21,11 +20,11 @@ class MagnetUriViewController: NSViewController {
     }
 
     @IBAction func cancel(_: Any) {
-        endSheet()
+        endSheet(.cancel)
     }
 
-    private func endSheet() {
+    private func endSheet(_ returnCode: NSApplication.ModalResponse = .OK) {
         let window: NSWindow = view.window!
-        NSApplication.shared.mainWindow!.endSheet(window)
+        NSApplication.shared.mainWindow!.endSheet(window, returnCode: returnCode)
     }
 }
