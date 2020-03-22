@@ -2042,7 +2042,7 @@ Gw
                 </viewController>
                 <customObject id="v5F-bd-KLQ" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="509.5" y="-679"/>
+            <point key="canvasLocation" x="459" y="-553"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="OnT-KD-PvH">
