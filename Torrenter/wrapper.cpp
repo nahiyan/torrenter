@@ -456,13 +456,21 @@ void monitor_alerts()
             {
                 lt::save_resume_data_alert const *srd_alert = lt::alert_cast<lt::save_resume_data_alert>(alert);
 
-                std::string name = srd_alert->handle.status(lt::torrent_handle::query_name).name;
+                try
+                {
+                    std::string name = srd_alert->handle.status(lt::torrent_handle::query_name).name;
 
-                std::string resume_file = app_data_dir + "/resume_files/" + name + ".resume";
+                    std::string resume_file = app_data_dir + "/resume_files/" + name + ".resume";
 
-                std::ofstream out(resume_file, std::ios_base::binary);
-                std::vector<char> buf = lt::write_resume_data_buf(srd_alert->params);
-                out.write(buf.data(), buf.size());
+                    // Write resume file
+                    std::ofstream out(resume_file, std::ios_base::binary);
+                    std::vector<char> buf = lt::write_resume_data_buf(srd_alert->params);
+                    out.write(buf.data(), buf.size());
+                }
+                catch (...)
+                {
+                    std::cout << "Unknown exception caught." << std::endl;
+                }
 
                 break;
             }
