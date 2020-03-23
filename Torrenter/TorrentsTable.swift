@@ -112,7 +112,7 @@ class TorrentsTable: NSTableView {
     @objc func openDestDir() {
         let path: URL? = URL(fileURLWithPath: torrent!.savePath, isDirectory: true)
         if path != nil {
-            print(NSWorkspace.shared.activateFileViewerSelecting([path!]))
+            NSWorkspace.shared.activateFileViewerSelecting([path!])
         }
     }
 

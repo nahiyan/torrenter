@@ -14,6 +14,7 @@
 #include <chrono>
 #include <thread>
 #include <memory>
+#include <cstdio>
 
 #include "torrent.h"
 #include "wrapper.h"
@@ -106,8 +107,6 @@ extern "C" void torrent_initiate_resume_data(const char *file_name)
     Torrent torrent;
     torrent.handler = torrent_session.add_torrent(params);
     torrent.name = torrent.handler.status().name;
-
-    // torrent.handler.set_flags(lt::torrent_flags::sequential_download, lt::torrent_flags::sequential_download);
 
     // Insert torrent in the index-mapped list
     torrents.insert(std::pair<int, Torrent>(next_index, torrent));
@@ -440,6 +439,54 @@ extern "C" void set_app_data_dir(const char *dir)
     app_data_dir = std::string(dir);
 }
 
+char hex_encode_int(uint8_t value)
+{
+    if (value >= 0 && value <= 9)
+        return value + 48;
+    else if (value >= 10 && value <= 15)
+        return value + 87;
+    else
+        return '0';
+}
+
+std::string hex_encode_sha1_hash(lt::sha1_hash hash)
+{
+    std::string encoded_hash;
+
+    // Right-most-bit mask
+    uint32_t rmb_mask = 0x00000001;
+
+    // Each 4 bits of the byte is represented by a uint8_t
+    uint8_t byte_integers[2];
+
+    // SHA1 hash byte
+    uint32_t hash_byte;
+
+    // Loop through the bytes of the hash (20 in total), converting each byte to 2 hex chars
+    for (auto it = hash.begin(); it != hash.end(); it++)
+    {
+        hash_byte = *it;
+
+        for (int j = 1; j >= 0; j--)
+        {
+            byte_integers[j] = 0;
+
+            for (int i = 0; i < 4; i++)
+            {
+                if (hash_byte & rmb_mask)
+                    byte_integers[j] += pow(2, i);
+
+                hash_byte = hash_byte >> 1;
+            }
+        }
+
+        encoded_hash += hex_encode_int(byte_integers[0]);
+        encoded_hash += hex_encode_int(byte_integers[1]);
+    }
+
+    return encoded_hash;
+}
+
 void monitor_alerts()
 {
     while (true)
@@ -458,9 +505,9 @@ void monitor_alerts()
 
                 try
                 {
-                    std::string name = srd_alert->handle.status(lt::torrent_handle::query_name).name;
+                    std::string encoded_hash = hex_encode_sha1_hash(srd_alert->handle.info_hash());
 
-                    std::string resume_file = app_data_dir + "/resume_files/" + name + ".resume";
+                    std::string resume_file = app_data_dir + "/resume_files/" + encoded_hash + ".resume";
 
                     // Write resume file
                     std::ofstream out(resume_file, std::ios_base::binary);
