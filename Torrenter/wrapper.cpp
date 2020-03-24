@@ -286,13 +286,79 @@ extern "C" void torrent_sequential(int index, bool sequential)
     }
 }
 
+char hex_encode_int(uint8_t value)
+{
+    if (value >= 0 && value <= 9)
+        return value + 48;
+    else if (value >= 10 && value <= 15)
+        return value + 87;
+    else
+        return '0';
+}
+
+std::string hex_encode_sha1_hash(lt::sha1_hash hash)
+{
+    std::string encoded_hash;
+
+    // Right-most-bit mask
+    uint32_t rmb_mask = 0x00000001;
+
+    // Each 4 bits of the byte is represented by a uint8_t
+    uint8_t byte_integers[2];
+
+    // SHA1 hash byte
+    uint32_t hash_byte;
+
+    // Loop through the bytes of the hash (20 in total), converting each byte to 2 hex chars
+    for (auto it = hash.begin(); it != hash.end(); it++)
+    {
+        hash_byte = *it;
+
+        for (int j = 1; j >= 0; j--)
+        {
+            byte_integers[j] = 0;
+
+            for (int i = 0; i < 4; i++)
+            {
+                if (hash_byte & rmb_mask)
+                    byte_integers[j] += pow(2, i);
+
+                hash_byte = hash_byte >> 1;
+            }
+        }
+
+        encoded_hash += hex_encode_int(byte_integers[0]);
+        encoded_hash += hex_encode_int(byte_integers[1]);
+    }
+
+    return encoded_hash;
+}
+
 extern "C" void torrent_remove(int index)
 {
     try
     {
         lt::torrent_handle &handler = torrents.at(index).handler;
+
+        // Remove torrent from session
         torrent_session.remove_torrent(handler);
+
+        // Remove torrent from unordered map
         torrents.erase(index);
+
+        // Remove resume data of torrent
+        std::string encoded_hash = hex_encode_sha1_hash(handler.info_hash());
+
+        std::string resume_file = app_data_dir + "/resume_files/" + encoded_hash + ".resume";
+
+        std::ifstream infile(resume_file);
+        if (infile.good())
+        {
+            if (std::remove(resume_file.c_str()) != 0)
+            {
+                std::cout << "Failed to remove resume file." << std::endl;
+            }
+        }
     }
     catch (std::out_of_range)
     {
@@ -437,54 +503,6 @@ extern "C" void save_all_resume_data()
 extern "C" void set_app_data_dir(const char *dir)
 {
     app_data_dir = std::string(dir);
-}
-
-char hex_encode_int(uint8_t value)
-{
-    if (value >= 0 && value <= 9)
-        return value + 48;
-    else if (value >= 10 && value <= 15)
-        return value + 87;
-    else
-        return '0';
-}
-
-std::string hex_encode_sha1_hash(lt::sha1_hash hash)
-{
-    std::string encoded_hash;
-
-    // Right-most-bit mask
-    uint32_t rmb_mask = 0x00000001;
-
-    // Each 4 bits of the byte is represented by a uint8_t
-    uint8_t byte_integers[2];
-
-    // SHA1 hash byte
-    uint32_t hash_byte;
-
-    // Loop through the bytes of the hash (20 in total), converting each byte to 2 hex chars
-    for (auto it = hash.begin(); it != hash.end(); it++)
-    {
-        hash_byte = *it;
-
-        for (int j = 1; j >= 0; j--)
-        {
-            byte_integers[j] = 0;
-
-            for (int i = 0; i < 4; i++)
-            {
-                if (hash_byte & rmb_mask)
-                    byte_integers[j] += pow(2, i);
-
-                hash_byte = hash_byte >> 1;
-            }
-        }
-
-        encoded_hash += hex_encode_int(byte_integers[0]);
-        encoded_hash += hex_encode_int(byte_integers[1]);
-    }
-
-    return encoded_hash;
 }
 
 void monitor_alerts()

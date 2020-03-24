@@ -31,6 +31,16 @@ class ViewController: NSViewController {
     @IBOutlet var activeDuration: NSTextField!
     @IBOutlet var timeRemaining: NSTextField!
 
+    @IBOutlet var totalSize: NSTextField!
+    @IBOutlet var addedOn: NSTextField!
+    @IBOutlet var torrentHash: NSTextField!
+    @IBOutlet var savePath: NSTextField!
+    @IBOutlet var comment: NSTextField!
+    @IBOutlet var pieces: NSTextField!
+    @IBOutlet var completedOn: NSTextField!
+    @IBOutlet var createdBy: NSTextField!
+    @IBOutlet var createdOn: NSTextField!
+
     let contextMenu: NSMenu = NSMenu()
 
     override func viewDidLoad() {
@@ -271,6 +281,9 @@ extension ViewController {
 
             // time remaining
             timeRemaining.stringValue = torrent.timeRemaining
+
+            // total size
+            totalSize.stringValue = "Fuck you all!"
         }
     }
 }

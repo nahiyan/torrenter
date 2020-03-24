@@ -248,7 +248,7 @@ class Torrent: NSObject {
         // Remove torrent from array
         viewController.torrents.removeObject(self)
 
-        // Remove torrent from unordered map
+        // Remove torrent from session and unordered map along with its resume data
         torrent_remove(Int32(index))
 
         // Reset table selection

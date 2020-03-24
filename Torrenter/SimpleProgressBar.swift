@@ -26,48 +26,19 @@ class SimpleProgressBar: NSView {
 
         let context: CGContext = NSGraphicsContext.current!.cgContext
 
-        if let row: NSTableRowView = superview?.superview as? NSTableRowView {
-//            if !row.isSelected {
-//                // Background
-//                context.setFillColor(CGColor(red: 1, green: 1, blue: 1, alpha: 1))
-//                context.fill(dirtyRect)
-//
-//                // Foreground
-//                context.setFillColor(CGColor(red: 0, green: 0, blue: 1, alpha: 1))
-//                let foreground: CGRect = CGRect(x: 0, y: 0, width: CGFloat(progress) * dirtyRect.width, height: dirtyRect.height)
-//                context.fill(foreground)
-//
-//                // Border
-//                context.setStrokeColor(CGColor(red: 0, green: 0, blue: 1, alpha: 1))
-//                context.stroke(dirtyRect, width: 2)
-//            } else {
-//                // Background
-//                context.setFillColor(CGColor(red: 1, green: 1, blue: 1, alpha: 0))
-//                context.fill(dirtyRect)
-//
-//                // Foreground
-//                context.setFillColor(CGColor(red: 1, green: 1, blue: 1, alpha: 1))
-//                let foreground: CGRect = CGRect(x: 0, y: 0, width: CGFloat(progress) * dirtyRect.width, height: dirtyRect.height)
-//                context.fill(foreground)
-//
-//                // Border
-//                context.setStrokeColor(CGColor(red: 1, green: 1, blue: 1, alpha: 1))
-//                context.stroke(dirtyRect, width: 2)
-//            }
+        // Background
+        context.setFillColor(CGColor(red: 1, green: 1, blue: 1, alpha: 1))
+        context.fill(dirtyRect)
 
-            // Background
-            context.setFillColor(CGColor(red: 1, green: 1, blue: 1, alpha: 1))
-            context.fill(dirtyRect)
+        // Foreground
+        context.setFillColor(CGColor(red: 0, green: 0, blue: 0.8, alpha: 1))
+        let foreground: CGRect = CGRect(x: 0, y: 0, width: CGFloat(progress) * dirtyRect.width, height: 3)
+        context.fill(foreground)
 
-            // Foreground
-            context.setFillColor(CGColor(red: 0, green: 0, blue: 0.8, alpha: 1))
-            let foreground: CGRect = CGRect(x: 0, y: 0, width: CGFloat(progress) * dirtyRect.width, height: 3)
-            context.fill(foreground)
-
-            // Border
-            context.setStrokeColor(CGColor(red: 0, green: 0, blue: 0, alpha: 0.5))
-            context.stroke(dirtyRect, width: 2)
-        }
+        // Border
+        context.setStrokeColor(CGColor(red: 0, green: 0, blue: 0, alpha: 0.5))
+        context.stroke(dirtyRect, width: 2)
+        
 
         // Draw text
         let progressText: NSString = String(format: "%.1f%%", progress * 100) as NSString
