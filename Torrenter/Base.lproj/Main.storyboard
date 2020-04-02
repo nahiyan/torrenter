@@ -301,22 +301,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="884" height="777"/>
                         <autoresizingMask key="autoresizingMask" heightSizable="YES"/>
                         <subviews>
-                            <splitView arrangesAllSubviews="NO" dividerStyle="thin" id="XG3-c8-Aec">
+                            <splitView arrangesAllSubviews="NO" dividerStyle="thin" translatesAutoresizingMaskIntoConstraints="NO" id="XG3-c8-Aec">
                                 <rect key="frame" x="0.0" y="0.0" width="884" height="777"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <customView misplaced="YES" id="U5v-MD-BZe">
                                         <rect key="frame" x="0.0" y="0.0" width="884" height="322"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="42" horizontalPageScroll="10" verticalLineScroll="42" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YZL-Dr-LLM">
-                                                <rect key="frame" x="0.0" y="0.0" width="884" height="40"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="884" height="272"/>
                                                 <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="WIk-hN-1dM">
-                                                    <rect key="frame" x="0.0" y="0.0" width="884" height="25"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="884" height="257"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="T2g-f2-nPs" viewBased="YES" id="Yd5-Gp-9Lo" customClass="TorrentsTable" customModule="Torrenter" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="0.0" width="1123" height="25"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="1123" height="232"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <size key="intercellSpacing" width="5" height="25"/>
                                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -665,7 +664,7 @@
                                                     <nil key="backgroundColor"/>
                                                 </clipView>
                                                 <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="7h2-aA-qot">
-                                                    <rect key="frame" x="0.0" y="25" width="884" height="15"/>
+                                                    <rect key="frame" x="0.0" y="257" width="884" height="15"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </scroller>
                                                 <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="jWP-1o-fdl">
@@ -690,13 +689,13 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VxH-DR-j9F">
-                                                <rect key="frame" x="0.0" y="0.0" width="884" height="736"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="884" height="504"/>
                                                 <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="hPO-Rs-DqS">
-                                                    <rect key="frame" x="0.0" y="0.0" width="884" height="736"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="884" height="504"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <view translatesAutoresizingMaskIntoConstraints="NO" id="VDW-pg-iar" customClass="TorrentDetailsContainer" customModule="Torrenter" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="297" width="884" height="439"/>
+                                                            <rect key="frame" x="0.0" y="65" width="884" height="439"/>
                                                             <subviews>
                                                                 <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pTR-EX-Hyi">
                                                                     <rect key="frame" x="349" y="202" width="186" height="35"/>
@@ -1687,7 +1686,7 @@
                                                                                         <rect key="frame" x="-23" y="-81" width="884" height="278"/>
                                                                                         <clipView key="contentView" copiesOnScroll="NO" id="mWY-gI-5Za">
                                                                                             <rect key="frame" x="0.0" y="0.0" width="884" height="278"/>
-                                                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                                            <autoresizingMask key="autoresizingMask"/>
                                                                                             <subviews>
                                                                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="25" rowSizeStyle="automatic" headerView="RUo-l7-Psx" viewBased="YES" id="HNz-a9-NLI">
                                                                                                     <rect key="frame" x="0.0" y="0.0" width="884" height="253"/>
