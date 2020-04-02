@@ -17,6 +17,7 @@
 #include <cstdio>
 
 #include "torrent.h"
+#include "peer_info.h"
 #include "wrapper.h"
 #include "libtorrent/entry.hpp"
 #include "libtorrent/bencode.hpp"
@@ -37,6 +38,8 @@ std::unordered_map<int, Torrent> torrents;
 int next_index = 0;
 std::shared_ptr<std::thread> alert_monitor;
 std::string app_data_dir;
+std::vector<lt::peer_info> peers;
+std::vector<PeerInfo_> peer_infos;
 
 // Number of torrents loaded in memory
 extern "C" int torrent_count()
@@ -167,6 +170,54 @@ extern "C" TorrentInfo torrent_get_info(int index)
         TorrentInfo torrent_info;
         return torrent_info;
     }
+}
+
+// Fetch list of peers
+extern "C" void torrent_fetch_peers(int index)
+{
+    try
+    {
+        lt::torrent_handle &handler = torrents.at(index).handler;
+
+        handler.get_peer_info(peers);
+
+        peer_infos.clear();
+
+        for (auto it = peers.begin(); it != peers.end(); it++)
+        {
+            PeerInfo_ peer_info = PeerInfo_();
+            peer_info.ip_address = it->ip.address().to_string();
+            peer_infos.push_back(peer_info);
+        }
+    }
+    catch (std::out_of_range)
+    {
+        std::cout << "Failed to fetch torrent peers." << index << std::endl;
+    }
+}
+
+extern "C" PeerInfo torrent_get_peer_info(int peer_index)
+{
+    try
+    {
+        PeerInfo_ &peer_info = peer_infos.at(peer_index);
+
+        PeerInfo peer_info2 = PeerInfo();
+        peer_info2.ip_address = peer_info.ip_address.c_str();
+
+        return peer_info2;
+    }
+    catch (std::out_of_range)
+    {
+        std::cout << "Failed to fetch peer of torrent." << std::endl;
+
+        return PeerInfo();
+    }
+}
+
+extern "C" int torrent_peers_count()
+{
+    return peers.size();
 }
 
 extern "C" void torrent_pause(int index)

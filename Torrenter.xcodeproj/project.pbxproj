@@ -22,6 +22,7 @@
 		4D8FAB152404FE240008E2A0 /* PersistentContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8FAB142404FE240008E2A0 /* PersistentContainer.swift */; };
 		4D9B035223FC3CC3000C9DF5 /* wrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4D9B035123FC3CC3000C9DF5 /* wrapper.cpp */; };
 		4D9B035823FC446F000C9DF5 /* include in Resources */ = {isa = PBXBuildFile; fileRef = 4D9B035723FC446F000C9DF5 /* include */; };
+		4DACB792242A2C9200732E64 /* Peer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DACB791242A2C9200732E64 /* Peer.swift */; };
 		4DAF791724250D8B00837630 /* RateLimitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAF791624250D8B00837630 /* RateLimitViewController.swift */; };
 		4DC31F72241CC0C600C06C54 /* CompoundProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC31F71241CC0C600C06C54 /* CompoundProgressBar.swift */; };
 		4DE46F5D240D77C70082847C /* Torrent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE46F5C240D77C70082847C /* Torrent.swift */; };
@@ -73,6 +74,8 @@
 		4D9B035023FC3CC3000C9DF5 /* Torrenter-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Torrenter-Bridging-Header.h"; sourceTree = "<group>"; };
 		4D9B035123FC3CC3000C9DF5 /* wrapper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = wrapper.cpp; sourceTree = "<group>"; };
 		4D9B035723FC446F000C9DF5 /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; path = include; sourceTree = "<group>"; };
+		4DACB78E242A111700732E64 /* peer_info.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = peer_info.h; sourceTree = "<group>"; };
+		4DACB791242A2C9200732E64 /* Peer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Peer.swift; sourceTree = "<group>"; };
 		4DAF791624250D8B00837630 /* RateLimitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateLimitViewController.swift; sourceTree = "<group>"; };
 		4DC31F71241CC0C600C06C54 /* CompoundProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompoundProgressBar.swift; sourceTree = "<group>"; };
 		4DE46F5C240D77C70082847C /* Torrent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Torrent.swift; sourceTree = "<group>"; };
@@ -159,6 +162,8 @@
 				4D8FAB112404FAC20008E2A0 /* Model.xcdatamodeld */,
 				4D35832923F9A25500C3662D /* Assets.xcassets */,
 				4D9B035723FC446F000C9DF5 /* include */,
+				4DACB78E242A111700732E64 /* peer_info.h */,
+				4DACB791242A2C9200732E64 /* Peer.swift */,
 			);
 			path = Torrenter;
 			sourceTree = "<group>";
@@ -315,6 +320,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DACB792242A2C9200732E64 /* Peer.swift in Sources */,
 				4D8FAB152404FE240008E2A0 /* PersistentContainer.swift in Sources */,
 				4DAF791724250D8B00837630 /* RateLimitViewController.swift in Sources */,
 				4D357C3124018DF00033494E /* UnitConversion.swift in Sources */,

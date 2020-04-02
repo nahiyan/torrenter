@@ -13,6 +13,9 @@ class ViewController: NSViewController {
     @IBOutlet var torrentsTable: NSTableView!
     var container: NSPersistentContainer!
 
+    @IBOutlet var peers: NSArrayController!
+    @IBOutlet var peersTable: NSTableView!
+
     @IBOutlet var piecesProgress: CompoundProgressBar!
     @IBOutlet var progressPercentage: NSTextField!
 
@@ -24,8 +27,8 @@ class ViewController: NSViewController {
     @IBOutlet var shareRatio: NSTextField!
     @IBOutlet var uploaded: NSTextField!
     @IBOutlet var reannounceIn: NSTextField!
-    @IBOutlet var seeds: NSTextField!
-    @IBOutlet var peers: NSTextField!
+    @IBOutlet var seedsCount: NSTextField!
+    @IBOutlet var peersCount: NSTextField!
     @IBOutlet var connections: NSTextField!
     @IBOutlet var wasted: NSTextField!
     @IBOutlet var activeDuration: NSTextField!
@@ -40,6 +43,9 @@ class ViewController: NSViewController {
     @IBOutlet var completedOn: NSTextField!
     @IBOutlet var createdBy: NSTextField!
     @IBOutlet var createdOn: NSTextField!
+
+    @IBOutlet var tabView: NSTabView!
+    @IBOutlet var generalView: NSView!
 
     let contextMenu: NSMenu = NSMenu()
 
@@ -86,13 +92,39 @@ class ViewController: NSViewController {
 
         // refresh the data periodically
         Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
+            // Fetch torrent info
             for torrent in self.torrents.arrangedObjects as! [Torrent] {
                 torrent.fetchInfo()
             }
 
+            // Reload torrents table
             self.reloadTorrentsTable()
+
+            // Refresh details view
             self.refreshDetailsView()
 
+            // Fetch peers for the selected torrent
+            if self.torrentsTable.selectedRow != -1 {
+                let torrent: Torrent = (self.torrents.arrangedObjects as! [Torrent])[self.torrentsTable.selectedRow]
+
+                torrent_fetch_peers(Int32(torrent.index))
+
+                // Clear the current array
+                for peer in self.peers.arrangedObjects as! [Peer] {
+                    self.peers.removeObject(peer)
+                }
+
+                // Repopulate the array
+                for peer_index in 0 ..< torrent_peers_count() {
+                    let peer: Peer = Peer(Int(peer_index), torrent_get_peer_info(Int32(peer_index)))
+                    self.peers.addObject(peer)
+                }
+
+                // Reload the peers table
+                self.reloadPeersTable()
+            }
+
+            // Save resume data of all torrents (if necessary)
             save_all_resume_data()
         }
 
@@ -189,6 +221,14 @@ extension ViewController {
         refreshProgressBars()
     }
 
+    func reloadPeersTable() {
+        let selectedRow = peersTable.selectedRow
+
+        // Reload table data and retain row selection
+        peersTable.reloadData()
+        peersTable.selectRowIndexes(IndexSet(integer: selectedRow), byExtendingSelection: false)
+    }
+
     func hideDetails() {
         let detailsView = view.subviews[0].subviews[1]
 
@@ -265,10 +305,10 @@ extension ViewController {
             reannounceIn.stringValue = torrent.nextAnnounce
 
             // seeds
-            seeds.stringValue = torrent.seeds
+            seedsCount.stringValue = torrent.seeds
 
             // peers
-            peers.stringValue = torrent.peers
+            peersCount.stringValue = torrent.peers
 
             // wasted
             wasted.stringValue = torrent.wasted
@@ -284,6 +324,9 @@ extension ViewController {
 
             // total size
             totalSize.stringValue = "Fuck you all!"
+
+//            print(torrent_peers_count())
+            // print(String(cString: torrent_get_peer_info(0).ip_address))
         }
     }
 }

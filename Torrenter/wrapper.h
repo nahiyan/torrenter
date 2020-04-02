@@ -62,4 +62,9 @@ struct TorrentInfo
     const char *save_path;
 };
 
+struct PeerInfo
+{
+    const char* ip_address;
+};
+
 #endif /* wrapper_h */
