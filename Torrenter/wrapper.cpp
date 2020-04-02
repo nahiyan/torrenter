@@ -217,7 +217,7 @@ extern "C" PeerInfo torrent_get_peer_info(int peer_index)
 
 extern "C" int torrent_peers_count()
 {
-    return peers.size();
+    return (int) peers.size();
 }
 
 extern "C" void torrent_pause(int index)

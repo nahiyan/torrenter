@@ -44,8 +44,8 @@ class ViewController: NSViewController {
     @IBOutlet var createdBy: NSTextField!
     @IBOutlet var createdOn: NSTextField!
 
-    @IBOutlet var tabView: NSTabView!
-    @IBOutlet var generalView: NSView!
+    @IBOutlet var torrentDetails: NSTabView!
+    @IBOutlet var noSelectionIndicator: NSTextField!
 
     let contextMenu: NSMenu = NSMenu()
 
@@ -230,23 +230,14 @@ extension ViewController {
     }
 
     func hideDetails() {
-        let detailsView = view.subviews[0].subviews[1]
-
-        for _view in detailsView.subviews {
-            _view.isHidden = true
-        }
-
-        detailsView.subviews[0].isHidden = false
+        noSelectionIndicator.isHidden = false
+        torrentDetails.isHidden = true
     }
 
     func showDetails() {
-        let detailsView = view.subviews[0].subviews[1]
+        noSelectionIndicator.isHidden = true
+        torrentDetails.isHidden = false
 
-        for _view in detailsView.subviews {
-            _view.isHidden = false
-        }
-
-        detailsView.subviews[0].isHidden = true
         refreshDetailsView()
     }
 
