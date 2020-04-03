@@ -170,6 +170,14 @@ class Torrent: NSObject {
         return String(format: "%.1f%%", info.progress * 100)
     }
 
+    @objc var downloadProgress: String {
+        return String(format: "%.1f%%", (info.total_wanted_done / info.total_wanted) * 100)
+    }
+
+    @objc var infoHash: String {
+        return String(cString: info.info_hash)
+    }
+
     @objc var status: String {
         var status: String
 
@@ -210,11 +218,19 @@ class Torrent: NSObject {
     }
 
     func sequential() {
+        let viewController: ViewController = NSApplication.shared.mainWindow!.contentViewController as! ViewController
+
         torrent_sequential(Int32(index), true)
+
+        viewController.updateActionButtonsAndDetailsView()
     }
 
     func nonSequential() {
+        let viewController: ViewController = NSApplication.shared.mainWindow!.contentViewController as! ViewController
+
         torrent_sequential(Int32(index), false)
+
+        viewController.updateActionButtonsAndDetailsView()
     }
 
     func forceRecheck() {

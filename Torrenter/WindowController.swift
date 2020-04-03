@@ -12,6 +12,7 @@ class WindowController: NSWindowController {
     @IBOutlet var pauseResumeButton: NSButton!
     @IBOutlet var stopButton: NSButton!
     @IBOutlet var removeButton: NSButton!
+    @IBOutlet var sequentialDownloadToggleButton: NSButton!
 
     override func windowDidLoad() {
         super.windowDidLoad()
@@ -112,11 +113,28 @@ class WindowController: NSWindowController {
         }
     }
 
+    @IBAction func toggleSequentialDownload(_: Any) {
+        let viewController: ViewController = window!.contentViewController as! ViewController
+        let selectedRow: Int = viewController.torrentsTable.selectedRow
+        let torrents: [Torrent] = viewController.torrents.arrangedObjects as! [Torrent]
+
+        if selectedRow != -1 {
+            let torrent: Torrent = torrents[selectedRow]
+            if torrent.isSequential {
+                torrent.nonSequential()
+            } else {
+                torrent.sequential()
+            }
+        }
+    }
+
     func deactivateButtons() {
         pauseResumeButton.isEnabled = false
         stopButton.isEnabled = false
         removeButton.isEnabled = false
+        sequentialDownloadToggleButton.isEnabled = false
 
         pauseResumeButton.image = NSImage(named: "play")
+        sequentialDownloadToggleButton.image = NSImage(named: "sort_ascend")
     }
 }

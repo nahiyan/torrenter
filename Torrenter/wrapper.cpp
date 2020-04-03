@@ -122,6 +122,54 @@ extern "C" void pause_session()
     torrent_session.pause();
 }
 
+char hex_encode_int(uint8_t value)
+{
+    if (value >= 0 && value <= 9)
+        return value + 48;
+    else if (value >= 10 && value <= 15)
+        return value + 87;
+    else
+        return '0';
+}
+
+std::string hex_encode_sha1_hash(lt::sha1_hash hash)
+{
+    std::string encoded_hash;
+
+    // Right-most-bit mask
+    uint32_t rmb_mask = 0x00000001;
+
+    // Each 4 bits of the byte is represented by a uint8_t
+    uint8_t byte_integers[2];
+
+    // SHA1 hash byte
+    uint32_t hash_byte;
+
+    // Loop through the bytes of the hash (20 in total), converting each byte to 2 hex chars
+    for (auto it = hash.begin(); it != hash.end(); it++)
+    {
+        hash_byte = *it;
+
+        for (int j = 1; j >= 0; j--)
+        {
+            byte_integers[j] = 0;
+
+            for (int i = 0; i < 4; i++)
+            {
+                if (hash_byte & rmb_mask)
+                    byte_integers[j] += pow(2, i);
+
+                hash_byte = hash_byte >> 1;
+            }
+        }
+
+        encoded_hash += hex_encode_int(byte_integers[0]);
+        encoded_hash += hex_encode_int(byte_integers[1]);
+    }
+
+    return encoded_hash;
+}
+
 // Get torrent struct representing the torrent itself
 extern "C" TorrentInfo torrent_get_info(int index)
 {
@@ -136,6 +184,9 @@ extern "C" TorrentInfo torrent_get_info(int index)
         // Update the save path of the torrent
         torrents.at(index).save_path = status.save_path;
 
+        // Update the info hash
+        torrents.at(index).info_hash = hex_encode_sha1_hash(handler.info_hash());
+
         TorrentInfo torrent_info;
         torrent_info.name = torrents.at(index).name.c_str();
         torrent_info.is_seeding = status.is_seeding;
@@ -145,7 +196,7 @@ extern "C" TorrentInfo torrent_get_info(int index)
         torrent_info.num_peers = status.num_peers;
         torrent_info.list_seeds = status.list_seeds;
         torrent_info.list_peers = status.list_peers;
-        torrent_info.size = status.total;
+        torrent_info.size = status.total_wanted;
         torrent_info.downloaded = status.total_done;
         torrent_info.uploaded = status.all_time_upload;
         torrent_info.next_announce = (int)std::chrono::duration_cast<std::chrono::seconds>(status.next_announce).count();
@@ -160,6 +211,7 @@ extern "C" TorrentInfo torrent_get_info(int index)
         torrent_info.total_wanted = (float)status.total_wanted;
         torrent_info.total_wanted_done = (float)status.total_wanted_done;
         torrent_info.save_path = torrents.at(index).save_path.c_str();
+        torrent_info.info_hash = torrents.at(index).info_hash.c_str();
 
         return torrent_info;
     }
@@ -217,7 +269,7 @@ extern "C" PeerInfo torrent_get_peer_info(int peer_index)
 
 extern "C" int torrent_peers_count()
 {
-    return (int) peers.size();
+    return (int)peers.size();
 }
 
 extern "C" void torrent_pause(int index)
@@ -335,54 +387,6 @@ extern "C" void torrent_sequential(int index, bool sequential)
     {
         std::cout << "Failed to set/unset torrent to sequential." << std::endl;
     }
-}
-
-char hex_encode_int(uint8_t value)
-{
-    if (value >= 0 && value <= 9)
-        return value + 48;
-    else if (value >= 10 && value <= 15)
-        return value + 87;
-    else
-        return '0';
-}
-
-std::string hex_encode_sha1_hash(lt::sha1_hash hash)
-{
-    std::string encoded_hash;
-
-    // Right-most-bit mask
-    uint32_t rmb_mask = 0x00000001;
-
-    // Each 4 bits of the byte is represented by a uint8_t
-    uint8_t byte_integers[2];
-
-    // SHA1 hash byte
-    uint32_t hash_byte;
-
-    // Loop through the bytes of the hash (20 in total), converting each byte to 2 hex chars
-    for (auto it = hash.begin(); it != hash.end(); it++)
-    {
-        hash_byte = *it;
-
-        for (int j = 1; j >= 0; j--)
-        {
-            byte_integers[j] = 0;
-
-            for (int i = 0; i < 4; i++)
-            {
-                if (hash_byte & rmb_mask)
-                    byte_integers[j] += pow(2, i);
-
-                hash_byte = hash_byte >> 1;
-            }
-        }
-
-        encoded_hash += hex_encode_int(byte_integers[0]);
-        encoded_hash += hex_encode_int(byte_integers[1]);
-    }
-
-    return encoded_hash;
 }
 
 extern "C" void torrent_remove(int index)

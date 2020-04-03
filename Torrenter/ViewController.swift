@@ -154,6 +154,7 @@ class ViewController: NSViewController {
         let pauseResumeButton: NSButton = windowController.pauseResumeButton
         let stopButton: NSButton = windowController.stopButton
         let removeButton: NSButton = windowController.removeButton
+        let sequentialDownloadToggleButton: NSButton = windowController.sequentialDownloadToggleButton
 
         if torrentsTable.selectedRow != -1 {
             let torrent: Torrent = (torrents.arrangedObjects as! [Torrent])[torrentsTable.selectedRow]
@@ -175,6 +176,14 @@ class ViewController: NSViewController {
 
             // Remove button
             removeButton.isEnabled = true
+
+            // Sequential-download toggle button
+            sequentialDownloadToggleButton.isEnabled = true
+            if torrent.isSequential {
+                sequentialDownloadToggleButton.image = NSImage(named: "sort_ascend_active")
+            } else {
+                sequentialDownloadToggleButton.image = NSImage(named: "sort_ascend")
+            }
 
             // Show details of the torrent
             showDetails()
@@ -265,11 +274,7 @@ extension ViewController {
             piecesProgress.needsDisplay = true
 
             // progress percentage
-            if torrent.status == "Downloading" || torrent.status == "Finished" || torrent.status == "Seeding" {
-                progressPercentage.stringValue = torrent.progress
-            } else {
-                progressPercentage.stringValue = "0.0%"
-            }
+            progressPercentage.stringValue = torrent.downloadProgress
 
             // downloaded
             downloaded.stringValue = torrent.downloaded
@@ -314,10 +319,10 @@ extension ViewController {
             timeRemaining.stringValue = torrent.timeRemaining
 
             // total size
-            totalSize.stringValue = "Fuck you all!"
+            totalSize.stringValue = torrent.size
 
-//            print(torrent_peers_count())
-            // print(String(cString: torrent_get_peer_info(0).ip_address))
+            // torrent hash
+            torrentHash.stringValue = torrent.infoHash
         }
     }
 }

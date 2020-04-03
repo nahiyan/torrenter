@@ -20,6 +20,7 @@ struct Torrent
     lt::torrent_handle handler;
     std::string name;
     std::string save_path;
+    std::string info_hash;
     TorrentPieces pieces;
 };
 

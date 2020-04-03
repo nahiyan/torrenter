@@ -60,6 +60,7 @@ struct TorrentInfo
     float total_wanted;
     float total_wanted_done;
     const char *save_path;
+    const char *info_hash;
 };
 
 struct PeerInfo
