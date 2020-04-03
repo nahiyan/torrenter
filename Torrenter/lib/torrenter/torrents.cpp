@@ -16,9 +16,9 @@
 #include <memory>
 #include <cstdio>
 
-#include "torrent.h"
-#include "peer_info.h"
-#include "wrapper.h"
+#include "../../include/torrenter/torrent.h"
+#include "../../include/torrenter/wrapper.h"
+#include "../../include/torrenter/peer_info.h"
 #include "libtorrent/entry.hpp"
 #include "libtorrent/bencode.hpp"
 #include "libtorrent/session.hpp"
