@@ -26,6 +26,7 @@
 		4D35833923F9A25500C3662D /* TorrenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D35833823F9A25500C3662D /* TorrenterTests.swift */; };
 		4D35834423F9A25500C3662D /* TorrenterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D35834323F9A25500C3662D /* TorrenterUITests.swift */; };
 		4D6033512414D44000349F07 /* Model.xcdatamodeld in Resources */ = {isa = PBXBuildFile; fileRef = 4D8FAB112404FAC20008E2A0 /* Model.xcdatamodeld */; };
+		4D71243D2438F4FC0016615C /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D71243C2438F4FC0016615C /* TestView.swift */; };
 		4D9B035823FC446F000C9DF5 /* include in Resources */ = {isa = PBXBuildFile; fileRef = 4D9B035723FC446F000C9DF5 /* include */; };
 /* End PBXBuildFile section */
 
@@ -72,6 +73,7 @@
 		4D35833F23F9A25500C3662D /* TorrenterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TorrenterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D35834323F9A25500C3662D /* TorrenterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TorrenterUITests.swift; sourceTree = "<group>"; };
 		4D35834523F9A25500C3662D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4D71243C2438F4FC0016615C /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TestView.swift; path = views/TestView.swift; sourceTree = "<group>"; };
 		4D8FAB122404FAC20008E2A0 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		4D9B034F23FC3BE4000C9DF5 /* Torrenter.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Torrenter.entitlements; sourceTree = "<group>"; };
 		4D9B035723FC446F000C9DF5 /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; path = include; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				4D35832B23F9A25500C3662D /* Main.storyboard */,
+				4D71243C2438F4FC0016615C /* TestView.swift */,
 				4D22661E24373F9D00107520 /* torrents.cpp */,
 				4D22661D24373F9D00107520 /* UnitConversion.swift */,
 				4D22661524373F9500107520 /* MagnetUriViewController.swift */,
@@ -311,6 +314,7 @@
 			files = (
 				4D22660624373F7A00107520 /* PersistentContainer.swift in Sources */,
 				4D22660824373F8100107520 /* AppDelegate.swift in Sources */,
+				4D71243D2438F4FC0016615C /* TestView.swift in Sources */,
 				4D22660B24373F8700107520 /* Torrent.swift in Sources */,
 				4D22660C24373F8700107520 /* Peer.swift in Sources */,
 				4D22661124373F8F00107520 /* TorrentDetailsContainer.swift in Sources */,

@@ -2,7 +2,7 @@
 //  Use this file to import your target's public headers that you would like to expose to Swift.
 //
 
-#include "wrapper.h"
+#include "torrents.h"
 
 int torrent_initiate(const char *, const char *, bool);
 int torrent_initiate_magnet_uri(const char *, const char *, bool);

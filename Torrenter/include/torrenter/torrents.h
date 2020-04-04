@@ -43,6 +43,11 @@ struct TorrentInfo
     bool is_seeding;
     int num_seeds;
     int num_peers;
+    int num_pieces;
+    int num_pieces_total;
+    const char *comment;
+    const char *creator;
+    int piece_size;
     int list_seeds;
     int list_peers;
     float size;
@@ -65,7 +70,7 @@ struct TorrentInfo
 
 struct PeerInfo
 {
-    const char* ip_address;
+    const char *ip_address;
 };
 
 #endif /* wrapper_h */

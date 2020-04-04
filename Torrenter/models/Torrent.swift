@@ -178,6 +178,20 @@ class Torrent: NSObject {
         return String(cString: info.info_hash)
     }
 
+    @objc var comment: String {
+        return String(cString: info.comment)
+    }
+
+    @objc var creator: String {
+        return String(cString: info.creator)
+    }
+
+    @objc var pieces: String {
+        let pieceSize: Data = UnitConversion.dataAutoDiscrete(Float(info.piece_size))
+
+        return String(format: "%d x %.0f " + pieceSize.unit + " (have %d)", info.num_pieces_total, pieceSize.value, info.num_pieces)
+    }
+
     @objc var status: String {
         var status: String
 

@@ -17,7 +17,7 @@
 #include <cstdio>
 
 #include "../../include/torrenter/torrent.h"
-#include "../../include/torrenter/wrapper.h"
+#include "../../include/torrenter/torrents.h"
 #include "../../include/torrenter/peer_info.h"
 #include "libtorrent/entry.hpp"
 #include "libtorrent/bencode.hpp"
@@ -194,6 +194,11 @@ extern "C" TorrentInfo torrent_get_info(int index)
         torrent_info.progress = status.progress;
         torrent_info.num_seeds = status.num_seeds;
         torrent_info.num_peers = status.num_peers;
+        torrent_info.num_pieces = status.num_pieces;
+        torrent_info.comment = handler.torrent_file()->comment().c_str();
+        torrent_info.creator = handler.torrent_file()->creator().c_str();
+        torrent_info.piece_size = handler.torrent_file()->piece_length();
+        torrent_info.num_pieces_total = handler.torrent_file()->num_pieces();
         torrent_info.list_seeds = status.list_seeds;
         torrent_info.list_peers = status.list_peers;
         torrent_info.size = status.total_wanted;

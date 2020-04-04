@@ -323,6 +323,18 @@ extension ViewController {
 
             // torrent hash
             torrentHash.stringValue = torrent.infoHash
+
+            // pieces
+            pieces.stringValue = torrent.pieces
+
+            // comment
+            comment.stringValue = torrent.comment
+
+            // created by
+            createdBy.stringValue = torrent.creator
+
+            // save path
+            savePath.stringValue = torrent.savePath
         }
     }
 }

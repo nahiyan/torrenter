@@ -13,7 +13,7 @@
 #include <memory>
 
 #include "libtorrent/torrent_handle.hpp"
-#include "wrapper.h"
+#include "torrents.h"
 
 struct Torrent
 {
