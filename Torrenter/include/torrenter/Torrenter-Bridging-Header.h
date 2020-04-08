@@ -15,7 +15,7 @@ bool torrent_is_paused(int);
 void torrent_remove(int);
 bool torrent_exists(const char *);
 bool torrent_exists_from_magnet_uri(const char *);
-void debug();
+void debug(int);
 int torrent_next_index();
 struct TorrentPieces torrent_pieces(int);
 void set_app_data_dir(const char *);

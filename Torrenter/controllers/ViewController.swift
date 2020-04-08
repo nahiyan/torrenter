@@ -200,6 +200,10 @@ class ViewController: NSViewController {
             refreshProgressBars()
         }
     }
+
+    static func get() -> ViewController {
+        return NSApplication.shared.mainWindow!.contentViewController as! ViewController
+    }
 }
 
 extension ViewController {

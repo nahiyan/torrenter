@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D169822243E0BDF00D5144C /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D169821243E0BDF00D5144C /* Tracker.swift */; };
 		4D22660624373F7A00107520 /* PersistentContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D22660524373F7A00107520 /* PersistentContainer.swift */; };
 		4D22660824373F8100107520 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D22660724373F8100107520 /* AppDelegate.swift */; };
 		4D22660B24373F8700107520 /* Torrent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D22660924373F8700107520 /* Torrent.swift */; };
@@ -26,8 +27,8 @@
 		4D35833923F9A25500C3662D /* TorrenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D35833823F9A25500C3662D /* TorrenterTests.swift */; };
 		4D35834423F9A25500C3662D /* TorrenterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D35834323F9A25500C3662D /* TorrenterUITests.swift */; };
 		4D6033512414D44000349F07 /* Model.xcdatamodeld in Resources */ = {isa = PBXBuildFile; fileRef = 4D8FAB112404FAC20008E2A0 /* Model.xcdatamodeld */; };
-		4D71243D2438F4FC0016615C /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D71243C2438F4FC0016615C /* TestView.swift */; };
 		4D9B035823FC446F000C9DF5 /* include in Resources */ = {isa = PBXBuildFile; fileRef = 4D9B035723FC446F000C9DF5 /* include */; };
+		4DB367AB243C7DA400425242 /* TorrentDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB367AA243C7DA400425242 /* TorrentDetailsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4D169821243E0BDF00D5144C /* Tracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Tracker.swift; path = models/Tracker.swift; sourceTree = "<group>"; };
 		4D22660524373F7A00107520 /* PersistentContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentContainer.swift; sourceTree = "<group>"; };
 		4D22660724373F8100107520 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = delegates/AppDelegate.swift; sourceTree = "<group>"; };
 		4D22660924373F8700107520 /* Torrent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Torrent.swift; path = models/Torrent.swift; sourceTree = "<group>"; };
@@ -73,10 +75,10 @@
 		4D35833F23F9A25500C3662D /* TorrenterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TorrenterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D35834323F9A25500C3662D /* TorrenterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TorrenterUITests.swift; sourceTree = "<group>"; };
 		4D35834523F9A25500C3662D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4D71243C2438F4FC0016615C /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TestView.swift; path = views/TestView.swift; sourceTree = "<group>"; };
 		4D8FAB122404FAC20008E2A0 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		4D9B034F23FC3BE4000C9DF5 /* Torrenter.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Torrenter.entitlements; sourceTree = "<group>"; };
 		4D9B035723FC446F000C9DF5 /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; path = include; sourceTree = "<group>"; };
+		4DB367AA243C7DA400425242 /* TorrentDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TorrentDetailsView.swift; path = delegates/TorrentDetailsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,7 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				4D35832B23F9A25500C3662D /* Main.storyboard */,
-				4D71243C2438F4FC0016615C /* TestView.swift */,
+				4D169821243E0BDF00D5144C /* Tracker.swift */,
 				4D22661E24373F9D00107520 /* torrents.cpp */,
 				4D22661D24373F9D00107520 /* UnitConversion.swift */,
 				4D22661524373F9500107520 /* MagnetUriViewController.swift */,
@@ -152,6 +154,7 @@
 				4D22660724373F8100107520 /* AppDelegate.swift */,
 				4D22660524373F7A00107520 /* PersistentContainer.swift */,
 				4D22660D24373F8F00107520 /* TorrentDetailsContainer.swift */,
+				4DB367AA243C7DA400425242 /* TorrentDetailsView.swift */,
 				4D9B034F23FC3BE4000C9DF5 /* Torrenter.entitlements */,
 				4D35832E23F9A25500C3662D /* Info.plist */,
 				4D8FAB112404FAC20008E2A0 /* Model.xcdatamodeld */,
@@ -314,15 +317,16 @@
 			files = (
 				4D22660624373F7A00107520 /* PersistentContainer.swift in Sources */,
 				4D22660824373F8100107520 /* AppDelegate.swift in Sources */,
-				4D71243D2438F4FC0016615C /* TestView.swift in Sources */,
 				4D22660B24373F8700107520 /* Torrent.swift in Sources */,
 				4D22660C24373F8700107520 /* Peer.swift in Sources */,
+				4D169822243E0BDF00D5144C /* Tracker.swift in Sources */,
 				4D22661124373F8F00107520 /* TorrentDetailsContainer.swift in Sources */,
 				4D22661224373F8F00107520 /* TorrentsTable.swift in Sources */,
 				4D22661324373F8F00107520 /* SimpleProgressBar.swift in Sources */,
 				4D22661424373F8F00107520 /* CompoundProgressBar.swift in Sources */,
 				4D22661924373F9500107520 /* MagnetUriViewController.swift in Sources */,
 				4D22661A24373F9500107520 /* RateLimitViewController.swift in Sources */,
+				4DB367AB243C7DA400425242 /* TorrentDetailsView.swift in Sources */,
 				4D22661B24373F9500107520 /* ViewController.swift in Sources */,
 				4D22661C24373F9500107520 /* WindowController.swift in Sources */,
 				4D22661F24373F9D00107520 /* UnitConversion.swift in Sources */,

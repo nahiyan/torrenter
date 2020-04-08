@@ -177,6 +177,7 @@ extern "C" TorrentInfo torrent_get_info(int index)
     {
         lt::torrent_status status = torrents.at(index).handler.status();
         lt::torrent_handle handler = torrents.at(index).handler;
+        const lt::torrent_info *info = handler.torrent_file().get();
 
         // Update the name of the torrent
         torrents.at(index).name = status.name;
@@ -195,10 +196,22 @@ extern "C" TorrentInfo torrent_get_info(int index)
         torrent_info.num_seeds = status.num_seeds;
         torrent_info.num_peers = status.num_peers;
         torrent_info.num_pieces = status.num_pieces;
-        torrent_info.comment = handler.torrent_file()->comment().c_str();
-        torrent_info.creator = handler.torrent_file()->creator().c_str();
-        torrent_info.piece_size = handler.torrent_file()->piece_length();
-        torrent_info.num_pieces_total = handler.torrent_file()->num_pieces();
+
+        if (info != NULL)
+        {
+            torrent_info.comment = info->comment().c_str();
+            torrent_info.creator = info->creator().c_str();
+            torrent_info.piece_size = info->piece_length();
+            torrent_info.num_pieces_total = info->num_pieces();
+        }
+        else
+        {
+            torrent_info.comment = "";
+            torrent_info.creator = "";
+            torrent_info.piece_size = 0;
+            torrent_info.num_pieces_total = 0;
+        }
+
         torrent_info.list_seeds = status.list_seeds;
         torrent_info.list_peers = status.list_peers;
         torrent_info.size = status.total_wanted;
@@ -510,23 +523,32 @@ extern "C" TorrentPieces torrent_pieces(int index)
     return TorrentPieces();
 }
 
-extern "C" void debug()
+extern "C" void debug(int selection)
 {
     if (torrent_count() >= 1)
     {
-
         try
         {
-            lt::torrent_handle handler = torrents.at(0).handler;
+            const lt::torrent_info *info = torrents.at(selection).handler.torrent_file().get();
 
-            // Get the download queue
-            std::vector<lt::partial_piece_info> queue;
-            handler.get_download_queue(queue);
+            lt::file_storage files = info->files();
 
-            // See what's in the queue
-            for (auto it = queue.begin(); it != queue.end(); ++it)
+            int num_files = files.num_files();
+            std::cout << "Number of files: " << num_files << std::endl;
+
+            std::cout << "Files: " << std::endl;
+            for (int i = 0; i < num_files; i++)
             {
-                std::cout << it->piece_index << std::endl;
+                std::cout << i << ". " << files.file_path(i) << " -> " << files.file_name(i) << std::endl;
+            }
+
+            std::cout << "Paths: " << std::endl;
+
+            std::vector<std::string> paths = files.paths();
+
+            for (auto it = paths.begin(); it != paths.end(); it++)
+            {
+                std::cout << "Path: " << *it << std::endl;
             }
         }
         catch (std::out_of_range)
