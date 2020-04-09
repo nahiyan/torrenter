@@ -103,29 +103,8 @@ class ViewController: NSViewController {
             // Reload torrents table
             self.reloadTorrentsTable()
 
-            // Refresh details view
-            // self.refreshDetailsView()
-
-            // Fetch peers for the selected torrent
-            if self.torrentsTable.selectedRow != -1 {
-                let torrent: Torrent = (self.torrents.arrangedObjects as! [Torrent])[self.torrentsTable.selectedRow]
-
-                torrent_fetch_peers(Int32(torrent.index))
-
-                // Clear the current array
-                for peer in self.peers.arrangedObjects as! [Peer] {
-                    self.peers.removeObject(peer)
-                }
-
-                // Repopulate the array
-                for peer_index in 0 ..< torrent_peers_count() {
-                    let peer: Peer = Peer(Int(peer_index), torrent_get_peer_info(Int32(peer_index)))
-                    self.peers.addObject(peer)
-                }
-
-                // Reload the peers table
-                self.reloadPeersTable()
-            }
+            // Refresh the torrent details view
+            self.torrentDetails.refresh()
 
             // Save resume data of all torrents (if necessary)
             save_all_resume_data()
@@ -235,14 +214,6 @@ extension ViewController {
 
         // Refresh progress bars
         refreshProgressBars()
-    }
-
-    func reloadPeersTable() {
-        let selectedRow = peersTable.selectedRow
-
-        // Reload table data and retain row selection
-        peersTable.reloadData()
-        peersTable.selectRowIndexes(IndexSet(integer: selectedRow), byExtendingSelection: false)
     }
 
     func refreshProgressBars() {

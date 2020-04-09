@@ -28,10 +28,6 @@ class TorrentDetails: NSTabView, NSTabViewDelegate {
         _vc = nil
         super.init(coder: coder)
         delegate = self
-
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
-            self.refresh()
-        }
     }
 
     func tabView(_: NSTabView, shouldSelect tabViewItem: NSTabViewItem?) -> Bool {
@@ -146,7 +142,72 @@ class TorrentDetails: NSTabView, NSTabViewDelegate {
                 // save path
                 vc!.savePath.stringValue = torrent.savePath
             }
+        case .peers:
+            // Fetch peers for the selected torrent
+            if vc!.torrentsTable.selectedRow != -1 {
+                let torrent: Torrent = (vc!.torrents.arrangedObjects as! [Torrent])[vc!.torrentsTable.selectedRow]
+
+                torrent_fetch_peers(Int32(torrent.index))
+
+                let tablePeersCount: Int = (vc!.peers.arrangedObjects as! [Peer]).count
+                let actualPeersCount: Int = Int(torrent_peers_count())
+                let peersTableSelectedRow: Int = vc!.peersTable.selectedRow
+
+                // Synchronize the table data with the peers list
+                if tablePeersCount < actualPeersCount {
+                    let beginning = tablePeersCount
+
+                    // print(tablePeersCount, actualPeersCount, beginning)
+
+                    for peerIndex in beginning ..< actualPeersCount {
+                        let peer: Peer = Peer(Int(peerIndex))
+                        vc!.peers.addObject(peer)
+                    }
+                } else if tablePeersCount > actualPeersCount {
+                    let beginning = actualPeersCount
+
+                    // collect all the peers for removal
+                    var peersList: [Peer] = []
+                    for peerIndex in beginning ..< tablePeersCount {
+                        let peer: Peer = (vc!.peers.arrangedObjects as! [Peer])[peerIndex]
+                        peersList.append(peer)
+                    }
+
+                    // remove them one by one
+                    for peer in peersList {
+                        vc!.peers.removeObject(peer)
+                    }
+                }
+
+                // Refresh peer infos
+                for peerIndex in 0 ..< actualPeersCount {
+                    let peer: Peer = (vc!.peers.arrangedObjects as! [Peer])[peerIndex]
+
+                    peer.fetchInfo()
+                }
+
+                // Reload the peers table
+                reloadPeersTable(selectedRow: peersTableSelectedRow)
+            }
         default: break
         }
+    }
+
+    func reloadPeersTable(selectedRow: Int? = nil) {
+        if vc == nil {
+            return
+        }
+
+        // Reload table data and retain row selection
+        vc!.peersTable.reloadData()
+
+        var _selectedRow: Int
+        if selectedRow == nil {
+            _selectedRow = vc!.peersTable.selectedRow
+        } else {
+            _selectedRow = selectedRow!
+        }
+
+        vc!.peersTable.selectRowIndexes(IndexSet(integer: _selectedRow), byExtendingSelection: false)
     }
 }

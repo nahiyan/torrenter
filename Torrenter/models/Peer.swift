@@ -10,14 +10,18 @@ import Foundation
 
 class Peer: NSObject {
     let index: Int
-    let _ipAddress: String
+    var info: PeerInfo
 
-    init(_ index: Int, _ info: PeerInfo) {
+    init(_ index: Int) {
         self.index = index
-        _ipAddress = String(cString: info.ip_address)
+        info = torrent_get_peer_info(Int32(index))
+    }
+
+    func fetchInfo() {
+        info = torrent_get_peer_info(Int32(index))
     }
 
     @objc var ipAddress: String {
-        return _ipAddress
+        return String(cString: info.ip_address)
     }
 }
