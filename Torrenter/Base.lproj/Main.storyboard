@@ -320,18 +320,18 @@
                             <splitView arrangesAllSubviews="NO" dividerStyle="thin" translatesAutoresizingMaskIntoConstraints="NO" id="XG3-c8-Aec">
                                 <rect key="frame" x="0.0" y="0.0" width="884" height="777"/>
                                 <subviews>
-                                    <customView misplaced="YES" id="U5v-MD-BZe">
+                                    <customView id="U5v-MD-BZe">
                                         <rect key="frame" x="0.0" y="0.0" width="884" height="322"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="42" horizontalPageScroll="10" verticalLineScroll="42" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YZL-Dr-LLM">
-                                                <rect key="frame" x="0.0" y="0.0" width="884" height="40"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="884" height="322"/>
                                                 <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="WIk-hN-1dM">
-                                                    <rect key="frame" x="0.0" y="0.0" width="884" height="25"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="884" height="307"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="T2g-f2-nPs" viewBased="YES" id="Yd5-Gp-9Lo" customClass="TorrentsTable" customModule="Torrenter" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="0.0" width="1123" height="25"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="1123" height="282"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <size key="intercellSpacing" width="5" height="25"/>
                                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -339,7 +339,7 @@
                                                             <tableColumns>
                                                                 <tableColumn editable="NO" width="225" minWidth="40" maxWidth="1000" id="U15-3h-IG4">
                                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Name">
-                                                                        <font key="font" metaFont="message" size="11"/>
+                                                                        <font key="font" metaFont="controlContent" size="11"/>
                                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                     </tableHeaderCell>
@@ -386,7 +386,7 @@
                                                                 </tableColumn>
                                                                 <tableColumn editable="NO" width="180" minWidth="40" maxWidth="1000" id="mk7-gZ-hSE">
                                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Status">
-                                                                        <font key="font" metaFont="message" size="11"/>
+                                                                        <font key="font" metaFont="controlContent" size="11"/>
                                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                     </tableHeaderCell>
@@ -426,7 +426,7 @@
                                                                 </tableColumn>
                                                                 <tableColumn identifier="progress" width="70" minWidth="10" maxWidth="3.4028234663852886e+38" id="9FE-WE-hag">
                                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Progress">
-                                                                        <font key="font" metaFont="message" size="11"/>
+                                                                        <font key="font" metaFont="controlContent" size="11"/>
                                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     </tableHeaderCell>
@@ -456,7 +456,7 @@
                                                                 </tableColumn>
                                                                 <tableColumn editable="NO" width="100" minWidth="40" maxWidth="1000" id="st9-EU-Zbb">
                                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Size">
-                                                                        <font key="font" metaFont="message" size="11"/>
+                                                                        <font key="font" metaFont="controlContent" size="11"/>
                                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                     </tableHeaderCell>
@@ -499,7 +499,7 @@
                                                                 </tableColumn>
                                                                 <tableColumn editable="NO" width="100" minWidth="40" maxWidth="1000" id="P4L-Ih-A4O">
                                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Download Rate">
-                                                                        <font key="font" metaFont="message" size="11"/>
+                                                                        <font key="font" metaFont="controlContent" size="11"/>
                                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                     </tableHeaderCell>
@@ -542,7 +542,7 @@
                                                                 </tableColumn>
                                                                 <tableColumn editable="NO" width="100" minWidth="40" maxWidth="1000" id="zjw-lf-2VC">
                                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Upload Rate">
-                                                                        <font key="font" metaFont="message" size="11"/>
+                                                                        <font key="font" metaFont="controlContent" size="11"/>
                                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                     </tableHeaderCell>
@@ -585,7 +585,7 @@
                                                                 </tableColumn>
                                                                 <tableColumn editable="NO" width="60" minWidth="40" maxWidth="1000" id="hWS-wj-bRa">
                                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Seeds">
-                                                                        <font key="font" metaFont="message" size="11"/>
+                                                                        <font key="font" metaFont="controlContent" size="11"/>
                                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                     </tableHeaderCell>
@@ -628,7 +628,7 @@
                                                                 </tableColumn>
                                                                 <tableColumn editable="NO" width="248" minWidth="40" maxWidth="1000" id="riG-IQ-r8c">
                                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Peers">
-                                                                        <font key="font" metaFont="message" size="11"/>
+                                                                        <font key="font" metaFont="controlContent" size="11"/>
                                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                     </tableHeaderCell>
@@ -680,7 +680,7 @@
                                                     <nil key="backgroundColor"/>
                                                 </clipView>
                                                 <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="7h2-aA-qot">
-                                                    <rect key="frame" x="0.0" y="25" width="884" height="15"/>
+                                                    <rect key="frame" x="0.0" y="307" width="884" height="15"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </scroller>
                                                 <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="jWP-1o-fdl">
@@ -700,18 +700,18 @@
                                             <constraint firstAttribute="bottom" secondItem="YZL-Dr-LLM" secondAttribute="bottom" id="ydG-Z1-P6b"/>
                                         </constraints>
                                     </customView>
-                                    <customView identifier="detailsView" misplaced="YES" id="9Yn-NX-msb">
+                                    <customView identifier="detailsView" id="9Yn-NX-msb">
                                         <rect key="frame" x="0.0" y="323" width="884" height="454"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VxH-DR-j9F">
-                                                <rect key="frame" x="0.0" y="0.0" width="884" height="736"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="884" height="454"/>
                                                 <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="hPO-Rs-DqS">
-                                                    <rect key="frame" x="0.0" y="0.0" width="884" height="736"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="884" height="454"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <view translatesAutoresizingMaskIntoConstraints="NO" id="VDW-pg-iar" customClass="TorrentDetailsContainer" customModule="Torrenter" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="382" width="884" height="354"/>
+                                                            <rect key="frame" x="0.0" y="100" width="884" height="354"/>
                                                             <subviews>
                                                                 <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pTR-EX-Hyi">
                                                                     <rect key="frame" x="349" y="160" width="186" height="35"/>

@@ -9,6 +9,8 @@
 import Cocoa
 
 class ViewController: NSViewController {
+    static var _get: ViewController?
+
     @IBOutlet var torrents: NSArrayController!
     @IBOutlet var torrentsTable: NSTableView!
     var container: NSPersistentContainer!
@@ -44,13 +46,14 @@ class ViewController: NSViewController {
     @IBOutlet var createdBy: NSTextField!
     @IBOutlet var createdOn: NSTextField!
 
-    @IBOutlet var torrentDetails: NSTabView!
+    @IBOutlet var torrentDetails: TorrentDetails!
     @IBOutlet var noSelectionIndicator: NSTextField!
 
     let contextMenu: NSMenu = NSMenu()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        ViewController._get = self
 
         // Do any additional setup after loading the view.
 
@@ -101,7 +104,7 @@ class ViewController: NSViewController {
             self.reloadTorrentsTable()
 
             // Refresh details view
-            self.refreshDetailsView()
+            // self.refreshDetailsView()
 
             // Fetch peers for the selected torrent
             if self.torrentsTable.selectedRow != -1 {
@@ -129,7 +132,7 @@ class ViewController: NSViewController {
         }
 
         // No selection by default
-        hideDetails()
+        torrentDetails.hide()
 
         // Begin listening & responding to alerts
         spawn_alert_monitor()
@@ -186,7 +189,7 @@ class ViewController: NSViewController {
             }
 
             // Show details of the torrent
-            showDetails()
+            torrentDetails.show()
 
             // Force refresh to reduce delay of change of progress bar color scheme after selection
             refreshProgressBars()
@@ -194,15 +197,15 @@ class ViewController: NSViewController {
             windowController.deactivateButtons()
 
             // Hide details of the torrent
-            hideDetails()
+            torrentDetails.hide()
 
             // Force refresh to reduce delay of change of progress bar color scheme after deselection
             refreshProgressBars()
         }
     }
 
-    static func get() -> ViewController {
-        return NSApplication.shared.mainWindow!.contentViewController as! ViewController
+    static func get() -> ViewController? {
+        return _get
     }
 }
 
@@ -242,18 +245,6 @@ extension ViewController {
         peersTable.selectRowIndexes(IndexSet(integer: selectedRow), byExtendingSelection: false)
     }
 
-    func hideDetails() {
-        noSelectionIndicator.isHidden = false
-        torrentDetails.isHidden = true
-    }
-
-    func showDetails() {
-        noSelectionIndicator.isHidden = true
-        torrentDetails.isHidden = false
-
-        refreshDetailsView()
-    }
-
     func refreshProgressBars() {
         // Refresh the progress bars
         for rowIndex in 0 ... (torrentsTable.numberOfRows - 1) {
@@ -265,80 +256,6 @@ extension ViewController {
 
             progressBar.progress = torrent.info.progress
             progressBar.needsDisplay = true
-        }
-    }
-
-    func refreshDetailsView() {
-        if torrentsTable.selectedRow != -1 {
-            let torrent: Torrent = (torrents.arrangedObjects as! [Torrent])[torrentsTable.selectedRow]
-
-            // progress bar based on status of pieces
-            piecesProgress.pieces = torrent_pieces(Int32(torrent.index)).content
-            piecesProgress.piecesCount = Int(torrent_pieces(Int32(torrent.index)).count)
-            piecesProgress.needsDisplay = true
-
-            // progress percentage
-            progressPercentage.stringValue = torrent.downloadProgress
-
-            // downloaded
-            downloaded.stringValue = torrent.downloaded
-
-            // uploaded
-            uploaded.stringValue = torrent.uploaded
-
-            // download limit
-            downloadLimit.stringValue = torrent.downloadLimit
-
-            // upload limit
-            uploadLimit.stringValue = torrent.uploadLimit
-
-            // download speed
-            downloadSpeed.stringValue = torrent.downloadRate
-
-            // upload speed
-            uploadSpeed.stringValue = torrent.uploadRate
-
-            // share ratio
-            shareRatio.stringValue = torrent.shareRatio
-
-            // reannounce in
-            reannounceIn.stringValue = torrent.nextAnnounce
-
-            // seeds
-            seedsCount.stringValue = torrent.seeds
-
-            // peers
-            peersCount.stringValue = torrent.peers
-
-            // wasted
-            wasted.stringValue = torrent.wasted
-
-            // connections
-            connections.stringValue = torrent.connections
-
-            // active duration
-            activeDuration.stringValue = torrent.activeDuration
-
-            // time remaining
-            timeRemaining.stringValue = torrent.timeRemaining
-
-            // total size
-            totalSize.stringValue = torrent.size
-
-            // torrent hash
-            torrentHash.stringValue = torrent.infoHash
-
-            // pieces
-            pieces.stringValue = torrent.pieces
-
-            // comment
-            comment.stringValue = torrent.comment
-
-            // created by
-            createdBy.stringValue = torrent.creator
-
-            // save path
-            savePath.stringValue = torrent.savePath
         }
     }
 }

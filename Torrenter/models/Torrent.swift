@@ -283,7 +283,7 @@ class Torrent: NSObject {
 
         // Reset table selection
         viewController.torrentsTable.deselectAll(nil)
-        viewController.hideDetails()
+        viewController.torrentDetails.hide()
         windowController.deactivateButtons()
     }
 }
