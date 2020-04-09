@@ -24,4 +24,8 @@ class Peer: NSObject {
     @objc var ipAddress: String {
         return String(cString: info.ip_address)
     }
+
+    @objc var client: String {
+        return String(cString: info.client)
+    }
 }

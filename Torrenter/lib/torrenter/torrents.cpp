@@ -257,6 +257,13 @@ extern "C" void torrent_fetch_peers(int index)
         {
             PeerInfo_ peer_info = PeerInfo_();
             peer_info.ip_address = it->ip.address().to_string();
+            peer_info.client = it->client;
+            peer_info.up_rate = it->up_speed;
+            peer_info.down_rate = it->down_speed;
+            peer_info.progress = it->progress;
+            peer_info.connection_type = it->connection_type;
+            peer_info.total_down = it->total_download;
+            peer_info.total_up = it->total_upload;
             peer_infos.push_back(peer_info);
         }
     }
@@ -274,6 +281,13 @@ extern "C" PeerInfo torrent_get_peer_info(int peer_index)
 
         PeerInfo peer_info2 = PeerInfo();
         peer_info2.ip_address = peer_info.ip_address.c_str();
+        peer_info2.client = peer_info.client.c_str();
+        peer_info2.down_rate = peer_info.down_rate;
+        peer_info2.up_rate = peer_info.up_rate;
+        peer_info2.progress = peer_info.progress;
+        peer_info2.connection_type = peer_info.connection_type;
+        peer_info2.total_down = peer_info.total_down;
+        peer_info2.total_up = peer_info.total_up;
 
         return peer_info2;
     }

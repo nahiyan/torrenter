@@ -71,6 +71,13 @@ struct TorrentInfo
 struct PeerInfo
 {
     const char *ip_address;
+    const char *client;
+    int up_rate;
+    int down_rate;
+    int total_down;
+    int total_up;
+    float progress;
+    int connection_type;
 };
 
 #endif /* wrapper_h */
