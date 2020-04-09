@@ -22,6 +22,8 @@
 		4D22661C24373F9500107520 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D22661824373F9500107520 /* WindowController.swift */; };
 		4D22661F24373F9D00107520 /* UnitConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D22661D24373F9D00107520 /* UnitConversion.swift */; };
 		4D22662024373F9D00107520 /* torrents.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4D22661E24373F9D00107520 /* torrents.cpp */; };
+		4D301B67243F615C000CF4DD /* TorrentContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D301B66243F615C000CF4DD /* TorrentContent.swift */; };
+		4D301B6B243F6DF1000CF4DD /* TorrentContentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D301B6A243F6DF1000CF4DD /* TorrentContentItem.swift */; };
 		4D35832A23F9A25500C3662D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D35832923F9A25500C3662D /* Assets.xcassets */; };
 		4D35832D23F9A25500C3662D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D35832B23F9A25500C3662D /* Main.storyboard */; };
 		4D35833923F9A25500C3662D /* TorrenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D35833823F9A25500C3662D /* TorrenterTests.swift */; };
@@ -64,6 +66,8 @@
 		4D22661824373F9500107520 /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WindowController.swift; path = controllers/WindowController.swift; sourceTree = "<group>"; };
 		4D22661D24373F9D00107520 /* UnitConversion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UnitConversion.swift; path = lib/torrenter/UnitConversion.swift; sourceTree = "<group>"; };
 		4D22661E24373F9D00107520 /* torrents.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = torrents.cpp; path = lib/torrenter/torrents.cpp; sourceTree = "<group>"; };
+		4D301B66243F615C000CF4DD /* TorrentContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TorrentContent.swift; path = views/TorrentContent.swift; sourceTree = "<group>"; };
+		4D301B6A243F6DF1000CF4DD /* TorrentContentItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TorrentContentItem.swift; path = models/TorrentContentItem.swift; sourceTree = "<group>"; };
 		4D3151E12414D5840093FEFB /* libtorrent-rasterbar.1.2.4.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libtorrent-rasterbar.1.2.4.dylib"; path = "Torrenter/lib/libtorrent/libtorrent-rasterbar.1.2.4.dylib"; sourceTree = "<group>"; };
 		4D35832223F9A25200C3662D /* Torrenter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Torrenter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D35832923F9A25500C3662D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -155,6 +159,8 @@
 				4D22660524373F7A00107520 /* PersistentContainer.swift */,
 				4D22660D24373F8F00107520 /* TorrentDetailsContainer.swift */,
 				4D8F2F0F243EE0CD00E23150 /* TorrentDetails.swift */,
+				4D301B66243F615C000CF4DD /* TorrentContent.swift */,
+				4D301B6A243F6DF1000CF4DD /* TorrentContentItem.swift */,
 				4D9B034F23FC3BE4000C9DF5 /* Torrenter.entitlements */,
 				4D35832E23F9A25500C3662D /* Info.plist */,
 				4D8FAB112404FAC20008E2A0 /* Model.xcdatamodeld */,
@@ -316,6 +322,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D22660624373F7A00107520 /* PersistentContainer.swift in Sources */,
+				4D301B67243F615C000CF4DD /* TorrentContent.swift in Sources */,
 				4D22660824373F8100107520 /* AppDelegate.swift in Sources */,
 				4D22660B24373F8700107520 /* Torrent.swift in Sources */,
 				4D8F2F10243EE0CD00E23150 /* TorrentDetails.swift in Sources */,
@@ -323,6 +330,7 @@
 				4D169822243E0BDF00D5144C /* Tracker.swift in Sources */,
 				4D22661124373F8F00107520 /* TorrentDetailsContainer.swift in Sources */,
 				4D22661224373F8F00107520 /* TorrentsTable.swift in Sources */,
+				4D301B6B243F6DF1000CF4DD /* TorrentContentItem.swift in Sources */,
 				4D22661324373F8F00107520 /* SimpleProgressBar.swift in Sources */,
 				4D22661424373F8F00107520 /* CompoundProgressBar.swift in Sources */,
 				4D22661924373F9500107520 /* MagnetUriViewController.swift in Sources */,
