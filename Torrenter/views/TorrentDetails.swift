@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class TorrentDetailsView: NSTabView, NSTabViewDelegate {
+class TorrentDetails: NSTabView, NSTabViewDelegate {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         delegate = self
@@ -17,7 +17,7 @@ class TorrentDetailsView: NSTabView, NSTabViewDelegate {
     func tabView(_: NSTabView, shouldSelect tabViewItem: NSTabViewItem?) -> Bool {
         if tabViewItem != nil {
             if tabViewItem!.label == "Peers" {
-                print(ViewController.get())
+                // print(ViewController.get())
             }
         }
 
