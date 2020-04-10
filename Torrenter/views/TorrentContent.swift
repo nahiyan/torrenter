@@ -12,15 +12,15 @@ class TorrentContent: NSOutlineView, NSOutlineViewDelegate, NSOutlineViewDataSou
     var content: [TorrentContentItem]
 
     required init?(coder: NSCoder) {
-        let srcDir = TorrentContentItem("src")
+        // let srcDir = TorrentContentItem("src")
 
-        let mainJava = TorrentContentItem("main.java")
-        let mainCpp = TorrentContentItem("main.cpp")
+        // let mainJava = TorrentContentItem("main.java")
+        // let mainCpp = TorrentContentItem("main.cpp")
 
-        srcDir.children.append(mainJava)
-        srcDir.children.append(mainCpp)
+        // srcDir.children.append(mainJava)
+        // srcDir.children.append(mainCpp)
 
-        content = [srcDir]
+        content = []
 
         super.init(coder: coder)
 
@@ -58,17 +58,22 @@ class TorrentContent: NSOutlineView, NSOutlineViewDelegate, NSOutlineViewDataSou
                 return _item.children[child]
             }
         }
-        return TorrentContentItem("undefined")
+
+        return content[child]
     }
 
     func outlineView(_: NSOutlineView, objectValueFor col: NSTableColumn?, byItem item: Any?) -> Any? {
         if item != nil, col != nil {
-            if col!.title == "Name" {
-                if let _item = item as? TorrentContentItem {
-                    return _item.name
+            if let _item = item as? TorrentContentItem {
+                switch col!.title {
+                case "Name":
+                    return _item
+                default:
+                    return nil
                 }
             }
         }
+
         return nil
     }
 }

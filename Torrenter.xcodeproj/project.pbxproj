@@ -22,6 +22,7 @@
 		4D22661C24373F9500107520 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D22661824373F9500107520 /* WindowController.swift */; };
 		4D22661F24373F9D00107520 /* UnitConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D22661D24373F9D00107520 /* UnitConversion.swift */; };
 		4D22662024373F9D00107520 /* torrents.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4D22661E24373F9D00107520 /* torrents.cpp */; };
+		4D29D06B24403D1C004B2DA8 /* TorrentContentItemNameValueTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D29D06A24403D1C004B2DA8 /* TorrentContentItemNameValueTransformer.swift */; };
 		4D301B67243F615C000CF4DD /* TorrentContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D301B66243F615C000CF4DD /* TorrentContent.swift */; };
 		4D301B6B243F6DF1000CF4DD /* TorrentContentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D301B6A243F6DF1000CF4DD /* TorrentContentItem.swift */; };
 		4D35832A23F9A25500C3662D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D35832923F9A25500C3662D /* Assets.xcassets */; };
@@ -66,6 +67,7 @@
 		4D22661824373F9500107520 /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WindowController.swift; path = controllers/WindowController.swift; sourceTree = "<group>"; };
 		4D22661D24373F9D00107520 /* UnitConversion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UnitConversion.swift; path = lib/torrenter/UnitConversion.swift; sourceTree = "<group>"; };
 		4D22661E24373F9D00107520 /* torrents.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = torrents.cpp; path = lib/torrenter/torrents.cpp; sourceTree = "<group>"; };
+		4D29D06A24403D1C004B2DA8 /* TorrentContentItemNameValueTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TorrentContentItemNameValueTransformer.swift; path = lib/torrenter/TorrentContentItemNameValueTransformer.swift; sourceTree = "<group>"; };
 		4D301B66243F615C000CF4DD /* TorrentContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TorrentContent.swift; path = views/TorrentContent.swift; sourceTree = "<group>"; };
 		4D301B6A243F6DF1000CF4DD /* TorrentContentItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TorrentContentItem.swift; path = models/TorrentContentItem.swift; sourceTree = "<group>"; };
 		4D3151E12414D5840093FEFB /* libtorrent-rasterbar.1.2.4.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libtorrent-rasterbar.1.2.4.dylib"; path = "Torrenter/lib/libtorrent/libtorrent-rasterbar.1.2.4.dylib"; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				4D35832B23F9A25500C3662D /* Main.storyboard */,
+				4D29D06A24403D1C004B2DA8 /* TorrentContentItemNameValueTransformer.swift */,
 				4D169821243E0BDF00D5144C /* Tracker.swift */,
 				4D22661E24373F9D00107520 /* torrents.cpp */,
 				4D22661D24373F9D00107520 /* UnitConversion.swift */,
@@ -333,6 +336,7 @@
 				4D301B6B243F6DF1000CF4DD /* TorrentContentItem.swift in Sources */,
 				4D22661324373F8F00107520 /* SimpleProgressBar.swift in Sources */,
 				4D22661424373F8F00107520 /* CompoundProgressBar.swift in Sources */,
+				4D29D06B24403D1C004B2DA8 /* TorrentContentItemNameValueTransformer.swift in Sources */,
 				4D22661924373F9500107520 /* MagnetUriViewController.swift in Sources */,
 				4D22661A24373F9500107520 /* RateLimitViewController.swift in Sources */,
 				4D22661B24373F9500107520 /* ViewController.swift in Sources */,
