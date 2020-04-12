@@ -45,6 +45,7 @@ class ViewController: NSViewController {
     @IBOutlet var completedOn: NSTextField!
     @IBOutlet var createdBy: NSTextField!
     @IBOutlet var createdOn: NSTextField!
+    @IBOutlet var torrentContent: TorrentContent!
 
     @IBOutlet var torrentDetails: TorrentDetails!
     @IBOutlet var noSelectionIndicator: NSTextField!
@@ -119,9 +120,6 @@ class ViewController: NSViewController {
         // Attach context menu
         initiateContextMenu()
         torrentsTable.menu = contextMenu
-
-        // debug
-        torrent_get_content(4)
     }
 
     override var representedObject: Any? {
@@ -170,7 +168,7 @@ class ViewController: NSViewController {
                 sequentialDownloadToggleButton.image = NSImage(named: "sort_ascend")
             }
 
-            // Show details of the torrent
+            // Show details of the torrent and refresh content
             torrentDetails.show()
 
             // Force refresh to reduce delay of change of progress bar color scheme after selection

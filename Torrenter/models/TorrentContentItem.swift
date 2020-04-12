@@ -11,7 +11,7 @@ import Foundation
 class TorrentContentItem: NSObject {
     @objc dynamic let name: String
     @objc dynamic var enabled: Bool
-    var children: [TorrentContentItem]
+    var children: [TorrentContentItem]?
     // var size: String {
     //     return "Size sucks"
     // }

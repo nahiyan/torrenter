@@ -87,6 +87,7 @@ struct ContentItem
     int parent;
     int id;
     int level;
+    bool isDirectory;
 };
 
 struct Content

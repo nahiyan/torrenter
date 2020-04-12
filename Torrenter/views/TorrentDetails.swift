@@ -14,7 +14,9 @@ class TorrentDetails: NSTabView, NSTabViewDelegate {
     }
 
     var currentTabSelection: CurrentTabSelection
+
     private var _vc: ViewController?
+
     var vc: ViewController? {
         if _vc == nil {
             _vc = ViewController.get()
@@ -23,9 +25,13 @@ class TorrentDetails: NSTabView, NSTabViewDelegate {
         return _vc
     }
 
+    // Indicates which row the current torrent content data is associated with
+    var torrentContentRowAssociativity: Int
+
     required init?(coder: NSCoder) {
         currentTabSelection = .general
         _vc = nil
+        torrentContentRowAssociativity = -1
         super.init(coder: coder)
         delegate = self
     }
@@ -190,10 +196,66 @@ class TorrentDetails: NSTabView, NSTabViewDelegate {
                 reloadPeersTable(selectedRow: peersTableSelectedRow)
             }
         case .content:
-            break
-            // torrent_get_content(4)
+            if torrentContentRowAssociativity != vc!.torrentsTable.selectedRow {
+                reloadContentTable()
+                torrentContentRowAssociativity = vc!.torrentsTable.selectedRow
+            }
 
         default: break
+        }
+    }
+
+    private func torrentContentItemChildren(items: [ContentItem], item: ContentItem) -> [TorrentContentItem]? {
+        if item.isDirectory {
+            var children: [TorrentContentItem] = []
+            for _item in items {
+                if _item.parent == item.id {
+                    let torrentContentItem = TorrentContentItem(String(cString: _item.name!))
+                    torrentContentItem.children = torrentContentItemChildren(items: items, item: _item)
+
+                    children.append(torrentContentItem)
+                }
+            }
+
+            return children
+        } else {
+            return nil
+        }
+    }
+
+    func reloadContentTable(selectedRow _: Int? = nil) {
+        if vc!.torrentsTable.selectedRow != -1 {
+            let content: Content = torrent_get_content(Int32(vc!.torrentsTable.selectedRow))
+
+            var items: [ContentItem] = []
+
+            // Clear out outline view
+            vc!.torrentContent.content = []
+
+            // Register all the content items
+            for i in 0 ..< Int(content.count) {
+                let item: ContentItem = content.items![i]!.pointee
+
+                items.append(item)
+            }
+
+            // Add the items to the torrent content outline view
+            for item in items {
+                if item.parent == -1 {
+                    let torrentContentItem = TorrentContentItem(String(cString: item.name!))
+                    torrentContentItem.children = torrentContentItemChildren(items: items, item: item)
+                    vc!.torrentContent.content.append(torrentContentItem)
+                }
+            }
+
+            // reload
+            vc!.torrentContent.reloadData()
+            for item in vc!.torrentContent.content {
+                vc!.torrentContent.expandItem(item, expandChildren: true)
+            }
+
+            // free the dynamically allocated memory
+            torrent_content_destroy(content)
         }
     }
 

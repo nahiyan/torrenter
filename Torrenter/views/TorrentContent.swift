@@ -12,14 +12,6 @@ class TorrentContent: NSOutlineView, NSOutlineViewDelegate, NSOutlineViewDataSou
     var content: [TorrentContentItem]
 
     required init?(coder: NSCoder) {
-        // let srcDir = TorrentContentItem("src")
-
-        // let mainJava = TorrentContentItem("main.java")
-        // let mainCpp = TorrentContentItem("main.cpp")
-
-        // srcDir.children.append(mainJava)
-        // srcDir.children.append(mainCpp)
-
         content = []
 
         super.init(coder: coder)
@@ -30,14 +22,12 @@ class TorrentContent: NSOutlineView, NSOutlineViewDelegate, NSOutlineViewDataSou
 
     func outlineView(_: NSOutlineView, isItemExpandable item: Any) -> Bool {
         if let _item = item as? TorrentContentItem {
-            if _item.children.count > 0 {
+            if (_item.children?.count ?? 0) > 0 {
                 return true
-            } else {
-                return false
             }
-        } else {
-            return false
         }
+
+        return false
     }
 
     func outlineView(_: NSOutlineView, numberOfChildrenOfItem item: Any?) -> Int {
@@ -45,7 +35,7 @@ class TorrentContent: NSOutlineView, NSOutlineViewDelegate, NSOutlineViewDataSou
             return content.count
         } else {
             if let _item = item as? TorrentContentItem {
-                return _item.children.count
+                return _item.children?.count ?? 0
             }
         }
 
@@ -55,7 +45,7 @@ class TorrentContent: NSOutlineView, NSOutlineViewDelegate, NSOutlineViewDataSou
     func outlineView(_: NSOutlineView, child: Int, ofItem item: Any?) -> Any {
         if item != nil {
             if let _item = item as? TorrentContentItem {
-                return _item.children[child]
+                return _item.children![child]
             }
         }
 

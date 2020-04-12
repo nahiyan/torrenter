@@ -778,6 +778,9 @@ extern "C" Content torrent_get_content(int index)
                         // level
                         item->level = level;
 
+                        // is directory
+                        item->isDirectory = true;
+
                         // insert it in the list
                         content_items = (ContentItem **)realloc(content_items, sizeof(ContentItem *) * id);
                         content_items[id - 1] = item;
@@ -798,7 +801,7 @@ extern "C" Content torrent_get_content(int index)
                 }
                 else
                 {
-                    item->parent = content_item_find(segments[segments.size() - 1], (int) segments.size() - 1, content_items, id);
+                    item->parent = content_item_find(segments[segments.size() - 1], (int)segments.size() - 1, content_items, id);
                 }
 
                 // id
@@ -806,17 +809,15 @@ extern "C" Content torrent_get_content(int index)
                 id++;
 
                 // level
-                item->level = (int) segments.size();
+                item->level = (int)segments.size();
+
+                // is directory
+                item->isDirectory = false;
 
                 // insertion
                 content_items = (ContentItem **)realloc(content_items, sizeof(ContentItem *) * id);
                 content_items[id - 1] = item;
             }
-        }
-
-        for (int i = 0; i < id; i++)
-        {
-            std::cout << content_items[i]->id << ". " << content_items[i]->name << " -> " << content_items[i]->parent << "[" << content_items[i]->level << "]" << std::endl;
         }
 
         Content content;
@@ -836,7 +837,7 @@ extern "C" Content torrent_get_content(int index)
     {
         std::cout << "Error trying to get content of torrent" << std::endl;
     }
-    
+
     Content content;
     return content;
 }
