@@ -189,6 +189,10 @@ class TorrentDetails: NSTabView, NSTabViewDelegate {
                 // Reload the peers table
                 reloadPeersTable(selectedRow: peersTableSelectedRow)
             }
+        case .content:
+            break
+            // torrent_get_content(4)
+
         default: break
         }
     }

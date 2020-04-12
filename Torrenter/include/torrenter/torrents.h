@@ -1,15 +1,16 @@
 //
-//  wrapper.h
+//  torrents.h
 //  Torrenter
 //
 //  Created by Nahiyan Alamgir on 2/21/20.
 //  Copyright © 2020 Nahiyan Alamgir. All rights reserved.
 //
 
-#ifndef wrapper_h
-#define wrapper_h
+#ifndef torrents_h
+#define torrents_h
 
 #include <stdbool.h>
+#include <stdint.h>
 
 enum state_t
 {
@@ -74,10 +75,24 @@ struct PeerInfo
     const char *client;
     int up_rate;
     int down_rate;
-    int total_down;
-    int total_up;
+    int64_t total_down;
+    int64_t total_up;
     float progress;
     int connection_type;
 };
 
-#endif /* wrapper_h */
+struct ContentItem
+{
+    const char *name;
+    int parent;
+    int id;
+    int level;
+};
+
+struct Content
+{
+    struct ContentItem **items;
+    int count;
+};
+
+#endif /* torrent_h */

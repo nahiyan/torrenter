@@ -17,8 +17,8 @@ struct PeerInfo_
     std::string client;
     int up_rate;
     int down_rate;
-    int total_down;
-    int total_up;
+    long long int total_down;
+    long long int total_up;
     float progress;
     int connection_type;
 };

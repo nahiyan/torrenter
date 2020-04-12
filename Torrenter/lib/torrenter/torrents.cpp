@@ -15,6 +15,8 @@
 #include <thread>
 #include <memory>
 #include <cstdio>
+#include <cstdlib>
+#include <cstring>
 
 #include "../../include/torrenter/torrent.h"
 #include "../../include/torrenter/torrents.h"
@@ -671,4 +673,170 @@ extern "C" void torrent_set_upload_rate_limit(int index, int rate_limit)
     {
         std::cout << "Failed to set upload rate limit." << std::endl;
     }
+}
+
+const std::vector<std::string> explode(const std::string &s, const char &c)
+{
+    std::string buff{""};
+    std::vector<std::string> v;
+
+    for (auto n : s)
+    {
+        if (n != c)
+            buff += n;
+        else if (n == c && buff != "")
+        {
+            v.push_back(buff);
+            buff = "";
+        }
+    }
+    if (buff != "")
+        v.push_back(buff);
+
+    return v;
+}
+
+const char *c_string(std::string str)
+{
+    char *c_str = new char[str.size() + 1];
+    sprintf(c_str, "%s", str.c_str());
+
+    return (const char *)c_str;
+}
+
+extern "C" void torrent_content_destroy(Content content)
+{
+    for (int i = 0; i < content.count; i++)
+    {
+        ContentItem *item = content.items[i];
+        delete[] item->name;
+        free(content.items[i]);
+    }
+
+    free(content.items);
+}
+
+int content_item_find(std::string name, int level, ContentItem **content_items, int content_items_count)
+{
+    for (int i = 0; i < content_items_count; i++)
+    {
+        if (strcmp(name.c_str(), content_items[i]->name) == 0 && content_items[i]->level == level)
+        {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
+extern "C" Content torrent_get_content(int index)
+{
+    try
+    {
+        const lt::torrent_info *info = torrents.at(index).handler.torrent_file().get();
+
+        lt::file_storage files = info->files();
+        ContentItem **content_items = (ContentItem **)malloc(0);
+        int id = 0;
+
+        // Go through all the files
+        for (int i = 0; i < files.num_files(); i++)
+        {
+            std::vector<std::string> segments = explode(files.file_path(i), '/');
+
+            if (segments.size() > 0)
+            {
+                // Take the file name and remove it from segments
+                std::string file_name = segments[segments.size() - 1];
+                segments.pop_back();
+
+                // Process all the segments
+                int level = 0;
+                for (auto it = segments.begin(); it != segments.end(); it++)
+                {
+                    if (content_item_find(*it, level, content_items, id) == -1)
+                    {
+                        ContentItem *item = new ContentItem();
+
+                        // name
+                        item->name = c_string(*it);
+
+                        // parent
+                        if (it == segments.begin())
+                        {
+                            item->parent = -1;
+                        }
+                        else
+                        {
+                            item->parent = id - 1;
+                        }
+
+                        // id
+                        item->id = id;
+                        id++;
+
+                        // level
+                        item->level = level;
+
+                        // insert it in the list
+                        content_items = (ContentItem **)realloc(content_items, sizeof(ContentItem *) * id);
+                        content_items[id - 1] = item;
+                    }
+                    level++;
+                }
+
+                // Process the file segment
+                ContentItem *item = new ContentItem();
+
+                // name
+                item->name = c_string(file_name);
+
+                // parent
+                if (segments.size() == 0)
+                {
+                    item->parent = -1;
+                }
+                else
+                {
+                    item->parent = content_item_find(segments[segments.size() - 1], (int) segments.size() - 1, content_items, id);
+                }
+
+                // id
+                item->id = id;
+                id++;
+
+                // level
+                item->level = (int) segments.size();
+
+                // insertion
+                content_items = (ContentItem **)realloc(content_items, sizeof(ContentItem *) * id);
+                content_items[id - 1] = item;
+            }
+        }
+
+        for (int i = 0; i < id; i++)
+        {
+            std::cout << content_items[i]->id << ". " << content_items[i]->name << " -> " << content_items[i]->parent << "[" << content_items[i]->level << "]" << std::endl;
+        }
+
+        Content content;
+        content.items = content_items;
+        content.count = id;
+
+        return content;
+
+        // std::vector<std::string> paths = files.paths();
+
+        // for (auto it = paths.begin(); it != paths.end(); it++)
+        // {
+        //     std::cout << "Path: " << *it << std::endl;
+        // }
+    }
+    catch (std::out_of_range)
+    {
+        std::cout << "Error trying to get content of torrent" << std::endl;
+    }
+    
+    Content content;
+    return content;
 }

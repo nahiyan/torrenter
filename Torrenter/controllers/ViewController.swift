@@ -119,6 +119,9 @@ class ViewController: NSViewController {
         // Attach context menu
         initiateContextMenu()
         torrentsTable.menu = contextMenu
+
+        // debug
+        torrent_get_content(4)
     }
 
     override var representedObject: Any? {
