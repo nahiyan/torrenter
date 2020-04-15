@@ -867,3 +867,17 @@ extern "C" ContentItemInfo torrent_item_info(int index, int item_index)
 
     return ContentItemInfo();
 }
+
+extern "C" void torrent_file_priority(int index, int item_index, int priority)
+{
+    try
+    {
+        Torrent torrent = torrents.at(index);
+
+        torrent.handler.file_priority(item_index, priority);
+    }
+    catch (std::out_of_range)
+    {
+        std::cout << "Failed to set torrent content item priority." << std::endl;
+    }
+}

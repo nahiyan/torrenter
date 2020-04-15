@@ -210,7 +210,7 @@ class TorrentDetails: NSTabView, NSTabViewDelegate {
         }
     }
 
-    private func triggerContentItemRefresh(_ item: TorrentContentItem) {
+    func triggerContentItemRefresh(_ item: TorrentContentItem) {
         item.fetchInfo()
         if item.children != nil {
             for child in item.children! {

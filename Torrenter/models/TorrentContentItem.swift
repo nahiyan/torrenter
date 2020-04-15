@@ -10,7 +10,49 @@ import Foundation
 
 class TorrentContentItem: NSObject {
     @objc dynamic let name: String
-    @objc dynamic var enabled: Bool
+    @objc dynamic var enabled: Bool {
+        get {
+            // Directory
+            if children != nil {
+                for child in children! {
+                    if !child.enabled {
+                        return false
+                    }
+                }
+
+                return true
+            } else {
+                if info.priority == 0 {
+                    return false
+                } else {
+                    return true
+                }
+            }
+        }
+        set {
+            let priority: Int32
+            if newValue {
+                priority = 4
+            } else {
+                priority = 0
+            }
+
+            // Set the priority
+            torrent_file_priority(Int32(torrentIndex), Int32(fileIndex), priority)
+
+            // Refresh content items
+            if ViewController.get() != nil {
+                if ViewController.get()!.torrentsTable.selectedRow == ViewController.get()!.torrentDetails.torrentContentRowAssociativity {
+                    ViewController.get()!.torrentDetails.torrentContentRowAssociativity += 1
+                }
+
+                for item in ViewController.get()!.torrentContent.content {
+                    ViewController.get()!.torrentDetails.triggerContentItemRefresh(item)
+                }
+            }
+        }
+    }
+
     let fileIndex: Int
     var children: [TorrentContentItem]?
     var info: ContentItemInfo
@@ -48,7 +90,6 @@ class TorrentContentItem: NSObject {
         } else {
             children = []
         }
-        enabled = false
         self.fileIndex = fileIndex
         if torrentIndex != -1, fileIndex != -1 {
             info = torrent_item_info(Int32(torrentIndex), Int32(fileIndex))
