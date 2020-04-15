@@ -58,6 +58,18 @@ class TorrentContent: NSOutlineView, NSOutlineViewDelegate, NSOutlineViewDataSou
                 switch col!.title {
                 case "Name":
                     return _item
+                case "Priority":
+                    if _item.children == nil {
+                        return _item.priority
+                    } else {
+                        return nil
+                    }
+                case "Size":
+                    if _item.children == nil {
+                        return _item.size
+                    } else {
+                        return nil
+                    }
                 default:
                     return nil
                 }

@@ -197,6 +197,11 @@ class TorrentDetails: NSTabView, NSTabViewDelegate {
             }
         case .content:
             if torrentContentRowAssociativity != vc!.torrentsTable.selectedRow {
+                // trigger fetch info for all the torrent items
+                for item in vc!.torrentContent.content {
+                    triggerContentItemRefresh(item)
+                }
+
                 reloadContentTable()
                 torrentContentRowAssociativity = vc!.torrentsTable.selectedRow
             }
@@ -205,12 +210,21 @@ class TorrentDetails: NSTabView, NSTabViewDelegate {
         }
     }
 
+    private func triggerContentItemRefresh(_ item: TorrentContentItem) {
+        item.fetchInfo()
+        if item.children != nil {
+            for child in item.children! {
+                triggerContentItemRefresh(child)
+            }
+        }
+    }
+
     private func torrentContentItemChildren(items: [ContentItem], item: ContentItem) -> [TorrentContentItem]? {
         if item.isDirectory {
             var children: [TorrentContentItem] = []
             for _item in items {
                 if _item.parent == item.id {
-                    let torrentContentItem = TorrentContentItem(String(cString: _item.name!))
+                    let torrentContentItem = TorrentContentItem(name: String(cString: _item.name!), fileIndex: Int(_item.file_index), torrentIndex: vc!.torrentsTable.selectedRow)
                     torrentContentItem.children = torrentContentItemChildren(items: items, item: _item)
 
                     children.append(torrentContentItem)
@@ -242,7 +256,7 @@ class TorrentDetails: NSTabView, NSTabViewDelegate {
             // Add the items to the torrent content outline view
             for item in items {
                 if item.parent == -1 {
-                    let torrentContentItem = TorrentContentItem(String(cString: item.name!))
+                    let torrentContentItem = TorrentContentItem(name: String(cString: item.name!), fileIndex: Int(item.file_index), torrentIndex: vc!.torrentsTable.selectedRow)
                     torrentContentItem.children = torrentContentItemChildren(items: items, item: item)
                     vc!.torrentContent.content.append(torrentContentItem)
                 }

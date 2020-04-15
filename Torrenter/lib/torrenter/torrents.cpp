@@ -740,7 +740,7 @@ extern "C" Content torrent_get_content(int index)
         int id = 0;
 
         // Go through all the files
-        for (int i = 0; i < files.num_files(); i++)
+        for (auto i : files.file_range())
         {
             std::vector<std::string> segments = explode(files.file_path(i), '/');
 
@@ -781,6 +781,9 @@ extern "C" Content torrent_get_content(int index)
                         // is directory
                         item->isDirectory = true;
 
+                        // file index
+                        item->file_index = -1;
+
                         // insert it in the list
                         content_items = (ContentItem **)realloc(content_items, sizeof(ContentItem *) * id);
                         content_items[id - 1] = item;
@@ -814,6 +817,9 @@ extern "C" Content torrent_get_content(int index)
                 // is directory
                 item->isDirectory = false;
 
+                // file index
+                item->file_index = i;
+
                 // insertion
                 content_items = (ContentItem **)realloc(content_items, sizeof(ContentItem *) * id);
                 content_items[id - 1] = item;
@@ -840,4 +846,24 @@ extern "C" Content torrent_get_content(int index)
 
     Content content;
     return content;
+}
+
+extern "C" ContentItemInfo torrent_item_info(int index, int item_index)
+{
+    try
+    {
+        Torrent torrent = torrents.at(index);
+
+        ContentItemInfo info;
+        info.priority = (int)torrent.handler.file_priority(item_index);
+        info.size = torrent.handler.torrent_file()->files().file_size(item_index);
+
+        return info;
+    }
+    catch (std::out_of_range)
+    {
+        std::cout << "Failed to get torrent content item info." << std::endl;
+    }
+
+    return ContentItemInfo();
 }

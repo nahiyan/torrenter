@@ -88,12 +88,19 @@ struct ContentItem
     int id;
     int level;
     bool isDirectory;
+    int file_index;
 };
 
 struct Content
 {
     struct ContentItem **items;
     int count;
+};
+
+struct ContentItemInfo
+{
+    int priority;
+    int64_t size;
 };
 
 #endif /* torrent_h */
