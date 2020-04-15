@@ -197,12 +197,7 @@ class TorrentDetails: NSTabView, NSTabViewDelegate {
             }
         case .content:
             if torrentContentRowAssociativity != vc!.torrentsTable.selectedRow {
-                // trigger fetch info for all the torrent items
-                for item in vc!.torrentContent.content {
-                    triggerContentItemRefresh(item)
-                }
-
-                reloadContentTable()
+                repopulateContentTable()
                 torrentContentRowAssociativity = vc!.torrentsTable.selectedRow
             }
 
@@ -237,7 +232,7 @@ class TorrentDetails: NSTabView, NSTabViewDelegate {
         }
     }
 
-    func reloadContentTable(selectedRow _: Int? = nil) {
+    func repopulateContentTable(selectedRow _: Int? = nil) {
         if vc!.torrentsTable.selectedRow != -1 {
             let content: Content = torrent_get_content(Int32(vc!.torrentsTable.selectedRow))
 
@@ -257,13 +252,17 @@ class TorrentDetails: NSTabView, NSTabViewDelegate {
             for item in items {
                 if item.parent == -1 {
                     let torrentContentItem = TorrentContentItem(name: String(cString: item.name!), fileIndex: Int(item.file_index), torrentIndex: vc!.torrentsTable.selectedRow)
+
                     torrentContentItem.children = torrentContentItemChildren(items: items, item: item)
+
                     vc!.torrentContent.content.append(torrentContentItem)
                 }
             }
 
             // reload
-            vc!.torrentContent.reloadData()
+            reloadContentTable()
+
+            // expand all the items by default
             for item in vc!.torrentContent.content {
                 vc!.torrentContent.expandItem(item, expandChildren: true)
             }
@@ -271,6 +270,20 @@ class TorrentDetails: NSTabView, NSTabViewDelegate {
             // free the dynamically allocated memory
             torrent_content_destroy(content)
         }
+    }
+
+    func reloadContentTable() {
+        if vc == nil {
+            return
+        }
+
+        // print("reloading content table")
+
+        let selectedRow: Int = vc!.torrentContent.selectedRow
+
+        vc!.torrentContent.reloadData()
+
+        vc!.torrentContent.selectRowIndexes(IndexSet(integer: selectedRow), byExtendingSelection: false)
     }
 
     func reloadPeersTable(selectedRow: Int? = nil) {

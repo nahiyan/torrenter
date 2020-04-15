@@ -38,17 +38,20 @@ class TorrentContentItem: NSObject {
             }
 
             // Set the priority
-            torrent_file_priority(Int32(torrentIndex), Int32(fileIndex), priority)
+            if children == nil {
+                torrent_file_priority(Int32(torrentIndex), Int32(fileIndex), priority)
+            } else {
+                for child in children! {
+                    child.enabled = newValue
+                }
+            }
 
             // Refresh content items
-            if ViewController.get() != nil {
-                if ViewController.get()!.torrentsTable.selectedRow == ViewController.get()!.torrentDetails.torrentContentRowAssociativity {
-                    ViewController.get()!.torrentDetails.torrentContentRowAssociativity += 1
-                }
+            let vc: ViewController? = ViewController.get()
+            if vc != nil {
+                info.priority = priority
 
-                for item in ViewController.get()!.torrentContent.content {
-                    ViewController.get()!.torrentDetails.triggerContentItemRefresh(item)
-                }
+                vc!.torrentDetails.reloadContentTable()
             }
         }
     }
