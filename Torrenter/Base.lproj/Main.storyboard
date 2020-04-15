@@ -339,7 +339,7 @@
                                                             <tableColumns>
                                                                 <tableColumn editable="NO" width="225" minWidth="40" maxWidth="1000" id="U15-3h-IG4">
                                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Name">
-                                                                        <font key="font" metaFont="menu" size="11"/>
+                                                                        <font key="font" metaFont="message" size="11"/>
                                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                     </tableHeaderCell>
@@ -386,7 +386,7 @@
                                                                 </tableColumn>
                                                                 <tableColumn editable="NO" width="180" minWidth="40" maxWidth="1000" id="mk7-gZ-hSE">
                                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Status">
-                                                                        <font key="font" metaFont="menu" size="11"/>
+                                                                        <font key="font" metaFont="message" size="11"/>
                                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                     </tableHeaderCell>
@@ -426,7 +426,7 @@
                                                                 </tableColumn>
                                                                 <tableColumn identifier="progress" width="70" minWidth="10" maxWidth="3.4028234663852886e+38" id="9FE-WE-hag">
                                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Progress">
-                                                                        <font key="font" metaFont="menu" size="11"/>
+                                                                        <font key="font" metaFont="message" size="11"/>
                                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     </tableHeaderCell>
@@ -456,7 +456,7 @@
                                                                 </tableColumn>
                                                                 <tableColumn editable="NO" width="100" minWidth="40" maxWidth="1000" id="st9-EU-Zbb">
                                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Size">
-                                                                        <font key="font" metaFont="menu" size="11"/>
+                                                                        <font key="font" metaFont="message" size="11"/>
                                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                     </tableHeaderCell>
@@ -499,7 +499,7 @@
                                                                 </tableColumn>
                                                                 <tableColumn editable="NO" width="100" minWidth="40" maxWidth="1000" id="P4L-Ih-A4O">
                                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Download Rate">
-                                                                        <font key="font" metaFont="menu" size="11"/>
+                                                                        <font key="font" metaFont="message" size="11"/>
                                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                     </tableHeaderCell>
@@ -542,7 +542,7 @@
                                                                 </tableColumn>
                                                                 <tableColumn editable="NO" width="100" minWidth="40" maxWidth="1000" id="zjw-lf-2VC">
                                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Upload Rate">
-                                                                        <font key="font" metaFont="menu" size="11"/>
+                                                                        <font key="font" metaFont="message" size="11"/>
                                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                     </tableHeaderCell>
@@ -585,7 +585,7 @@
                                                                 </tableColumn>
                                                                 <tableColumn editable="NO" width="60" minWidth="40" maxWidth="1000" id="hWS-wj-bRa">
                                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Seeds">
-                                                                        <font key="font" metaFont="menu" size="11"/>
+                                                                        <font key="font" metaFont="message" size="11"/>
                                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                     </tableHeaderCell>
@@ -628,7 +628,7 @@
                                                                 </tableColumn>
                                                                 <tableColumn editable="NO" width="248" minWidth="40" maxWidth="1000" id="riG-IQ-r8c">
                                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Peers">
-                                                                        <font key="font" metaFont="menu" size="11"/>
+                                                                        <font key="font" metaFont="message" size="11"/>
                                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                     </tableHeaderCell>
@@ -1708,7 +1708,7 @@
                                                                                                                                 <font key="font" metaFont="system"/>
                                                                                                                             </buttonCell>
                                                                                                                             <connections>
-                                                                                                                                <binding destination="z6y-nX-Gfx" name="value" keyPath="objectValue.enabled" id="ffh-Se-SBT"/>
+                                                                                                                                <binding destination="z6y-nX-Gfx" name="value" keyPath="objectValue.state" id="d13-oX-gcL"/>
                                                                                                                             </connections>
                                                                                                                         </button>
                                                                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="vlf-AA-glx">

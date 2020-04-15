@@ -6,43 +6,59 @@
 //  Copyright © 2020 Nahiyan Alamgir. All rights reserved.
 //
 
+import AppKit
 import Foundation
 
 class TorrentContentItem: NSObject {
     @objc dynamic let name: String
-    @objc dynamic var enabled: Bool {
+    @objc dynamic var state: NSControl.StateValue {
         get {
-            // Directory
-            if children != nil {
+            if children != nil { // Directory
+                var offCount: Int = 0
+
                 for child in children! {
-                    if !child.enabled {
-                        return false
+                    if child.state == NSControl.StateValue.mixed {
+                        return NSControl.StateValue.mixed
+                    } else if child.state == NSControl.StateValue.off {
+                        offCount += 1
                     }
                 }
 
-                return true
-            } else {
-                if info.priority == 0 {
-                    return false
+                if offCount == children!.count {
+                    return NSControl.StateValue.off
+                } else if offCount == 0 {
+                    return NSControl.StateValue.on
                 } else {
-                    return true
+                    return NSControl.StateValue.mixed
+                }
+            } else { // File
+                if info.priority == 0 {
+                    return NSControl.StateValue.off
+                } else {
+                    return NSControl.StateValue.on
                 }
             }
         }
         set {
             let priority: Int32
-            if newValue {
+            if newValue == NSControl.StateValue.on || newValue == NSControl.StateValue.mixed {
                 priority = 4
             } else {
                 priority = 0
             }
+
+            // print(newValue == NSControl.StateValue.mixed, priority)
 
             // Set the priority
             if children == nil {
                 torrent_file_priority(Int32(torrentIndex), Int32(fileIndex), priority)
             } else {
                 for child in children! {
-                    child.enabled = newValue
+                    if priority == 4 {
+                        child.state = NSControl.StateValue.on
+                    } else {
+                        child.state = NSControl.StateValue.off
+                    }
                 }
             }
 
