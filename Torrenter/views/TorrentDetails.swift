@@ -196,12 +196,29 @@ class TorrentDetails: NSTabView, NSTabViewDelegate {
                 reloadPeersTable(selectedRow: peersTableSelectedRow)
             }
         case .content:
-            if torrentContentRowAssociativity != vc!.torrentsTable.selectedRow {
-                repopulateContentTable()
-                torrentContentRowAssociativity = vc!.torrentsTable.selectedRow
+            if vc!.torrentsTable.selectedRow != -1 {
+                // Fetch progress (in bytes) of all the torrent files
+                torrent_fetch_files_progress(Int32(vc!.torrentsTable.selectedRow))
+
+                if torrentContentRowAssociativity != vc!.torrentsTable.selectedRow { // Only repopulate table if row selection changes
+                    repopulateContentTable()
+                    torrentContentRowAssociativity = vc!.torrentsTable.selectedRow
+                } else { // Else just keep reloading it only
+                    triggerContentItemsRefresh()
+                    reloadContentTable()
+                }
             }
 
         default: break
+        }
+    }
+
+    func triggerContentItemsRefresh() {
+        if vc == nil {
+            return
+        }
+        for item in vc!.torrentContent.content {
+            triggerContentItemRefresh(item)
         }
     }
 
@@ -276,8 +293,6 @@ class TorrentDetails: NSTabView, NSTabViewDelegate {
         if vc == nil {
             return
         }
-
-        // print("reloading content table")
 
         let selectedRow: Int = vc!.torrentContent.selectedRow
 

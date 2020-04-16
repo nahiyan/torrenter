@@ -22,6 +22,7 @@ struct Torrent
     std::string save_path;
     std::string info_hash;
     TorrentPieces pieces;
+    std::vector<std::int64_t> files_progress;
 };
 
 #endif /* torrent_h */

@@ -856,7 +856,15 @@ extern "C" ContentItemInfo torrent_item_info(int index, int item_index)
 
         ContentItemInfo info;
         info.priority = (int)torrent.handler.file_priority(item_index);
-        info.size = torrent.handler.torrent_file()->files().file_size(item_index);
+        info.size = (float)torrent.handler.torrent_file()->files().file_size(item_index);
+        try
+        {
+            info.progress = (float)torrent.files_progress.at(item_index);
+        }
+        catch (std::out_of_range)
+        {
+            info.progress = 0;
+        }
 
         return info;
     }
@@ -866,6 +874,18 @@ extern "C" ContentItemInfo torrent_item_info(int index, int item_index)
     }
 
     return ContentItemInfo();
+}
+
+extern "C" void torrent_fetch_files_progress(int index)
+{
+    try
+    {
+        torrents.at(index).handler.file_progress(torrents.at(index).files_progress);
+    }
+    catch (std::out_of_range)
+    {
+        std::cout << "Failed to fetch torrent files' progress" << std::endl;
+    }
 }
 
 extern "C" void torrent_file_priority(int index, int item_index, int priority)

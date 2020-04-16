@@ -88,7 +88,7 @@ class TorrentContentItem: NSObject {
     }
 
     var size: String {
-        let data: Data = UnitConversion.dataAuto(Float(info.size))
+        let data: Data = UnitConversion.dataAuto(info.size)
 
         if data.unit == "MB" || data.unit == "GB" || data.unit == "TB" {
             return String(format: "%.2f %@", data.value, data.unit)
@@ -98,6 +98,18 @@ class TorrentContentItem: NSObject {
     }
 
     let torrentIndex: Int
+
+    var progress: String {
+        if children == nil {
+            if info.size != 0 {
+                return String(format: "%.1f%%", (info.progress / info.size) * 100)
+            } else {
+                return ""
+            }
+        } else {
+            return ""
+        }
+    }
 
     // var remaining: String
     // var availability: String

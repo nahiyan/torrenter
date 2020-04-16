@@ -70,6 +70,8 @@ class TorrentContent: NSOutlineView, NSOutlineViewDelegate, NSOutlineViewDataSou
                     } else {
                         return nil
                     }
+                case "Progress":
+                    return _item.progress
                 default:
                     return nil
                 }

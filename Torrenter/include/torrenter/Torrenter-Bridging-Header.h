@@ -36,3 +36,4 @@ struct Content torrent_get_content(int);
 void torrent_content_destroy(struct Content);
 struct ContentItemInfo torrent_item_info(int, int);
 void torrent_file_priority(int, int, int);
+void torrent_fetch_files_progress(int);

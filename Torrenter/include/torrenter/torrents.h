@@ -100,7 +100,8 @@ struct Content
 struct ContentItemInfo
 {
     int priority;
-    int64_t size;
+    float size;
+    float progress;
 };
 
 #endif /* torrent_h */
