@@ -40,14 +40,17 @@ class TorrentContentItem: NSObject {
             }
         }
         set {
+            let vc: ViewController? = ViewController.get()
+            if vc != nil {
+                vc!.torrentDetails.canRefresh = false
+            }
+
             let priority: Int32
             if newValue == NSControl.StateValue.on || newValue == NSControl.StateValue.mixed {
                 priority = 4
             } else {
                 priority = 0
             }
-
-            // print(newValue == NSControl.StateValue.mixed, priority)
 
             // Set the priority
             if children == nil {
@@ -62,12 +65,12 @@ class TorrentContentItem: NSObject {
                 }
             }
 
-            // Refresh content items
-            let vc: ViewController? = ViewController.get()
+            // Reload the table to reflect the changes
             if vc != nil {
                 info.priority = priority
-
                 vc!.torrentDetails.reloadContentTable()
+
+                letRefreshAfterPriorityUpdates(expectedPriority: priority)
             }
         }
     }
@@ -100,19 +103,22 @@ class TorrentContentItem: NSObject {
     let torrentIndex: Int
 
     var progress: String {
-        if children == nil {
-            if info.size != 0 {
-                return String(format: "%.1f%%", (info.progress / info.size) * 100)
-            } else {
-                return ""
-            }
+        if info.size != 0 {
+            return String(format: "%.1f%%", (info.progress / info.size) * 100)
         } else {
-            return ""
+            return "N/A"
         }
     }
 
-    // var remaining: String
-    // var availability: String
+    var remaining: String {
+        let data: Data = UnitConversion.dataAuto(info.size - info.progress)
+
+        if data.unit == "MB" || data.unit == "GB" || data.unit == "TB" {
+            return String(format: "%.2f %@", data.value, data.unit)
+        } else {
+            return String(format: "%.0f %@", data.value, data.unit)
+        }
+    }
 
     init(name: String, fileIndex: Int, torrentIndex: Int) {
         self.name = name
@@ -134,6 +140,45 @@ class TorrentContentItem: NSObject {
         if ViewController.get() != nil {
             if children == nil {
                 info = torrent_item_info(Int32(torrentIndex), Int32(fileIndex))
+            }
+        }
+    }
+
+    private static func childrenPriorityCheck(item: TorrentContentItem, priority: Int32) -> Bool {
+        for child in item.children! {
+            if child.info.priority != priority {
+                return false
+            }
+
+            if child.children != nil {
+                if !childrenPriorityCheck(item: child, priority: priority) {
+                    return false
+                }
+            }
+        }
+
+        return true
+    }
+
+    // Let the torrent content refresh only after the expected priority is obtained
+    private func letRefreshAfterPriorityUpdates(expectedPriority: Int32) {
+        Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
+            self.fetchInfo()
+
+            if expectedPriority == self.info.priority {
+                // Check priorities of its children, if it has any
+                var childPriorities = true
+                if self.children != nil {
+                    childPriorities = TorrentContentItem.childrenPriorityCheck(item: self, priority: expectedPriority)
+                }
+
+                if childPriorities {
+                    let vc: ViewController? = ViewController.get()
+                    if vc != nil {
+                        vc!.torrentDetails.canRefresh = true
+                        timer.invalidate()
+                    }
+                }
             }
         }
     }

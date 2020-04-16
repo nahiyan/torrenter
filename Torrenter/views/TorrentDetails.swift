@@ -27,8 +27,10 @@ class TorrentDetails: NSTabView, NSTabViewDelegate {
 
     // Indicates which row the current torrent content data is associated with
     var torrentContentRowAssociativity: Int
+    var canRefresh: Bool
 
     required init?(coder: NSCoder) {
+        canRefresh = true
         currentTabSelection = .general
         _vc = nil
         torrentContentRowAssociativity = -1
@@ -71,7 +73,7 @@ class TorrentDetails: NSTabView, NSTabViewDelegate {
     }
 
     func refresh() {
-        if vc == nil {
+        if vc == nil || !canRefresh {
             return
         }
 
