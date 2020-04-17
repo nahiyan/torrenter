@@ -11,6 +11,7 @@ import Foundation
 
 class TorrentContentItem: NSObject {
     @objc dynamic let name: String
+    var _state: NSControl.StateValue
     @objc dynamic var state: NSControl.StateValue {
         get {
             if children != nil { // Directory
@@ -32,7 +33,7 @@ class TorrentContentItem: NSObject {
                     return NSControl.StateValue.mixed
                 }
             } else { // File
-                if info.priority == 0 {
+                if _state == NSControl.StateValue.off {
                     return NSControl.StateValue.off
                 } else {
                     return NSControl.StateValue.on
@@ -57,17 +58,26 @@ class TorrentContentItem: NSObject {
                 torrent_file_priority(Int32(torrentIndex), Int32(fileIndex), priority)
             } else {
                 for child in children! {
-                    if priority == 4 {
-                        child.state = NSControl.StateValue.on
-                    } else {
+                    if priority == 0 {
                         child.state = NSControl.StateValue.off
+                        child.info.priority = 0
+                    } else {
+                        child.state = NSControl.StateValue.on
+                        child.info.priority = 4
                     }
                 }
             }
 
+            // Update the state
+            if priority == 0 {
+                _state = NSControl.StateValue.off
+            } else {
+                _state = NSControl.StateValue.on
+            }
+            info.priority = priority
+
             // Reload the table to reflect the changes
             if vc != nil {
-                info.priority = priority
                 vc!.torrentDetails.reloadContentTable()
 
                 letRefreshAfterPriorityUpdates(expectedPriority: priority)
@@ -134,6 +144,12 @@ class TorrentContentItem: NSObject {
             info = ContentItemInfo()
         }
         self.torrentIndex = torrentIndex
+
+        if info.priority == 0 {
+            _state = NSControl.StateValue.off
+        } else {
+            _state = NSControl.StateValue.on
+        }
     }
 
     func fetchInfo() {
