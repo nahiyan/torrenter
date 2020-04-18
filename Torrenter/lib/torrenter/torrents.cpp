@@ -696,6 +696,17 @@ const std::vector<std::string> explode(const std::string &s, const char &c)
     return v;
 }
 
+const std::string implode(std::vector<std::string> &segments, const char &c)
+{
+    std::string value;
+    for (std::string segment : segments)
+    {
+        value += segment + c;
+    }
+
+    return value;
+}
+
 const char *c_string(std::string str)
 {
     char *c_str = new char[str.size() + 1];
@@ -831,13 +842,6 @@ extern "C" Content torrent_get_content(int index)
         content.count = id;
 
         return content;
-
-        // std::vector<std::string> paths = files.paths();
-
-        // for (auto it = paths.begin(); it != paths.end(); it++)
-        // {
-        //     std::cout << "Path: " << *it << std::endl;
-        // }
     }
     catch (std::out_of_range)
     {
@@ -866,6 +870,20 @@ extern "C" ContentItemInfo torrent_item_info(int index, int item_index)
             info.progress = 0;
         }
 
+        std::string save_path = torrent.save_path;
+        info.path = c_string(torrent.handler.torrent_file()->files().file_path(item_index, save_path));
+
+        std::vector<std::string> segments = explode(info.path, '/');
+        if (segments.size() == 1)
+        {
+            info.parent_path = "/";
+        }
+        else
+        {
+            segments.pop_back();
+            info.parent_path = c_string("/" + implode(segments, '/'));
+        }
+
         return info;
     }
     catch (std::out_of_range)
@@ -874,6 +892,12 @@ extern "C" ContentItemInfo torrent_item_info(int index, int item_index)
     }
 
     return ContentItemInfo();
+}
+
+extern "C" void torrent_item_info_destroy(ContentItemInfo info)
+{
+    delete[] info.path;
+    delete[] info.parent_path;
 }
 
 extern "C" void torrent_fetch_files_progress(int index)

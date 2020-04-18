@@ -102,6 +102,8 @@ struct ContentItemInfo
     int priority;
     float size;
     float progress;
+    const char *path;
+    const char *parent_path;
 };
 
 #endif /* torrent_h */

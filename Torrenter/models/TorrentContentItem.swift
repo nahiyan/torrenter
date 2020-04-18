@@ -130,6 +130,14 @@ class TorrentContentItem: NSObject {
         }
     }
 
+    var path: String {
+        return String(cString: info.path)
+    }
+
+    var parentPath: String {
+        return String(cString: info.parent_path)
+    }
+
     init(name: String, fileIndex: Int, torrentIndex: Int) {
         self.name = name
         if fileIndex == -1 {
@@ -155,6 +163,7 @@ class TorrentContentItem: NSObject {
     func fetchInfo() {
         if ViewController.get() != nil {
             if children == nil {
+                torrent_item_info_destroy(info)
                 info = torrent_item_info(Int32(torrentIndex), Int32(fileIndex))
             }
         }

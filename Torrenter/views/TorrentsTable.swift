@@ -12,12 +12,16 @@ class TorrentsTable: NSTableView {
     var torrent: Torrent?
 
     override func willOpenMenu(_ menu: NSMenu, with _: NSEvent) {
-        let viewController: ViewController = NSApplication.shared.mainWindow!.contentViewController as! ViewController
+        let vc: ViewController? = ViewController.get()
 
-        let torrentIndex: Int = viewController.torrentsTable.clickedRow
+        if vc == nil {
+            return
+        }
+
+        let torrentIndex: Int = vc!.torrentsTable.clickedRow
         if torrentIndex != -1 {
-            torrent = (viewController.torrents.arrangedObjects as! [Torrent])[torrentIndex]
-            let contextMenu: NSMenu = viewController.contextMenu
+            torrent = (vc!.torrents.arrangedObjects as! [Torrent])[torrentIndex]
+            let contextMenu: NSMenu = vc!.contextMenu
 
             // Play/pause item -> 0
             let playPauseItem: NSMenuItem? = contextMenu.item(at: 0)
@@ -75,8 +79,8 @@ class TorrentsTable: NSTableView {
     }
 
     func postOperation() {
-        let viewController: ViewController = NSApplication.shared.mainWindow!.contentViewController as! ViewController
-        viewController.updateActionButtonsAndDetailsView()
+        let vc: ViewController? = ViewController.get()
+        vc?.updateActionButtonsAndDetailsView()
     }
 
     @objc func pauseTorrent() {
@@ -110,10 +114,8 @@ class TorrentsTable: NSTableView {
     }
 
     @objc func openDestDir() {
-        let path: URL? = URL(fileURLWithPath: torrent!.savePath, isDirectory: true)
-        if path != nil {
-            NSWorkspace.shared.activateFileViewerSelecting([path!])
-        }
+        let path: URL = URL(fileURLWithPath: torrent!.savePath, isDirectory: true)
+        NSWorkspace.shared.open(path)
     }
 
     @objc func limitRate(isDownloadRate: Bool) {
