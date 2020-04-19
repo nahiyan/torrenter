@@ -25,7 +25,7 @@ class TorrentContent: NSOutlineView, NSOutlineViewDelegate, NSOutlineViewDataSou
         // context menu
         menu = NSMenu()
         menu!.addItem(withTitle: "Open", action: #selector(openFile), keyEquivalent: "")
-        menu!.addItem(withTitle: "Open Containing Directory", action: #selector(openContainingDirectory), keyEquivalent: "")
+        menu!.addItem(withTitle: "Open in File Viewer", action: #selector(openInFileViewer), keyEquivalent: "")
         menu!.addItem(withTitle: "Priority", action: nil, keyEquivalent: "")
 
         let priorityMenu: NSMenu = NSMenu()
@@ -56,7 +56,7 @@ class TorrentContent: NSOutlineView, NSOutlineViewDelegate, NSOutlineViewDataSou
         }
     }
 
-    @objc func openContainingDirectory() {
+    @objc func openInFileViewer() {
         if vc == nil {
             return
         }
@@ -67,15 +67,7 @@ class TorrentContent: NSOutlineView, NSOutlineViewDelegate, NSOutlineViewDataSou
             let item: TorrentContentItem = vc!.torrentContent.item(atRow: clickedRow) as! TorrentContentItem
 
             if item.children == nil {
-                let url = URL(fileURLWithPath: item.parentPath, isDirectory: true)
-
-                let configuration: NSWorkspace.OpenConfiguration = NSWorkspace.OpenConfiguration()
-                configuration.promptsUserIfNeeded = true
-
-                let finder = NSWorkspace.shared.urlForApplication(withBundleIdentifier: "com.apple.finder")
-
-                // Open file with default application
-                NSWorkspace.shared.open([url], withApplicationAt: finder!, configuration: configuration)
+                NSWorkspace.shared.selectFile(item.path, inFileViewerRootedAtPath: item.parentPath)
             }
         }
     }

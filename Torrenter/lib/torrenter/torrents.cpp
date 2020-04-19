@@ -107,16 +107,23 @@ extern "C" void torrent_initiate_resume_data(const char *file_name)
 
     // Torrent params
     lt::add_torrent_params params;
-    params = lt::read_resume_data(buf);
+    try
+    {
+        params = lt::read_resume_data(buf);
 
-    Torrent torrent;
-    torrent.handler = torrent_session.add_torrent(params);
-    torrent.name = torrent.handler.status().name;
+        Torrent torrent;
+        torrent.handler = torrent_session.add_torrent(params);
+        torrent.name = torrent.handler.status().name;
 
-    // Insert torrent in the index-mapped list
-    torrents.insert(std::pair<int, Torrent>(next_index, torrent));
+        // Insert torrent in the index-mapped list
+        torrents.insert(std::pair<int, Torrent>(next_index, torrent));
 
-    next_index++;
+        next_index++;
+    }
+    catch (...)
+    {
+        std::cout << "Failed to read resume data for " + std::string(file_name) + "\n";
+    }
 }
 
 extern "C" void pause_session()
