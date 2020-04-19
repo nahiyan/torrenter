@@ -79,6 +79,7 @@ struct PeerInfo
     int64_t total_up;
     float progress;
     int connection_type;
+    unsigned short port;
 };
 
 struct ContentItem

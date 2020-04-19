@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15705"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16096"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -325,13 +325,13 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="42" horizontalPageScroll="10" verticalLineScroll="42" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YZL-Dr-LLM">
-                                                <rect key="frame" x="0.0" y="0.0" width="884" height="197"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="884" height="247"/>
                                                 <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="WIk-hN-1dM">
-                                                    <rect key="frame" x="0.0" y="0.0" width="884" height="182"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="884" height="232"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="T2g-f2-nPs" viewBased="YES" id="Yd5-Gp-9Lo" customClass="TorrentsTable" customModule="Torrenter" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="0.0" width="1123" height="157"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="1123" height="207"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <size key="intercellSpacing" width="5" height="25"/>
                                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -339,7 +339,6 @@
                                                             <tableColumns>
                                                                 <tableColumn editable="NO" width="225" minWidth="40" maxWidth="1000" id="U15-3h-IG4">
                                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Name">
-                                                                        <font key="font" metaFont="message" size="11"/>
                                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                     </tableHeaderCell>
@@ -386,7 +385,6 @@
                                                                 </tableColumn>
                                                                 <tableColumn editable="NO" width="180" minWidth="40" maxWidth="1000" id="mk7-gZ-hSE">
                                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Status">
-                                                                        <font key="font" metaFont="message" size="11"/>
                                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                     </tableHeaderCell>
@@ -426,7 +424,6 @@
                                                                 </tableColumn>
                                                                 <tableColumn identifier="progress" width="70" minWidth="10" maxWidth="3.4028234663852886e+38" id="9FE-WE-hag">
                                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Progress">
-                                                                        <font key="font" metaFont="message" size="11"/>
                                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     </tableHeaderCell>
@@ -456,7 +453,6 @@
                                                                 </tableColumn>
                                                                 <tableColumn editable="NO" width="100" minWidth="40" maxWidth="1000" id="st9-EU-Zbb">
                                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Size">
-                                                                        <font key="font" metaFont="message" size="11"/>
                                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                     </tableHeaderCell>
@@ -499,7 +495,6 @@
                                                                 </tableColumn>
                                                                 <tableColumn editable="NO" width="100" minWidth="40" maxWidth="1000" id="P4L-Ih-A4O">
                                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Download Rate">
-                                                                        <font key="font" metaFont="message" size="11"/>
                                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                     </tableHeaderCell>
@@ -542,7 +537,6 @@
                                                                 </tableColumn>
                                                                 <tableColumn editable="NO" width="100" minWidth="40" maxWidth="1000" id="zjw-lf-2VC">
                                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Upload Rate">
-                                                                        <font key="font" metaFont="message" size="11"/>
                                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                     </tableHeaderCell>
@@ -585,7 +579,6 @@
                                                                 </tableColumn>
                                                                 <tableColumn editable="NO" width="60" minWidth="40" maxWidth="1000" id="hWS-wj-bRa">
                                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Seeds">
-                                                                        <font key="font" metaFont="message" size="11"/>
                                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                     </tableHeaderCell>
@@ -628,7 +621,6 @@
                                                                 </tableColumn>
                                                                 <tableColumn editable="NO" width="248" minWidth="40" maxWidth="1000" id="riG-IQ-r8c">
                                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Peers">
-                                                                        <font key="font" metaFont="message" size="11"/>
                                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                     </tableHeaderCell>
@@ -680,7 +672,7 @@
                                                     <nil key="backgroundColor"/>
                                                 </clipView>
                                                 <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="7h2-aA-qot">
-                                                    <rect key="frame" x="0.0" y="182" width="884" height="15"/>
+                                                    <rect key="frame" x="0.0" y="232" width="884" height="15"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </scroller>
                                                 <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="jWP-1o-fdl">
@@ -705,13 +697,13 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VxH-DR-j9F">
-                                                <rect key="frame" x="0.0" y="0.0" width="884" height="579"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="884" height="529"/>
                                                 <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="hPO-Rs-DqS">
-                                                    <rect key="frame" x="0.0" y="0.0" width="884" height="579"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="884" height="529"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <view translatesAutoresizingMaskIntoConstraints="NO" id="VDW-pg-iar" customClass="TorrentDetailsContainer" customModule="Torrenter" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="225" width="884" height="354"/>
+                                                            <rect key="frame" x="0.0" y="175" width="884" height="354"/>
                                                             <subviews>
                                                                 <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pTR-EX-Hyi">
                                                                     <rect key="frame" x="349" y="160" width="186" height="35"/>
@@ -731,13 +723,13 @@
                                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                 <subviews>
                                                                                     <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="16" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aV0-uK-4gw">
-                                                                                        <rect key="frame" x="16" y="16" width="864" height="353"/>
+                                                                                        <rect key="frame" x="16" y="16" width="814" height="353"/>
                                                                                         <subviews>
                                                                                             <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MUd-l3-F2K">
-                                                                                                <rect key="frame" x="0.0" y="333" width="864" height="20"/>
+                                                                                                <rect key="frame" x="0.0" y="333" width="814" height="20"/>
                                                                                                 <subviews>
                                                                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BJQ-6W-Dca">
-                                                                                                        <rect key="frame" x="-2" y="4" width="62" height="16"/>
+                                                                                                        <rect key="frame" x="-2" y="4" width="12" height="16"/>
                                                                                                         <textFieldCell key="cell" lineBreakMode="clipping" title="Progress:" id="tR2-TI-ink">
                                                                                                             <font key="font" usesAppearanceFont="YES"/>
                                                                                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -745,13 +737,13 @@
                                                                                                         </textFieldCell>
                                                                                                     </textField>
                                                                                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="nHp-N9-gfT" customClass="CompoundProgressBar" customModule="Torrenter" customModuleProvider="target">
-                                                                                                        <rect key="frame" x="66" y="0.0" width="740" height="20"/>
+                                                                                                        <rect key="frame" x="16" y="0.0" width="740" height="20"/>
                                                                                                         <constraints>
                                                                                                             <constraint firstAttribute="height" constant="20" id="c0u-Pb-QsG"/>
                                                                                                         </constraints>
                                                                                                     </customView>
                                                                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ynM-O5-pH2">
-                                                                                                        <rect key="frame" x="812" y="4" width="54" height="16"/>
+                                                                                                        <rect key="frame" x="762" y="4" width="54" height="16"/>
                                                                                                         <textFieldCell key="cell" lineBreakMode="clipping" id="6FS-Ag-y2f">
                                                                                                             <font key="font" usesAppearanceFont="YES"/>
                                                                                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -775,22 +767,22 @@
                                                                                                 </customSpacing>
                                                                                             </stackView>
                                                                                             <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="wsp-v7-eMw">
-                                                                                                <rect key="frame" x="0.0" y="314" width="864" height="5"/>
+                                                                                                <rect key="frame" x="0.0" y="314" width="814" height="5"/>
                                                                                             </box>
                                                                                             <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uqt-R3-nnl">
-                                                                                                <rect key="frame" x="0.0" y="158" width="864" height="142"/>
+                                                                                                <rect key="frame" x="0.0" y="158" width="814" height="142"/>
                                                                                                 <subviews>
                                                                                                     <box horizontalHuggingPriority="1" title="Transfer" translatesAutoresizingMaskIntoConstraints="NO" id="lGr-1z-IdT">
-                                                                                                        <rect key="frame" x="-3" y="-4" width="870" height="146"/>
+                                                                                                        <rect key="frame" x="-3" y="-4" width="820" height="146"/>
                                                                                                         <view key="contentView" id="fr0-rB-uZ6">
-                                                                                                            <rect key="frame" x="3" y="3" width="864" height="128"/>
+                                                                                                            <rect key="frame" x="3" y="3" width="814" height="128"/>
                                                                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                                             <subviews>
                                                                                                                 <stackView distribution="fillEqually" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3KD-3o-z0c">
-                                                                                                                    <rect key="frame" x="0.0" y="0.0" width="864" height="128"/>
+                                                                                                                    <rect key="frame" x="0.0" y="0.0" width="814" height="128"/>
                                                                                                                     <subviews>
                                                                                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3hQ-Na-4dg">
-                                                                                                                            <rect key="frame" x="8" y="0.0" width="277" height="120"/>
+                                                                                                                            <rect key="frame" x="8" y="0.0" width="260" height="120"/>
                                                                                                                             <subviews>
                                                                                                                                 <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eP8-d8-635">
                                                                                                                                     <rect key="frame" x="0.0" y="104" width="133" height="16"/>
@@ -955,7 +947,7 @@
                                                                                                                             </customSpacing>
                                                                                                                         </stackView>
                                                                                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LNW-1k-4sg">
-                                                                                                                            <rect key="frame" x="293" y="0.0" width="276" height="120"/>
+                                                                                                                            <rect key="frame" x="276" y="0.0" width="260" height="120"/>
                                                                                                                             <subviews>
                                                                                                                                 <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="l1T-KR-rWj">
                                                                                                                                     <rect key="frame" x="0.0" y="104" width="86" height="16"/>
@@ -1120,7 +1112,7 @@
                                                                                                                             </customSpacing>
                                                                                                                         </stackView>
                                                                                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zh0-dE-cOu">
-                                                                                                                            <rect key="frame" x="577" y="24" width="277" height="96"/>
+                                                                                                                            <rect key="frame" x="544" y="24" width="260" height="96"/>
                                                                                                                             <subviews>
                                                                                                                                 <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Je2-5B-8Qr">
                                                                                                                                     <rect key="frame" x="0.0" y="80" width="138" height="16"/>
@@ -1284,19 +1276,19 @@
                                                                                                 </customSpacing>
                                                                                             </stackView>
                                                                                             <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g1W-vS-1Ow">
-                                                                                                <rect key="frame" x="0.0" y="0.0" width="864" height="142"/>
+                                                                                                <rect key="frame" x="0.0" y="0.0" width="814" height="142"/>
                                                                                                 <subviews>
                                                                                                     <box title="Information" translatesAutoresizingMaskIntoConstraints="NO" id="fxn-3r-Uhe">
-                                                                                                        <rect key="frame" x="-3" y="-4" width="870" height="146"/>
+                                                                                                        <rect key="frame" x="-3" y="-4" width="820" height="146"/>
                                                                                                         <view key="contentView" id="JmZ-9n-IeU">
-                                                                                                            <rect key="frame" x="3" y="3" width="864" height="128"/>
+                                                                                                            <rect key="frame" x="3" y="3" width="814" height="128"/>
                                                                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                                             <subviews>
                                                                                                                 <stackView distribution="fillEqually" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w1M-nq-I2g">
-                                                                                                                    <rect key="frame" x="0.0" y="0.0" width="864" height="128"/>
+                                                                                                                    <rect key="frame" x="0.0" y="0.0" width="814" height="128"/>
                                                                                                                     <subviews>
                                                                                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tHh-EX-osM">
-                                                                                                                            <rect key="frame" x="8" y="0.0" width="277" height="120"/>
+                                                                                                                            <rect key="frame" x="8" y="0.0" width="261" height="120"/>
                                                                                                                             <subviews>
                                                                                                                                 <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zmH-He-cR4">
                                                                                                                                     <rect key="frame" x="0.0" y="104" width="104" height="16"/>
@@ -1461,7 +1453,7 @@
                                                                                                                             </customSpacing>
                                                                                                                         </stackView>
                                                                                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3wT-5W-t1j">
-                                                                                                                            <rect key="frame" x="293" y="72" width="278" height="48"/>
+                                                                                                                            <rect key="frame" x="277" y="72" width="260" height="48"/>
                                                                                                                             <subviews>
                                                                                                                                 <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Siu-ou-WVU">
                                                                                                                                     <rect key="frame" x="0.0" y="32" width="85" height="16"/>
@@ -1533,7 +1525,7 @@
                                                                                                                             </customSpacing>
                                                                                                                         </stackView>
                                                                                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fLl-jy-46D">
-                                                                                                                            <rect key="frame" x="579" y="72" width="277" height="48"/>
+                                                                                                                            <rect key="frame" x="545" y="72" width="261" height="48"/>
                                                                                                                             <subviews>
                                                                                                                                 <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yAl-b7-Ndb">
                                                                                                                                     <rect key="frame" x="0.0" y="32" width="112" height="16"/>
@@ -1686,7 +1678,6 @@
                                                                                                     <tableColumns>
                                                                                                         <tableColumn width="350" minWidth="100" maxWidth="1000" id="F5j-1R-vRP">
                                                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Name">
-                                                                                                                <font key="font" metaFont="message" size="11"/>
                                                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                                                             </tableHeaderCell>
@@ -1737,7 +1728,6 @@
                                                                                                         </tableColumn>
                                                                                                         <tableColumn width="70" minWidth="40" maxWidth="1000" id="oLX-d0-Oyc">
                                                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Size">
-                                                                                                                <font key="font" metaFont="message" size="11"/>
                                                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                                                             </tableHeaderCell>
@@ -1777,7 +1767,6 @@
                                                                                                         </tableColumn>
                                                                                                         <tableColumn width="70" minWidth="40" maxWidth="1000" id="1oG-gP-bYJ">
                                                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Progress">
-                                                                                                                <font key="font" metaFont="message" size="11"/>
                                                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                                                             </tableHeaderCell>
@@ -1817,7 +1806,6 @@
                                                                                                         </tableColumn>
                                                                                                         <tableColumn width="60" minWidth="40" maxWidth="1000" id="8n9-08-lic">
                                                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Priority">
-                                                                                                                <font key="font" metaFont="message" size="11"/>
                                                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                                                             </tableHeaderCell>
@@ -1857,7 +1845,6 @@
                                                                                                         </tableColumn>
                                                                                                         <tableColumn width="70" minWidth="40" maxWidth="1000" id="z1g-Ze-KzW">
                                                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Remaining">
-                                                                                                                <font key="font" metaFont="message" size="11"/>
                                                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                                                             </tableHeaderCell>
@@ -1944,7 +1931,6 @@
                                                                                                     <tableColumns>
                                                                                                         <tableColumn width="70" minWidth="40" maxWidth="1000" id="XTm-4a-rTV">
                                                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Tier">
-                                                                                                                <font key="font" metaFont="message" size="11"/>
                                                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                                                             </tableHeaderCell>
@@ -1984,7 +1970,6 @@
                                                                                                         </tableColumn>
                                                                                                         <tableColumn width="200" minWidth="100" maxWidth="1000" id="Ggv-Rn-qOF">
                                                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="URL">
-                                                                                                                <font key="font" metaFont="message" size="11"/>
                                                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                                                             </tableHeaderCell>
@@ -2024,7 +2009,6 @@
                                                                                                         </tableColumn>
                                                                                                         <tableColumn width="100" minWidth="70" maxWidth="1000" id="ulS-3t-EUX">
                                                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Status">
-                                                                                                                <font key="font" metaFont="message" size="11"/>
                                                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                                                             </tableHeaderCell>
@@ -2064,7 +2048,6 @@
                                                                                                         </tableColumn>
                                                                                                         <tableColumn width="70" minWidth="40" maxWidth="1000" id="exE-mW-veP">
                                                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Peers">
-                                                                                                                <font key="font" metaFont="message" size="11"/>
                                                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                                                             </tableHeaderCell>
@@ -2104,7 +2087,6 @@
                                                                                                         </tableColumn>
                                                                                                         <tableColumn width="70" minWidth="40" maxWidth="1000" id="SCH-N9-uGI">
                                                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Seeds">
-                                                                                                                <font key="font" metaFont="message" size="11"/>
                                                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                                                             </tableHeaderCell>
@@ -2144,7 +2126,6 @@
                                                                                                         </tableColumn>
                                                                                                         <tableColumn width="70" minWidth="40" maxWidth="1000" id="rfA-kK-FfE">
                                                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Leeches">
-                                                                                                                <font key="font" metaFont="message" size="11"/>
                                                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                                                             </tableHeaderCell>
@@ -2184,7 +2165,6 @@
                                                                                                         </tableColumn>
                                                                                                         <tableColumn width="60" minWidth="40" maxWidth="1000" id="ij4-Tx-yfo">
                                                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Downloaded">
-                                                                                                                <font key="font" metaFont="message" size="11"/>
                                                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                                                             </tableHeaderCell>
@@ -2224,7 +2204,6 @@
                                                                                                         </tableColumn>
                                                                                                         <tableColumn width="100" minWidth="70" maxWidth="1000" id="9YM-EC-ZO0">
                                                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Message">
-                                                                                                                <font key="font" metaFont="message" size="11"/>
                                                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                                                             </tableHeaderCell>
@@ -2293,17 +2272,17 @@
                                                                         </tabViewItem>
                                                                         <tabViewItem label="Peers" identifier="" id="3H2-2l-sr1">
                                                                             <view key="view" id="MKA-ah-gOW">
-                                                                                <rect key="frame" x="10" y="33" width="846" height="385"/>
+                                                                                <rect key="frame" x="10" y="33" width="846" height="333"/>
                                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                 <subviews>
                                                                                     <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="27" horizontalPageScroll="10" verticalLineScroll="27" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5ni-Vy-hNr">
-                                                                                        <rect key="frame" x="0.0" y="0.0" width="846" height="385"/>
+                                                                                        <rect key="frame" x="0.0" y="0.0" width="846" height="333"/>
                                                                                         <clipView key="contentView" copiesOnScroll="NO" id="mWY-gI-5Za">
-                                                                                            <rect key="frame" x="0.0" y="0.0" width="846" height="370"/>
-                                                                                            <autoresizingMask key="autoresizingMask"/>
+                                                                                            <rect key="frame" x="0.0" y="0.0" width="846" height="318"/>
+                                                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                             <subviews>
                                                                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="RUo-l7-Psx" viewBased="YES" id="HNz-a9-NLI">
-                                                                                                    <rect key="frame" x="0.0" y="0.0" width="1155" height="345"/>
+                                                                                                    <rect key="frame" x="0.0" y="0.0" width="1155" height="293"/>
                                                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                                     <size key="intercellSpacing" width="5" height="10"/>
                                                                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -2311,7 +2290,6 @@
                                                                                                     <tableColumns>
                                                                                                         <tableColumn editable="NO" width="100" minWidth="40" maxWidth="1000" id="nHH-pY-PHw">
                                                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Country/Region">
-                                                                                                                <font key="font" metaFont="message" size="11"/>
                                                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                                                             </tableHeaderCell>
@@ -2358,7 +2336,6 @@
                                                                                                         </tableColumn>
                                                                                                         <tableColumn editable="NO" width="120" minWidth="40" maxWidth="1000" id="VZU-QK-eky">
                                                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="IP Address">
-                                                                                                                <font key="font" metaFont="message" size="11"/>
                                                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                                                             </tableHeaderCell>
@@ -2405,7 +2382,6 @@
                                                                                                         </tableColumn>
                                                                                                         <tableColumn editable="NO" width="70" minWidth="40" maxWidth="1000" id="agQ-eH-a4J">
                                                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Port">
-                                                                                                                <font key="font" metaFont="message" size="11"/>
                                                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                                                             </tableHeaderCell>
@@ -2428,7 +2404,7 @@
                                                                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                                                                             </textFieldCell>
                                                                                                                             <connections>
-                                                                                                                                <binding destination="zWW-Dz-jfd" name="value" keyPath="objectValue.ipAddress" id="RHr-Ey-Ngy"/>
+                                                                                                                                <binding destination="zWW-Dz-jfd" name="value" keyPath="objectValue.port" id="RHr-Ey-Ngy"/>
                                                                                                                             </connections>
                                                                                                                         </textField>
                                                                                                                     </subviews>
@@ -2452,7 +2428,6 @@
                                                                                                         </tableColumn>
                                                                                                         <tableColumn editable="NO" width="70" minWidth="40" maxWidth="1000" id="as5-8h-ZTm">
                                                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Connection">
-                                                                                                                <font key="font" metaFont="message" size="11"/>
                                                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                                                             </tableHeaderCell>
@@ -2475,7 +2450,7 @@
                                                                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                                                                             </textFieldCell>
                                                                                                                             <connections>
-                                                                                                                                <binding destination="YTw-3L-eYN" name="value" keyPath="objectValue.ipAddress" id="EYS-Su-iAG"/>
+                                                                                                                                <binding destination="YTw-3L-eYN" name="value" keyPath="objectValue.connectionType" id="EYS-Su-iAG"/>
                                                                                                                             </connections>
                                                                                                                         </textField>
                                                                                                                     </subviews>
@@ -2499,7 +2474,6 @@
                                                                                                         </tableColumn>
                                                                                                         <tableColumn editable="NO" width="70" minWidth="40" maxWidth="1000" id="Zh7-m3-qgE">
                                                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Flags">
-                                                                                                                <font key="font" metaFont="message" size="11"/>
                                                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                                                             </tableHeaderCell>
@@ -2546,7 +2520,6 @@
                                                                                                         </tableColumn>
                                                                                                         <tableColumn editable="NO" width="100" minWidth="40" maxWidth="1000" id="ET5-OX-yWS">
                                                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Client">
-                                                                                                                <font key="font" metaFont="message" size="11"/>
                                                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                                                             </tableHeaderCell>
@@ -2593,7 +2566,6 @@
                                                                                                         </tableColumn>
                                                                                                         <tableColumn editable="NO" width="70" minWidth="40" maxWidth="1000" id="WKI-rL-MxR">
                                                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Progress">
-                                                                                                                <font key="font" metaFont="message" size="11"/>
                                                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                                                             </tableHeaderCell>
@@ -2616,7 +2588,7 @@
                                                                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                                                                             </textFieldCell>
                                                                                                                             <connections>
-                                                                                                                                <binding destination="m7I-a4-HRK" name="value" keyPath="objectValue.ipAddress" id="cec-Jd-Xg6"/>
+                                                                                                                                <binding destination="m7I-a4-HRK" name="value" keyPath="objectValue.progress" id="cec-Jd-Xg6"/>
                                                                                                                             </connections>
                                                                                                                         </textField>
                                                                                                                     </subviews>
@@ -2640,7 +2612,6 @@
                                                                                                         </tableColumn>
                                                                                                         <tableColumn editable="NO" width="80" minWidth="40" maxWidth="1000" id="Cb3-R9-yyD">
                                                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Download Rate">
-                                                                                                                <font key="font" metaFont="message" size="11"/>
                                                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                                                             </tableHeaderCell>
@@ -2663,7 +2634,7 @@
                                                                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                                                                             </textFieldCell>
                                                                                                                             <connections>
-                                                                                                                                <binding destination="7ce-A7-naM" name="value" keyPath="objectValue.ipAddress" id="Bnx-iq-ofe"/>
+                                                                                                                                <binding destination="7ce-A7-naM" name="value" keyPath="objectValue.downloadRate" id="Bnx-iq-ofe"/>
                                                                                                                             </connections>
                                                                                                                         </textField>
                                                                                                                     </subviews>
@@ -2687,7 +2658,6 @@
                                                                                                         </tableColumn>
                                                                                                         <tableColumn editable="NO" width="80" minWidth="40" maxWidth="1000" id="eAS-dL-3sv">
                                                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Upload Rate">
-                                                                                                                <font key="font" metaFont="message" size="11"/>
                                                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                                                             </tableHeaderCell>
@@ -2710,7 +2680,7 @@
                                                                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                                                                             </textFieldCell>
                                                                                                                             <connections>
-                                                                                                                                <binding destination="nvj-Y8-BtD" name="value" keyPath="objectValue.ipAddress" id="tdW-XM-9pj"/>
+                                                                                                                                <binding destination="nvj-Y8-BtD" name="value" keyPath="objectValue.uploadRate" id="tdW-XM-9pj"/>
                                                                                                                             </connections>
                                                                                                                         </textField>
                                                                                                                     </subviews>
@@ -2734,7 +2704,6 @@
                                                                                                         </tableColumn>
                                                                                                         <tableColumn editable="NO" width="80" minWidth="40" maxWidth="1000" id="lPR-Y8-6a7">
                                                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Downloaded">
-                                                                                                                <font key="font" metaFont="message" size="11"/>
                                                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                                                             </tableHeaderCell>
@@ -2757,7 +2726,7 @@
                                                                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                                                                             </textFieldCell>
                                                                                                                             <connections>
-                                                                                                                                <binding destination="64x-7w-wFW" name="value" keyPath="objectValue.ipAddress" id="6aD-te-1Lw"/>
+                                                                                                                                <binding destination="64x-7w-wFW" name="value" keyPath="objectValue.totalDownloaded" id="6aD-te-1Lw"/>
                                                                                                                             </connections>
                                                                                                                         </textField>
                                                                                                                     </subviews>
@@ -2781,7 +2750,6 @@
                                                                                                         </tableColumn>
                                                                                                         <tableColumn editable="NO" width="80" minWidth="40" maxWidth="1000" id="YH5-3t-gOE">
                                                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Uploaded">
-                                                                                                                <font key="font" metaFont="message" size="11"/>
                                                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                                                             </tableHeaderCell>
@@ -2804,7 +2772,7 @@
                                                                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                                                                             </textFieldCell>
                                                                                                                             <connections>
-                                                                                                                                <binding destination="YfG-xo-Xqf" name="value" keyPath="objectValue.ipAddress" id="jSV-c6-fFJ"/>
+                                                                                                                                <binding destination="YfG-xo-Xqf" name="value" keyPath="objectValue.totalUploaded" id="jSV-c6-fFJ"/>
                                                                                                                             </connections>
                                                                                                                         </textField>
                                                                                                                     </subviews>
@@ -2828,7 +2796,6 @@
                                                                                                         </tableColumn>
                                                                                                         <tableColumn editable="NO" width="70" minWidth="40" maxWidth="1000" id="B1k-sw-IjA">
                                                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Relevance">
-                                                                                                                <font key="font" metaFont="message" size="11"/>
                                                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                                                             </tableHeaderCell>
@@ -2875,7 +2842,6 @@
                                                                                                         </tableColumn>
                                                                                                         <tableColumn editable="NO" width="100" minWidth="40" maxWidth="1000" id="Dnt-HJ-ghe">
                                                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Files">
-                                                                                                                <font key="font" metaFont="message" size="11"/>
                                                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                                                             </tableHeaderCell>
@@ -2932,7 +2898,7 @@
                                                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="300" id="C66-Rx-5ZP"/>
                                                                                         </constraints>
                                                                                         <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="7SD-rf-Vm8">
-                                                                                            <rect key="frame" x="0.0" y="370" width="846" height="15"/>
+                                                                                            <rect key="frame" x="0.0" y="318" width="846" height="15"/>
                                                                                             <autoresizingMask key="autoresizingMask"/>
                                                                                         </scroller>
                                                                                         <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="gch-W9-ebz">

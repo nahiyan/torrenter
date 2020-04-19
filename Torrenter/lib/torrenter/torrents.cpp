@@ -20,7 +20,6 @@
 
 #include "../../include/torrenter/torrent.h"
 #include "../../include/torrenter/torrents.h"
-#include "../../include/torrenter/peer_info.h"
 #include "libtorrent/entry.hpp"
 #include "libtorrent/bencode.hpp"
 #include "libtorrent/session.hpp"
@@ -41,7 +40,15 @@ int next_index = 0;
 std::shared_ptr<std::thread> alert_monitor;
 std::string app_data_dir;
 std::vector<lt::peer_info> peers;
-std::vector<PeerInfo_> peer_infos;
+std::vector<PeerInfo> peer_infos;
+
+const char *c_string(std::string str)
+{
+    char *c_str = new char[str.size() + 1];
+    sprintf(c_str, "%s", str.c_str());
+
+    return (const char *)c_str;
+}
 
 // Number of torrents loaded in memory
 extern "C" int torrent_count()
@@ -260,13 +267,23 @@ extern "C" void torrent_fetch_peers(int index)
 
         handler.get_peer_info(peers);
 
+        // Destroy previously created peer infos
+        for (PeerInfo peer_info : peer_infos)
+        {
+            delete[] peer_info.ip_address;
+        }
+
         peer_infos.clear();
 
         for (auto it = peers.begin(); it != peers.end(); it++)
         {
-            PeerInfo_ peer_info = PeerInfo_();
-            peer_info.ip_address = it->ip.address().to_string();
-            peer_info.client = it->client;
+            PeerInfo peer_info = PeerInfo();
+
+            std::stringstream address_ss;
+            address_ss << it->ip.address();
+            peer_info.ip_address = c_string(address_ss.str());
+            peer_info.client = it->client.c_str();
+            peer_info.port = it->ip.port();
             peer_info.up_rate = it->up_speed;
             peer_info.down_rate = it->down_speed;
             peer_info.progress = it->progress;
@@ -286,23 +303,11 @@ extern "C" PeerInfo torrent_get_peer_info(int peer_index)
 {
     try
     {
-        PeerInfo_ &peer_info = peer_infos.at(peer_index);
-
-        PeerInfo peer_info2 = PeerInfo();
-        peer_info2.ip_address = peer_info.ip_address.c_str();
-        peer_info2.client = peer_info.client.c_str();
-        peer_info2.down_rate = peer_info.down_rate;
-        peer_info2.up_rate = peer_info.up_rate;
-        peer_info2.progress = peer_info.progress;
-        peer_info2.connection_type = peer_info.connection_type;
-        peer_info2.total_down = peer_info.total_down;
-        peer_info2.total_up = peer_info.total_up;
-
-        return peer_info2;
+        return peer_infos.at(peer_index);
     }
     catch (std::out_of_range)
     {
-        std::cout << "Failed to fetch peer of torrent." << std::endl;
+        std::cout << "Failed to fetch peer info." << std::endl;
 
         return PeerInfo();
     }
@@ -712,14 +717,6 @@ const std::string implode(std::vector<std::string> &segments, const char &c)
     }
 
     return value;
-}
-
-const char *c_string(std::string str)
-{
-    char *c_str = new char[str.size() + 1];
-    sprintf(c_str, "%s", str.c_str());
-
-    return (const char *)c_str;
 }
 
 extern "C" void torrent_content_destroy(Content content)
