@@ -20,6 +20,11 @@
 
 #include "../../include/torrenter/torrent.h"
 #include "../../include/torrenter/torrents.h"
+extern "C"
+{
+#include "maxminddb.h"
+#include "../../include/torrenter/geo_ip.h"
+}
 #include "libtorrent/entry.hpp"
 #include "libtorrent/bencode.hpp"
 #include "libtorrent/session.hpp"
@@ -35,12 +40,13 @@
 
 // Global variables
 lt::session torrent_session = lt::session();
-std::unordered_map<int, Torrent> torrents;
 int next_index = 0;
+std::unordered_map<int, Torrent> torrents;
 std::shared_ptr<std::thread> alert_monitor;
 std::string app_data_dir;
 std::vector<lt::peer_info> peers;
 std::vector<PeerInfo> peer_infos;
+MMDB_s mmdb;
 
 const char *c_string(std::string str)
 {
@@ -928,4 +934,15 @@ extern "C" void torrent_file_priority(int index, int item_index, int priority)
     {
         std::cout << "Failed to set torrent content item priority." << std::endl;
     }
+}
+
+extern "C" void load_geo_ip_database(const char *location)
+{
+    open_db(location, &mmdb);
+}
+
+extern "C" void terminate()
+{
+    save_all_resume_data();
+    close_db(&mmdb);
 }

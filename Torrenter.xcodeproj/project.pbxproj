@@ -29,6 +29,7 @@
 		4D35834423F9A25500C3662D /* TorrenterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D35834323F9A25500C3662D /* TorrenterUITests.swift */; };
 		4D6033512414D44000349F07 /* Model.xcdatamodeld in Resources */ = {isa = PBXBuildFile; fileRef = 4D8FAB112404FAC20008E2A0 /* Model.xcdatamodeld */; };
 		4D8F2F10243EE0CD00E23150 /* TorrentDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8F2F0F243EE0CD00E23150 /* TorrentDetails.swift */; };
+		4D98BBB6244E01E2003609F7 /* database in Resources */ = {isa = PBXBuildFile; fileRef = 4D98BBB4244E01CA003609F7 /* database */; };
 		4D9B035823FC446F000C9DF5 /* include in Resources */ = {isa = PBXBuildFile; fileRef = 4D9B035723FC446F000C9DF5 /* include */; };
 		4DD939FE244C6C9E003C343E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D35832B23F9A25500C3662D /* Main.storyboard */; };
 /* End PBXBuildFile section */
@@ -81,6 +82,8 @@
 		4D35834523F9A25500C3662D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4D8F2F0F243EE0CD00E23150 /* TorrentDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TorrentDetails.swift; path = views/TorrentDetails.swift; sourceTree = "<group>"; };
 		4D8FAB122404FAC20008E2A0 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		4D98BBAC244DF5F2003609F7 /* geo_ip.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = geo_ip.c; sourceTree = "<group>"; };
+		4D98BBB4244E01CA003609F7 /* database */ = {isa = PBXFileReference; lastKnownFileType = folder; path = database; sourceTree = "<group>"; };
 		4D9B034F23FC3BE4000C9DF5 /* Torrenter.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Torrenter.entitlements; sourceTree = "<group>"; };
 		4D9B035723FC446F000C9DF5 /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; path = include; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -145,6 +148,7 @@
 				4D35832B23F9A25500C3662D /* Main.storyboard */,
 				4D169821243E0BDF00D5144C /* Tracker.swift */,
 				4D22661E24373F9D00107520 /* torrents.cpp */,
+				4D98BBAC244DF5F2003609F7 /* geo_ip.c */,
 				4D22661D24373F9D00107520 /* UnitConversion.swift */,
 				4D22661524373F9500107520 /* MagnetUriViewController.swift */,
 				4D22661624373F9500107520 /* RateLimitViewController.swift */,
@@ -164,6 +168,7 @@
 				4D9B034F23FC3BE4000C9DF5 /* Torrenter.entitlements */,
 				4D35832E23F9A25500C3662D /* Info.plist */,
 				4D8FAB112404FAC20008E2A0 /* Model.xcdatamodeld */,
+				4D98BBB4244E01CA003609F7 /* database */,
 				4D35832923F9A25500C3662D /* Assets.xcassets */,
 				4D9B035723FC446F000C9DF5 /* include */,
 			);
@@ -297,6 +302,7 @@
 				4D6033512414D44000349F07 /* Model.xcdatamodeld in Resources */,
 				4D9B035823FC446F000C9DF5 /* include in Resources */,
 				4D35832A23F9A25500C3662D /* Assets.xcassets in Resources */,
+				4D98BBB6244E01E2003609F7 /* database in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -525,7 +531,11 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
-				OTHER_LDFLAGS = "$(PROJECT_DIR)/Torrenter/lib/libtorrent/libtorrent-rasterbar.1.2.4.dylib";
+				OTHER_LDFLAGS = (
+					"$(PROJECT_DIR)/Torrenter/lib/libtorrent/libtorrent-rasterbar.1.2.4.dylib",
+					/usr/local/lib/libmaxminddb.dylib,
+					"$(PROJECT_DIR)/Torrenter/lib/torrenter/geo_ip.o",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.github.hedronium.Torrenter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_INSTALL_OBJC_HEADER = YES;
@@ -560,7 +570,11 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
-				OTHER_LDFLAGS = "$(PROJECT_DIR)/Torrenter/lib/libtorrent/libtorrent-rasterbar.1.2.4.dylib";
+				OTHER_LDFLAGS = (
+					"$(PROJECT_DIR)/Torrenter/lib/libtorrent/libtorrent-rasterbar.1.2.4.dylib",
+					/usr/local/lib/libmaxminddb.dylib,
+					"$(PROJECT_DIR)/Torrenter/lib/torrenter/geo_ip.o",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.github.hedronium.Torrenter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_INSTALL_OBJC_HEADER = YES;

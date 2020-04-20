@@ -23,10 +23,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_: Notification) {
         // Insert code here to initialize your application
+
+        let db = Bundle.main.url(forResource: "GeoLite2-Country", withExtension: "mmdb", subdirectory: "database")
+        if db != nil {
+            load_geo_ip_database(db!.path)
+        }
     }
 
     func applicationWillTerminate(_: Notification) {
         // Insert code here to tear down your application
-        save_all_resume_data()
+        terminate()
     }
 }

@@ -2,6 +2,9 @@
 //  Use this file to import your target's public headers that you would like to expose to Swift.
 //
 
+#ifndef torrenter_bridging_header_h
+#define torrenter_bridging_header_h
+
 #include "torrents.h"
 
 int torrent_initiate(const char *, const char *, bool);
@@ -38,3 +41,7 @@ struct ContentItemInfo torrent_item_info(int, int);
 void torrent_item_info_destroy(struct ContentItemInfo);
 void torrent_file_priority(int, int, int);
 void torrent_fetch_files_progress(int);
+void load_geo_ip_database(const char *);
+void terminate();
+
+#endif
