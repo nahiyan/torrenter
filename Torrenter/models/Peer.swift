@@ -11,6 +11,7 @@ import Foundation
 class Peer: NSObject {
     let index: Int
     var info: PeerInfo
+    var country: UnsafePointer<CChar>?
 
     init(_ index: Int) {
         self.index = index
@@ -19,6 +20,19 @@ class Peer: NSObject {
 
     func fetchInfo() {
         info = torrent_get_peer_info(Int32(index))
+
+        if country != nil {
+            free(UnsafeMutableRawPointer(mutating: country!))
+        }
+        country = peer_get_country(info.ip_address)
+    }
+
+    @objc var location: String {
+        if country != nil {
+            return String(cString: country!)
+        } else {
+            return ""
+        }
     }
 
     @objc var ipAddress: String {

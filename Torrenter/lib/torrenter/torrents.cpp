@@ -946,3 +946,14 @@ extern "C" void terminate()
     save_all_resume_data();
     close_db(&mmdb);
 }
+
+extern "C" const char *peer_get_country(const char *ip_address)
+{
+    const char *country;
+    if (get_country(&mmdb, ip_address, &country))
+    {
+        return country;
+    }
+
+    return "";
+}
