@@ -954,6 +954,8 @@ extern "C" const char *peer_get_country(const char *ip_address)
     {
         return country;
     }
-
-    return "";
+    else
+    {
+        return (const char *)malloc(0 * sizeof(char));
+    }
 }

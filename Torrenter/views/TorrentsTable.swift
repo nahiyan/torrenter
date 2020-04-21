@@ -74,7 +74,7 @@ class TorrentsTable: NSTableView {
 
             // Open Destination Directory -> 12
             let openDestDirItem: NSMenuItem? = contextMenu.item(at: 12)
-            openDestDirItem?.action = #selector(openDestDir)
+            openDestDirItem?.action = #selector(openDestinationDirectory)
         }
     }
 
@@ -113,9 +113,9 @@ class TorrentsTable: NSTableView {
         torrent!.forceReannounce()
     }
 
-    @objc func openDestDir() {
-        let path: URL = URL(fileURLWithPath: torrent!.savePath, isDirectory: true)
-        NSWorkspace.shared.open(path)
+    @objc func openDestinationDirectory() {
+        let url: URL = URL(fileURLWithPath: torrent!.savePath, isDirectory: true)
+        NSWorkspace.shared.open(url)
     }
 
     @objc func limitRate(isDownloadRate: Bool) {
