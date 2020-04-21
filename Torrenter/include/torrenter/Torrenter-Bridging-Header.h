@@ -44,5 +44,7 @@ void torrent_fetch_files_progress(int);
 void load_geo_ip_database(const char *);
 void terminate();
 const char *peer_get_country(const char *);
+struct Trackers torrent_get_trackers(int);
+struct TrackerInfo torrent_tracker_info(int);
 
 #endif

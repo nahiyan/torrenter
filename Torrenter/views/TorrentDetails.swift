@@ -211,7 +211,29 @@ class TorrentDetails: NSTabView, NSTabViewDelegate {
                 }
             }
 
-        default: break
+        case .trackers:
+            if vc!.torrentsTable.selectedRow != -1 {
+                let trackers: Trackers = torrent_get_trackers(Int32(vc!.torrentsTable.selectedRow))
+
+                if trackers.count != (vc!.trackers.arrangedObjects as! [Tracker]).count {
+                    // Clear trackers array
+                    for tracker in vc!.trackers.arrangedObjects as! [Tracker] {
+                        vc!.trackers.removeObject(tracker)
+                    }
+
+                    // repopulate it
+                    for i in 0 ..< Int(trackers.count) {
+                        let tracker: Tracker = Tracker(i)
+                        vc!.trackers.addObject(tracker)
+                    }
+                } else {
+                    for tracker in vc!.trackers.arrangedObjects as! [Tracker] {
+                        tracker.fetchInfo()
+                    }
+                }
+
+                reloadTrackersTable()
+            }
         }
     }
 
@@ -289,6 +311,18 @@ class TorrentDetails: NSTabView, NSTabViewDelegate {
             // free the dynamically allocated memory
             torrent_content_destroy(content)
         }
+    }
+
+    func reloadTrackersTable() {
+        if vc == nil {
+            return
+        }
+
+        let selectedRow: Int = vc!.trackersTable.selectedRow
+
+        vc!.trackersTable.reloadData()
+
+        vc!.trackersTable.selectRowIndexes(IndexSet(integer: selectedRow), byExtendingSelection: false)
     }
 
     func reloadContentTable() {

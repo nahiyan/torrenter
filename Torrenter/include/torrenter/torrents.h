@@ -98,6 +98,21 @@ struct Content
     int count;
 };
 
+struct TrackerInfo
+{
+    const char *url;
+    unsigned char tier;
+    bool is_working;
+    bool is_updating;
+    const char *message;
+};
+
+struct Trackers
+{
+    struct TrackerInfo **items;
+    int count;
+};
+
 struct ContentItemInfo
 {
     int priority;

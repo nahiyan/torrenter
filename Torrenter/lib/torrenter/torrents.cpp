@@ -17,6 +17,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
+#include <fstream>
 
 #include "../../include/torrenter/torrent.h"
 #include "../../include/torrenter/torrents.h"
@@ -46,6 +47,7 @@ std::shared_ptr<std::thread> alert_monitor;
 std::string app_data_dir;
 std::vector<lt::peer_info> peers;
 std::vector<PeerInfo> peer_infos;
+struct Trackers trackers;
 MMDB_s mmdb;
 
 const char *c_string(std::string str)
@@ -136,6 +138,18 @@ extern "C" void torrent_initiate_resume_data(const char *file_name)
     catch (...)
     {
         std::cout << "Failed to read resume data for " + std::string(file_name) + "\n";
+        std::cout << "Removing the resume file\n";
+        std::string _filepath = app_data_dir + "/resume_files/" + file_name;
+        const char *filepath = c_string(_filepath);
+        if (std::remove(filepath) == 0)
+        {
+            std::cout << "Successfully removed resume file.\n";
+        }
+        else
+        {
+            std::cout << "Failed to remove resume file.\n";
+        }
+        free((char *)filepath);
     }
 }
 
@@ -957,5 +971,83 @@ extern "C" const char *peer_get_country(const char *ip_address)
     else
     {
         return (const char *)malloc(0 * sizeof(char));
+    }
+}
+
+extern "C" void torrent_trackers_destroy(Trackers trackers)
+{
+    for (int i = 0; i < trackers.count; i++)
+    {
+        free((char *)trackers.items[i]->url);
+        free(trackers.items[i]);
+    }
+    free(trackers.items);
+}
+
+extern "C" Trackers torrent_get_trackers(int index)
+{
+    try
+    {
+        Torrent torrent = torrents.at(index);
+
+        std::vector<lt::announce_entry> _trackers = torrent.handler.trackers();
+
+        torrent_trackers_destroy(trackers);
+
+        trackers.items = (TrackerInfo **)calloc(_trackers.size(), sizeof(TrackerInfo));
+        trackers.count = (int)_trackers.size();
+
+        int i = 0;
+        for (lt::announce_entry _tracker : _trackers)
+        {
+            TrackerInfo *tracker = new TrackerInfo;
+            tracker->url = c_string(_tracker.url);
+            tracker->tier = (unsigned char)_tracker.tier;
+            tracker->is_working = false;
+            tracker->message = (const char *)malloc(0);
+            tracker->is_updating = false;
+
+            for (lt::announce_endpoint endpoint : _tracker.endpoints)
+            {
+                if (endpoint.is_working())
+                {
+                    tracker->is_working = true;
+                }
+                if (endpoint.updating)
+                {
+                    tracker->is_updating = true;
+                }
+                if (endpoint.message.size() >= 1)
+                {
+                    free((char *)tracker->message);
+                    tracker->message = c_string(endpoint.message);
+                }
+            }
+
+            trackers.items[i] = tracker;
+            i++;
+        }
+
+        return trackers;
+    }
+    catch (std::out_of_range)
+    {
+        std::cout << "Failed to get trackers list." << std::endl;
+
+        return trackers;
+    }
+}
+
+extern "C" TrackerInfo torrent_tracker_info(int item_index)
+{
+    try
+    {
+        return *trackers.items[item_index];
+    }
+    catch (std::out_of_range)
+    {
+        std::cout << "Failed to get tracker." << std::endl;
+
+        return TrackerInfo();
     }
 }

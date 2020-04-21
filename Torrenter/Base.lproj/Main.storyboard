@@ -325,13 +325,13 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="42" horizontalPageScroll="10" verticalLineScroll="42" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YZL-Dr-LLM">
-                                                <rect key="frame" x="0.0" y="0.0" width="884" height="40"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="884" height="222"/>
                                                 <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="WIk-hN-1dM">
-                                                    <rect key="frame" x="0.0" y="0.0" width="884" height="25"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="884" height="207"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="T2g-f2-nPs" viewBased="YES" id="Yd5-Gp-9Lo" customClass="TorrentsTable" customModule="Torrenter" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="0.0" width="1123" height="25"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="1123" height="182"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <size key="intercellSpacing" width="5" height="25"/>
                                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -672,7 +672,7 @@
                                                     <nil key="backgroundColor"/>
                                                 </clipView>
                                                 <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="7h2-aA-qot">
-                                                    <rect key="frame" x="0.0" y="25" width="884" height="15"/>
+                                                    <rect key="frame" x="0.0" y="207" width="884" height="15"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </scroller>
                                                 <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="jWP-1o-fdl">
@@ -697,24 +697,24 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VxH-DR-j9F">
-                                                <rect key="frame" x="0.0" y="0.0" width="884" height="736"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="884" height="554"/>
                                                 <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="hPO-Rs-DqS">
-                                                    <rect key="frame" x="0.0" y="0.0" width="884" height="736"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="884" height="554"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
-                                                        <view ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VDW-pg-iar" customClass="TorrentDetailsContainer" customModule="Torrenter" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="290" width="884" height="439"/>
+                                                        <view translatesAutoresizingMaskIntoConstraints="NO" id="VDW-pg-iar" customClass="TorrentDetailsContainer" customModule="Torrenter" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="200" width="884" height="354"/>
                                                             <subviews>
-                                                                <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pTR-EX-Hyi">
-                                                                    <rect key="frame" x="349" y="202" width="186" height="35"/>
+                                                                <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pTR-EX-Hyi">
+                                                                    <rect key="frame" x="349" y="160" width="186" height="35"/>
                                                                     <textFieldCell key="cell" lineBreakMode="clipping" allowsUndo="NO" alignment="center" title="No Selection" id="cGa-DS-xwH">
                                                                         <font key="font" metaFont="systemBold" size="30"/>
                                                                         <color key="textColor" name="tertiaryLabelColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
                                                                 </textField>
-                                                                <tabView ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W7r-L6-RTb" customClass="TorrentDetails" customModule="Torrenter" customModuleProvider="target">
-                                                                    <rect key="frame" x="9" y="6" width="866" height="431"/>
+                                                                <tabView translatesAutoresizingMaskIntoConstraints="NO" id="W7r-L6-RTb" customClass="TorrentDetails" customModule="Torrenter" customModuleProvider="target">
+                                                                    <rect key="frame" x="9" y="6" width="866" height="346"/>
                                                                     <font key="font" metaFont="system"/>
                                                                     <tabViewItems>
                                                                         <tabViewItem label="General" identifier="" id="w7s-yR-jRf">
@@ -1667,7 +1667,7 @@
                                                                                         <rect key="frame" x="0.0" y="0.0" width="846" height="300"/>
                                                                                         <clipView key="contentView" id="RMo-pS-ASU">
                                                                                             <rect key="frame" x="0.0" y="0.0" width="846" height="300"/>
-                                                                                            <autoresizingMask key="autoresizingMask"/>
+                                                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                             <subviews>
                                                                                                 <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="SSj-8m-VgV" viewBased="YES" indentationPerLevel="16" outlineTableColumn="F5j-1R-vRP" id="hje-h1-MYb" customClass="TorrentContent" customModule="Torrenter" customModuleProvider="target">
                                                                                                     <rect key="frame" x="0.0" y="0.0" width="846" height="275"/>
@@ -1920,9 +1920,9 @@
                                                                                         <rect key="frame" x="0.0" y="0.0" width="846" height="300"/>
                                                                                         <clipView key="contentView" id="19n-k5-RTe">
                                                                                             <rect key="frame" x="0.0" y="0.0" width="846" height="300"/>
-                                                                                            <autoresizingMask key="autoresizingMask"/>
+                                                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                             <subviews>
-                                                                                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="JbD-sL-CDe" viewBased="YES" id="NRR-cp-uHV">
+                                                                                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="JbD-sL-CDe" viewBased="YES" id="NRR-cp-uHV">
                                                                                                     <rect key="frame" x="0.0" y="0.0" width="846" height="275"/>
                                                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                                     <size key="intercellSpacing" width="3" height="2"/>
@@ -1952,6 +1952,9 @@
                                                                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                                                                             </textFieldCell>
+                                                                                                                            <connections>
+                                                                                                                                <binding destination="ytF-f7-OnP" name="value" keyPath="objectValue.tier" id="15x-uK-IKM"/>
+                                                                                                                            </connections>
                                                                                                                         </textField>
                                                                                                                     </subviews>
                                                                                                                     <constraints>
@@ -1991,6 +1994,9 @@
                                                                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                                                                             </textFieldCell>
+                                                                                                                            <connections>
+                                                                                                                                <binding destination="6vt-cT-hTB" name="value" keyPath="objectValue.url" id="YfQ-bC-spH"/>
+                                                                                                                            </connections>
                                                                                                                         </textField>
                                                                                                                     </subviews>
                                                                                                                     <constraints>
@@ -2030,6 +2036,9 @@
                                                                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                                                                             </textFieldCell>
+                                                                                                                            <connections>
+                                                                                                                                <binding destination="z7Y-wU-5T7" name="value" keyPath="objectValue.status" id="Tbl-SC-TCA"/>
+                                                                                                                            </connections>
                                                                                                                         </textField>
                                                                                                                     </subviews>
                                                                                                                     <constraints>
@@ -2069,6 +2078,9 @@
                                                                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                                                                             </textFieldCell>
+                                                                                                                            <connections>
+                                                                                                                                <binding destination="dSW-E5-oh6" name="value" keyPath="objectValue.peers" id="ycX-8g-pKn"/>
+                                                                                                                            </connections>
                                                                                                                         </textField>
                                                                                                                     </subviews>
                                                                                                                     <constraints>
@@ -2108,6 +2120,9 @@
                                                                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                                                                             </textFieldCell>
+                                                                                                                            <connections>
+                                                                                                                                <binding destination="2Bg-yp-Cet" name="value" keyPath="objectValue.seeds" id="EY9-bK-G0H"/>
+                                                                                                                            </connections>
                                                                                                                         </textField>
                                                                                                                     </subviews>
                                                                                                                     <constraints>
@@ -2147,6 +2162,9 @@
                                                                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                                                                             </textFieldCell>
+                                                                                                                            <connections>
+                                                                                                                                <binding destination="qUS-Xv-Fvu" name="value" keyPath="objectValue.leeches" id="RDk-sb-IfU"/>
+                                                                                                                            </connections>
                                                                                                                         </textField>
                                                                                                                     </subviews>
                                                                                                                     <constraints>
@@ -2186,6 +2204,9 @@
                                                                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                                                                             </textFieldCell>
+                                                                                                                            <connections>
+                                                                                                                                <binding destination="8Mq-pg-ol0" name="value" keyPath="objectValue.downloaded" id="v61-do-4gT"/>
+                                                                                                                            </connections>
                                                                                                                         </textField>
                                                                                                                     </subviews>
                                                                                                                     <constraints>
@@ -2225,6 +2246,9 @@
                                                                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                                                                             </textFieldCell>
+                                                                                                                            <connections>
+                                                                                                                                <binding destination="god-ey-43U" name="value" keyPath="objectValue.message" id="Q22-iv-TV4"/>
+                                                                                                                            </connections>
                                                                                                                         </textField>
                                                                                                                     </subviews>
                                                                                                                     <constraints>
@@ -2242,6 +2266,9 @@
                                                                                                             </connections>
                                                                                                         </tableColumn>
                                                                                                     </tableColumns>
+                                                                                                    <connections>
+                                                                                                        <binding destination="fom-th-iZQ" name="content" keyPath="arrangedObjects" id="AMb-yq-lZO"/>
+                                                                                                    </connections>
                                                                                                 </tableView>
                                                                                             </subviews>
                                                                                         </clipView>
@@ -2279,7 +2306,7 @@
                                                                                         <rect key="frame" x="0.0" y="78" width="846" height="307"/>
                                                                                         <clipView key="contentView" copiesOnScroll="NO" id="mWY-gI-5Za">
                                                                                             <rect key="frame" x="0.0" y="0.0" width="846" height="292"/>
-                                                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                                            <autoresizingMask key="autoresizingMask"/>
                                                                                             <subviews>
                                                                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="RUo-l7-Psx" viewBased="YES" id="HNz-a9-NLI">
                                                                                                     <rect key="frame" x="0.0" y="0.0" width="900" height="267"/>
@@ -2863,6 +2890,8 @@
                         <outlet property="torrents" destination="ANR-OF-cpm" id="Hc7-Og-fkm"/>
                         <outlet property="torrentsTable" destination="Yd5-Gp-9Lo" id="AS4-2Q-qkw"/>
                         <outlet property="totalSize" destination="ybF-ur-OZd" id="0C4-q6-yix"/>
+                        <outlet property="trackers" destination="fom-th-iZQ" id="mXM-Db-kEs"/>
+                        <outlet property="trackersTable" destination="NRR-cp-uHV" id="HwV-pS-CAL"/>
                         <outlet property="uploadLimit" destination="xwx-BD-bpF" id="39q-gx-4Ek"/>
                         <outlet property="uploadSpeed" destination="Ant-7f-Msh" id="DSM-gt-NfR"/>
                         <outlet property="uploaded" destination="5xb-Hs-Sik" id="IB0-t3-Ft9"/>

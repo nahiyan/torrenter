@@ -46,10 +46,11 @@ class ViewController: NSViewController {
     @IBOutlet var createdBy: NSTextField!
     @IBOutlet var createdOn: NSTextField!
     @IBOutlet var torrentContent: TorrentContent!
-
+    @IBOutlet weak var trackersTable: NSTableView!
     @IBOutlet var torrentDetails: TorrentDetails!
     @IBOutlet var noSelectionIndicator: NSTextField!
-
+    @IBOutlet var trackers: NSArrayController!
+    
     let contextMenu: NSMenu = NSMenu()
 
     override func viewDidLoad() {
