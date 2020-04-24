@@ -239,6 +239,7 @@ extern "C" TorrentInfo torrent_get_info(int index)
             torrent_info.creator = info->creator().c_str();
             torrent_info.piece_size = info->piece_length();
             torrent_info.num_pieces_total = info->num_pieces();
+            torrent_info.created_on = info->creation_date();
         }
         else
         {
@@ -246,6 +247,7 @@ extern "C" TorrentInfo torrent_get_info(int index)
             torrent_info.creator = "";
             torrent_info.piece_size = 0;
             torrent_info.num_pieces_total = 0;
+            torrent_info.created_on = -1;
         }
 
         torrent_info.list_seeds = status.list_seeds;
@@ -266,6 +268,8 @@ extern "C" TorrentInfo torrent_get_info(int index)
         torrent_info.total_wanted_done = (float)status.total_wanted_done;
         torrent_info.save_path = torrents.at(index).save_path.c_str();
         torrent_info.info_hash = torrents.at(index).info_hash.c_str();
+        torrent_info.added_on = (double)status.added_time;
+        torrent_info.completed_on = (double)status.completed_time;
 
         return torrent_info;
     }

@@ -135,6 +135,47 @@ class Torrent: NSObject {
         }
     }
 
+    @objc var addedOn: String {
+        let date = Date(timeIntervalSince1970: Double(info.added_on))
+
+        let dateformatter = DateFormatter()
+        dateformatter.locale = Locale.current
+        dateformatter.dateStyle = DateFormatter.Style.medium
+        dateformatter.timeStyle = DateFormatter.Style.short
+
+        return dateformatter.string(from: date)
+    }
+
+    @objc var createdOn: String {
+        if info.created_on == -1 || info.created_on == 0 {
+            return "N/A"
+        } else {
+            let date = Date(timeIntervalSince1970: Double(info.created_on))
+
+            let dateformatter = DateFormatter()
+            dateformatter.locale = Locale.current
+            dateformatter.dateStyle = DateFormatter.Style.medium
+            dateformatter.timeStyle = DateFormatter.Style.short
+
+            return dateformatter.string(from: date)
+        }
+    }
+
+    @objc var completedOn: String {
+        if info.progress == 1 {
+            let date = Date(timeIntervalSince1970: Double(info.completed_on))
+
+            let dateformatter = DateFormatter()
+            dateformatter.locale = Locale.current
+            dateformatter.dateStyle = DateFormatter.Style.medium
+            dateformatter.timeStyle = DateFormatter.Style.short
+
+            return dateformatter.string(from: date)
+        } else {
+            return "N/A"
+        }
+    }
+
     @objc var shareRatio: String {
         let shareRatio: Float = Float(info.downloaded) / Float(info.uploaded)
 
@@ -232,19 +273,23 @@ class Torrent: NSObject {
     }
 
     func sequential() {
-        let viewController: ViewController = NSApplication.shared.mainWindow!.contentViewController as! ViewController
+        let vc: ViewController? = ViewController.get()
 
-        torrent_sequential(Int32(index), true)
+        if vc != nil {
+            torrent_sequential(Int32(index), true)
 
-        viewController.updateActionButtonsAndDetailsView()
+            vc!.updateActionButtonsAndDetailsView()
+        }
     }
 
     func nonSequential() {
-        let viewController: ViewController = NSApplication.shared.mainWindow!.contentViewController as! ViewController
+        let vc: ViewController? = ViewController.get()
 
-        torrent_sequential(Int32(index), false)
+        if vc != nil {
+            torrent_sequential(Int32(index), false)
 
-        viewController.updateActionButtonsAndDetailsView()
+            vc!.updateActionButtonsAndDetailsView()
+        }
     }
 
     func forceRecheck() {
@@ -256,34 +301,41 @@ class Torrent: NSObject {
     }
 
     func pause() {
-        let viewController: ViewController = NSApplication.shared.mainWindow!.contentViewController as! ViewController
+        let vc: ViewController? = ViewController.get()
 
-        torrent_pause(Int32(index))
+        if vc != nil {
+            torrent_pause(Int32(index))
 
-        viewController.updateActionButtonsAndDetailsView()
+            vc!.updateActionButtonsAndDetailsView()
+        }
     }
 
     func resume() {
-        let viewController: ViewController = NSApplication.shared.mainWindow!.contentViewController as! ViewController
+        let vc: ViewController? = ViewController.get()
 
-        torrent_resume(Int32(index))
+        if vc != nil {
+            torrent_resume(Int32(index))
 
-        viewController.updateActionButtonsAndDetailsView()
+            vc!.updateActionButtonsAndDetailsView()
+        }
     }
 
     func remove() {
-        let viewController: ViewController = NSApplication.shared.mainWindow!.contentViewController as! ViewController
-        let windowController: WindowController = NSApplication.shared.mainWindow!.windowController as! WindowController
+        let vc: ViewController? = ViewController.get()
 
-        // Remove torrent from array
-        viewController.torrents.removeObject(self)
+        if vc != nil {
+            let windowController: WindowController = NSApplication.shared.mainWindow!.windowController as! WindowController
 
-        // Remove torrent from session and unordered map along with its resume data
-        torrent_remove(Int32(index))
+            // Remove torrent from array
+            vc!.torrents.removeObject(self)
 
-        // Reset table selection
-        viewController.torrentsTable.deselectAll(nil)
-        viewController.torrentDetails.hide()
-        windowController.deactivateButtons()
+            // Remove torrent from session and unordered map along with its resume data
+            torrent_remove(Int32(index))
+
+            // Reset table selection
+            vc!.torrentsTable.deselectAll(nil)
+            vc!.torrentDetails.hide()
+            windowController.deactivateButtons()
+        }
     }
 }

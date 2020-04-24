@@ -32,6 +32,7 @@
 		4D98BBB6244E01E2003609F7 /* database in Resources */ = {isa = PBXBuildFile; fileRef = 4D98BBB4244E01CA003609F7 /* database */; };
 		4D9B035823FC446F000C9DF5 /* include in Resources */ = {isa = PBXBuildFile; fileRef = 4D9B035723FC446F000C9DF5 /* include */; };
 		4DB739262452AA56002CBC2B /* Torrent.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DB739242452AA56002CBC2B /* Torrent.storyboard */; };
+		4DB739282452C66A002CBC2B /* Path.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB739272452C66A002CBC2B /* Path.swift */; };
 		4DD939FE244C6C9E003C343E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D35832B23F9A25500C3662D /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -88,6 +89,7 @@
 		4D9B034F23FC3BE4000C9DF5 /* Torrenter.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Torrenter.entitlements; sourceTree = "<group>"; };
 		4D9B035723FC446F000C9DF5 /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; path = include; sourceTree = "<group>"; };
 		4DB739252452AA56002CBC2B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Torrenter/Base.lproj/Torrent.storyboard; sourceTree = "<group>"; };
+		4DB739272452C66A002CBC2B /* Path.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Path.swift; path = Torrenter/lib/torrenter/Path.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +128,7 @@
 		4D35831923F9A25200C3662D = {
 			isa = PBXGroup;
 			children = (
+				4DB739272452C66A002CBC2B /* Path.swift */,
 				4DB739242452AA56002CBC2B /* Torrent.storyboard */,
 				4D35832423F9A25200C3662D /* Torrenter */,
 				4D35833723F9A25500C3662D /* TorrenterTests */,
@@ -331,6 +334,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DB739282452C66A002CBC2B /* Path.swift in Sources */,
 				4D22660624373F7A00107520 /* PersistentContainer.swift in Sources */,
 				4D301B67243F615C000CF4DD /* TorrentContent.swift in Sources */,
 				4D22660824373F8100107520 /* AppDelegate.swift in Sources */,

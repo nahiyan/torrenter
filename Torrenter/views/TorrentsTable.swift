@@ -11,6 +11,25 @@ import Cocoa
 class TorrentsTable: NSTableView {
     var torrent: Torrent?
 
+    required init?(coder: NSCoder) {
+        torrent = nil
+        super.init(coder: coder)
+
+        menu = NSMenu()
+        menu!.addItem(withTitle: "Pause", action: nil, keyEquivalent: "")
+        menu!.addItem(withTitle: "Remove", action: nil, keyEquivalent: "")
+        menu!.addItem(NSMenuItem.separator())
+        menu!.addItem(withTitle: "Limit Download Rate", action: nil, keyEquivalent: "")
+        menu!.addItem(withTitle: "Limit Upload Rate", action: nil, keyEquivalent: "")
+        menu!.addItem(NSMenuItem.separator())
+        menu!.addItem(withTitle: "Download in Sequential Order", action: nil, keyEquivalent: "")
+        menu!.addItem(NSMenuItem.separator())
+        menu!.addItem(withTitle: "Force Recheck", action: nil, keyEquivalent: "")
+        menu!.addItem(withTitle: "Force Reannounce", action: nil, keyEquivalent: "")
+        menu!.addItem(NSMenuItem.separator())
+        menu!.addItem(withTitle: "Open Destination Directory", action: nil, keyEquivalent: "")
+    }
+
     override func willOpenMenu(_ menu: NSMenu, with _: NSEvent) {
         let vc: ViewController? = ViewController.get()
 
@@ -21,7 +40,7 @@ class TorrentsTable: NSTableView {
         let torrentIndex: Int = vc!.torrentsTable.clickedRow
         if torrentIndex != -1 {
             torrent = (vc!.torrents.arrangedObjects as! [Torrent])[torrentIndex]
-            let contextMenu: NSMenu = vc!.contextMenu
+            let contextMenu: NSMenu = self.menu!
 
             // Play/pause item -> 0
             let playPauseItem: NSMenuItem? = contextMenu.item(at: 0)
@@ -47,11 +66,10 @@ class TorrentsTable: NSTableView {
             let limitUploadRateItem: NSMenuItem? = contextMenu.item(at: 4)
             limitUploadRateItem?.action = #selector(limitUploadRate)
 
-            // Limit Share Ratio -> 5
-            // Separator -> 6
+            // Separator -> 5
 
-            // Download in sequential order -> 7
-            let downloadInSequentialOrderItem: NSMenuItem? = contextMenu.item(at: 7)
+            // Download in sequential order -> 6
+            let downloadInSequentialOrderItem: NSMenuItem? = contextMenu.item(at: 6)
 
             if torrent!.isSequential {
                 downloadInSequentialOrderItem?.state = .on
@@ -60,20 +78,20 @@ class TorrentsTable: NSTableView {
             }
             downloadInSequentialOrderItem?.action = #selector(downloadInSequentialOrder)
 
-            // Separator -> 8
+            // Separator -> 7
 
-            // Force Recheck -> 9
-            let forceRecheckItem: NSMenuItem? = contextMenu.item(at: 9)
+            // Force Recheck -> 8
+            let forceRecheckItem: NSMenuItem? = contextMenu.item(at: 8)
             forceRecheckItem?.action = #selector(forceRecheckTorrent)
 
-            // Force Reannounce -> 10
-            let forceReannounceItem: NSMenuItem? = contextMenu.item(at: 10)
+            // Force Reannounce -> 9
+            let forceReannounceItem: NSMenuItem? = contextMenu.item(at: 9)
             forceReannounceItem?.action = #selector(forceReannounceTorrent)
 
-            // Separator -> 11
+            // Separator -> 10
 
-            // Open Destination Directory -> 12
-            let openDestDirItem: NSMenuItem? = contextMenu.item(at: 12)
+            // Open Destination Directory -> 11
+            let openDestDirItem: NSMenuItem? = contextMenu.item(at: 11)
             openDestDirItem?.action = #selector(openDestinationDirectory)
         }
     }
@@ -118,6 +136,7 @@ class TorrentsTable: NSTableView {
 
         if pathCString != nil {
             let path: String = String(cString: pathCString!)
+            free(UnsafeMutableRawPointer(mutating: pathCString))
 
             let url: URL = URL(fileURLWithPath: path)
 

@@ -46,12 +46,12 @@ class ViewController: NSViewController {
     @IBOutlet var createdBy: NSTextField!
     @IBOutlet var createdOn: NSTextField!
     @IBOutlet var torrentContent: TorrentContent!
-    @IBOutlet weak var trackersTable: NSTableView!
+    @IBOutlet var trackersTable: NSTableView!
     @IBOutlet var torrentDetails: TorrentDetails!
     @IBOutlet var noSelectionIndicator: NSTextField!
     @IBOutlet var trackers: NSArrayController!
-    
-    let contextMenu: NSMenu = NSMenu()
+
+    // let contextMenu: NSMenu = NSMenu()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -119,8 +119,8 @@ class ViewController: NSViewController {
         spawn_alert_monitor()
 
         // Attach context menu
-        initiateContextMenu()
-        torrentsTable.menu = contextMenu
+        // initiateContextMenu()
+        // torrentsTable.menu = contextMenu
     }
 
     override var representedObject: Any? {
@@ -191,21 +191,21 @@ class ViewController: NSViewController {
 }
 
 extension ViewController {
-    func initiateContextMenu() {
-        contextMenu.addItem(withTitle: "Pause", action: nil, keyEquivalent: "")
-        contextMenu.addItem(withTitle: "Remove", action: nil, keyEquivalent: "")
-        contextMenu.addItem(NSMenuItem.separator())
-        contextMenu.addItem(withTitle: "Limit Download Rate", action: nil, keyEquivalent: "")
-        contextMenu.addItem(withTitle: "Limit Upload Rate", action: nil, keyEquivalent: "")
-        contextMenu.addItem(withTitle: "Limit Share Ratio", action: nil, keyEquivalent: "")
-        contextMenu.addItem(NSMenuItem.separator())
-        contextMenu.addItem(withTitle: "Download in Sequential Order", action: nil, keyEquivalent: "")
-        contextMenu.addItem(NSMenuItem.separator())
-        contextMenu.addItem(withTitle: "Force Recheck", action: nil, keyEquivalent: "")
-        contextMenu.addItem(withTitle: "Force Reannounce", action: nil, keyEquivalent: "")
-        contextMenu.addItem(NSMenuItem.separator())
-        contextMenu.addItem(withTitle: "Open Destination Directory", action: nil, keyEquivalent: "")
-    }
+    // func initiateContextMenu() {
+    //     contextMenu.addItem(withTitle: "Pause", action: nil, keyEquivalent: "")
+    //     contextMenu.addItem(withTitle: "Remove", action: nil, keyEquivalent: "")
+    //     contextMenu.addItem(NSMenuItem.separator())
+    //     contextMenu.addItem(withTitle: "Limit Download Rate", action: nil, keyEquivalent: "")
+    //     contextMenu.addItem(withTitle: "Limit Upload Rate", action: nil, keyEquivalent: "")
+    //     contextMenu.addItem(withTitle: "Limit Share Ratio", action: nil, keyEquivalent: "")
+    //     contextMenu.addItem(NSMenuItem.separator())
+    //     contextMenu.addItem(withTitle: "Download in Sequential Order", action: nil, keyEquivalent: "")
+    //     contextMenu.addItem(NSMenuItem.separator())
+    //     contextMenu.addItem(withTitle: "Force Recheck", action: nil, keyEquivalent: "")
+    //     contextMenu.addItem(withTitle: "Force Reannounce", action: nil, keyEquivalent: "")
+    //     contextMenu.addItem(NSMenuItem.separator())
+    //     contextMenu.addItem(withTitle: "Open Destination Directory", action: nil, keyEquivalent: "")
+    // }
 
     func reloadTorrentsTable() {
         let selectedRow = torrentsTable.selectedRow

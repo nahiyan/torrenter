@@ -148,7 +148,16 @@ class TorrentDetails: NSTabView, NSTabViewDelegate {
                 vc!.createdBy.stringValue = torrent.creator
 
                 // save path
-                vc!.savePath.stringValue = torrent.savePath
+                vc!.savePath.stringValue = Path.pathAuto(torrent.savePath)
+
+                // added on
+                vc!.addedOn.stringValue = torrent.addedOn
+
+                // created on
+                vc!.createdOn.stringValue = torrent.createdOn
+
+                // completed on
+                vc!.completedOn.stringValue = torrent.completedOn
             }
         case .peers:
             // Fetch peers for the selected torrent
