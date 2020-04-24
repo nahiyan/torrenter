@@ -114,8 +114,16 @@ class TorrentsTable: NSTableView {
     }
 
     @objc func openDestinationDirectory() {
-        let url: URL = URL(fileURLWithPath: torrent!.savePath, isDirectory: true)
-        NSWorkspace.shared.open(url)
+        let pathCString: UnsafePointer<CChar>? = torrent_get_first_root_content_item_path(Int32(torrent!.index))
+
+        if pathCString != nil {
+            let path: String = String(cString: pathCString!)
+
+            let url: URL = URL(fileURLWithPath: path)
+
+            // Open file with default application
+            NSWorkspace.shared.activateFileViewerSelecting([url])
+        }
     }
 
     @objc func limitRate(isDownloadRate: Bool) {

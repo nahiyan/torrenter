@@ -918,6 +918,28 @@ extern "C" ContentItemInfo torrent_item_info(int index, int item_index)
     return ContentItemInfo();
 }
 
+extern "C" const char *torrent_get_first_root_content_item_path(int index)
+{
+    Content content = torrent_get_content(index);
+    if (content.count > 0)
+    {
+        ContentItem *content_item = content.items[0];
+
+        const char *_path = torrent_item_info(index, content_item->id).path;
+        char *path = (char *)calloc(strlen(_path), sizeof(char));
+        strcpy(path, _path);
+
+        torrent_content_destroy(content);
+
+        return (const char *)path;
+    }
+    else
+    {
+        torrent_content_destroy(content);
+        return nullptr;
+    }
+}
+
 extern "C" void torrent_item_info_destroy(ContentItemInfo info)
 {
     delete[] info.path;

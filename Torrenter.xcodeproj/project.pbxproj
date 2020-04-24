@@ -31,6 +31,7 @@
 		4D8F2F10243EE0CD00E23150 /* TorrentDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8F2F0F243EE0CD00E23150 /* TorrentDetails.swift */; };
 		4D98BBB6244E01E2003609F7 /* database in Resources */ = {isa = PBXBuildFile; fileRef = 4D98BBB4244E01CA003609F7 /* database */; };
 		4D9B035823FC446F000C9DF5 /* include in Resources */ = {isa = PBXBuildFile; fileRef = 4D9B035723FC446F000C9DF5 /* include */; };
+		4DB739262452AA56002CBC2B /* Torrent.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DB739242452AA56002CBC2B /* Torrent.storyboard */; };
 		4DD939FE244C6C9E003C343E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D35832B23F9A25500C3662D /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -86,6 +87,7 @@
 		4D98BBB4244E01CA003609F7 /* database */ = {isa = PBXFileReference; lastKnownFileType = folder; path = database; sourceTree = "<group>"; };
 		4D9B034F23FC3BE4000C9DF5 /* Torrenter.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Torrenter.entitlements; sourceTree = "<group>"; };
 		4D9B035723FC446F000C9DF5 /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; path = include; sourceTree = "<group>"; };
+		4DB739252452AA56002CBC2B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Torrenter/Base.lproj/Torrent.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +126,7 @@
 		4D35831923F9A25200C3662D = {
 			isa = PBXGroup;
 			children = (
+				4DB739242452AA56002CBC2B /* Torrent.storyboard */,
 				4D35832423F9A25200C3662D /* Torrenter */,
 				4D35833723F9A25500C3662D /* TorrenterTests */,
 				4D35834223F9A25500C3662D /* TorrenterUITests */,
@@ -298,6 +301,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DB739262452AA56002CBC2B /* Torrent.storyboard in Resources */,
 				4DD939FE244C6C9E003C343E /* Main.storyboard in Resources */,
 				4D6033512414D44000349F07 /* Model.xcdatamodeld in Resources */,
 				4D9B035823FC446F000C9DF5 /* include in Resources */,
@@ -386,6 +390,14 @@
 				4D35832C23F9A25500C3662D /* Base */,
 			);
 			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		4DB739242452AA56002CBC2B /* Torrent.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4DB739252452AA56002CBC2B /* Base */,
+			);
+			name = Torrent.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
