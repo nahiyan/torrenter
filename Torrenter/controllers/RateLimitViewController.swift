@@ -12,7 +12,8 @@ class RateLimitViewController: NSViewController {
     @IBOutlet var rateLimit: NSTextField!
     @IBOutlet var isUnlimited: NSButton!
     @IBOutlet var rateLimitUnit: NSPopUpButton!
-
+    @IBOutlet weak var rateLimitLabel: NSTextField!
+    
     private var _limit: Int32 = 0
 
     var limit: Int32 {

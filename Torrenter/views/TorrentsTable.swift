@@ -53,23 +53,23 @@ class TorrentsTable: NSTableView {
             }
 
             // Remove item -> 1
-            let removeItem: NSMenuItem? = contextMenu.item(at: 1)
+            let removeItem: NSMenuItem? = contextMenu.item(withTitle: "Remove")
             removeItem?.action = #selector(removeTorrent)
 
             // Separator -> 2
 
             // Limit Download Rate -> 3
-            let limitDownloadRateItem: NSMenuItem? = contextMenu.item(at: 3)
+            let limitDownloadRateItem: NSMenuItem? = contextMenu.item(withTitle: "Limit Download Rate")
             limitDownloadRateItem?.action = #selector(limitDownloadRate)
 
             // Limit Upload Rate -> 4
-            let limitUploadRateItem: NSMenuItem? = contextMenu.item(at: 4)
+            let limitUploadRateItem: NSMenuItem? = contextMenu.item(withTitle: "Limit Upload Rate")
             limitUploadRateItem?.action = #selector(limitUploadRate)
 
             // Separator -> 5
 
             // Download in sequential order -> 6
-            let downloadInSequentialOrderItem: NSMenuItem? = contextMenu.item(at: 6)
+            let downloadInSequentialOrderItem: NSMenuItem? = contextMenu.item(withTitle: "Download in Sequential Order")
 
             if torrent!.isSequential {
                 downloadInSequentialOrderItem?.state = .on
@@ -81,17 +81,17 @@ class TorrentsTable: NSTableView {
             // Separator -> 7
 
             // Force Recheck -> 8
-            let forceRecheckItem: NSMenuItem? = contextMenu.item(at: 8)
+            let forceRecheckItem: NSMenuItem? = contextMenu.item(withTitle: "Force Recheck")
             forceRecheckItem?.action = #selector(forceRecheckTorrent)
 
             // Force Reannounce -> 9
-            let forceReannounceItem: NSMenuItem? = contextMenu.item(at: 9)
+            let forceReannounceItem: NSMenuItem? = contextMenu.item(withTitle: "Force Reannounce")
             forceReannounceItem?.action = #selector(forceReannounceTorrent)
 
             // Separator -> 10
 
             // Open Destination Directory -> 11
-            let openDestDirItem: NSMenuItem? = contextMenu.item(at: 11)
+            let openDestDirItem: NSMenuItem? = contextMenu.item(withTitle: "Open Destination Directory")
             openDestDirItem?.action = #selector(openDestinationDirectory)
         }
     }
@@ -151,15 +151,17 @@ class TorrentsTable: NSTableView {
         let torrent: Torrent = (viewController.torrents.arrangedObjects as! [Torrent])[clickedRow]
 
         let storyboard: NSStoryboard = NSApplication.shared.mainWindow!.windowController!.storyboard!
-        let uploadRateLimitWindowController = storyboard.instantiateController(withIdentifier: "rateLimitWindowController") as! NSWindowController
-        let rateLimitWindow: NSWindow = uploadRateLimitWindowController.window!
+        let rateLimitWindowController = storyboard.instantiateController(withIdentifier: "rateLimitWindowController") as! NSWindowController
+        let rateLimitWindow: NSWindow = rateLimitWindowController.window!
 
         // Set the rate limit of the view controller
         let rateLimitViewController: RateLimitViewController = (rateLimitWindow.contentViewController as! RateLimitViewController)
         if isDownloadRate {
             rateLimitViewController.limit = torrent.info.download_limit
+            rateLimitViewController.rateLimitLabel.stringValue = "Download Rate Limit:"
         } else {
             rateLimitViewController.limit = torrent.info.upload_limit
+            rateLimitViewController.rateLimitLabel.stringValue = "Upload Rate Limit:"
         }
 
         NSApplication.shared.mainWindow!.beginSheet(rateLimitWindow, completionHandler: { (response: NSApplication.ModalResponse) -> Void in

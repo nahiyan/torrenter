@@ -471,6 +471,7 @@ Gw
                     <connections>
                         <outlet property="isUnlimited" destination="IXl-9l-2f3" id="qNb-oo-aPe"/>
                         <outlet property="rateLimit" destination="NBL-VW-Ett" id="oAf-Zk-MRk"/>
+                        <outlet property="rateLimitLabel" destination="vV2-DY-6YF" id="MTy-G2-Mi6"/>
                         <outlet property="rateLimitUnit" destination="dRA-Ed-9Ga" id="Jc0-uy-gNw"/>
                     </connections>
                 </viewController>
@@ -519,7 +520,7 @@ Gw
                                                     <rect key="frame" x="1" y="1" width="513" height="113"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
-                                                        <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="QaD-WF-kdP">
+                                                        <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" allowsUndo="YES" textCompletion="NO" smartInsertDelete="YES" id="QaD-WF-kdP">
                                                             <rect key="frame" x="0.0" y="0.0" width="513" height="113"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
