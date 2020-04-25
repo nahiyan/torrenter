@@ -82,6 +82,13 @@ extern "C" void torrent_initiate(const char *loadPath, const char *savePath, boo
 
     torrent.handler.set_flags(lt::torrent_flags::sequential_download, lt::torrent_flags::sequential_download);
 
+    // Default pieces information
+    TorrentPieces pieces;
+    pieces.content = (piece_state_t *)malloc(0);
+    pieces.count = 0;
+
+    torrent.pieces = pieces;
+
     // Insert torrent in the index-mapped list
     torrents.insert(std::pair<int, Torrent>(next_index, torrent));
 
@@ -106,6 +113,13 @@ extern "C" void torrent_initiate_magnet_uri(const char *magnetUri, const char *s
 
     torrent.handler.set_flags(lt::torrent_flags::sequential_download, lt::torrent_flags::sequential_download);
 
+    // Default pieces information
+    TorrentPieces pieces;
+    pieces.content = (piece_state_t *)malloc(0);
+    pieces.count = 0;
+
+    torrent.pieces = pieces;
+
     // Insert torrent in the index-mapped list
     torrents.insert(std::pair<int, Torrent>(next_index, torrent));
 
@@ -129,6 +143,13 @@ extern "C" void torrent_initiate_resume_data(const char *file_name)
         Torrent torrent;
         torrent.handler = torrent_session.add_torrent(params);
         torrent.name = torrent.handler.status().name;
+
+        // Default pieces information
+        TorrentPieces pieces;
+        pieces.content = (piece_state_t *)malloc(0);
+        pieces.count = 0;
+
+        torrent.pieces = pieces;
 
         // Insert torrent in the index-mapped list
         torrents.insert(std::pair<int, Torrent>(next_index, torrent));
@@ -294,7 +315,7 @@ extern "C" void torrent_fetch_peers(int index)
         // Destroy previously created peer infos
         for (PeerInfo peer_info : peer_infos)
         {
-            delete[] peer_info.ip_address;
+            free((char *)peer_info.ip_address);
         }
 
         peer_infos.clear();
@@ -537,7 +558,7 @@ extern "C" TorrentPieces torrent_pieces(int index)
     try
     {
         // torrent
-        Torrent torrent = torrents.at(index);
+        Torrent &torrent = torrents.at(index);
 
         // pieces
         lt::typed_bitfield<lt::piece_index_t> pieces = torrent.handler.status().pieces;
@@ -548,8 +569,7 @@ extern "C" TorrentPieces torrent_pieces(int index)
 
         // update the piece info of the torrent
         torrent.pieces.count = pieces.size();
-        // delete[] torrent.pieces.content;
-        torrent.pieces.content = new piece_state_t[torrent.pieces.count];
+        torrent.pieces.content = (piece_state_t *)realloc(torrent.pieces.content, pieces.size() * sizeof(piece_state_t));
 
         // construct the array
         for (int i = 0; i < torrent.pieces.count; i++)
@@ -1032,6 +1052,9 @@ extern "C" Trackers torrent_get_trackers(int index)
             tracker->is_working = false;
             tracker->message = (const char *)malloc(0);
             tracker->is_updating = false;
+            tracker->seeds = 0;
+            tracker->peers = 0;
+            tracker->downloaded = 0;
 
             for (lt::announce_endpoint endpoint : _tracker.endpoints)
             {
@@ -1048,6 +1071,16 @@ extern "C" Trackers torrent_get_trackers(int index)
                     free((char *)tracker->message);
                     tracker->message = c_string(endpoint.message);
                 }
+
+                // scrape data
+                if (endpoint.scrape_complete != -1)
+                    tracker->seeds += endpoint.scrape_complete;
+
+                if (endpoint.scrape_incomplete != -1)
+                    tracker->peers += endpoint.scrape_incomplete;
+
+                if (endpoint.scrape_downloaded != -1)
+                    tracker->downloaded += endpoint.scrape_downloaded;
             }
 
             trackers.items[i] = tracker;
@@ -1075,5 +1108,53 @@ extern "C" TrackerInfo torrent_tracker_info(int item_index)
         std::cout << "Failed to get tracker." << std::endl;
 
         return TrackerInfo();
+    }
+}
+
+extern "C" Availability torrent_get_availability(int index)
+{
+    try
+    {
+        Torrent torrent = torrents.at(index);
+
+        std::vector<int> _availability;
+        torrent.handler.piece_availability(_availability);
+
+        Availability availability;
+        availability.content = (piece_state_t *)calloc(_availability.size(), sizeof(piece_state_t));
+        availability.count = _availability.size();
+        int available_pieces_count = 0;
+
+        int i = 0;
+        for (int piece_availability : _availability)
+        {
+            available_pieces_count += piece_availability;
+
+            if (piece_availability)
+            {
+                availability.content[i] = piece_finished;
+            }
+            else
+            {
+                availability.content[i] = piece_unknown;
+            }
+            i++;
+        }
+
+        if (availability.count != 0)
+        {
+            availability.value = float(available_pieces_count) / float(availability.count);
+        }
+        else
+        {
+            availability.value = 0;
+        }
+
+        return availability;
+    }
+    catch (std::out_of_range)
+    {
+        std::cout << "Failed to get torrent availability." << std::endl;
+        return Availability();
     }
 }

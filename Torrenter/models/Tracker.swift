@@ -40,19 +40,15 @@ class Tracker: NSObject {
     }
 
     @objc var peers: String {
-        return ""
+        return String(format: "%d", info.seeds)
     }
 
     @objc var seeds: String {
-        return ""
-    }
-
-    @objc var leeches: String {
-        return ""
+        return String(format: "%d", info.peers)
     }
 
     @objc var downloaded: String {
-        return ""
+        return String(format: "%d", info.downloaded)
     }
 
     @objc var message: String {

@@ -90,6 +90,18 @@ class TorrentDetails: NSTabView, NSTabViewDelegate {
                 // progress percentage
                 vc!.progressPercentage.stringValue = torrent.downloadProgress
 
+                // progress bar based on availability of pieces
+                if vc!.piecesAvailability.pieces != nil {
+                    free(UnsafeMutableRawPointer(mutating: vc!.piecesAvailability.pieces))
+                }
+
+                // availability value
+                vc!.piecesAvailability.pieces = torrent_get_availability(Int32(torrent.index)).content
+                vc!.piecesAvailability.piecesCount = Int(torrent_get_availability(Int32(torrent.index)).count)
+                vc!.piecesAvailability.needsDisplay = true
+
+                vc!.piecesAvailabilityValue.stringValue = String(format: "%.2f", Float(torrent_get_availability(Int32(torrent.index)).value))
+
                 // downloaded
                 vc!.downloaded.stringValue = torrent.downloaded
 

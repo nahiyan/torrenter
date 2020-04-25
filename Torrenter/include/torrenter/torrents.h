@@ -36,6 +36,13 @@ struct TorrentPieces
     int count;
 };
 
+struct Availability
+{
+    enum piece_state_t *content;
+    int count;
+    float value;
+};
+
 struct TorrentInfo
 {
     const char *name;
@@ -108,6 +115,9 @@ struct TrackerInfo
     bool is_working;
     bool is_updating;
     const char *message;
+    int seeds;
+    int peers;
+    int downloaded;
 };
 
 struct Trackers

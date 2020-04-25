@@ -47,5 +47,6 @@ const char *peer_get_country(const char *);
 struct Trackers torrent_get_trackers(int);
 struct TrackerInfo torrent_tracker_info(int);
 const char *torrent_get_first_root_content_item_path(int);
+struct Availability torrent_get_availability(int);
 
 #endif

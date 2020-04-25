@@ -21,6 +21,9 @@ class ViewController: NSViewController {
     @IBOutlet var piecesProgress: CompoundProgressBar!
     @IBOutlet var progressPercentage: NSTextField!
 
+    @IBOutlet var piecesAvailability: CompoundProgressBar!
+    @IBOutlet var piecesAvailabilityValue: NSTextField!
+
     @IBOutlet var downloaded: NSTextField!
     @IBOutlet var downloadLimit: NSTextField!
     @IBOutlet var uploadLimit: NSTextField!
@@ -117,10 +120,6 @@ class ViewController: NSViewController {
 
         // Begin listening & responding to alerts
         spawn_alert_monitor()
-
-        // Attach context menu
-        // initiateContextMenu()
-        // torrentsTable.menu = contextMenu
     }
 
     override var representedObject: Any? {
@@ -136,7 +135,6 @@ class ViewController: NSViewController {
     func updateActionButtonsAndDetailsView() {
         let windowController: WindowController = NSApplication.shared.mainWindow!.windowController as! WindowController
         let pauseResumeButton: NSButton = windowController.pauseResumeButton
-        let stopButton: NSButton = windowController.stopButton
         let removeButton: NSButton = windowController.removeButton
         let sequentialDownloadToggleButton: NSButton = windowController.sequentialDownloadToggleButton
 
@@ -149,13 +147,6 @@ class ViewController: NSViewController {
                 pauseResumeButton.image = NSImage(named: "play")
             } else {
                 pauseResumeButton.image = NSImage(named: "pause")
-            }
-
-            // Stop button
-            if torrent.isFinished, !torrent.isSeeding {
-                stopButton.isEnabled = false
-            } else {
-                stopButton.isEnabled = true
             }
 
             // Remove button
