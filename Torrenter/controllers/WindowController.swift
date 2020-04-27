@@ -14,74 +14,25 @@ class WindowController: NSWindowController {
     @IBOutlet var removeButton: NSButton!
     @IBOutlet var sequentialDownloadToggleButton: NSButton!
 
+    static var _shared: WindowController?
+
     override func windowDidLoad() {
         super.windowDidLoad()
 
         // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
+        WindowController._shared = self
+    }
+
+    static var shared: WindowController? {
+        return _shared
     }
 
     @IBAction func addTorrentFromFile(_: Any?) {
-        let viewController: ViewController = NSApplication.shared.mainWindow!.contentViewController as! ViewController
-
-        // Let the user load a torrent file
-        let fileManager = FileManager.default
-        let panel = NSOpenPanel()
-        panel.canChooseFiles = true
-        panel.allowedFileTypes = ["torrent"]
-        panel.allowsMultipleSelection = false
-        panel.begin(completionHandler: { (result) -> Void in
-            if result == NSApplication.ModalResponse.OK {
-                if panel.urls.count == 1 {
-                    let loadPath = panel.urls[0].relativePath
-
-                    if !torrent_exists(loadPath) {
-                        // For now, it's the downloads folder
-                        let savePath = fileManager.homeDirectoryForCurrentUser.appendingPathComponent("Downloads").relativePath
-
-                        // Initiate the torrent
-                        torrent_initiate(loadPath, savePath, false)
-
-                        // Add torrent to the table
-                        let torrent: Torrent = Torrent(Int(torrent_next_index() - 1))
-                        viewController.torrents.addObject(torrent)
-
-                        viewController.reloadTorrentsTable()
-                    } else {
-                        print("Torrent already exists")
-                    }
-                }
-            }
-        })
+        AppDelegate.addTorrentFromFile()
     }
 
     @IBAction func addTorrentFromMagnetUri(_: Any?) {
-        let viewController: ViewController = NSApplication.shared.mainWindow!.contentViewController as! ViewController
-        let savePath = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Downloads").relativePath
-
-        // Let the user enter a Magnet URI
-        let magnetUriWindowController = storyboard!.instantiateController(withIdentifier: "magnetUriWindowController") as! NSWindowController
-        let magnetUriWindow: NSWindow = magnetUriWindowController.window!
-
-        NSApplication.shared.mainWindow!.beginSheet(magnetUriWindow, completionHandler: { (response: NSApplication.ModalResponse) -> Void in
-            if response == .OK {
-                let magnetUri: String = (magnetUriWindow.contentViewController as! MagnetUriViewController).magnetUriTextArea.string
-
-                if magnetUri.count >= 1 {
-                    if !torrent_exists_from_magnet_uri(magnetUri) {
-                        // Initiate the torrent
-                        torrent_initiate_magnet_uri(magnetUri, savePath, false)
-
-                        // Add torrent to the table
-                        let torrent: Torrent = Torrent(Int(torrent_next_index() - 1))
-                        viewController.torrents.addObject(torrent)
-
-                        viewController.reloadTorrentsTable()
-                    } else {
-                        print("Torrent already exists")
-                    }
-                }
-            }
-        })
+        AppDelegate.addTorrentFromMagnetUri()
     }
 
     @IBAction func pauseResumeToggle(_: Any) {
@@ -99,8 +50,6 @@ class WindowController: NSWindowController {
             }
         }
     }
-
-    @IBAction func stop(_: Any) {}
 
     @IBAction func remove(_: Any) {
         let viewController: ViewController = window!.contentViewController as! ViewController
@@ -130,7 +79,6 @@ class WindowController: NSWindowController {
 
     func deactivateButtons() {
         pauseResumeButton.isEnabled = false
-        stopButton.isEnabled = false
         removeButton.isEnabled = false
         sequentialDownloadToggleButton.isEnabled = false
 

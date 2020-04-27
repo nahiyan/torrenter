@@ -1122,7 +1122,7 @@ extern "C" Availability torrent_get_availability(int index)
 
         Availability availability;
         availability.content = (piece_state_t *)calloc(_availability.size(), sizeof(piece_state_t));
-        availability.count = _availability.size();
+        availability.count = (int) _availability.size();
         int available_pieces_count = 0;
 
         int i = 0;

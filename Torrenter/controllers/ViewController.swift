@@ -182,22 +182,6 @@ class ViewController: NSViewController {
 }
 
 extension ViewController {
-    // func initiateContextMenu() {
-    //     contextMenu.addItem(withTitle: "Pause", action: nil, keyEquivalent: "")
-    //     contextMenu.addItem(withTitle: "Remove", action: nil, keyEquivalent: "")
-    //     contextMenu.addItem(NSMenuItem.separator())
-    //     contextMenu.addItem(withTitle: "Limit Download Rate", action: nil, keyEquivalent: "")
-    //     contextMenu.addItem(withTitle: "Limit Upload Rate", action: nil, keyEquivalent: "")
-    //     contextMenu.addItem(withTitle: "Limit Share Ratio", action: nil, keyEquivalent: "")
-    //     contextMenu.addItem(NSMenuItem.separator())
-    //     contextMenu.addItem(withTitle: "Download in Sequential Order", action: nil, keyEquivalent: "")
-    //     contextMenu.addItem(NSMenuItem.separator())
-    //     contextMenu.addItem(withTitle: "Force Recheck", action: nil, keyEquivalent: "")
-    //     contextMenu.addItem(withTitle: "Force Reannounce", action: nil, keyEquivalent: "")
-    //     contextMenu.addItem(NSMenuItem.separator())
-    //     contextMenu.addItem(withTitle: "Open Destination Directory", action: nil, keyEquivalent: "")
-    // }
-
     func reloadTorrentsTable() {
         let selectedRow = torrentsTable.selectedRow
 

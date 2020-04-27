@@ -196,7 +196,7 @@
                                             <menu key="menu" id="j62-HG-b3d">
                                                 <items>
                                                     <menuItem state="on" image="plus" hidden="YES" id="91V-hS-K0F"/>
-                                                    <menuItem title="Load Torrent File" image="I" id="7oH-zs-3r8">
+                                                    <menuItem title="Load Torrent File" id="7oH-zs-3r8">
                                                         <attributedString key="attributedTitle"/>
                                                         <connections>
                                                             <action selector="addTorrentFromFile:" target="B8D-0N-5wS" id="Rlf-cs-3sO"/>
@@ -235,9 +235,6 @@
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
-                                        <connections>
-                                            <action selector="stop:" target="B8D-0N-5wS" id="ES1-4m-OTz"/>
-                                        </connections>
                                     </button>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="C1412B39-5FCE-49EE-8423-AAB392EF13C9" label="" paletteLabel="Remove" image="trash" sizingBehavior="auto" id="H5H-Tm-xeD">
@@ -298,7 +295,6 @@
                         <outlet property="pauseResumeButton" destination="3Kr-5s-Fk8" id="TT4-fm-o10"/>
                         <outlet property="removeButton" destination="bKt-bh-TNg" id="Jd3-yp-F48"/>
                         <outlet property="sequentialDownloadToggleButton" destination="z8t-lT-OWG" id="Kgl-wS-D4D"/>
-                        <outlet property="stopButton" destination="ct7-IT-kLA" id="qBG-8A-kfh"/>
                         <segue destination="OVF-ca-2mo" kind="relationship" relationship="window.shadowedContentViewController" id="cq2-FE-JQM"/>
                     </connections>
                 </windowController>
@@ -637,7 +633,6 @@ Gw
         </scene>
     </scenes>
     <resources>
-        <image name="I" width="128" height="128"/>
         <image name="play" width="10" height="12"/>
         <image name="plus" width="12" height="12"/>
         <image name="sort_ascend" width="17" height="15"/>
