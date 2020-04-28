@@ -2,7 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="XfG-lQ-9wD">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16096"/>
-        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="11.4"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -130,6 +130,7 @@
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
+                                                                    <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="_progress"/>
                                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                     <prototypeCellViews>
                                                                         <tableCellView id="Jz8-aV-Wy3">
@@ -159,6 +160,7 @@
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
+                                                                    <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="_size"/>
                                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                     <prototypeCellViews>
                                                                         <tableCellView id="ky1-Vb-w2C">
@@ -201,6 +203,7 @@
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
+                                                                    <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="_downloadRate"/>
                                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                     <prototypeCellViews>
                                                                         <tableCellView id="Wwj-Wp-zpz">
@@ -243,6 +246,7 @@
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
+                                                                    <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="_uploadRate"/>
                                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                     <prototypeCellViews>
                                                                         <tableCellView id="FaF-RW-PTe">
@@ -285,6 +289,7 @@
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
+                                                                    <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="_seeds"/>
                                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                     <prototypeCellViews>
                                                                         <tableCellView id="5VD-cQ-fzy">
@@ -327,6 +332,7 @@
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
+                                                                    <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="_peers"/>
                                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                     <prototypeCellViews>
                                                                         <tableCellView id="9fQ-ob-7HN">
@@ -436,13 +442,13 @@
                                                                                                         </textFieldCell>
                                                                                                     </textField>
                                                                                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="nHp-N9-gfT" customClass="CompoundProgressBar" customModule="Torrenter" customModuleProvider="target">
-                                                                                                        <rect key="frame" x="66" y="0.0" width="740" height="20"/>
+                                                                                                        <rect key="frame" x="66" y="0.0" width="725" height="20"/>
                                                                                                         <constraints>
                                                                                                             <constraint firstAttribute="height" constant="20" id="c0u-Pb-QsG"/>
                                                                                                         </constraints>
                                                                                                     </customView>
                                                                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ynM-O5-pH2">
-                                                                                                        <rect key="frame" x="812" y="4" width="4" height="16"/>
+                                                                                                        <rect key="frame" x="797" y="4" width="19" height="16"/>
                                                                                                         <textFieldCell key="cell" lineBreakMode="clipping" id="6FS-Ag-y2f">
                                                                                                             <font key="font" usesAppearanceFont="YES"/>
                                                                                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1409,7 +1415,7 @@
                                                                                         <rect key="frame" x="0.0" y="0.0" width="846" height="300"/>
                                                                                         <clipView key="contentView" id="RMo-pS-ASU">
                                                                                             <rect key="frame" x="0.0" y="0.0" width="846" height="300"/>
-                                                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                                            <autoresizingMask key="autoresizingMask"/>
                                                                                             <subviews>
                                                                                                 <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="SSj-8m-VgV" viewBased="YES" indentationPerLevel="16" outlineTableColumn="F5j-1R-vRP" id="hje-h1-MYb" customClass="TorrentContent" customModule="Torrenter" customModuleProvider="target">
                                                                                                     <rect key="frame" x="0.0" y="0.0" width="846" height="275"/>
@@ -1662,7 +1668,7 @@
                                                                                         <rect key="frame" x="0.0" y="121" width="846" height="300"/>
                                                                                         <clipView key="contentView" id="19n-k5-RTe">
                                                                                             <rect key="frame" x="0.0" y="0.0" width="846" height="300"/>
-                                                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                                            <autoresizingMask key="autoresizingMask"/>
                                                                                             <subviews>
                                                                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="JbD-sL-CDe" viewBased="YES" id="NRR-cp-uHV">
                                                                                                     <rect key="frame" x="0.0" y="0.0" width="846" height="275"/>
@@ -1681,7 +1687,7 @@
                                                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                                                             </textFieldCell>
-                                                                                                            <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="tier"/>
+                                                                                                            <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="_tier"/>
                                                                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                                                             <prototypeCellViews>
                                                                                                                 <tableCellView id="ytF-f7-OnP">
@@ -1810,6 +1816,7 @@
                                                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                                                             </textFieldCell>
+                                                                                                            <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="_peers"/>
                                                                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                                                             <prototypeCellViews>
                                                                                                                 <tableCellView id="dSW-E5-oh6">
@@ -1852,6 +1859,7 @@
                                                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                                                             </textFieldCell>
+                                                                                                            <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="_seeds"/>
                                                                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                                                             <prototypeCellViews>
                                                                                                                 <tableCellView id="2Bg-yp-Cet">
@@ -1894,6 +1902,7 @@
                                                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                                                             </textFieldCell>
+                                                                                                            <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="_downloaded"/>
                                                                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                                                             <prototypeCellViews>
                                                                                                                 <tableCellView id="8Mq-pg-ol0">
@@ -1936,6 +1945,7 @@
                                                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                                                             </textFieldCell>
+                                                                                                            <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="message"/>
                                                                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                                                             <prototypeCellViews>
                                                                                                                 <tableCellView id="god-ey-43U">
@@ -2003,11 +2013,11 @@
                                                                         </tabViewItem>
                                                                         <tabViewItem label="Peers" identifier="" id="3H2-2l-sr1">
                                                                             <view key="view" ambiguous="YES" id="MKA-ah-gOW">
-                                                                                <rect key="frame" x="10" y="33" width="846" height="300"/>
+                                                                                <rect key="frame" x="10" y="33" width="846" height="421"/>
                                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                 <subviews>
                                                                                     <scrollView ambiguous="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="27" horizontalPageScroll="10" verticalLineScroll="27" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5ni-Vy-hNr">
-                                                                                        <rect key="frame" x="0.0" y="-7" width="846" height="307"/>
+                                                                                        <rect key="frame" x="0.0" y="114" width="846" height="307"/>
                                                                                         <clipView key="contentView" copiesOnScroll="NO" id="mWY-gI-5Za">
                                                                                             <rect key="frame" x="0.0" y="0.0" width="846" height="292"/>
                                                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2076,6 +2086,7 @@
                                                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                                                             </textFieldCell>
+                                                                                                            <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="_ipAddress"/>
                                                                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                                                             <prototypeCellViews>
                                                                                                                 <tableCellView id="Q0s-P0-lte">
@@ -2122,7 +2133,7 @@
                                                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                                                             </textFieldCell>
-                                                                                                            <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="port"/>
+                                                                                                            <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="_port"/>
                                                                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                                                             <prototypeCellViews>
                                                                                                                 <tableCellView id="zWW-Dz-jfd">
@@ -2263,6 +2274,7 @@
                                                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                                                             </textFieldCell>
+                                                                                                            <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="_progress"/>
                                                                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                                                             <prototypeCellViews>
                                                                                                                 <tableCellView id="m7I-a4-HRK">
@@ -2309,6 +2321,7 @@
                                                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                                                             </textFieldCell>
+                                                                                                            <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="_downloadRate"/>
                                                                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                                                             <prototypeCellViews>
                                                                                                                 <tableCellView id="7ce-A7-naM">
@@ -2355,6 +2368,7 @@
                                                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                                                             </textFieldCell>
+                                                                                                            <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="_uploadRate"/>
                                                                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                                                             <prototypeCellViews>
                                                                                                                 <tableCellView id="nvj-Y8-BtD">
@@ -2401,6 +2415,7 @@
                                                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                                                             </textFieldCell>
+                                                                                                            <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="_totalDownloaded"/>
                                                                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                                                             <prototypeCellViews>
                                                                                                                 <tableCellView id="64x-7w-wFW">
@@ -2447,6 +2462,7 @@
                                                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                                                             </textFieldCell>
+                                                                                                            <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="_totalUploaded"/>
                                                                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                                                             <prototypeCellViews>
                                                                                                                 <tableCellView id="YfG-xo-Xqf">
@@ -2540,11 +2556,11 @@
                                                     </constraints>
                                                 </clipView>
                                                 <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="6Vx-4q-1r0">
-                                                    <rect key="frame" x="0.0" y="539" width="884" height="15"/>
+                                                    <rect key="frame" x="0.0" y="439" width="869" height="15"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </scroller>
-                                                <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="0.53333333333333333" horizontal="NO" id="FJI-tp-dIv">
-                                                    <rect key="frame" x="869" y="0.0" width="15" height="721"/>
+                                                <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="FJI-tp-dIv">
+                                                    <rect key="frame" x="869" y="0.0" width="15" height="454"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </scroller>
                                             </scrollView>

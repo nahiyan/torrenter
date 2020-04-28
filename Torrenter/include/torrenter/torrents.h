@@ -82,6 +82,7 @@ struct TorrentInfo
 struct PeerInfo
 {
     const char *ip_address;
+    unsigned long _ip_address;
     const char *client;
     int up_rate;
     int down_rate;

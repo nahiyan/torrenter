@@ -18,6 +18,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <fstream>
+#include <boost/asio.hpp>
 
 #include "../../include/torrenter/torrent.h"
 #include "../../include/torrenter/torrents.h"
@@ -326,6 +327,22 @@ extern "C" void torrent_fetch_peers(int index)
 
             std::stringstream address_ss;
             address_ss << it->ip.address();
+
+            if (it->ip.address().is_v4())
+            {
+                peer_info._ip_address = it->ip.address().to_v4().to_ulong();
+            }
+            else
+            {
+                peer_info._ip_address = 0;
+
+                boost::asio::ip::address_v6::bytes_type bytes = it->ip.address().to_v6().to_bytes();
+                for (int i = 0; i < bytes.size(); i++)
+                {
+                    peer_info._ip_address += bytes.at(i);
+                }
+            }
+
             peer_info.ip_address = c_string(address_ss.str());
             peer_info.client = it->client.c_str();
             peer_info.port = it->ip.port();

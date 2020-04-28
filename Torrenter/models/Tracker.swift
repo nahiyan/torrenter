@@ -29,6 +29,10 @@ class Tracker: NSObject {
         return String(format: "%d", Int(info.tier))
     }
 
+    @objc var _tier: UInt8 {
+        return info.tier
+    }
+
     @objc var status: String {
         if info.is_updating {
             return "Updating"
@@ -43,12 +47,24 @@ class Tracker: NSObject {
         return String(format: "%d", info.seeds)
     }
 
+    @objc var _peers: Int32 {
+        return info.peers
+    }
+
     @objc var seeds: String {
         return String(format: "%d", info.peers)
     }
 
+    @objc var _seeds: Int32 {
+        return info.seeds
+    }
+
     @objc var downloaded: String {
         return String(format: "%d", info.downloaded)
+    }
+
+    @objc var _downloaded: Int32 {
+        return info.downloaded
     }
 
     @objc var message: String {

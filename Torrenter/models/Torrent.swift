@@ -37,8 +37,16 @@ class Torrent: NSObject {
         return String(format: "%d / %d", info.num_seeds, info.list_seeds)
     }
 
+    @objc var _seeds: Int32 {
+        info.num_seeds
+    }
+
     @objc var peers: String {
         return String(format: "%d / %d", info.num_peers, info.list_peers)
+    }
+
+    @objc var _peers: Int32 {
+        info.num_peers
     }
 
     @objc var connections: String {
@@ -123,6 +131,10 @@ class Torrent: NSObject {
         }
     }
 
+    @objc var _size: Float {
+        return info.size
+    }
+
     @objc var timeRemaining: String {
         let downloadRate: Float = Float(info.download_rate)
         let downloadLeft: Float = info.total_wanted - info.total_wanted_done
@@ -196,6 +208,10 @@ class Torrent: NSObject {
         }
     }
 
+    @objc var _downloadRate: Int32 {
+        return info.download_rate
+    }
+
     @objc var uploadRate: String {
         let data: Data = UnitConversion.dataAuto(Float(info.upload_rate))
 
@@ -206,9 +222,16 @@ class Torrent: NSObject {
         }
     }
 
+    @objc var _uploadRate: Int32 {
+        return info.upload_rate
+    }
+
     @objc var progress: String {
-        // return info.progress
         return String(format: "%.1f%%", info.progress * 100)
+    }
+
+    @objc var _progress: Float {
+        return info.progress
     }
 
     @objc var downloadProgress: String {

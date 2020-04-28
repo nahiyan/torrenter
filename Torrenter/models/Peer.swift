@@ -66,6 +66,10 @@ class Peer: NSObject {
         }
     }
 
+    @objc var _progress: Float {
+        return info!.progress
+    }
+
     @objc var uploadRate: String {
         if info != nil {
             let data: Data = UnitConversion.dataAuto(Float(info!.up_rate))
@@ -78,6 +82,10 @@ class Peer: NSObject {
         } else {
             return ""
         }
+    }
+
+    @objc var _uploadRate: Int32 {
+        return info!.up_rate
     }
 
     @objc var downloadRate: String {
@@ -94,6 +102,10 @@ class Peer: NSObject {
         }
     }
 
+    @objc var _downloadRate: Int32 {
+        return info!.down_rate
+    }
+
     @objc var totalDownloaded: String {
         if info != nil {
             let data: Data = UnitConversion.dataAuto(Float(info!.total_down))
@@ -106,6 +118,10 @@ class Peer: NSObject {
         } else {
             return ""
         }
+    }
+
+    @objc var _totalDownloaded: Int64 {
+        return info!.total_down
     }
 
     @objc var totalUploaded: String {
@@ -122,12 +138,20 @@ class Peer: NSObject {
         }
     }
 
+    @objc var _totalUploaded: Int64 {
+        return info!.total_up
+    }
+
     @objc var port: String {
         if info != nil {
             return String(format: "%d", info!.port)
         } else {
             return ""
         }
+    }
+
+    @objc var _port: UInt16 {
+        return info!.port
     }
 
     @objc var connectionType: String {
@@ -143,5 +167,9 @@ class Peer: NSObject {
         } else {
             return ""
         }
+    }
+
+    @objc var _ipAddress: UInt {
+        return info!._ip_address
     }
 }
