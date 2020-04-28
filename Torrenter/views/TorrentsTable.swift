@@ -190,6 +190,22 @@ class TorrentsTable: NSTableView {
         })
     }
 
+    func reload() {
+        // Reload table data and retain row selection
+        let _selectedRow = selectedRow
+
+        let vc = ViewController.get()
+        if vc != nil {
+            vc!.torrents.rearrangeObjects()
+
+            reloadData()
+            selectRowIndexes(IndexSet(integer: _selectedRow), byExtendingSelection: false)
+
+            // Refresh progress bars
+            vc!.refreshProgressBars()
+        }
+    }
+
     @objc func limitDownloadRate() {
         limitRate(isDownloadRate: true)
     }

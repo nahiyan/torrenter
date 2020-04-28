@@ -135,7 +135,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                         let torrent: Torrent = Torrent(Int(torrent_next_index() - 1))
                         vc!.torrents.addObject(torrent)
 
-                        vc!.reloadTorrentsTable()
+                        vc!.torrentsTable.reload()
                     } else {
                         print("Torrent already exists")
                     }
@@ -174,7 +174,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                         let torrent: Torrent = Torrent(Int(torrent_next_index() - 1))
                         vc!.torrents.addObject(torrent)
 
-                        vc!.reloadTorrentsTable()
+                        vc!.torrentsTable.reload()
                     } else {
                         print("Torrent already exists")
                     }

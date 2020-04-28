@@ -12,7 +12,7 @@ class ViewController: NSViewController {
     static var _get: ViewController?
 
     @IBOutlet var torrents: NSArrayController!
-    @IBOutlet var torrentsTable: NSTableView!
+    @IBOutlet var torrentsTable: TorrentsTable!
     var container: NSPersistentContainer!
 
     @IBOutlet var peers: NSArrayController!
@@ -106,7 +106,7 @@ class ViewController: NSViewController {
             }
 
             // Reload torrents table
-            self.reloadTorrentsTable()
+            self.torrentsTable.reload()
 
             // Refresh the torrent details view
             self.torrentDetails.refresh()
@@ -182,17 +182,6 @@ class ViewController: NSViewController {
 }
 
 extension ViewController {
-    func reloadTorrentsTable() {
-        let selectedRow = torrentsTable.selectedRow
-
-        // Reload table data and retain row selection
-        torrentsTable.reloadData()
-        torrentsTable.selectRowIndexes(IndexSet(integer: selectedRow), byExtendingSelection: false)
-
-        // Refresh progress bars
-        refreshProgressBars()
-    }
-
     func refreshProgressBars() {
         // Refresh the progress bars
         for rowIndex in 0 ... (torrentsTable.numberOfRows - 1) {
