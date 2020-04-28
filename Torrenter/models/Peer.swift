@@ -10,25 +10,32 @@ import Foundation
 
 class Peer: NSObject {
     let index: Int
-    var info: PeerInfo
+    var info: PeerInfo?
     var country: UnsafePointer<CChar>?
 
     init(_ index: Int) {
         self.index = index
-        info = torrent_get_peer_info(Int32(index))
+        info = nil
+        super.init()
+        fetchInfo()
     }
 
     func fetchInfo() {
-        info = torrent_get_peer_info(Int32(index))
+        let _info: UnsafeMutablePointer<PeerInfo>? = torrent_get_peer_info(Int32(index))
+        if _info != nil {
+            info = _info!.pointee
 
-        if country != nil {
-            free(UnsafeMutableRawPointer(mutating: country!))
+            if country != nil {
+                free(UnsafeMutableRawPointer(mutating: country!))
+            }
+            country = peer_get_country(info!.ip_address)
+        } else {
+            info = nil
         }
-        country = peer_get_country(info.ip_address)
     }
 
     @objc var location: String {
-        if country != nil {
+        if country != nil, info != nil {
             return String(cString: country!)
         } else {
             return ""
@@ -36,69 +43,105 @@ class Peer: NSObject {
     }
 
     @objc var ipAddress: String {
-        return String(cString: info.ip_address)
+        if info != nil {
+            return String(cString: info!.ip_address)
+        } else {
+            return ""
+        }
     }
 
     @objc var client: String {
-        return String(cString: info.client)
+        if info != nil {
+            return String(cString: info!.client)
+        } else {
+            return ""
+        }
     }
 
     @objc var progress: String {
-        return String(format: "%.1f%%", info.progress * 100)
+        if info != nil {
+            return String(format: "%.1f%%", info!.progress * 100)
+        } else {
+            return ""
+        }
     }
 
     @objc var uploadRate: String {
-        let data: Data = UnitConversion.dataAuto(Float(info.up_rate))
+        if info != nil {
+            let data: Data = UnitConversion.dataAuto(Float(info!.up_rate))
 
-        if data.unit == "MB" || data.unit == "GB" || data.unit == "TB" {
-            return String(format: "%.2f %@/s", data.value, data.unit)
+            if data.unit == "MB" || data.unit == "GB" || data.unit == "TB" {
+                return String(format: "%.2f %@/s", data.value, data.unit)
+            } else {
+                return String(format: "%.0f %@/s", data.value, data.unit)
+            }
         } else {
-            return String(format: "%.0f %@/s", data.value, data.unit)
+            return ""
         }
     }
 
     @objc var downloadRate: String {
-        let data: Data = UnitConversion.dataAuto(Float(info.down_rate))
+        if info != nil {
+            let data: Data = UnitConversion.dataAuto(Float(info!.down_rate))
 
-        if data.unit == "MB" || data.unit == "GB" || data.unit == "TB" {
-            return String(format: "%.2f %@/s", data.value, data.unit)
+            if data.unit == "MB" || data.unit == "GB" || data.unit == "TB" {
+                return String(format: "%.2f %@/s", data.value, data.unit)
+            } else {
+                return String(format: "%.0f %@/s", data.value, data.unit)
+            }
         } else {
-            return String(format: "%.0f %@/s", data.value, data.unit)
+            return ""
         }
     }
 
     @objc var totalDownloaded: String {
-        let data: Data = UnitConversion.dataAuto(Float(info.total_down))
+        if info != nil {
+            let data: Data = UnitConversion.dataAuto(Float(info!.total_down))
 
-        if data.unit == "MB" || data.unit == "GB" || data.unit == "TB" {
-            return String(format: "%.2f %@", data.value, data.unit)
+            if data.unit == "MB" || data.unit == "GB" || data.unit == "TB" {
+                return String(format: "%.2f %@", data.value, data.unit)
+            } else {
+                return String(format: "%.0f %@", data.value, data.unit)
+            }
         } else {
-            return String(format: "%.0f %@", data.value, data.unit)
+            return ""
         }
     }
 
     @objc var totalUploaded: String {
-        let data: Data = UnitConversion.dataAuto(Float(info.total_up))
+        if info != nil {
+            let data: Data = UnitConversion.dataAuto(Float(info!.total_up))
 
-        if data.unit == "MB" || data.unit == "GB" || data.unit == "TB" {
-            return String(format: "%.2f %@", data.value, data.unit)
+            if data.unit == "MB" || data.unit == "GB" || data.unit == "TB" {
+                return String(format: "%.2f %@", data.value, data.unit)
+            } else {
+                return String(format: "%.0f %@", data.value, data.unit)
+            }
         } else {
-            return String(format: "%.0f %@", data.value, data.unit)
+            return ""
         }
     }
 
     @objc var port: String {
-        return String(format: "%d", info.port)
+        if info != nil {
+            return String(format: "%d", info!.port)
+        } else {
+            return ""
+        }
     }
 
     @objc var connectionType: String {
-        switch info.connection_type {
-        case 0:
-            return "BitTorrent"
-        case 1:
-            return "WebSeed"
-        default:
-            return "HttpSeed"
+        if info != nil {
+            switch info!.connection_type {
+            case 0:
+                return "BitTorrent"
+            case 1:
+                return "WebSeed"
+            default:
+                return "HttpSeed"
+            }
+        } else {
+            return ""
         }
     }
 }

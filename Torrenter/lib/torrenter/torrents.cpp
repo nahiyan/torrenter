@@ -344,17 +344,17 @@ extern "C" void torrent_fetch_peers(int index)
     }
 }
 
-extern "C" PeerInfo torrent_get_peer_info(int peer_index)
+extern "C" PeerInfo *torrent_get_peer_info(int peer_index)
 {
     try
     {
-        return peer_infos.at(peer_index);
+        return &peer_infos.at(peer_index);
     }
     catch (std::out_of_range)
     {
         std::cout << "Failed to fetch peer info." << std::endl;
 
-        return PeerInfo();
+        return nullptr;
     }
 }
 
@@ -1122,7 +1122,7 @@ extern "C" Availability torrent_get_availability(int index)
 
         Availability availability;
         availability.content = (piece_state_t *)calloc(_availability.size(), sizeof(piece_state_t));
-        availability.count = (int) _availability.size();
+        availability.count = (int)_availability.size();
         int available_pieces_count = 0;
 
         int i = 0;

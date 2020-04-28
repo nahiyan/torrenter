@@ -178,40 +178,53 @@ class TorrentDetails: NSTabView, NSTabViewDelegate {
 
                 torrent_fetch_peers(Int32(torrent.index))
 
-                let tablePeersCount: Int = (vc!.peers.arrangedObjects as! [Peer]).count
-                let actualPeersCount: Int = Int(torrent_peers_count())
+                let peersCount = Int(torrent_peers_count())
                 let peersTableSelectedRow: Int = vc!.peersTable.selectedRow
 
                 // Synchronize the table data with the peers list
-                if tablePeersCount < actualPeersCount {
-                    let beginning = tablePeersCount
+                // if tablePeersCount < actualPeersCount {
+                //     let beginning = tablePeersCount
 
-                    // print(tablePeersCount, actualPeersCount, beginning)
+                //     for peerIndex in beginning ..< actualPeersCount {
+                //         let peer: Peer = Peer(Int(peerIndex))
+                //         vc!.peers.addObject(peer)
+                //     }
+                // } else if tablePeersCount > actualPeersCount {
+                //     let beginning = actualPeersCount
 
-                    for peerIndex in beginning ..< actualPeersCount {
-                        let peer: Peer = Peer(Int(peerIndex))
-                        vc!.peers.addObject(peer)
-                    }
-                } else if tablePeersCount > actualPeersCount {
-                    let beginning = actualPeersCount
+                //     // collect all the peers for removal
+                //     var peersList: [Peer] = []
+                //     for peerIndex in beginning ..< tablePeersCount {
+                //         let peer: Peer = (vc!.peers.arrangedObjects as! [Peer])[peerIndex]
+                //         peersList.append(peer)
+                //     }
 
-                    // collect all the peers for removal
-                    var peersList: [Peer] = []
-                    for peerIndex in beginning ..< tablePeersCount {
-                        let peer: Peer = (vc!.peers.arrangedObjects as! [Peer])[peerIndex]
-                        peersList.append(peer)
-                    }
+                //     // remove them one by one
+                //     for peer in peersList {
+                //         vc!.peers.removeObject(peer)
+                //     }
+                // }
 
-                    // remove them one by one
-                    for peer in peersList {
+                // Remove peers outside the range & take note of creation of new peers
+                var peersIndexMap = [Bool](repeating: false, count: peersCount)
+
+                for peer in vc!.peers.arrangedObjects as! [Peer] {
+                    if peer.index >= peersCount {
                         vc!.peers.removeObject(peer)
+                    } else {
+                        peersIndexMap[peer.index] = true
                     }
                 }
 
-                // Refresh peer infos
-                for peerIndex in 0 ..< actualPeersCount {
-                    let peer: Peer = (vc!.peers.arrangedObjects as! [Peer])[peerIndex]
+                // Create new peers
+                for i in 0 ..< peersCount {
+                    if !peersIndexMap[i] {
+                        let peer = Peer(i)
+                        vc!.peers.addObject(peer)
+                    }
+                }
 
+                for peer in vc!.peers.arrangedObjects as! [Peer] {
                     peer.fetchInfo()
                 }
 
@@ -363,15 +376,17 @@ class TorrentDetails: NSTabView, NSTabViewDelegate {
             return
         }
 
-        // Reload table data and retain row selection
-        vc!.peersTable.reloadData()
-
         var _selectedRow: Int
         if selectedRow == nil {
             _selectedRow = vc!.peersTable.selectedRow
         } else {
             _selectedRow = selectedRow!
         }
+
+        vc!.peers.rearrangeObjects()
+
+        // Reload table data and retain row selection
+        vc!.peersTable.reloadData()
 
         vc!.peersTable.selectRowIndexes(IndexSet(integer: _selectedRow), byExtendingSelection: false)
     }
