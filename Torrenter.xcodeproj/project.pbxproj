@@ -31,7 +31,7 @@
 		4D8F2F10243EE0CD00E23150 /* TorrentDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8F2F0F243EE0CD00E23150 /* TorrentDetails.swift */; };
 		4D98BBB6244E01E2003609F7 /* database in Resources */ = {isa = PBXBuildFile; fileRef = 4D98BBB4244E01CA003609F7 /* database */; };
 		4D9B035823FC446F000C9DF5 /* include in Resources */ = {isa = PBXBuildFile; fileRef = 4D9B035723FC446F000C9DF5 /* include */; };
-		4DA806A024729A7700819DE0 /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA8069F24729A7700819DE0 /* MainMenu.swift */; };
+		4DA806A22472AA1700819DE0 /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA806A12472AA1600819DE0 /* MainMenu.swift */; };
 		4DB739262452AA56002CBC2B /* Torrent.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DB739242452AA56002CBC2B /* Torrent.storyboard */; };
 		4DB739282452C66A002CBC2B /* Path.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB739272452C66A002CBC2B /* Path.swift */; };
 		4DD939FE244C6C9E003C343E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D35832B23F9A25500C3662D /* Main.storyboard */; };
@@ -89,7 +89,8 @@
 		4D98BBB4244E01CA003609F7 /* database */ = {isa = PBXFileReference; lastKnownFileType = folder; path = database; sourceTree = "<group>"; };
 		4D9B034F23FC3BE4000C9DF5 /* Torrenter.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Torrenter.entitlements; sourceTree = "<group>"; };
 		4D9B035723FC446F000C9DF5 /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; path = include; sourceTree = "<group>"; };
-		4DA8069F24729A7700819DE0 /* MainMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MainMenu.swift; path = Torrenter/menu/MainMenu.swift; sourceTree = "<group>"; };
+		4DA806A12472AA1600819DE0 /* MainMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainMenu.swift; path = Torrenter/menus/MainMenu.swift; sourceTree = "<group>"; };
+		4DA806A32472AA5E00819DE0 /* MainMenuEditMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MainMenuEditMenu.swift; path = Torrenter/menus/MainMenuEditMenu.swift; sourceTree = "<group>"; };
 		4DB739252452AA56002CBC2B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Torrenter/Base.lproj/Torrent.storyboard; sourceTree = "<group>"; };
 		4DB739272452C66A002CBC2B /* Path.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Path.swift; path = Torrenter/lib/torrenter/Path.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -130,7 +131,8 @@
 		4D35831923F9A25200C3662D = {
 			isa = PBXGroup;
 			children = (
-				4DA8069F24729A7700819DE0 /* MainMenu.swift */,
+				4DA806A12472AA1600819DE0 /* MainMenu.swift */,
+				4DA806A32472AA5E00819DE0 /* MainMenuEditMenu.swift */,
 				4DB739272452C66A002CBC2B /* Path.swift */,
 				4DB739242452AA56002CBC2B /* Torrent.storyboard */,
 				4D35832423F9A25200C3662D /* Torrenter */,
@@ -352,7 +354,7 @@
 				4D22661424373F8F00107520 /* CompoundProgressBar.swift in Sources */,
 				4D22661924373F9500107520 /* MagnetUriViewController.swift in Sources */,
 				4D22661A24373F9500107520 /* RateLimitViewController.swift in Sources */,
-				4DA806A024729A7700819DE0 /* MainMenu.swift in Sources */,
+				4DA806A22472AA1700819DE0 /* MainMenu.swift in Sources */,
 				4D22661B24373F9500107520 /* ViewController.swift in Sources */,
 				4D22661C24373F9500107520 /* WindowController.swift in Sources */,
 				4D22661F24373F9D00107520 /* UnitConversion.swift in Sources */,

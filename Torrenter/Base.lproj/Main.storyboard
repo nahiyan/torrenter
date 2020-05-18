@@ -9,7 +9,7 @@
         <scene sceneID="JPo-4y-FX3">
             <objects>
                 <application id="hnw-xV-0zn" sceneMemberID="viewController">
-                    <menu key="mainMenu" title="Main Menu" systemMenu="main" id="AYu-sK-qS6" customClass="MainMenu" customModule="Torrenter" customModuleProvider="target">
+                    <menu key="mainMenu" title="Main Menu" systemMenu="main" id="AYu-sK-qS6">
                         <items>
                             <menuItem title="Torrenter" id="1Xt-HY-uBw">
                                 <modifierMask key="keyEquivalentModifierMask"/>
@@ -57,7 +57,7 @@
                             </menuItem>
                             <menuItem title="Torrent" id="dMs-cI-mzQ">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Torrent" id="bib-Uj-vzu">
+                                <menu key="submenu" title="Torrent" id="bib-Uj-vzu" customClass="MainMenu" customModule="Torrenter" customModuleProvider="target">
                                     <items>
                                         <menuItem title="Add From File" id="4LT-ON-bs1">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -81,7 +81,7 @@
                             </menuItem>
                             <menuItem title="Edit" id="5QF-Oa-p0T">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Edit" id="W48-6f-4Dl">
+                                <menu key="submenu" title="Edit" id="W48-6f-4Dl" customClass="MainMenu" customModule="Torrenter" customModuleProvider="target">
                                     <items>
                                         <menuItem title="Pause" id="IHS-U9-j4y">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -95,17 +95,10 @@
                                                 <action selector="delete:" target="Ady-hI-5gd" id="0Mk-Ml-PaM"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="ZZH-LN-uW9"/>
                                         <menuItem title="Delete" id="3FL-u0-tMe">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="delete:" target="Ady-hI-5gd" id="1Fx-S9-aLT"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="eGt-gN-ya5"/>
-                                        <menuItem title="Select All" keyEquivalent="a" id="Ruw-6m-B2m">
-                                            <connections>
-                                                <action selector="selectAll:" target="Ady-hI-5gd" id="VNm-Mi-diN"/>
                                             </connections>
                                         </menuItem>
                                     </items>
@@ -162,6 +155,9 @@
                                 </menu>
                             </menuItem>
                         </items>
+                        <connections>
+                            <outlet property="delegate" destination="Voe-Tx-rLC" id="743-e7-v6E"/>
+                        </connections>
                     </menu>
                     <connections>
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>

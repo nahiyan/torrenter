@@ -132,14 +132,6 @@ class ViewController: NSViewController {
 
     @IBAction func tableClicked(_: Any) {
         updateActionButtonsAndDetailsView()
-
-        if torrentsTable.selectedRow != -1 {
-            let torrent: Torrent = (torrents.arrangedObjects as! [Torrent])[torrentsTable.selectedRow]
-
-            AppDelegate.shared!.updateEditMenu(torrent: torrent)
-        } else {
-            AppDelegate.shared!.updateEditMenu(torrent: nil)
-        }
     }
 
     func updateActionButtonsAndDetailsView() {

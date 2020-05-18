@@ -10,17 +10,6 @@ import Cocoa
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-    // lazy var persistentContainer: NSPersistentContainer = {
-    //     let container = NSPersistentContainer(name: "Model")
-    //     container.loadPersistentStores { _, error in
-    //         if let error = error {
-    //             fatalError("Unable to load persistent stores: \(error)")
-    //         }
-    //     }
-
-    //     return container
-    // }()
-
     static var shared: AppDelegate? {
         return NSApplication.shared.delegate as? AppDelegate
     }
@@ -31,132 +20,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if db != nil {
             load_geo_ip_database(db!.path)
         }
-
-        // Make main menu functional
-        for item in NSApplication.shared.menu!.items {
-            switch item.title {
-            case "Torrent":
-                for item in item.submenu!.items {
-                    switch item.title {
-                    case "Add From File":
-                        item.target = type(of: self)
-                        item.action = #selector(AppDelegate.addTorrentFromFile)
-                    case "Add From Magnet URI":
-                        item.target = type(of: self)
-                        item.action = #selector(AppDelegate.addTorrentFromMagnetUri)
-                    case "Pause All":
-                        item.target = type(of: self)
-                        item.action = #selector(AppDelegate.pauseAll)
-                    case "Resume All":
-                        item.target = type(of: self)
-                        item.action = #selector(AppDelegate.resumeAll)
-                    case "Remove All":
-                        item.target = type(of: self)
-                        item.action = #selector(AppDelegate.removeAll)
-                    default: break
-                    }
-                }
-            default: break
-            }
-        }
-    }
-
-    func updateEditMenu(torrent: Torrent?) {
-        for item in NSApplication.shared.menu!.items {
-            switch item.title {
-            case "Edit":
-                for item in item.submenu!.items {
-                    switch item.title {
-                    case "Pause":
-                        item.target = type(of: self)
-                        if torrent != nil, !torrent!.isPaused {
-                            item.action = #selector(AppDelegate.pauseTorrent)
-                        } else {
-                            item.action = nil
-                        }
-                    case "Resume":
-                        item.target = type(of: self)
-                        if torrent != nil, torrent!.isPaused {
-                            item.action = #selector(AppDelegate.resumeTorrent)
-                        } else {
-                            item.action = nil
-                        }
-                    case "Delete":
-                        item.target = type(of: self)
-                        if torrent != nil {
-                            item.action = #selector(AppDelegate.removeTorrent)
-                        } else {
-                            item.action = nil
-                        }
-                    default: break
-                    }
-                }
-            default: break
-            }
-        }
-    }
-
-    @objc static func pauseTorrent() {
-        ViewController.shared!.torrentsTable.pauseTorrent()
-    }
-
-    @objc static func resumeTorrent() {
-        ViewController.shared!.torrentsTable.resumeTorrent()
-    }
-
-    @objc static func removeTorrent() {
-        ViewController.shared!.torrentsTable.removeTorrent()
     }
 
     func applicationWillTerminate(_: Notification) {
         // Insert code here to tear down your application
         terminate()
-    }
-
-    @objc static func removeAll() {
-        let vc = ViewController.get()
-
-        // Abort if View Controller instance doesn't exist
-        if vc == nil {
-            return
-        }
-
-        let torrents: [Torrent] = vc!.torrents.arrangedObjects as! [Torrent]
-        for torrent in torrents {
-            torrent.remove()
-        }
-    }
-
-    @objc static func pauseAll() {
-        let vc = ViewController.get()
-
-        // Abort if View Controller instance doesn't exist
-        if vc == nil {
-            return
-        }
-
-        let torrents: [Torrent] = vc!.torrents.arrangedObjects as! [Torrent]
-        for torrent in torrents {
-            if !torrent.isPaused {
-                torrent.pause()
-            }
-        }
-    }
-
-    @objc static func resumeAll() {
-        let vc = ViewController.get()
-
-        // Abort if View Controller instance doesn't exist
-        if vc == nil {
-            return
-        }
-
-        let torrents: [Torrent] = vc!.torrents.arrangedObjects as! [Torrent]
-        for torrent in torrents {
-            if torrent.isPaused {
-                torrent.resume()
-            }
-        }
     }
 
     @objc static func addTorrentFromMagnetUri() {
