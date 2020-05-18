@@ -11,6 +11,10 @@ import Cocoa
 class ViewController: NSViewController {
     static var _get: ViewController?
 
+    static var shared: ViewController? {
+        return _get
+    }
+
     @IBOutlet var torrents: NSArrayController!
     @IBOutlet var torrentsTable: TorrentsTable!
     var container: NSPersistentContainer!
@@ -55,20 +59,17 @@ class ViewController: NSViewController {
     @IBOutlet var noSelectionIndicator: NSTextField!
     @IBOutlet var trackers: NSArrayController!
 
-    // let contextMenu: NSMenu = NSMenu()
-
     override func viewDidLoad() {
         super.viewDidLoad()
         ViewController._get = self
 
         // Do any additional setup after loading the view.
+        // let delegate: AppDelegate = NSApplication.shared.delegate as! AppDelegate
+        // container = delegate.persistentContainer
 
-        let delegate: AppDelegate = NSApplication.shared.delegate as! AppDelegate
-        container = delegate.persistentContainer
-
-        guard container != nil else {
-            fatalError("This view needs a persistent container.")
-        }
+        // guard container != nil else {
+        //     fatalError("This view needs a persistent container.")
+        // }
 
         // Set the app data dir
         let appDataDir: String = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library", isDirectory: true).appendingPathComponent("Application Support", isDirectory: true).appendingPathComponent("Torrenter", isDirectory: true).relativePath
@@ -131,6 +132,14 @@ class ViewController: NSViewController {
 
     @IBAction func tableClicked(_: Any) {
         updateActionButtonsAndDetailsView()
+
+        if torrentsTable.selectedRow != -1 {
+            let torrent: Torrent = (torrents.arrangedObjects as! [Torrent])[torrentsTable.selectedRow]
+
+            AppDelegate.shared!.updateEditMenu(torrent: torrent)
+        } else {
+            AppDelegate.shared!.updateEditMenu(torrent: nil)
+        }
     }
 
     func updateActionButtonsAndDetailsView() {

@@ -10,25 +10,29 @@ import Cocoa
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-    lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "Model")
-        container.loadPersistentStores { _, error in
-            if let error = error {
-                fatalError("Unable to load persistent stores: \(error)")
-            }
-        }
+    // lazy var persistentContainer: NSPersistentContainer = {
+    //     let container = NSPersistentContainer(name: "Model")
+    //     container.loadPersistentStores { _, error in
+    //         if let error = error {
+    //             fatalError("Unable to load persistent stores: \(error)")
+    //         }
+    //     }
 
-        return container
-    }()
+    //     return container
+    // }()
+
+    static var shared: AppDelegate? {
+        return NSApplication.shared.delegate as? AppDelegate
+    }
 
     func applicationDidFinishLaunching(_: Notification) {
-        // Insert code here to initialize your application
-
+        // Load GeoIP database
         let db = Bundle.main.url(forResource: "GeoLite2-Country", withExtension: "mmdb", subdirectory: "database")
         if db != nil {
             load_geo_ip_database(db!.path)
         }
 
+        // Make main menu functional
         for item in NSApplication.shared.menu!.items {
             switch item.title {
             case "Torrent":
@@ -55,6 +59,53 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             default: break
             }
         }
+    }
+
+    func updateEditMenu(torrent: Torrent?) {
+        for item in NSApplication.shared.menu!.items {
+            switch item.title {
+            case "Edit":
+                for item in item.submenu!.items {
+                    switch item.title {
+                    case "Pause":
+                        item.target = type(of: self)
+                        if torrent != nil, !torrent!.isPaused {
+                            item.action = #selector(AppDelegate.pauseTorrent)
+                        } else {
+                            item.action = nil
+                        }
+                    case "Resume":
+                        item.target = type(of: self)
+                        if torrent != nil, torrent!.isPaused {
+                            item.action = #selector(AppDelegate.resumeTorrent)
+                        } else {
+                            item.action = nil
+                        }
+                    case "Delete":
+                        item.target = type(of: self)
+                        if torrent != nil {
+                            item.action = #selector(AppDelegate.removeTorrent)
+                        } else {
+                            item.action = nil
+                        }
+                    default: break
+                    }
+                }
+            default: break
+            }
+        }
+    }
+
+    @objc static func pauseTorrent() {
+        ViewController.shared!.torrentsTable.pauseTorrent()
+    }
+
+    @objc static func resumeTorrent() {
+        ViewController.shared!.torrentsTable.resumeTorrent()
+    }
+
+    @objc static func removeTorrent() {
+        ViewController.shared!.torrentsTable.removeTorrent()
     }
 
     func applicationWillTerminate(_: Notification) {

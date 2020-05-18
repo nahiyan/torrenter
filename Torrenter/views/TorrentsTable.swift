@@ -9,10 +9,15 @@
 import Cocoa
 
 class TorrentsTable: NSTableView {
-    var torrent: Torrent?
+    var torrent: Torrent? {
+        if selectedRow != -1, ViewController.shared != nil {
+            return (ViewController.shared!.torrents.arrangedObjects as! [Torrent])[selectedRow]
+        } else {
+            return nil
+        }
+    }
 
     required init?(coder: NSCoder) {
-        torrent = nil
         super.init(coder: coder)
 
         menu = NSMenu()
@@ -37,9 +42,7 @@ class TorrentsTable: NSTableView {
             return
         }
 
-        let torrentIndex: Int = vc!.torrentsTable.clickedRow
-        if torrentIndex != -1 {
-            torrent = (vc!.torrents.arrangedObjects as! [Torrent])[torrentIndex]
+        if selectedRow != -1 {
             let contextMenu: NSMenu = self.menu!
 
             // Play/pause item -> 0
@@ -146,10 +149,6 @@ class TorrentsTable: NSTableView {
     }
 
     @objc func limitRate(isDownloadRate: Bool) {
-        let viewController: ViewController = NSApplication.shared.mainWindow!.contentViewController as! ViewController
-
-        let torrent: Torrent = (viewController.torrents.arrangedObjects as! [Torrent])[clickedRow]
-
         let storyboard: NSStoryboard = NSApplication.shared.mainWindow!.windowController!.storyboard!
         let rateLimitWindowController = storyboard.instantiateController(withIdentifier: "rateLimitWindowController") as! NSWindowController
         let rateLimitWindow: NSWindow = rateLimitWindowController.window!
@@ -157,10 +156,10 @@ class TorrentsTable: NSTableView {
         // Set the rate limit of the view controller
         let rateLimitViewController: RateLimitViewController = (rateLimitWindow.contentViewController as! RateLimitViewController)
         if isDownloadRate {
-            rateLimitViewController.limit = torrent.info.download_limit
+            rateLimitViewController.limit = torrent!.info.download_limit
             rateLimitViewController.rateLimitLabel.stringValue = "Download Rate Limit:"
         } else {
-            rateLimitViewController.limit = torrent.info.upload_limit
+            rateLimitViewController.limit = torrent!.info.upload_limit
             rateLimitViewController.rateLimitLabel.stringValue = "Upload Rate Limit:"
         }
 
@@ -175,15 +174,15 @@ class TorrentsTable: NSTableView {
 
                 if isUnlimited {
                     if isDownloadRate {
-                        torrent_set_download_rate_limit(Int32(torrent.index), -1)
+                        torrent_set_download_rate_limit(Int32(self.torrent!.index), -1)
                     } else {
-                        torrent_set_upload_rate_limit(Int32(torrent.index), -1)
+                        torrent_set_upload_rate_limit(Int32(self.torrent!.index), -1)
                     }
                 } else {
                     if isDownloadRate {
-                        torrent_set_download_rate_limit(Int32(torrent.index), Int32(rateLimitInBytes))
+                        torrent_set_download_rate_limit(Int32(self.torrent!.index), Int32(rateLimitInBytes))
                     } else {
-                        torrent_set_upload_rate_limit(Int32(torrent.index), Int32(rateLimitInBytes))
+                        torrent_set_upload_rate_limit(Int32(self.torrent!.index), Int32(rateLimitInBytes))
                     }
                 }
             }
