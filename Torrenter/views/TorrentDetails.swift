@@ -14,6 +14,7 @@ class TorrentDetails: NSTabView, NSTabViewDelegate {
     }
 
     var currentTabSelection: CurrentTabSelection
+    var torrentDetailsContainerBottomConstraint: NSLayoutConstraint?
 
     private var _vc: ViewController?
 
@@ -34,26 +35,61 @@ class TorrentDetails: NSTabView, NSTabViewDelegate {
         currentTabSelection = .general
         _vc = nil
         torrentContentRowAssociativity = -1
+        torrentDetailsContainerBottomConstraint = nil
         super.init(coder: coder)
         delegate = self
     }
 
     func tabView(_: NSTabView, shouldSelect tabViewItem: NSTabViewItem?) -> Bool {
-        if tabViewItem != nil {
+        if tabViewItem != nil, vc != nil {
             if tabViewItem!.label == "General" {
                 currentTabSelection = .general
+
+                // Deactivate the bottom constraint of torrent details container
+                deactivateTorrentDetailsContainerBottomConstraint()
             } else if tabViewItem!.label == "Content" {
                 currentTabSelection = .content
+                activateTorrentDetailsContainerBottomConstraint()
             } else if tabViewItem!.label == "Trackers" {
                 currentTabSelection = .trackers
+                activateTorrentDetailsContainerBottomConstraint()
             } else {
                 currentTabSelection = .peers
+                activateTorrentDetailsContainerBottomConstraint()
             }
 
             refresh()
         }
 
         return true
+    }
+
+    func deactivateTorrentDetailsContainerBottomConstraint() {
+        // Deactivate the bottom constraint of torrent details container
+        if torrentDetailsContainerBottomConstraint == nil {
+            for constraint in vc!.torrentDetailsContainer.superview!.constraints {
+                if constraint.firstAttribute == .bottom || constraint.secondAttribute == .bottom {
+                    torrentDetailsContainerBottomConstraint = constraint
+                    constraint.isActive = false
+                }
+            }
+        } else {
+            torrentDetailsContainerBottomConstraint!.isActive = false
+        }
+    }
+
+    func activateTorrentDetailsContainerBottomConstraint() {
+        // Activate the bottom constraint of torrent details container
+        if torrentDetailsContainerBottomConstraint == nil {
+            for constraint in vc!.torrentDetailsContainer.superview!.constraints {
+                if constraint.firstAttribute == .bottom || constraint.secondAttribute == .bottom {
+                    torrentDetailsContainerBottomConstraint = constraint
+                    constraint.isActive = true
+                }
+            }
+        } else {
+            torrentDetailsContainerBottomConstraint!.isActive = true
+        }
     }
 
     func show() {
@@ -181,33 +217,8 @@ class TorrentDetails: NSTabView, NSTabViewDelegate {
                 let peersCount = Int(torrent_peers_count())
                 let peersTableSelectedRow: Int = vc!.peersTable.selectedRow
 
-                // Synchronize the table data with the peers list
-                // if tablePeersCount < actualPeersCount {
-                //     let beginning = tablePeersCount
-
-                //     for peerIndex in beginning ..< actualPeersCount {
-                //         let peer: Peer = Peer(Int(peerIndex))
-                //         vc!.peers.addObject(peer)
-                //     }
-                // } else if tablePeersCount > actualPeersCount {
-                //     let beginning = actualPeersCount
-
-                //     // collect all the peers for removal
-                //     var peersList: [Peer] = []
-                //     for peerIndex in beginning ..< tablePeersCount {
-                //         let peer: Peer = (vc!.peers.arrangedObjects as! [Peer])[peerIndex]
-                //         peersList.append(peer)
-                //     }
-
-                //     // remove them one by one
-                //     for peer in peersList {
-                //         vc!.peers.removeObject(peer)
-                //     }
-                // }
-
                 // Remove peers outside the range & take note of creation of new peers
                 var peersIndexMap = [Bool](repeating: false, count: peersCount)
-
                 for peer in vc!.peers.arrangedObjects as! [Peer] {
                     if peer.index >= peersCount {
                         vc!.peers.removeObject(peer)

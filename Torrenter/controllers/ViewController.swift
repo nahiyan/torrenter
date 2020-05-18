@@ -50,6 +50,7 @@ class ViewController: NSViewController {
     @IBOutlet var createdOn: NSTextField!
     @IBOutlet var torrentContent: TorrentContent!
     @IBOutlet var trackersTable: NSTableView!
+    @IBOutlet var torrentDetailsContainer: TorrentDetailsContainer!
     @IBOutlet var torrentDetails: TorrentDetails!
     @IBOutlet var noSelectionIndicator: NSTextField!
     @IBOutlet var trackers: NSArrayController!
