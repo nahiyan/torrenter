@@ -50,6 +50,7 @@ std::vector<lt::peer_info> peers;
 std::vector<PeerInfo> peer_infos;
 struct Trackers trackers;
 MMDB_s mmdb;
+bool stop_alert_monitor = false;
 
 const char *c_string(std::string str)
 {
@@ -713,6 +714,11 @@ void monitor_alerts()
             }
         }
 
+        if (stop_alert_monitor)
+        {
+            break;
+        }
+
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     }
 }
@@ -1020,8 +1026,19 @@ extern "C" void load_geo_ip_database(const char *location)
 
 extern "C" void terminate()
 {
+    // Queue up resume data to be saved
     save_all_resume_data();
+
+    // Stop alert monitor after finishing up the queued tasks
+    stop_alert_monitor = true;
+    alert_monitor.get()->join();
+
+    // Abort the session
+    lt::session_proxy proxy = torrent_session.abort();
+
+    // Close GeoIP database
     close_db(&mmdb);
+    exit(0);
 }
 
 extern "C" const char *peer_get_country(const char *ip_address)
