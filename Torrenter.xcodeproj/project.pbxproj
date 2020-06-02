@@ -32,10 +32,8 @@
 		4D42C51924862CF00019AB30 /* libmaxminddb.0.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 4D42C51424862A2B0019AB30 /* libmaxminddb.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		4D42C51B24862CF10019AB30 /* libtorrent-rasterbar.1.2.4.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 4D3151E12414D5840093FEFB /* libtorrent-rasterbar.1.2.4.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		4D42C51D248632020019AB30 /* geo_ip.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D42C51624862CE00019AB30 /* geo_ip.o */; };
-		4D6033512414D44000349F07 /* Model.xcdatamodeld in Resources */ = {isa = PBXBuildFile; fileRef = 4D8FAB112404FAC20008E2A0 /* Model.xcdatamodeld */; };
 		4D8F2F10243EE0CD00E23150 /* TorrentDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8F2F0F243EE0CD00E23150 /* TorrentDetails.swift */; };
 		4D98BBB6244E01E2003609F7 /* database in Resources */ = {isa = PBXBuildFile; fileRef = 4D98BBB4244E01CA003609F7 /* database */; };
-		4D9B035823FC446F000C9DF5 /* include in Resources */ = {isa = PBXBuildFile; fileRef = 4D9B035723FC446F000C9DF5 /* include */; };
 		4DA806A22472AA1700819DE0 /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA806A12472AA1600819DE0 /* MainMenu.swift */; };
 		4DB739262452AA56002CBC2B /* Torrent.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DB739242452AA56002CBC2B /* Torrent.storyboard */; };
 		4DB739282452C66A002CBC2B /* Path.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB739272452C66A002CBC2B /* Path.swift */; };
@@ -106,7 +104,6 @@
 		4D42C51424862A2B0019AB30 /* libmaxminddb.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libmaxminddb.0.dylib; path = Torrenter/lib/libmaxminddb/libmaxminddb.0.dylib; sourceTree = "<group>"; };
 		4D42C51624862CE00019AB30 /* geo_ip.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = geo_ip.o; path = Torrenter/lib/torrenter/geo_ip.o; sourceTree = "<group>"; };
 		4D8F2F0F243EE0CD00E23150 /* TorrentDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TorrentDetails.swift; path = views/TorrentDetails.swift; sourceTree = "<group>"; };
-		4D8FAB122404FAC20008E2A0 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		4D98BBAC244DF5F2003609F7 /* geo_ip.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = geo_ip.c; sourceTree = "<group>"; };
 		4D98BBB4244E01CA003609F7 /* database */ = {isa = PBXFileReference; lastKnownFileType = folder; path = database; sourceTree = "<group>"; };
 		4D9B034F23FC3BE4000C9DF5 /* Torrenter.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Torrenter.entitlements; sourceTree = "<group>"; };
@@ -205,7 +202,6 @@
 				4D301B6A243F6DF1000CF4DD /* TorrentContentItem.swift */,
 				4D9B034F23FC3BE4000C9DF5 /* Torrenter.entitlements */,
 				4D35832E23F9A25500C3662D /* Info.plist */,
-				4D8FAB112404FAC20008E2A0 /* Model.xcdatamodeld */,
 				4D98BBB4244E01CA003609F7 /* database */,
 				4D35832923F9A25500C3662D /* Assets.xcassets */,
 				4D9B035723FC446F000C9DF5 /* include */,
@@ -339,8 +335,6 @@
 			files = (
 				4DB739262452AA56002CBC2B /* Torrent.storyboard in Resources */,
 				4DD939FE244C6C9E003C343E /* Main.storyboard in Resources */,
-				4D6033512414D44000349F07 /* Model.xcdatamodeld in Resources */,
-				4D9B035823FC446F000C9DF5 /* include in Resources */,
 				4D35832A23F9A25500C3662D /* Assets.xcassets in Resources */,
 				4D98BBB6244E01E2003609F7 /* database in Resources */,
 			);
@@ -749,19 +743,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		4D8FAB112404FAC20008E2A0 /* Model.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				4D8FAB122404FAC20008E2A0 /* Model.xcdatamodel */,
-			);
-			currentVersion = 4D8FAB122404FAC20008E2A0 /* Model.xcdatamodel */;
-			path = Model.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 4D35831A23F9A25200C3662D /* Project object */;
 }
