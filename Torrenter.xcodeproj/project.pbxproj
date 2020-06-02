@@ -27,6 +27,11 @@
 		4D35832A23F9A25500C3662D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D35832923F9A25500C3662D /* Assets.xcassets */; };
 		4D35833923F9A25500C3662D /* TorrenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D35833823F9A25500C3662D /* TorrenterTests.swift */; };
 		4D35834423F9A25500C3662D /* TorrenterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D35834323F9A25500C3662D /* TorrenterUITests.swift */; };
+		4D42C51324862A200019AB30 /* libtorrent-rasterbar.1.2.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D3151E12414D5840093FEFB /* libtorrent-rasterbar.1.2.4.dylib */; };
+		4D42C51524862A2B0019AB30 /* libmaxminddb.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D42C51424862A2B0019AB30 /* libmaxminddb.0.dylib */; };
+		4D42C51924862CF00019AB30 /* libmaxminddb.0.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 4D42C51424862A2B0019AB30 /* libmaxminddb.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		4D42C51B24862CF10019AB30 /* libtorrent-rasterbar.1.2.4.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 4D3151E12414D5840093FEFB /* libtorrent-rasterbar.1.2.4.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		4D42C51D248632020019AB30 /* geo_ip.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D42C51624862CE00019AB30 /* geo_ip.o */; };
 		4D6033512414D44000349F07 /* Model.xcdatamodeld in Resources */ = {isa = PBXBuildFile; fileRef = 4D8FAB112404FAC20008E2A0 /* Model.xcdatamodeld */; };
 		4D8F2F10243EE0CD00E23150 /* TorrentDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8F2F0F243EE0CD00E23150 /* TorrentDetails.swift */; };
 		4D98BBB6244E01E2003609F7 /* database in Resources */ = {isa = PBXBuildFile; fileRef = 4D98BBB4244E01CA003609F7 /* database */; };
@@ -53,6 +58,21 @@
 			remoteInfo = Torrenter;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		4D42C51A24862CF00019AB30 /* Embed Libraries */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4D42C51B24862CF10019AB30 /* libtorrent-rasterbar.1.2.4.dylib in Embed Libraries */,
+				4D42C51924862CF00019AB30 /* libmaxminddb.0.dylib in Embed Libraries */,
+			);
+			name = "Embed Libraries";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		4D169821243E0BDF00D5144C /* Tracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Tracker.swift; path = models/Tracker.swift; sourceTree = "<group>"; };
@@ -83,6 +103,8 @@
 		4D35833F23F9A25500C3662D /* TorrenterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TorrenterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D35834323F9A25500C3662D /* TorrenterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TorrenterUITests.swift; sourceTree = "<group>"; };
 		4D35834523F9A25500C3662D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4D42C51424862A2B0019AB30 /* libmaxminddb.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libmaxminddb.0.dylib; path = Torrenter/lib/libmaxminddb/libmaxminddb.0.dylib; sourceTree = "<group>"; };
+		4D42C51624862CE00019AB30 /* geo_ip.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = geo_ip.o; path = Torrenter/lib/torrenter/geo_ip.o; sourceTree = "<group>"; };
 		4D8F2F0F243EE0CD00E23150 /* TorrentDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TorrentDetails.swift; path = views/TorrentDetails.swift; sourceTree = "<group>"; };
 		4D8FAB122404FAC20008E2A0 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		4D98BBAC244DF5F2003609F7 /* geo_ip.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = geo_ip.c; sourceTree = "<group>"; };
@@ -100,6 +122,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D42C51D248632020019AB30 /* geo_ip.o in Frameworks */,
+				4D42C51524862A2B0019AB30 /* libmaxminddb.0.dylib in Frameworks */,
+				4D42C51324862A200019AB30 /* libtorrent-rasterbar.1.2.4.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -123,6 +148,8 @@
 		4D3151E02414D5840093FEFB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4D42C51624862CE00019AB30 /* geo_ip.o */,
+				4D42C51424862A2B0019AB30 /* libmaxminddb.0.dylib */,
 				4D3151E12414D5840093FEFB /* libtorrent-rasterbar.1.2.4.dylib */,
 			);
 			name = Frameworks;
@@ -214,6 +241,7 @@
 				4D35831E23F9A25200C3662D /* Sources */,
 				4D35831F23F9A25200C3662D /* Frameworks */,
 				4D35832023F9A25200C3662D /* Resources */,
+				4D42C51A24862CF00019AB30 /* Embed Libraries */,
 			);
 			buildRules = (
 			);
@@ -535,7 +563,7 @@
 		4D35834923F9A25500C3662D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Torrenter/Torrenter.entitlements;
 				CODE_SIGN_IDENTITY = "-";
@@ -546,18 +574,15 @@
 				INFOPLIST_FILE = Torrenter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Torrenter/include",
 					"@executable_path/../Frameworks",
-					/usr/local/include,
-					/Users/nahiyanalamgir/code/Torrenter/Torrenter/lib/libtorrent/,
 				);
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Torrenter/lib/libmaxminddb",
+					"$(PROJECT_DIR)/Torrenter/lib/libtorrent",
+				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
-				OTHER_LDFLAGS = (
-					"$(PROJECT_DIR)/Torrenter/lib/libtorrent/libtorrent-rasterbar.1.2.4.dylib",
-					/usr/local/lib/libmaxminddb.dylib,
-					"$(PROJECT_DIR)/Torrenter/lib/torrenter/geo_ip.o",
-				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = io.github.hedronium.Torrenter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_INSTALL_OBJC_HEADER = YES;
@@ -574,7 +599,7 @@
 		4D35834A23F9A25500C3662D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Torrenter/Torrenter.entitlements;
 				CODE_SIGN_IDENTITY = "-";
@@ -585,18 +610,15 @@
 				INFOPLIST_FILE = Torrenter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Torrenter/include",
 					"@executable_path/../Frameworks",
-					/usr/local/include,
-					/Users/nahiyanalamgir/code/Torrenter/Torrenter/lib/libtorrent/,
 				);
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Torrenter/lib/libmaxminddb",
+					"$(PROJECT_DIR)/Torrenter/lib/libtorrent",
+				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
-				OTHER_LDFLAGS = (
-					"$(PROJECT_DIR)/Torrenter/lib/libtorrent/libtorrent-rasterbar.1.2.4.dylib",
-					/usr/local/lib/libmaxminddb.dylib,
-					"$(PROJECT_DIR)/Torrenter/lib/torrenter/geo_ip.o",
-				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = io.github.hedronium.Torrenter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_INSTALL_OBJC_HEADER = YES;

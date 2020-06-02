@@ -24,7 +24,7 @@
 #include "../../include/torrenter/torrents.h"
 extern "C"
 {
-#include "maxminddb.h"
+#include "../../include/libmaxminddb/maxminddb.h"
 #include "../../include/torrenter/geo_ip.h"
 }
 #include "libtorrent/entry.hpp"

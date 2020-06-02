@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "maxminddb.h"
+#include "../../include/libmaxminddb/maxminddb.h"
 #include <locale.h>
 #include <stdlib.h>
 
