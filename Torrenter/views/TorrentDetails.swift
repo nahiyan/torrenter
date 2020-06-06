@@ -16,16 +16,6 @@ class TorrentDetails: NSTabView, NSTabViewDelegate {
     var currentTabSelection: CurrentTabSelection
     var torrentDetailsContainerBottomConstraint: NSLayoutConstraint?
 
-    private var _vc: ViewController?
-
-    var vc: ViewController? {
-        if _vc == nil {
-            _vc = ViewController.get()
-        }
-
-        return _vc
-    }
-
     // Indicates which row the current torrent content data is associated with
     var torrentContentRowAssociativity: Int
     var canRefresh: Bool
@@ -33,7 +23,6 @@ class TorrentDetails: NSTabView, NSTabViewDelegate {
     required init?(coder: NSCoder) {
         canRefresh = true
         currentTabSelection = .general
-        _vc = nil
         torrentContentRowAssociativity = -1
         torrentDetailsContainerBottomConstraint = nil
         super.init(coder: coder)
@@ -41,7 +30,7 @@ class TorrentDetails: NSTabView, NSTabViewDelegate {
     }
 
     func tabView(_: NSTabView, shouldSelect tabViewItem: NSTabViewItem?) -> Bool {
-        if tabViewItem != nil, vc != nil {
+        if tabViewItem != nil, ViewController.shared != nil {
             if tabViewItem!.label == "General" {
                 currentTabSelection = .general
 
@@ -67,7 +56,7 @@ class TorrentDetails: NSTabView, NSTabViewDelegate {
     func deactivateTorrentDetailsContainerBottomConstraint() {
         // Deactivate the bottom constraint of torrent details container
         if torrentDetailsContainerBottomConstraint == nil {
-            for constraint in vc!.torrentDetailsContainer.superview!.constraints {
+            for constraint in ViewController.shared!.torrentDetailsContainer.superview!.constraints {
                 if constraint.firstAttribute == .bottom || constraint.secondAttribute == .bottom {
                     torrentDetailsContainerBottomConstraint = constraint
                     constraint.isActive = false
@@ -81,7 +70,7 @@ class TorrentDetails: NSTabView, NSTabViewDelegate {
     func activateTorrentDetailsContainerBottomConstraint() {
         // Activate the bottom constraint of torrent details container
         if torrentDetailsContainerBottomConstraint == nil {
-            for constraint in vc!.torrentDetailsContainer.superview!.constraints {
+            for constraint in ViewController.shared!.torrentDetailsContainer.superview!.constraints {
                 if constraint.firstAttribute == .bottom || constraint.secondAttribute == .bottom {
                     torrentDetailsContainerBottomConstraint = constraint
                     constraint.isActive = true
@@ -93,8 +82,8 @@ class TorrentDetails: NSTabView, NSTabViewDelegate {
     }
 
     func show() {
-        if vc != nil {
-            vc!.noSelectionIndicator.isHidden = true
+        if ViewController.shared != nil {
+            ViewController.shared!.noSelectionIndicator.isHidden = true
             isHidden = false
 
             refresh()
@@ -102,126 +91,126 @@ class TorrentDetails: NSTabView, NSTabViewDelegate {
     }
 
     func hide() {
-        if vc != nil {
-            vc!.noSelectionIndicator.isHidden = false
+        if ViewController.shared != nil {
+            ViewController.shared!.noSelectionIndicator.isHidden = false
             isHidden = true
         }
     }
 
     func refresh() {
-        if vc == nil || !canRefresh {
+        if ViewController.shared == nil || !canRefresh {
             return
         }
 
         switch currentTabSelection {
         case .general:
-            if vc!.torrentsTable.selectedRow != -1 {
-                let torrent: Torrent = (vc!.torrents.arrangedObjects as! [Torrent])[vc!.torrentsTable.selectedRow]
+            if ViewController.shared!.torrentsTable.selectedRow != -1 {
+                let torrent: Torrent = (ViewController.shared!.torrents.arrangedObjects as! [Torrent])[ViewController.shared!.torrentsTable.selectedRow]
 
                 // progress bar based on status of pieces
-                vc!.piecesProgress.pieces = torrent_pieces(Int32(torrent.index)).content
-                vc!.piecesProgress.piecesCount = Int(torrent_pieces(Int32(torrent.index)).count)
-                vc!.piecesProgress.needsDisplay = true
+                ViewController.shared!.piecesProgress.pieces = torrent_pieces(Int32(torrent.index)).content
+                ViewController.shared!.piecesProgress.piecesCount = Int(torrent_pieces(Int32(torrent.index)).count)
+                ViewController.shared!.piecesProgress.needsDisplay = true
 
                 // progress percentage
-                vc!.progressPercentage.stringValue = torrent.downloadProgress
+                ViewController.shared!.progressPercentage.stringValue = torrent.downloadProgress
 
                 // progress bar based on availability of pieces
-                if vc!.piecesAvailability.pieces != nil {
-                    free(UnsafeMutableRawPointer(mutating: vc!.piecesAvailability.pieces))
+                if ViewController.shared!.piecesAvailability.pieces != nil {
+                    free(UnsafeMutableRawPointer(mutating: ViewController.shared!.piecesAvailability.pieces))
                 }
 
                 // availability value
-                vc!.piecesAvailability.pieces = torrent_get_availability(Int32(torrent.index)).content
-                vc!.piecesAvailability.piecesCount = Int(torrent_get_availability(Int32(torrent.index)).count)
-                vc!.piecesAvailability.needsDisplay = true
+                ViewController.shared!.piecesAvailability.pieces = torrent_get_availability(Int32(torrent.index)).content
+                ViewController.shared!.piecesAvailability.piecesCount = Int(torrent_get_availability(Int32(torrent.index)).count)
+                ViewController.shared!.piecesAvailability.needsDisplay = true
 
-                vc!.piecesAvailabilityValue.stringValue = String(format: "%.2f", Float(torrent_get_availability(Int32(torrent.index)).value))
+                ViewController.shared!.piecesAvailabilityValue.stringValue = String(format: "%.2f", Float(torrent_get_availability(Int32(torrent.index)).value))
 
                 // downloaded
-                vc!.downloaded.stringValue = torrent.downloaded
+                ViewController.shared!.downloaded.stringValue = torrent.downloaded
 
                 // uploaded
-                vc!.uploaded.stringValue = torrent.uploaded
+                ViewController.shared!.uploaded.stringValue = torrent.uploaded
 
                 // download limit
-                vc!.downloadLimit.stringValue = torrent.downloadLimit
+                ViewController.shared!.downloadLimit.stringValue = torrent.downloadLimit
 
                 // upload limit
-                vc!.uploadLimit.stringValue = torrent.uploadLimit
+                ViewController.shared!.uploadLimit.stringValue = torrent.uploadLimit
 
                 // download speed
-                vc!.downloadSpeed.stringValue = torrent.downloadRate
+                ViewController.shared!.downloadSpeed.stringValue = torrent.downloadRate
 
                 // upload speed
-                vc!.uploadSpeed.stringValue = torrent.uploadRate
+                ViewController.shared!.uploadSpeed.stringValue = torrent.uploadRate
 
                 // share ratio
-                vc!.shareRatio.stringValue = torrent.shareRatio
+                ViewController.shared!.shareRatio.stringValue = torrent.shareRatio
 
                 // reannounce in
-                vc!.reannounceIn.stringValue = torrent.nextAnnounce
+                ViewController.shared!.reannounceIn.stringValue = torrent.nextAnnounce
 
                 // seeds
-                vc!.seedsCount.stringValue = torrent.seeds
+                ViewController.shared!.seedsCount.stringValue = torrent.seeds
 
                 // peers
-                vc!.peersCount.stringValue = torrent.peers
+                ViewController.shared!.peersCount.stringValue = torrent.peers
 
                 // wasted
-                vc!.wasted.stringValue = torrent.wasted
+                ViewController.shared!.wasted.stringValue = torrent.wasted
 
                 // connections
-                vc!.connections.stringValue = torrent.connections
+                ViewController.shared!.connections.stringValue = torrent.connections
 
                 // active duration
-                vc!.activeDuration.stringValue = torrent.activeDuration
+                ViewController.shared!.activeDuration.stringValue = torrent.activeDuration
 
                 // time remaining
-                vc!.timeRemaining.stringValue = torrent.timeRemaining
+                ViewController.shared!.timeRemaining.stringValue = torrent.timeRemaining
 
                 // total size
-                vc!.totalSize.stringValue = torrent.size
+                ViewController.shared!.totalSize.stringValue = torrent.size
 
                 // torrent hash
-                vc!.torrentHash.stringValue = torrent.infoHash
+                ViewController.shared!.torrentHash.stringValue = torrent.infoHash
 
                 // pieces
-                vc!.pieces.stringValue = torrent.pieces
+                ViewController.shared!.pieces.stringValue = torrent.pieces
 
                 // comment
-                vc!.comment.stringValue = torrent.comment
+                ViewController.shared!.comment.stringValue = torrent.comment
 
                 // created by
-                vc!.createdBy.stringValue = torrent.creator
+                ViewController.shared!.createdBy.stringValue = torrent.creator
 
                 // save path
-                vc!.savePath.stringValue = Path.pathAuto(torrent.savePath)
+                ViewController.shared!.savePath.stringValue = Path.pathAuto(torrent.savePath)
 
                 // added on
-                vc!.addedOn.stringValue = torrent.addedOn
+                ViewController.shared!.addedOn.stringValue = torrent.addedOn
 
                 // created on
-                vc!.createdOn.stringValue = torrent.createdOn
+                ViewController.shared!.createdOn.stringValue = torrent.createdOn
 
                 // completed on
-                vc!.completedOn.stringValue = torrent.completedOn
+                ViewController.shared!.completedOn.stringValue = torrent.completedOn
             }
         case .peers:
             // Fetch peers for the selected torrent
-            if vc!.torrentsTable.selectedRow != -1 {
-                let torrent: Torrent = (vc!.torrents.arrangedObjects as! [Torrent])[vc!.torrentsTable.selectedRow]
+            if ViewController.shared!.torrentsTable.selectedRow != -1 {
+                let torrent: Torrent = (ViewController.shared!.torrents.arrangedObjects as! [Torrent])[ViewController.shared!.torrentsTable.selectedRow]
 
                 torrent_fetch_peers(Int32(torrent.index))
 
                 let peersCount = Int(torrent_peers_count())
-                let peersTableSelectedRow: Int = vc!.peersTable.selectedRow
+                let peersTableSelectedRow: Int = ViewController.shared!.peersTable.selectedRow
 
                 // Remove peers outside the range & take note of creation of new peers
                 var peersIndexMap = [Bool](repeating: false, count: peersCount)
-                for peer in vc!.peers.arrangedObjects as! [Peer] {
+                for peer in ViewController.shared!.peers.arrangedObjects as! [Peer] {
                     if peer.index >= peersCount {
-                        vc!.peers.removeObject(peer)
+                        ViewController.shared!.peers.removeObject(peer)
                     } else {
                         peersIndexMap[peer.index] = true
                     }
@@ -231,11 +220,11 @@ class TorrentDetails: NSTabView, NSTabViewDelegate {
                 for i in 0 ..< peersCount {
                     if !peersIndexMap[i] {
                         let peer = Peer(i)
-                        vc!.peers.addObject(peer)
+                        ViewController.shared!.peers.addObject(peer)
                     }
                 }
 
-                for peer in vc!.peers.arrangedObjects as! [Peer] {
+                for peer in ViewController.shared!.peers.arrangedObjects as! [Peer] {
                     peer.fetchInfo()
                 }
 
@@ -243,13 +232,13 @@ class TorrentDetails: NSTabView, NSTabViewDelegate {
                 reloadPeersTable(selectedRow: peersTableSelectedRow)
             }
         case .content:
-            if vc!.torrentsTable.selectedRow != -1 {
+            if ViewController.shared!.torrentsTable.selectedRow != -1 {
                 // Fetch progress (in bytes) of all the torrent files
-                torrent_fetch_files_progress(Int32(vc!.torrentsTable.selectedRow))
+                torrent_fetch_files_progress(Int32(ViewController.shared!.torrentsTable.selectedRow))
 
-                if torrentContentRowAssociativity != vc!.torrentsTable.selectedRow { // Only repopulate table if row selection changes
+                if torrentContentRowAssociativity != ViewController.shared!.torrentsTable.selectedRow { // Only repopulate table if row selection changes
                     repopulateContentTable()
-                    torrentContentRowAssociativity = vc!.torrentsTable.selectedRow
+                    torrentContentRowAssociativity = ViewController.shared!.torrentsTable.selectedRow
                 } else { // Else just keep reloading it only
                     triggerContentItemsRefresh()
                     reloadContentTable()
@@ -257,22 +246,22 @@ class TorrentDetails: NSTabView, NSTabViewDelegate {
             }
 
         case .trackers:
-            if vc!.torrentsTable.selectedRow != -1 {
-                let trackers: Trackers = torrent_get_trackers(Int32(vc!.torrentsTable.selectedRow))
+            if ViewController.shared!.torrentsTable.selectedRow != -1 {
+                let trackers: Trackers = torrent_get_trackers(Int32(ViewController.shared!.torrentsTable.selectedRow))
 
-                if trackers.count != (vc!.trackers.arrangedObjects as! [Tracker]).count {
+                if trackers.count != (ViewController.shared!.trackers.arrangedObjects as! [Tracker]).count {
                     // Clear trackers array
-                    for tracker in vc!.trackers.arrangedObjects as! [Tracker] {
-                        vc!.trackers.removeObject(tracker)
+                    for tracker in ViewController.shared!.trackers.arrangedObjects as! [Tracker] {
+                        ViewController.shared!.trackers.removeObject(tracker)
                     }
 
                     // repopulate it
                     for i in 0 ..< Int(trackers.count) {
                         let tracker: Tracker = Tracker(i)
-                        vc!.trackers.addObject(tracker)
+                        ViewController.shared!.trackers.addObject(tracker)
                     }
                 } else {
-                    for tracker in vc!.trackers.arrangedObjects as! [Tracker] {
+                    for tracker in ViewController.shared!.trackers.arrangedObjects as! [Tracker] {
                         tracker.fetchInfo()
                     }
                 }
@@ -283,10 +272,10 @@ class TorrentDetails: NSTabView, NSTabViewDelegate {
     }
 
     func triggerContentItemsRefresh() {
-        if vc == nil {
+        if ViewController.shared == nil {
             return
         }
-        for item in vc!.torrentContent.content {
+        for item in ViewController.shared!.torrentContent.content {
             triggerContentItemRefresh(item)
         }
     }
@@ -305,7 +294,7 @@ class TorrentDetails: NSTabView, NSTabViewDelegate {
             var children: [TorrentContentItem] = []
             for _item in items {
                 if _item.parent == item.id {
-                    let torrentContentItem = TorrentContentItem(name: String(cString: _item.name!), fileIndex: Int(_item.file_index), torrentIndex: vc!.torrentsTable.selectedRow)
+                    let torrentContentItem = TorrentContentItem(name: String(cString: _item.name!), fileIndex: Int(_item.file_index), torrentIndex: ViewController.shared!.torrentsTable.selectedRow)
                     torrentContentItem.children = torrentContentItemChildren(items: items, item: _item)
 
                     children.append(torrentContentItem)
@@ -319,13 +308,13 @@ class TorrentDetails: NSTabView, NSTabViewDelegate {
     }
 
     func repopulateContentTable(selectedRow _: Int? = nil) {
-        if vc!.torrentsTable.selectedRow != -1 {
-            let content: Content = torrent_get_content(Int32(vc!.torrentsTable.selectedRow))
+        if ViewController.shared!.torrentsTable.selectedRow != -1 {
+            let content: Content = torrent_get_content(Int32(ViewController.shared!.torrentsTable.selectedRow))
 
             var items: [ContentItem] = []
 
             // Clear out outline view
-            vc!.torrentContent.content = []
+            ViewController.shared!.torrentContent.content = []
 
             // Register all the content items
             for i in 0 ..< Int(content.count) {
@@ -337,11 +326,11 @@ class TorrentDetails: NSTabView, NSTabViewDelegate {
             // Add the items to the torrent content outline view
             for item in items {
                 if item.parent == -1 {
-                    let torrentContentItem = TorrentContentItem(name: String(cString: item.name!), fileIndex: Int(item.file_index), torrentIndex: vc!.torrentsTable.selectedRow)
+                    let torrentContentItem = TorrentContentItem(name: String(cString: item.name!), fileIndex: Int(item.file_index), torrentIndex: ViewController.shared!.torrentsTable.selectedRow)
 
                     torrentContentItem.children = torrentContentItemChildren(items: items, item: item)
 
-                    vc!.torrentContent.content.append(torrentContentItem)
+                    ViewController.shared!.torrentContent.content.append(torrentContentItem)
                 }
             }
 
@@ -349,8 +338,8 @@ class TorrentDetails: NSTabView, NSTabViewDelegate {
             reloadContentTable()
 
             // expand all the items by default
-            for item in vc!.torrentContent.content {
-                vc!.torrentContent.expandItem(item, expandChildren: true)
+            for item in ViewController.shared!.torrentContent.content {
+                ViewController.shared!.torrentContent.expandItem(item, expandChildren: true)
             }
 
             // free the dynamically allocated memory
@@ -359,46 +348,46 @@ class TorrentDetails: NSTabView, NSTabViewDelegate {
     }
 
     func reloadTrackersTable() {
-        if vc == nil {
+        if ViewController.shared == nil {
             return
         }
 
-        let selectedRow: Int = vc!.trackersTable.selectedRow
+        let selectedRow: Int = ViewController.shared!.trackersTable.selectedRow
 
-        vc!.trackersTable.reloadData()
+        ViewController.shared!.trackersTable.reloadData()
 
-        vc!.trackersTable.selectRowIndexes(IndexSet(integer: selectedRow), byExtendingSelection: false)
+        ViewController.shared!.trackersTable.selectRowIndexes(IndexSet(integer: selectedRow), byExtendingSelection: false)
     }
 
     func reloadContentTable() {
-        if vc == nil {
+        if ViewController.shared == nil {
             return
         }
 
-        let selectedRow: Int = vc!.torrentContent.selectedRow
+        let selectedRow: Int = ViewController.shared!.torrentContent.selectedRow
 
-        vc!.torrentContent.reloadData()
+        ViewController.shared!.torrentContent.reloadData()
 
-        vc!.torrentContent.selectRowIndexes(IndexSet(integer: selectedRow), byExtendingSelection: false)
+        ViewController.shared!.torrentContent.selectRowIndexes(IndexSet(integer: selectedRow), byExtendingSelection: false)
     }
 
     func reloadPeersTable(selectedRow: Int? = nil) {
-        if vc == nil {
+        if ViewController.shared == nil {
             return
         }
 
         var _selectedRow: Int
         if selectedRow == nil {
-            _selectedRow = vc!.peersTable.selectedRow
+            _selectedRow = ViewController.shared!.peersTable.selectedRow
         } else {
             _selectedRow = selectedRow!
         }
 
-        vc!.peers.rearrangeObjects()
+        ViewController.shared!.peers.rearrangeObjects()
 
         // Reload table data and retain row selection
-        vc!.peersTable.reloadData()
+        ViewController.shared!.peersTable.reloadData()
 
-        vc!.peersTable.selectRowIndexes(IndexSet(integer: _selectedRow), byExtendingSelection: false)
+        ViewController.shared!.peersTable.selectRowIndexes(IndexSet(integer: _selectedRow), byExtendingSelection: false)
     }
 }

@@ -9,7 +9,7 @@
 import Cocoa
 
 class ViewController: NSViewController {
-    static var _get: ViewController?
+    private static var _get: ViewController?
 
     static var shared: ViewController? {
         return _get
@@ -63,14 +63,6 @@ class ViewController: NSViewController {
         super.viewDidLoad()
         ViewController._get = self
 
-        // Do any additional setup after loading the view.
-        // let delegate: AppDelegate = NSApplication.shared.delegate as! AppDelegate
-        // container = delegate.persistentContainer
-
-        // guard container != nil else {
-        //     fatalError("This view needs a persistent container.")
-        // }
-
         // Set the app data dir
         let appDataDir: String = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library", isDirectory: true).appendingPathComponent("Application Support", isDirectory: true).appendingPathComponent("Torrenter", isDirectory: true).relativePath
         set_app_data_dir(appDataDir)
@@ -119,6 +111,7 @@ class ViewController: NSViewController {
 
         // No selection by default
         torrentDetails.hide()
+        torrentDetails.deactivateTorrentDetailsContainerBottomConstraint()
 
         // Begin listening & responding to alerts
         spawn_alert_monitor()
