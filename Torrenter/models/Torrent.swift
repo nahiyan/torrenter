@@ -191,7 +191,7 @@ class Torrent: NSObject {
     @objc var shareRatio: String {
         let shareRatio: Float = Float(info.downloaded) / Float(info.uploaded)
 
-        if shareRatio.isInfinite {
+        if shareRatio.isInfinite || shareRatio.isNaN {
             return "-"
         } else {
             return String(format: "%.2f", shareRatio)
@@ -235,7 +235,11 @@ class Torrent: NSObject {
     }
 
     @objc var downloadProgress: String {
-        return String(format: "%.1f%%", (info.total_wanted_done / info.total_wanted) * 100)
+        if info.total_wanted > 0 {
+            return String(format: "%.1f%%", (info.total_wanted_done / info.total_wanted) * 100)
+        } else {
+            return "0.0%"
+        }
     }
 
     @objc var infoHash: String {

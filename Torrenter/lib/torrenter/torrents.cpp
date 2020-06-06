@@ -817,6 +817,11 @@ extern "C" Content torrent_get_content(int index)
     {
         const lt::torrent_info *info = torrents.at(index).handler.torrent_file().get();
 
+        if (info == NULL)
+        {
+            return Content();
+        }
+
         lt::file_storage files = info->files();
         ContentItem **content_items = (ContentItem **)malloc(0);
         int id = 0;
