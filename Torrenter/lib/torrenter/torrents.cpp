@@ -1014,7 +1014,8 @@ extern "C" void torrent_fetch_files_progress(int index)
 {
     try
     {
-        torrents.at(index).handler.file_progress(torrents.at(index).files_progress);
+        Torrent &torrent = torrents.at(index);
+        torrent.handler.file_progress(torrent.files_progress);
     }
     catch (std::out_of_range)
     {
