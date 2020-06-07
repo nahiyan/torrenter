@@ -259,8 +259,8 @@ extern "C" TorrentInfo torrent_get_info(int index)
 {
     try
     {
-        lt::torrent_status status = torrents.at(index).handler.status();
-        lt::torrent_handle handler = torrents.at(index).handler;
+        lt::torrent_status const &status = torrents.at(index).handler.status();
+        lt::torrent_handle &handler = torrents.at(index).handler;
         const lt::torrent_info *info = handler.torrent_file().get();
 
         // Update the name of the torrent
@@ -555,40 +555,33 @@ extern "C" void torrent_remove(int index)
     }
 }
 
-extern "C" bool torrent_exists(const char *loadPath)
+int get_torrent_from_hash(lt::sha1_hash &hash)
+{
+    for (auto it = torrents.begin(); it != torrents.end(); ++it)
+    {
+        if (it->second.handler.info_hash() == hash)
+        {
+            return it->first;
+        }
+    }
+
+    return 0;
+}
+
+extern "C" int get_torrent_from_file(const char *loadPath)
 {
     lt::torrent_info info = lt::torrent_info(std::string(loadPath));
     lt::sha1_hash hash = info.info_hash();
 
-    bool exists = false;
-    for (auto it = torrents.begin(); it != torrents.end(); ++it)
-    {
-        if (it->second.handler.info_hash() == hash)
-        {
-            exists = true;
-            break;
-        }
-    }
-
-    return exists;
+    return get_torrent_from_hash(hash);
 }
 
-extern "C" bool torrent_exists_from_magnet_uri(const char *magnet_uri)
+extern "C" int get_torrent_from_magnet_uri(const char *magnet_uri)
 {
     lt::add_torrent_params params = lt::parse_magnet_uri(magnet_uri);
     lt::sha1_hash hash = params.info_hash;
 
-    bool exists = false;
-    for (auto it = torrents.begin(); it != torrents.end(); ++it)
-    {
-        if (it->second.handler.info_hash() == hash)
-        {
-            exists = true;
-            break;
-        }
-    }
-
-    return exists;
+    return get_torrent_from_hash(hash);
 }
 
 extern "C" int torrent_next_index()
@@ -1214,5 +1207,46 @@ extern "C" Availability torrent_get_availability(int index)
     {
         std::cout << "Failed to get torrent availability." << std::endl;
         return Availability();
+    }
+}
+
+extern "C" void add_extra_trackers_from_magnet_uri(const char *magnet_uri, int index)
+{
+    lt::add_torrent_params params = lt::parse_magnet_uri(magnet_uri);
+
+    try
+    {
+        Torrent &torrent = torrents.at(index);
+
+        for (std::string &tracker : params.trackers)
+        {
+            lt::announce_entry entry;
+            entry.url = tracker;
+            entry.source = entry.source_magnet_link;
+            torrent.handler.add_tracker(entry);
+        }
+    }
+    catch (std::out_of_range)
+    {
+        std::cout << "Failed to add extra trackers to torrent.\n";
+    }
+}
+
+extern "C" void add_extra_trackers_from_file(const char *file_path, int index)
+{
+    lt::torrent_info info = lt::torrent_info(std::string(file_path));
+
+    try
+    {
+        Torrent &torrent = torrents.at(index);
+
+        for (lt::announce_entry tracker : info.trackers())
+        {
+            torrent.handler.add_tracker(tracker);
+        }
+    }
+    catch (std::out_of_range)
+    {
+        std::cout << "Failed to add extra trackers to torrent.\n";
     }
 }

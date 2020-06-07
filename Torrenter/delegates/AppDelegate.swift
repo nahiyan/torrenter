@@ -46,7 +46,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 let magnetUri: String = (magnetUriWindow.contentViewController as! MagnetUriViewController).magnetUriTextArea.string
 
                 if magnetUri.count >= 1 {
-                    if !torrent_exists_from_magnet_uri(magnetUri) {
+                    let existingTorrentIndex = get_torrent_from_magnet_uri(magnetUri)
+                    if existingTorrentIndex == 0 {
                         // Initiate the torrent
                         torrent_initiate_magnet_uri(magnetUri, savePath, false)
 
@@ -56,7 +57,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
                         vc!.torrentsTable.reload()
                     } else {
-                        print("Torrent already exists")
+                        askToAddExtraTrackers(magnetUri: magnetUri, index: existingTorrentIndex)
                     }
                 }
             }
@@ -82,7 +83,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 if panel.urls.count == 1 {
                     let loadPath = panel.urls[0].relativePath
 
-                    if !torrent_exists(loadPath) {
+                    let existingTorrentIndex = get_torrent_from_file(loadPath)
+                    if existingTorrentIndex == 0 {
                         // For now, it's the downloads folder
                         let savePath = fileManager.homeDirectoryForCurrentUser.appendingPathComponent("Downloads").relativePath
 
@@ -95,10 +97,36 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
                         vc!.torrentsTable.reload()
                     } else {
-                        print("Torrent already exists")
+                        askToAddExtraTrackers(filePath: loadPath, index: existingTorrentIndex)
                     }
                 }
             }
         })
+    }
+
+    // Show alert for duplicate torrent
+    private static func askToAddExtraTrackers(magnetUri: String, index: Int32) {
+        if askToAddExtraTrackers() {
+            add_extra_trackers_from_magnet_uri(magnetUri, index)
+        }
+    }
+
+    private static func askToAddExtraTrackers(filePath: String, index: Int32) {
+        if askToAddExtraTrackers() {
+            add_extra_trackers_from_file(filePath, index)
+        }
+    }
+
+    private static func askToAddExtraTrackers() -> Bool {
+        let alert = NSAlert()
+        alert.messageText = "Torrent already exists. Want to add its trackers?"
+        alert.addButton(withTitle: "Yes")
+        alert.addButton(withTitle: "No")
+
+        if alert.runModal() == NSApplication.ModalResponse.alertFirstButtonReturn {
+            return true
+        }
+
+        return false
     }
 }
