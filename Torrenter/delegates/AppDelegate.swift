@@ -47,7 +47,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
                 if magnetUri.count >= 1 {
                     let existingTorrentIndex = get_torrent_from_magnet_uri(magnetUri)
-                    if existingTorrentIndex == 0 {
+                    if existingTorrentIndex == -1 {
                         // Initiate the torrent
                         torrent_initiate_magnet_uri(magnetUri, savePath, false)
 
@@ -84,7 +84,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     let loadPath = panel.urls[0].relativePath
 
                     let existingTorrentIndex = get_torrent_from_file(loadPath)
-                    if existingTorrentIndex == 0 {
+                    if existingTorrentIndex == -1 {
                         // For now, it's the downloads folder
                         let savePath = fileManager.homeDirectoryForCurrentUser.appendingPathComponent("Downloads").relativePath
 
