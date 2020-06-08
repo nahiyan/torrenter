@@ -136,4 +136,6 @@ struct ContentItemInfo
     const char *parent_path;
 };
 
+const char *get_app_data_dir();
+
 #endif /* torrent_h */

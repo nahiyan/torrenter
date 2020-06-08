@@ -20,12 +20,13 @@
 #include <fstream>
 #include <boost/asio.hpp>
 
-#include "../../include/torrenter/torrent.h"
-#include "../../include/torrenter/torrents.h"
+#include "torrenter/torrent.h"
+#include "torrenter/torrents.h"
+#include "torrenter/names_database.h"
 extern "C"
 {
-#include "../../include/libmaxminddb/maxminddb.h"
-#include "../../include/torrenter/geo_ip.h"
+#include "libmaxminddb/maxminddb.h"
+#include "torrenter/geo_ip.h"
 }
 #include "libtorrent/entry.hpp"
 #include "libtorrent/bencode.hpp"
@@ -51,6 +52,11 @@ std::vector<PeerInfo> peer_infos;
 struct Trackers trackers;
 MMDB_s mmdb;
 bool stop_alert_monitor = false;
+
+const char *get_app_data_dir()
+{
+    return app_data_dir.c_str();
+}
 
 const char *c_string(std::string str)
 {
@@ -121,6 +127,20 @@ void write_torrent_resume_file(lt::torrent_handle const &handle, lt::add_torrent
         std::string encoded_hash = hex_encode_sha1_hash(handle.info_hash());
 
         std::string resume_file = app_data_dir + "/resume_files/" + encoded_hash + ".resume";
+
+        // std::cout << params.info_hash << "\n";
+        // std::cout << "Name: " << params.name << "\n";
+        // std::cout << "Name: " << params.ti.get() << "\n";
+
+        // Save name in a database for those torrents whose metadata isn't yet downloaded
+        if (params.ti == NULL)
+        {
+            std::string name = params.name;
+
+            load_names_if_required();
+            add_name(encoded_hash, name);
+            save_names();
+        }
 
         // Write resume file
         std::ofstream out(resume_file, std::ios_base::binary);
@@ -217,7 +237,18 @@ extern "C" void torrent_initiate_resume_data(const char *file_name)
 
         Torrent torrent;
         torrent.handler = torrent_session.add_torrent(params);
-        torrent.name = torrent.handler.status().name;
+
+        if (params.ti == NULL)
+        {
+            // Get name from database is metadata isn't still downloaded
+            std::string hash = hex_encode_sha1_hash(params.info_hash);
+            load_names_if_required();
+            torrent.name = get_name(hash);
+        }
+        else
+        {
+            torrent.name = torrent.handler.status().name;
+        }
 
         // Default pieces information
         TorrentPieces pieces;
@@ -263,9 +294,6 @@ extern "C" TorrentInfo torrent_get_info(int index)
         lt::torrent_handle &handler = torrents.at(index).handler;
         const lt::torrent_info *info = handler.torrent_file().get();
 
-        // Update the name of the torrent
-        torrents.at(index).name = status.name;
-
         // Update the save path of the torrent
         torrents.at(index).save_path = status.save_path;
 
@@ -288,6 +316,9 @@ extern "C" TorrentInfo torrent_get_info(int index)
             torrent_info.piece_size = info->piece_length();
             torrent_info.num_pieces_total = info->num_pieces();
             torrent_info.created_on = info->creation_date();
+
+            // Update the name of the torrent
+            torrents.at(index).name = status.name;
         }
         else
         {
@@ -296,6 +327,10 @@ extern "C" TorrentInfo torrent_get_info(int index)
             torrent_info.piece_size = 0;
             torrent_info.num_pieces_total = 0;
             torrent_info.created_on = -1;
+
+            // Update the name of the torrent
+            load_names_if_required();
+            torrents.at(index).name = get_name(torrents.at(index).info_hash);
         }
 
         torrent_info.list_seeds = status.list_seeds;
@@ -565,7 +600,7 @@ int get_torrent_from_hash(lt::sha1_hash &hash)
         }
     }
 
-    return 0;
+    return -1;
 }
 
 extern "C" int get_torrent_from_file(const char *loadPath)
@@ -711,14 +746,6 @@ void monitor_alerts()
             {
                 lt::save_resume_data_alert const *srd_alert = lt::alert_cast<lt::save_resume_data_alert>(alert);
 
-                // std::string encoded_hash = hex_encode_sha1_hash(srd_alert->handle.info_hash());
-
-                // std::string resume_file = app_data_dir + "/resume_files/" + encoded_hash + ".resume";
-
-                // // Write resume file
-                // std::ofstream out(resume_file, std::ios_base::binary);
-                // std::vector<char> buf = lt::write_resume_data_buf(srd_alert->params);
-                // out.write(buf.data(), buf.size());
                 write_torrent_resume_file(srd_alert->handle, srd_alert->params);
 
                 break;
