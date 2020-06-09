@@ -50,5 +50,6 @@ const char *torrent_get_first_root_content_item_path(int);
 struct Availability torrent_get_availability(int);
 void add_extra_trackers_from_magnet_uri(const char *, int);
 void add_extra_trackers_from_file(const char *, int);
+void configure_libtorrent();
 
 #endif

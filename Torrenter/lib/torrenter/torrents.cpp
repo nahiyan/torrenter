@@ -1278,3 +1278,12 @@ extern "C" void add_extra_trackers_from_file(const char *file_path, int index)
         std::cout << "Failed to add extra trackers to torrent.\n";
     }
 }
+
+extern "C" void configure_libtorrent()
+{
+    lt::settings_pack pack = torrent_session.get_settings();
+    pack.set_int(pack.active_downloads, -1);
+    pack.set_int(pack.connections_limit, 1000);
+    pack.set_int(pack.active_seeds, -1);
+    torrent_session.apply_settings(pack);
+}

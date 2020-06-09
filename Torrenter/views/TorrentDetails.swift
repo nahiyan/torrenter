@@ -83,8 +83,7 @@ class TorrentDetails: NSTabView, NSTabViewDelegate {
 
     func show() {
         if ViewController.shared != nil {
-            ViewController.shared!.noSelectionIndicator.isHidden = true
-            isHidden = false
+            ViewController.shared!.splitView.arrangedSubviews[1].isHidden = false
 
             refresh()
         }
@@ -92,8 +91,7 @@ class TorrentDetails: NSTabView, NSTabViewDelegate {
 
     func hide() {
         if ViewController.shared != nil {
-            ViewController.shared!.noSelectionIndicator.isHidden = false
-            isHidden = true
+            ViewController.shared!.splitView.arrangedSubviews[1].isHidden = true
         }
     }
 

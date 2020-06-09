@@ -56,8 +56,8 @@ class ViewController: NSViewController {
     @IBOutlet var trackersTable: NSTableView!
     @IBOutlet var torrentDetailsContainer: TorrentDetailsContainer!
     @IBOutlet var torrentDetails: TorrentDetails!
-    @IBOutlet var noSelectionIndicator: NSTextField!
     @IBOutlet var trackers: NSArrayController!
+    @IBOutlet var splitView: NSSplitView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,6 +66,9 @@ class ViewController: NSViewController {
         // Set the app data dir
         let appDataDir: String = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library", isDirectory: true).appendingPathComponent("Application Support", isDirectory: true).appendingPathComponent("Torrenter", isDirectory: true).relativePath
         set_app_data_dir(appDataDir)
+
+        // Set settings
+        configure_libtorrent()
 
         // Load torrents from resume data
         let resumeDataDir: URL = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library", isDirectory: true).appendingPathComponent("Application Support", isDirectory: true).appendingPathComponent("Torrenter", isDirectory: true).appendingPathComponent("resume_files", isDirectory: true)
