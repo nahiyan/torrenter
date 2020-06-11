@@ -13,6 +13,9 @@
   <nav class="navbar">
     <div class="navbar-brand">
       <a class="navbar-item" href="../..">Torrenter</a>
+      <div class="navbar-item">
+        <input id="search-input" type="text" placeholder="Search docs">
+      </div>
       <button class="navbar-burger" data-target="topbar-nav">
         <span></span>
         <span></span>
@@ -331,6 +334,9 @@ may not be able to do so with WebTorrent.</p>
   window.antora.pagePath = '/Documentation/0.1.0/index.html'
 </script>
 <script src="../../_/js/site.js"></script>
+<script src="../../_/js/vendor/lunr.js"></script>
+<script src="../../_/js/vendor/search.js"></script>
+<script async src="../../_/../search-index.js"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
   </body>
 </html>
