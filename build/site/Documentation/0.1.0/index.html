@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Introduction :: Torrenter</title>
+    <meta name="generator" content="Antora 2.3.3">
+    <link rel="stylesheet" href="../../_/css/site.css">
+<link rel="stylesheet" href="../../_/css/search.css">
+  </head>
+  <body class="article">
+<header class="header" role="banner">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="../..">Torrenter</a>
+      <div class="navbar-item">
+        <input id="search-input" type="text" placeholder="Search docs">
+      </div>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="Documentation" data-version="0.1.0">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html">Documentation</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="index.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Torrents</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="hey.html">Add</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="hey.html">Pause/Resume</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="hey.html">Remove</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="hey.html">Force Recheck</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Torrent Data Transfer</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="hey.html">Downloading Sequentially</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="hey.html">Limiting Transfer Rate</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="hey.html">Monitoring Transfer Rate</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Torrent Content</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="hey.html">Prioritizing Transfer</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="hey.html">Monitoring Progress</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Torrent Trackers</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="hey.html">Merging Trackers From Multiple Sources</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="hey.html">Force Reannounce</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="hey.html">Monitoring Status</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Torrent Peers</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="hey.html">Monitoring Status</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Documentation</span>
+    <span class="version">0.1.0</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <span class="title">Documentation</span>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="index.html">0.1.0</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link is-current"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Documentation</a></li>
+    <li><a href="index.html">Introduction</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="file:///Users/nahiyanalamgir/code/Torrenter/src/docs/modules/ROOT/pages/index.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<article class="doc">
+<h1 class="page">Introduction</h1>
+<div class="sect1">
+<h2 id="_about"><a class="anchor" href="#_about"></a>About</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Torrenter is a regular GUI-based BitTorrent client for macOS.
+It aims to keep the interface clean &amp; simple, whilst also striving to give the user adequate control and information.
+Currently it&#8217;s only available for macOS as a native app, using Cocoa for its UI - which ensures that native macOS look and feel.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_why_another_macos_bittorrent_client"><a class="anchor" href="#_why_another_macos_bittorrent_client"></a>Why Another macOS BitTorrent Client?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Torrenter has been created specifically for the macOS ecosystem in mind.
+Currently there is no plan to port it to other platforms.
+Ever since macOS stopped supporting 32-bit apps, lot of BitTorrent clients disappeared, or got rebuilt.</p>
+</div>
+<div class="paragraph">
+<p>Nevertheless, it&#8217;s best to see programs as tools. Various tools are designed to serve different purposes in their own ways.
+Torrenter isn&#8217;t claimed to be superior to other BitTorrent clients, but is designed to serve users
+whose needs may not be fulfilled by other BitTorrent clients.</p>
+</div>
+<div class="paragraph">
+<p>Below are some reasons as to why you may want to use Torrenter instead of some of the major BitTorrent clients available of macOS.
+It&#8217;s intended to give you some quick idea, and not serve as a complete list with all possible details.</p>
+</div>
+<div class="sect2">
+<h3 id="_utorrent_web"><a class="anchor" href="#_utorrent_web"></a>uTorrent Web</h3>
+<div class="paragraph">
+<p>Some of the major BitTorrent clients like uTorrent ported its interface to the web, whilst keeping its engine as a background app.
+This itself is a wonderful way to ensure consistent look &amp; feel across platforms,
+make it easy to develop for all major platforms,
+and make the app much more obtrusive - letting the user close the UI when desired.</p>
+</div>
+<div class="paragraph">
+<p>However, unfortunately, uTorrent lost much of its features after the app was rebuilt this way.
+It&#8217;s not possible to check the peers, trackers, etc of a torrent in uTorrent.
+Even though uTorrent classic, which has all the features that gave control to the user, is still here,
+it&#8217;s not compatible with macOS 10.15 and higher.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_qbittorrent"><a class="anchor" href="#_qbittorrent"></a>qBitTorrent</h3>
+<div class="paragraph">
+<p>qBitTorrent for macOS is still available as a native GUI app.
+It&#8217;s an amazing BitTorrent client, and it still gives the user adequate control &amp; information.</p>
+</div>
+<div class="paragraph">
+<p>However, what it lacks is a properly-built interface.
+Sure, everything is organized properly.
+But lot of issues are there with the interface:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>For example, dialogs often appear in the background -
+causing lot of nuisance as most users often fail to notice a dialog box hidden underneath.</p>
+</li>
+<li>
+<p>The interface is also designed in some hacky ways, which makes it quite unpleasant.
+For example, buttons are used to imitate a tab-like system.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_webtorrent"><a class="anchor" href="#_webtorrent"></a>WebTorrent</h3>
+<div class="paragraph">
+<p>WebTorrent is, quite possibly, the best-looking BitTorrent client out there.
+It&#8217;s not just simple and easy-to-use, but is also quite intuitive.</p>
+</div>
+<div class="paragraph">
+<p>However, the issue with WebTorrent is that it provides very little information &amp; control to the user.
+Any user who may want to know more about the health of a torrent, control the trackers, etc
+may not be able to do so with WebTorrent.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_features"><a class="anchor" href="#_features"></a>Features</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Manage torrents</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Add from torrent file</p>
+</li>
+<li>
+<p>Add from torrent magnet URI</p>
+</li>
+<li>
+<p>Pause/resume</p>
+</li>
+<li>
+<p>Remove</p>
+</li>
+<li>
+<p>Force recheck</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Manage torrent data transfer</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Choose whether to download torrent pieces sequentially or not</p>
+</li>
+<li>
+<p>Limit transfer rate</p>
+</li>
+<li>
+<p>Monitor transfer rate</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Manage torrent content</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Prioritize transfer of content items</p>
+</li>
+<li>
+<p>Monitor progress of each content item</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Manage torrent trackers</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Merge trackers from multiple torrent files, or magnet URIs</p>
+</li>
+<li>
+<p>Force reannounce</p>
+</li>
+<li>
+<p>Monitor status of each tracker</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Monitor torrent peers</p>
+<div class="ulist">
+<ul>
+<li>
+<p>View information such as their location, IP address, client, etc</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_screenshots"><a class="anchor" href="#_screenshots"></a>Screenshots</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script>
+  window.antora = window.antora || {}
+  window.antora.basePath = '../..'
+  window.antora.pagePath = '/Documentation/0.1.0/index.html'
+</script>
+<script src="../../_/js/site.js"></script>
+<script src="../../_/js/vendor/lunr.js"></script>
+<script src="../../_/js/vendor/search.js"></script>
+<script async src="../../_/../search-index.js"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

@@ -1,0 +1,24 @@
+{
+  "name": "torrenter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nahiyan/torrenter.git"
+  },
+  "author": "Nahiyan Alamgir <nahiyan.alamgir@live.com> (http://github.com/hedronium)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nahiyan/torrenter/issues"
+  },
+  "homepage": "https://github.com/nahiyan/torrenter#readme",
+  "devDependencies": {
+    "@antora/cli": "^2.3.3",
+    "@antora/site-generator-default": "^2.3.3",
+    "antora-lunr": "^0.7.1"
+  }
+}
