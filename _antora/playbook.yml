@@ -10,3 +10,5 @@ ui:
   supplemental_files:
     ./supplemental_ui
     # snapshot: true
+output:
+  dir: ../
