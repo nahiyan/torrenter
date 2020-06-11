@@ -1,0 +1,77 @@
+= Introduction
+
+== About
+
+Torrenter is a regular GUI-based BitTorrent client for macOS.
+It aims to keep the interface clean & simple, whilst also striving to give the user adequate control and information.
+Currently it's only available for macOS as a native app, using Cocoa for its UI - which ensures that native macOS look and feel.
+
+== Why Another macOS BitTorrent Client?
+
+Torrenter has been created specifically for the macOS ecosystem in mind.
+Currently there is no plan to port it to other platforms.
+Ever since macOS stopped supporting 32-bit apps, lot of BitTorrent clients disappeared, or got rebuilt.
+
+Nevertheless, it's best to see programs as tools. Various tools are designed to serve different purposes in their own ways.
+Torrenter isn't claimed to be superior to other BitTorrent clients, but is designed to serve users
+whose needs may not be fulfilled by other BitTorrent clients.
+
+Below are some reasons as to why you may want to use Torrenter instead of some of the major BitTorrent clients available of macOS.
+It's intended to give you some quick idea, and not serve as a complete list with all possible details.
+
+=== uTorrent Web
+Some of the major BitTorrent clients like uTorrent ported its interface to the web, whilst keeping its engine as a background app.
+This itself is a wonderful way to ensure consistent look & feel across platforms,
+make it easy to develop for all major platforms,
+and make the app much more obtrusive - letting the user close the UI when desired.
+
+However, unfortunately, uTorrent lost much of its features after the app was rebuilt this way.
+It's not possible to check the peers, trackers, etc of a torrent in uTorrent.
+Even though uTorrent classic, which has all the features that gave control to the user, is still here,
+it's not compatible with macOS 10.15 and higher.
+
+=== qBitTorrent
+qBitTorrent for macOS is still available as a native GUI app.
+It's an amazing BitTorrent client, and it still gives the user adequate control & information.
+
+However, what it lacks is a properly-built interface.
+Sure, everything is organized properly.
+But lot of issues are there with the interface:
+
+* For example, dialogs often appear in the background -
+causing lot of nuisance as most users often fail to notice a dialog box hidden underneath.
+* The interface is also designed in some hacky ways, which makes it quite unpleasant.
+For example, buttons are used to imitate a tab-like system.
+
+=== WebTorrent
+WebTorrent is, quite possibly, the best-looking BitTorrent client out there.
+It's not just simple and easy-to-use, but is also quite intuitive.
+
+However, the issue with WebTorrent is that it provides very little information & control to the user.
+Any user who may want to know more about the health of a torrent, control the trackers, etc
+may not be able to do so with WebTorrent.
+
+== Features
+
+* Manage torrents
+** Add from torrent file
+** Add from torrent magnet URI
+** Pause/resume
+** Remove
+** Force recheck
+* Manage torrent data transfer
+** Choose whether to download torrent pieces sequentially or not
+** Limit transfer rate
+** Monitor transfer rate
+* Manage torrent content
+** Prioritize transfer of content items
+** Monitor progress of each content item
+* Manage torrent trackers
+** Merge trackers from multiple torrent files, or magnet URIs
+** Force reannounce
+** Monitor status of each tracker
+* Monitor torrent peers
+** View information such as their location, IP address, client, etc
+
+== Screenshots
+
