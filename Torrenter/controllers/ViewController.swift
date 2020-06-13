@@ -182,15 +182,17 @@ class ViewController: NSViewController {
 extension ViewController {
     func refreshProgressBars() {
         // Refresh the progress bars
-        for rowIndex in 0 ... (torrentsTable.numberOfRows - 1) {
-            let torrent: Torrent = (torrents.arrangedObjects as! [Torrent])[rowIndex]
+        if torrentsTable.numberOfRows > 0 {
+            for rowIndex in 0 ... (torrentsTable.numberOfRows - 1) {
+                let torrent: Torrent = (torrents.arrangedObjects as! [Torrent])[rowIndex]
 
-            let progressColumnIndex: Int = torrentsTable.column(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "progress"))
+                let progressColumnIndex: Int = torrentsTable.column(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "progress"))
 
-            let progressBar: SimpleProgressBar = torrentsTable.view(atColumn: progressColumnIndex, row: rowIndex, makeIfNecessary: true)!.subviews[0] as! SimpleProgressBar
+                let progressBar: SimpleProgressBar = torrentsTable.view(atColumn: progressColumnIndex, row: rowIndex, makeIfNecessary: true)!.subviews[0] as! SimpleProgressBar
 
-            progressBar.progress = torrent.info.progress
-            progressBar.needsDisplay = true
+                progressBar.progress = torrent.info.progress
+                progressBar.needsDisplay = true
+            }
         }
     }
 }
