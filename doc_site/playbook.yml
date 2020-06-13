@@ -1,5 +1,6 @@
 site:
   title: Torrenter Docs
+  url: https://nahiyan.github.io/torrenter
 content:
   sources:
     - url: ./src/docs
