@@ -1,0 +1,57 @@
+= Add a New Torrent
+
+To start downloading from a torrent, you need to add it to Torrenter.
+There are two ways to add a torrent to Torrenter:
+
+* Through a torrent file
+* Through a torrent magnet URI
+
+== Adding Torrent through a Torrent File
+
+Torrent file is a regular file which contains all the information required to load a torrent, and start downloading data associated with the torrent.
+
+There are two ways to do it:
+* Through the main menu
+* Through the '+' button
+
+=== Through the Main Menu
+
+In Torrenter's main menu, go to `Torrent > Add from File` to add a torrent.
+
+image:add_torrent_through_file_through_menu.png[]
+
+A dialog will popup which will let you choose a `.torrent` file.
+
+=== Through the Plus Button
+
+* Click the '+' button, which is found in the header of Torrenter's window.
+* Click the "Load Torrent File" menu item.
+
+image:add_torrent_through_file_through_plus_button.png[]
+
+A dialog will popup which will let you choose a `.torrent` file.
+
+== Adding Torrent through a Torrent Magnet URI
+
+Torrent Magnet URI is a piece of text which contains all the information required to load a torrent, and start downloading data associated with the torrent.
+
+There are two ways to do it:
+* Through the main menu
+* Through the '+' button
+
+=== Through the Main Menu
+
+In Torrenter's main menu, go to `Torrent > Add from Magnet URI` to add a torrent.
+
+image:add_torrent_through_magnet_uri_through_menu.png[]
+
+A text field will popup where you can paste the magnet URI. Click the "Add" button to add the torrent through the magnet URI.
+
+=== Through the Plus Button
+
+* Click the '+' button, which is found in the header of Torrenter's window.
+* Click the "Load Torrent Link" menu item.
+
+image:add_torrent_through_magnet_uri_through_plus_button.png[]
+
+A text field will popup where you can paste the magnet URI. Click the "Add" button to add the torrent through the magnet URI.

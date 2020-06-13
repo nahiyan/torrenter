@@ -2,3 +2,4 @@ name: Torrenter
 version: 0.1.0
 nav:
   - modules/ROOT/nav.adoc
+  - modules/torrent/nav.adoc

@@ -75,3 +75,20 @@ may not be able to do so with WebTorrent.
 
 == Screenshots
 
+=== General
+image:general.png[]
+
+=== Adding Torrent through Magnet URI
+image:add_magnet_uri.png[]
+
+=== Content
+image:content.png[]
+
+=== Trackers
+image:trackers.png[]
+
+=== Peers
+image:peers.png[]
+
+=== Minimal
+image:minimal.png[]

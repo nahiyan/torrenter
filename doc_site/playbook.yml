@@ -1,6 +1,6 @@
 site:
   title: Torrenter Docs
-  url: https://nahiyan.github.io/torrenter
+  start_page: Torrenter::index.adoc
 content:
   sources:
     - url: ./src/docs
@@ -11,4 +11,4 @@ ui:
     ./supplemental_ui
     # snapshot: true
 output:
-  dir: ../
+  dir: ../docs
