@@ -103,7 +103,7 @@ class TorrentDetails: NSTabView, NSTabViewDelegate {
         switch currentTabSelection {
         case .general:
             if ViewController.shared!.torrentsTable.selectedRow != -1 {
-                let torrent: Torrent = ViewController.shared!.torrentsTable.torrent!
+                let torrent: Torrent = ViewController.shared!.torrentsTable.selectedTorrent!
 
                 // progress bar based on status of pieces
                 ViewController.shared!.piecesProgress.pieces = torrent_pieces(Int32(torrent.index)).content
@@ -197,7 +197,7 @@ class TorrentDetails: NSTabView, NSTabViewDelegate {
         case .peers:
             // Fetch peers for the selected torrent
             if ViewController.shared!.torrentsTable.selectedRow != -1 {
-                let torrent: Torrent = ViewController.shared!.torrentsTable.torrent!
+                let torrent: Torrent = ViewController.shared!.torrentsTable.selectedTorrent!
 
                 torrent_fetch_peers(Int32(torrent.index))
 
@@ -231,7 +231,7 @@ class TorrentDetails: NSTabView, NSTabViewDelegate {
             }
         case .content:
             if ViewController.shared!.torrentsTable.selectedRow != -1 {
-                let torrent: Torrent = ViewController.shared!.torrentsTable.torrent!
+                let torrent: Torrent = ViewController.shared!.torrentsTable.selectedTorrent!
 
                 // Fetch progress (in bytes) of all the torrent files
                 torrent_fetch_files_progress(Int32(torrent.index))
@@ -247,7 +247,7 @@ class TorrentDetails: NSTabView, NSTabViewDelegate {
 
         case .trackers:
             if ViewController.shared!.torrentsTable.selectedRow != -1 {
-                let trackers: Trackers = torrent_get_trackers(Int32(ViewController.shared!.torrentsTable.torrent!.index))
+                let trackers: Trackers = torrent_get_trackers(Int32(ViewController.shared!.torrentsTable.selectedTorrent!.index))
 
                 if trackers.count != (ViewController.shared!.trackers.arrangedObjects as! [Tracker]).count {
                     // Clear trackers array
@@ -294,7 +294,7 @@ class TorrentDetails: NSTabView, NSTabViewDelegate {
             var children: [TorrentContentItem] = []
             for _item in items {
                 if _item.parent == item.id {
-                    let torrentContentItem = TorrentContentItem(name: String(cString: _item.name!), fileIndex: Int(_item.file_index), torrentIndex: ViewController.shared!.torrentsTable.torrent!.index)
+                    let torrentContentItem = TorrentContentItem(name: String(cString: _item.name!), fileIndex: Int(_item.file_index), torrentIndex: ViewController.shared!.torrentsTable.selectedTorrent!.index)
                     torrentContentItem.children = torrentContentItemChildren(items: items, item: _item)
 
                     children.append(torrentContentItem)
@@ -309,7 +309,7 @@ class TorrentDetails: NSTabView, NSTabViewDelegate {
 
     func repopulateContentTable(selectedRow _: Int? = nil) {
         if ViewController.shared!.torrentsTable.selectedRow != -1 {
-            let content: Content = torrent_get_content(Int32(ViewController.shared!.torrentsTable.torrent!.index))
+            let content: Content = torrent_get_content(Int32(ViewController.shared!.torrentsTable.selectedTorrent!.index))
 
             var items: [ContentItem] = []
 
@@ -326,7 +326,7 @@ class TorrentDetails: NSTabView, NSTabViewDelegate {
             // Add the items to the torrent content outline view
             for item in items {
                 if item.parent == -1 {
-                    let torrentContentItem = TorrentContentItem(name: String(cString: item.name!), fileIndex: Int(item.file_index), torrentIndex: ViewController.shared!.torrentsTable.torrent!.index)
+                    let torrentContentItem = TorrentContentItem(name: String(cString: item.name!), fileIndex: Int(item.file_index), torrentIndex: ViewController.shared!.torrentsTable.selectedTorrent!.index)
 
                     torrentContentItem.children = torrentContentItemChildren(items: items, item: item)
 

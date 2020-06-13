@@ -28,7 +28,7 @@ class MainMenu: NSMenu, NSMenuDelegate {
         if ViewController.shared == nil {
             return
         }
-        weak var torrent: Torrent? = ViewController.shared!.torrentsTable.torrent
+        weak var torrent: Torrent? = ViewController.shared!.torrentsTable.selectedTorrent
 
         for item in NSApplication.shared.menu!.items {
             switch item.title {

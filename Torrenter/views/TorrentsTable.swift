@@ -9,9 +9,17 @@
 import Cocoa
 
 class TorrentsTable: NSTableView {
-    var torrent: Torrent? {
+    var selectedTorrent: Torrent? {
         if selectedRow != -1, ViewController.shared != nil {
             return (ViewController.shared!.torrents.arrangedObjects as! [Torrent])[selectedRow]
+        } else {
+            return nil
+        }
+    }
+
+    var clickedTorrent: Torrent? {
+        if clickedRow != -1, ViewController.shared != nil {
+            return (ViewController.shared!.torrents.arrangedObjects as! [Torrent])[clickedRow]
         } else {
             return nil
         }
@@ -35,19 +43,19 @@ class TorrentsTable: NSTableView {
         menu!.addItem(withTitle: "Open Destination Directory", action: nil, keyEquivalent: "")
     }
 
-    override func willOpenMenu(_ menu: NSMenu, with _: NSEvent) {
+    override func willOpenMenu(_: NSMenu, with _: NSEvent) {
         let vc: ViewController? = ViewController.get()
 
         if vc == nil {
             return
         }
 
-        if selectedRow != -1 {
-            let contextMenu: NSMenu = self.menu!
+        if clickedRow != -1 {
+            let contextMenu: NSMenu = menu!
 
-            // Play/pause item -> 0
+            // Play/pause item
             let playPauseItem: NSMenuItem? = contextMenu.item(at: 0)
-            if torrent!.isPaused {
+            if clickedTorrent!.isPaused {
                 playPauseItem?.title = "Resume"
                 playPauseItem?.action = #selector(resumeTorrent)
             } else {
@@ -55,45 +63,45 @@ class TorrentsTable: NSTableView {
                 playPauseItem?.action = #selector(pauseTorrent)
             }
 
-            // Remove item -> 1
+            // Remove item
             let removeItem: NSMenuItem? = contextMenu.item(withTitle: "Remove")
             removeItem?.action = #selector(removeTorrent)
 
-            // Separator -> 2
+            // Separator
 
-            // Limit Download Rate -> 3
+            // Limit Download Rate
             let limitDownloadRateItem: NSMenuItem? = contextMenu.item(withTitle: "Limit Download Rate")
             limitDownloadRateItem?.action = #selector(limitDownloadRate)
 
-            // Limit Upload Rate -> 4
+            // Limit Upload Rate
             let limitUploadRateItem: NSMenuItem? = contextMenu.item(withTitle: "Limit Upload Rate")
             limitUploadRateItem?.action = #selector(limitUploadRate)
 
-            // Separator -> 5
+            // Separator
 
-            // Download in sequential order -> 6
+            // Download in sequential order
             let downloadInSequentialOrderItem: NSMenuItem? = contextMenu.item(withTitle: "Download in Sequential Order")
 
-            if torrent!.isSequential {
+            if clickedTorrent!.isSequential {
                 downloadInSequentialOrderItem?.state = .on
             } else {
                 downloadInSequentialOrderItem?.state = .off
             }
             downloadInSequentialOrderItem?.action = #selector(downloadInSequentialOrder)
 
-            // Separator -> 7
+            // Separator
 
-            // Force Recheck -> 8
+            // Force Recheck
             let forceRecheckItem: NSMenuItem? = contextMenu.item(withTitle: "Force Recheck")
             forceRecheckItem?.action = #selector(forceRecheckTorrent)
 
-            // Force Reannounce -> 9
+            // Force Reannounce
             let forceReannounceItem: NSMenuItem? = contextMenu.item(withTitle: "Force Reannounce")
             forceReannounceItem?.action = #selector(forceReannounceTorrent)
 
-            // Separator -> 10
+            // Separator
 
-            // Open Destination Directory -> 11
+            // Open Destination Directory
             let openDestDirItem: NSMenuItem? = contextMenu.item(withTitle: "Open Destination Directory")
             openDestDirItem?.action = #selector(openDestinationDirectory)
         }
@@ -105,37 +113,37 @@ class TorrentsTable: NSTableView {
     }
 
     @objc func pauseTorrent() {
-        torrent!.pause()
+        clickedTorrent!.pause()
         postOperation()
     }
 
     @objc func resumeTorrent() {
-        torrent!.resume()
+        clickedTorrent!.resume()
         postOperation()
     }
 
     @objc func removeTorrent() {
-        torrent!.remove()
+        clickedTorrent!.remove()
     }
 
     @objc func downloadInSequentialOrder() {
-        if torrent!.isSequential {
-            torrent!.nonSequential()
+        if clickedTorrent!.isSequential {
+            clickedTorrent!.nonSequential()
         } else {
-            torrent!.sequential()
+            clickedTorrent!.sequential()
         }
     }
 
     @objc func forceRecheckTorrent() {
-        torrent!.forceRecheck()
+        clickedTorrent!.forceRecheck()
     }
 
     @objc func forceReannounceTorrent() {
-        torrent!.forceReannounce()
+        clickedTorrent!.forceReannounce()
     }
 
     @objc func openDestinationDirectory() {
-        let pathCString: UnsafePointer<CChar>? = torrent_get_first_root_content_item_path(Int32(torrent!.index))
+        let pathCString: UnsafePointer<CChar>? = torrent_get_first_root_content_item_path(Int32(clickedTorrent!.index))
 
         if pathCString != nil {
             let path: String = String(cString: pathCString!)
@@ -156,10 +164,10 @@ class TorrentsTable: NSTableView {
         // Set the rate limit of the view controller
         let rateLimitViewController: RateLimitViewController = (rateLimitWindow.contentViewController as! RateLimitViewController)
         if isDownloadRate {
-            rateLimitViewController.limit = torrent!.info.download_limit
+            rateLimitViewController.limit = clickedTorrent!.info.download_limit
             rateLimitViewController.rateLimitLabel.stringValue = "Download Rate Limit:"
         } else {
-            rateLimitViewController.limit = torrent!.info.upload_limit
+            rateLimitViewController.limit = clickedTorrent!.info.upload_limit
             rateLimitViewController.rateLimitLabel.stringValue = "Upload Rate Limit:"
         }
 
@@ -174,15 +182,15 @@ class TorrentsTable: NSTableView {
 
                 if isUnlimited {
                     if isDownloadRate {
-                        torrent_set_download_rate_limit(Int32(self.torrent!.index), -1)
+                        torrent_set_download_rate_limit(Int32(self.clickedTorrent!.index), -1)
                     } else {
-                        torrent_set_upload_rate_limit(Int32(self.torrent!.index), -1)
+                        torrent_set_upload_rate_limit(Int32(self.clickedTorrent!.index), -1)
                     }
                 } else {
                     if isDownloadRate {
-                        torrent_set_download_rate_limit(Int32(self.torrent!.index), Int32(rateLimitInBytes))
+                        torrent_set_download_rate_limit(Int32(self.clickedTorrent!.index), Int32(rateLimitInBytes))
                     } else {
-                        torrent_set_upload_rate_limit(Int32(self.torrent!.index), Int32(rateLimitInBytes))
+                        torrent_set_upload_rate_limit(Int32(self.clickedTorrent!.index), Int32(rateLimitInBytes))
                     }
                 }
             }
