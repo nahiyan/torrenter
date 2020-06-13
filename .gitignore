@@ -1,5 +1,4 @@
-release
-Torrenter alias
 *.code-workspace
 node_modules
 *.sh
+*.xcodeproj
