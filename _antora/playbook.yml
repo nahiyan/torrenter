@@ -1,6 +1,5 @@
 site:
-  title: Torrenter
-  start_page: Documentation::index.adoc
+  title: Torrenter Docs
 content:
   sources:
     - url: ./src/docs

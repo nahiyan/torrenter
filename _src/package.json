@@ -1,0 +1,25 @@
+{
+  "name": "torrenter-homepage",
+  "version": "1.0.0",
+  "description": "",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nahiyan Alamgir <nahiyan.alamgir@live.com> (http://github.com/hedronium)",
+  "license": "ISC",
+  "devDependencies": {
+    "@popperjs/core": "^2.4.2",
+    "autoprefixer": "^9.8.0",
+    "bootstrap": "^4.5.0",
+    "css-loader": "^3.5.3",
+    "jquery": "^3.5.1",
+    "popper.js": "^1.16.1",
+    "postcss-loader": "^3.0.0",
+    "sass": "^1.26.8",
+    "sass-loader": "^8.0.2",
+    "style-loader": "^1.2.1",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
+  }
+}
