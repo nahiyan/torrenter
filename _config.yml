@@ -1,2 +1,2 @@
-include: [docs/_]
+include: [docs/_, _]
 exclude: [doc_site, main_site]
