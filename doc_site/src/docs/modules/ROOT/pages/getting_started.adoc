@@ -1,0 +1,7 @@
+= Getting Started
+
+To get started with using Torrenter, simply download it from GitHub. Here's the https://github.com/nahiyan/torrenter/releases/download/v0.1.0/Torrenter.dmg[download link] to the latest version (v0.1.0).
+
+You can view all releases https://github.com/nahiyan/torrenter/releases[here]. Since Torrenter is open-source, you can download the source files of Torrenter and make your own build, or just download the compiled & packaged version.
+
+Probably the quickest way to see Torrenter in action is to add a torrent. Here's https://releases.ubuntu.com/20.04/ubuntu-20.04-desktop-amd64.iso.torrent[Ubuntu 20.04 Desktop's torrent] for a quick test. You can see how to add a torrent xref:torrent:add.adoc[here].
