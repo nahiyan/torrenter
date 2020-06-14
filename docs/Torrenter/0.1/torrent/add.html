@@ -25,7 +25,7 @@
   </nav>
 </header>
 <div class="body">
-<div class="nav-container" data-component="Torrenter" data-version="0.1.0">
+<div class="nav-container" data-component="Torrenter" data-version="0.1">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
@@ -36,6 +36,19 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../index.html">Introduction</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">User Interface</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../user_interface/overview.html">Overview</a>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
@@ -73,8 +86,34 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../torrent_data_transfer/limit_transfer_rate.html">Limiting Transfer Rate</a>
   </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Torrent Content</span>
+<ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../torrent_data_transfer/monitor_transfer_rate.html">Monitoring Transfer Rate</a>
+    <a class="nav-link" href="../torrent_content/prioritize_transfer.html">Prioritizing Transfer</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Torrent Trackers</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../torrent_trackers/merge_trackers.html">Merging Trackers From Multiple Sources</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../torrent_trackers/force_reannounce.html">Force Reannounce</a>
   </li>
 </ul>
   </li>
@@ -86,14 +125,14 @@
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
     <span class="title">Torrenter</span>
-    <span class="version">0.1.0</span>
+    <span class="version">0.1</span>
   </div>
   <ul class="components">
     <li class="component is-current">
       <span class="title">Torrenter</span>
       <ul class="versions">
         <li class="version is-current is-latest">
-          <a href="../index.html">0.1.0</a>
+          <a href="../index.html">0.1</a>
         </li>
       </ul>
     </li>
@@ -242,7 +281,7 @@ There are two ways to add a torrent to Torrenter:</p>
 <script>
   window.antora = window.antora || {}
   window.antora.basePath = '../../..'
-  window.antora.pagePath = '/Torrenter/0.1.0/torrent/add.html'
+  window.antora.pagePath = '/Torrenter/0.1/torrent/add.html'
 </script>
 <script src="../../../_/js/site.js"></script>
 <script src="../../../_/js/vendor/lunr.js"></script>

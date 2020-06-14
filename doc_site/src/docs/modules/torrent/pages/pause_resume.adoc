@@ -2,30 +2,12 @@
 
 You can pause or resume the data transfer of a torrent in one of three ways:
 
-* Through the main menu
-* Through the pause/resume button
-* Through the context menu
-
-== Through the Main Menu
-
-Select the torrent you want to pause/resume in the torrents table.
-
-In Torrenter's main menu, go to `Edit > Pause` or `Edit > Resume` to pause, or resume, a torrent.
-
-// image:add_torrent_through_magnet_uri_through_menu.png[]
-
-== Through the Pause/Resume Button
-
-Select the torrent you want to pause/resume in the torrents table.
-
-Click on the pause/resume, which is found in the header of Torrenter's window.
-
-// image:add_torrent_through_magnet_uri_through_menu.png[]
-
-== Through the Context Menu
-
-Right click the torrent in the torrents table you want to pause/resume.
-
-In the context menu, which appeared after right clicking, click on `Pause` or `Resume` to pause or resume a torrent respectively.
-
-// image:add_torrent_through_magnet_uri_through_menu.png[]
+* Main menu
+** Select torrent in the torrents table
+** Edit > Pause/Resume
+* Window header
+** Select torrent in the torrents table
+** Click pause/resume button
+* Torrents table context menu
+** Right click on the torrent in the torrents table
+** Click Pause/Resume in the context menu

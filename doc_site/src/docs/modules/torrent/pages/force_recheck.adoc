@@ -1,0 +1,10 @@
+= Force Recheck a Torrent
+
+Torrenter automatically checks each piece of a torrent when necessary.
+However, you can force Torrenter to check the pieces whenever desired.
+
+There is one way to do it: 
+
+* Torrents table context menu
+** Right click on the torrent in the torrents table
+** Click Force Recheck in the context menu

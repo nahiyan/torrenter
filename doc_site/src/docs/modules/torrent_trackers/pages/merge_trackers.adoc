@@ -1,0 +1,8 @@
+= Merge Trackers from Multiple Sources
+
+Trackers hold information about peers, who are actively transferring data.
+Although with the introduction of DHT, which makes trackerless torrents possible, trackers are included with torrents to speed up peer discovery.
+
+Trackers are essentially servers, and they are identified by addresses. The addresses are specified in torrent files, or torrent magnet URIs.
+
+If you attempt to load a torrent from source which is already loaded, the source (torrent file, or magnet URI) will be parsed for extra trackers. If extra trackers are found, they will be merged with the torrent which is already loaded.

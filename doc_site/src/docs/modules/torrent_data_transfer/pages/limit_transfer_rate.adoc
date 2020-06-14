@@ -1,0 +1,11 @@
+= Limit Transfer Rate
+
+There are times when you need to constrain the transfer rate - be it upload or download rate.
+
+You can set transfer rate by the following way:
+
+* Torrents table context menu
+** Right click on the torrent in the torrents table
+** Click *Limit Download Rate*, or *Limit Upload Rate*, in the context menu
+
+You can set transfer rate as _unlimited_, or constrained by a hard upper limit.

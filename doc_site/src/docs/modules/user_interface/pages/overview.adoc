@@ -1,0 +1,20 @@
+= Overview
+
+Torrenter's interface is composed of a window, along with a main menu. The window consists of a header, with bunch of buttons. The body consists primarily a table, which lists all the torrents loaded.
+
+Selecting a torrent in the table brings up another view at the bottom of the body - displaying details specific to the selected torrent; it's called *Torrent Details View*. If no torrent is selected, torrent details view disappears.
+
+Here's an overview of Torrenter's user interface:
+
+* Window
+** Header
+*** Left-aligned buttons (general)
+**** Add (+) button
+*** Center-aligned buttons (specific to selected torrent)
+**** Pause/resume button
+**** Remove button
+**** Sequential download toggle button
+** Body
+*** Torrents table
+*** Torrent-specific details view
+* Main Menu

@@ -1,0 +1,16 @@
+= Prioritize Transfer
+
+A torrent may have several content items, which are essentially just files and directories/folders; on top of that, it all can be deeply nested too.
+
+You can prioritize content items as you desire, which is likely to affect their transfer rates - that is, content items with higher priority is likely to get higher download rate. You can also skip download of specific content items through this way.
+
+You can set priority of content items with the following steps:
+
+* Torrent details view > Content
+** Right click on the content item in the contents table
+** In the context menu, you can click on any of the menu items inside *Priority*
+
+TIP: Note that there is also a checkbox for each content item.
+This is a shortcut of setting priority to *Don't download*.
+
+CAUTION: Checking/unchecking a content item will not just change its own priority, but also its children.

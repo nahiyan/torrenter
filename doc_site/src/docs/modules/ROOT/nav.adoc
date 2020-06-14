@@ -1,14 +1,1 @@
 * xref:index.adoc[Introduction]
-// * Torrent Data Transfer
-// ** xref:hey.adoc[Downloading Sequentially]
-// ** xref:hey.adoc[Limiting Transfer Rate]
-// ** xref:hey.adoc[Monitoring Transfer Rate]
-// * Torrent Content
-// ** xref:hey.adoc[Prioritizing Transfer]
-// ** xref:hey.adoc[Monitoring Progress]
-// * Torrent Trackers
-// ** xref:hey.adoc[Merging Trackers From Multiple Sources]
-// ** xref:hey.adoc[Force Reannounce]
-// ** xref:hey.adoc[Monitoring Status]
-// * Torrent Peers
-// ** xref:hey.adoc[Monitoring Status]

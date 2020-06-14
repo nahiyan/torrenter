@@ -1,0 +1,3 @@
+* Torrent Data Transfer
+** xref:sequential_download.adoc[Downloading Sequentially]
+** xref:limit_transfer_rate.adoc[Limiting Transfer Rate]

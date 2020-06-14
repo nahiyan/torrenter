@@ -1,5 +1,9 @@
 name: Torrenter
-version: 0.1.0
+version: 0.1
 nav:
   - modules/ROOT/nav.adoc
+  - modules/user_interface/nav.adoc
   - modules/torrent/nav.adoc
+  - modules/torrent_data_transfer/nav.adoc
+  - modules/torrent_content/nav.adoc
+  - modules/torrent_trackers/nav.adoc

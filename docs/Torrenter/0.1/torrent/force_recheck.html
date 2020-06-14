@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Add a New Torrent :: Torrenter Docs</title>
+    <title>Force Recheck a Torrent :: Torrenter Docs</title>
     <meta name="generator" content="Antora 2.3.3">
     <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/search.css">
@@ -25,7 +25,7 @@
   </nav>
 </header>
 <div class="body">
-<div class="nav-container" data-component="Torrenter" data-version="0.1.0">
+<div class="nav-container" data-component="Torrenter" data-version="0.1">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
@@ -43,9 +43,22 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
+    <span class="nav-text">User Interface</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../user_interface/overview.html">Overview</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <span class="nav-text">Torrents</span>
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="2">
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="add.html">Add</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -54,7 +67,7 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="remove.html">Remove</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="force_recheck.html">Force Recheck</a>
   </li>
 </ul>
@@ -73,8 +86,34 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../torrent_data_transfer/limit_transfer_rate.html">Limiting Transfer Rate</a>
   </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Torrent Content</span>
+<ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../torrent_data_transfer/monitor_transfer_rate.html">Monitoring Transfer Rate</a>
+    <a class="nav-link" href="../torrent_content/prioritize_transfer.html">Prioritizing Transfer</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Torrent Trackers</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../torrent_trackers/merge_trackers.html">Merging Trackers From Multiple Sources</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../torrent_trackers/force_reannounce.html">Force Reannounce</a>
   </li>
 </ul>
   </li>
@@ -86,14 +125,14 @@
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
     <span class="title">Torrenter</span>
-    <span class="version">0.1.0</span>
+    <span class="version">0.1</span>
   </div>
   <ul class="components">
     <li class="component is-current">
       <span class="title">Torrenter</span>
       <ul class="versions">
         <li class="version is-current is-latest">
-          <a href="../index.html">0.1.0</a>
+          <a href="../index.html">0.1</a>
         </li>
       </ul>
     </li>
@@ -110,127 +149,37 @@
   <ul>
     <li><a href="../index.html">Torrenter</a></li>
     <li>Torrents</li>
-    <li><a href="add.html">Add</a></li>
+    <li><a href="force_recheck.html">Force Recheck</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="file:///Users/nahiyanalamgir/code/Torrenter/doc_site/src/docs/modules/torrent/pages/add.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="file:///Users/nahiyanalamgir/code/Torrenter/doc_site/src/docs/modules/torrent/pages/force_recheck.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <article class="doc">
-<h1 class="page">Add a New Torrent</h1>
-<div id="preamble">
-<div class="sectionbody">
+<h1 class="page">Force Recheck a Torrent</h1>
 <div class="paragraph">
-<p>To start downloading from a torrent, you need to add it to Torrenter.
-There are two ways to add a torrent to Torrenter:</p>
+<p>Torrenter automatically checks each piece of a torrent when necessary.
+However, you can force Torrenter to check the pieces whenever desired.</p>
+</div>
+<div class="paragraph">
+<p>There is one way to do it:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Torrent file</p>
+<p>Torrents table context menu</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Right click on the torrent in the torrents table</p>
 </li>
 <li>
-<p>Torrent magnet URI</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_adding_torrent_through_a_torrent_file"><a class="anchor" href="#_adding_torrent_through_a_torrent_file"></a>Adding Torrent through a Torrent File</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><strong>Torrent file</strong> is a regular file which contains all the information required to load a torrent, and start downloading data associated with the torrent.</p>
-</div>
-<div class="paragraph">
-<p>There are two ways to do it:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Main menu</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Torrent &gt; Add from File</p>
+<p>Click Force Recheck in the context menu</p>
 </li>
 </ul>
 </div>
 </li>
 </ul>
-</div>
-<div class="paragraph">
-<p><span class="image"><img src="_images/add_torrent_through_file_through_menu.png" alt="add torrent through file through menu"></span></p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Window header</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Add (+) button &gt; Load Torrent File</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p><span class="image"><img src="_images/add_torrent_through_file_through_plus_button.png" alt="add torrent through file through plus button"></span></p>
-</div>
-<div class="paragraph">
-<p>Finally, a dialog will pop up which will let you choose a <code>.torrent</code> file.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_adding_torrent_through_a_torrent_magnet_uri"><a class="anchor" href="#_adding_torrent_through_a_torrent_magnet_uri"></a>Adding Torrent through a Torrent Magnet URI</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><strong>Torrent magnet URI</strong> is a piece of text which contains all the information required to load a torrent, and start downloading data associated with the torrent.</p>
-</div>
-<div class="paragraph">
-<p>There are two ways to do it:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Main menu</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Torrent &gt; Add from Magnet URI</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p><span class="image"><img src="_images/add_torrent_through_magnet_uri_through_menu.png" alt="add torrent through magnet uri through menu"></span></p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Window header</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Add (+) button &gt; Load Torrent Link</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p><span class="image"><img src="_images/add_torrent_through_magnet_uri_through_plus_button.png" alt="add torrent through magnet uri through plus button"></span></p>
-</div>
-<div class="paragraph">
-<p>Finally, a text field will pop up where you can paste the magnet URI. Click the <code>Add</code> button to add the torrent through the magnet URI.</p>
-</div>
-</div>
 </div>
 </article>
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -242,7 +191,7 @@ There are two ways to add a torrent to Torrenter:</p>
 <script>
   window.antora = window.antora || {}
   window.antora.basePath = '../../..'
-  window.antora.pagePath = '/Torrenter/0.1.0/torrent/add.html'
+  window.antora.pagePath = '/Torrenter/0.1/torrent/force_recheck.html'
 </script>
 <script src="../../../_/js/site.js"></script>
 <script src="../../../_/js/vendor/lunr.js"></script>

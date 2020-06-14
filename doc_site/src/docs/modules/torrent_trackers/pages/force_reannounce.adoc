@@ -1,0 +1,11 @@
+= Force Reannounce
+
+Announcing is a way to communicate with the trackers associated with a torrent. To announce is to essentially send a request to the tracker. The request triggers the tracker to respond with information regarding peers.
+
+Every BitTorrent client announces to the trackers, numberous times, during the course of a download to update information regarding peers. It all happens automatically, usually over a fixed interval.
+
+However, you can manually trigger a reannounce by forcing it through:
+
+* Torrents table context menu
+** Right click on the torrent in the torrents table
+** Click *Force Reannounce* in the context menu

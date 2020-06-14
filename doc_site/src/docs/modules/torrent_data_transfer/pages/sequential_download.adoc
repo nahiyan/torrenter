@@ -1,0 +1,12 @@
+= Download Sequentially
+
+Each torrent is composed of equi-sized pieces.
+Sequential download is a way of downloading the pieces sequentially.
+If a torrent is quite healthy, and has good number of seeds and peers, Torrenter will automatically download the pieces sequentially for performing disk I/O operations efficiently.
+However, if the torrent isn't healthy, downloading sequentially may significantly decrease the transfer rate. A notable use of sequential download is for streaming videos.
+
+There is one way to enable/disable sequential download:
+
+* Torrents table context menu
+** Right click on the torrent in the torrents table
+** Click *Download in Sequential Order* in the context menu

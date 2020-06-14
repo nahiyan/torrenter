@@ -1,0 +1,13 @@
+= Remove a Torrent
+
+You can remove a torrent in one of three ways:
+
+* Main menu
+** Select torrent in the torrents table
+** Edit > Delete
+* Window header
+** Select torrent in the torrents table
+** Click the remove button
+* Torrents table context menu
+** Right click on the torrent in the torrents table
+** Click Remove in the context menu
