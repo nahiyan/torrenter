@@ -1,3 +1,4 @@
 include: [_]
 exclude: [doc_site, main_site]
 source: dist
+destination: ./
