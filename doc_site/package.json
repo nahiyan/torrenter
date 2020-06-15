@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "DOCSEARCH_ENABLED=true DOCSEARCH_ENGINE=lunr npx antora --generator antora-site-generator-lunr playbook.yml"
   },
   "repository": {
     "type": "git",
