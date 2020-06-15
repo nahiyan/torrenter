@@ -4,7 +4,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
   entry: './src/js/index.js',
   output: {
-    path: path.resolve(__dirname, '../dist'),
+    path: path.resolve(__dirname, '../'),
     filename: 'bundle.js'
   },
   plugins: [
@@ -37,6 +37,17 @@ module.exports = {
       {
         test: /\.html$/i,
         loader: 'html-loader'
+        // options: {
+        //   attributes: {
+        //     list: [
+        //       {
+        //         tag: 'link',
+        //         attribute: 'href',
+        //         type: 'src'
+        //       }
+        //     ]
+        //   }
+        // }
       },
       {
         test: /\.(png|jpe?g|gif)$/i,
