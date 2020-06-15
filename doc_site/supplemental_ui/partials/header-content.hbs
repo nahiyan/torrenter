@@ -1,7 +1,7 @@
 <header class="header" role="banner">
   <nav class="navbar">
     <div class="navbar-brand">
-      <a class="navbar-item" href="{{or site.url (or siteRootUrl siteRootPath)}}">{{site.title}}</a>
+      <a class="navbar-item" href="{{or site.url (or siteRootUrl siteRootPath)}}/index.html">{{site.title}}</a>
       {{#if env.DOCSEARCH_ENABLED}}
       <div class="navbar-item">
         <input id="search-input" type="text" placeholder="Search docs">
@@ -12,6 +12,12 @@
         <span></span>
         <span></span>
       </button>
+    </div>
+
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="{{or site.url (or siteRootUrl siteRootPath)}}../../../../index.html">Home</a>
+      </div>
     </div>
   </nav>
 </header>
