@@ -4,7 +4,9 @@
   "description": "",
   "main": "webpack.config.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npx webpack --mode development --watch-stdin",
+    "build-production": "npx webpack --mode production"
   },
   "author": "Nahiyan Alamgir <nahiyan.alamgir@live.com> (http://github.com/hedronium)",
   "license": "ISC",
@@ -13,6 +15,9 @@
     "autoprefixer": "^9.8.0",
     "bootstrap": "^4.5.0",
     "css-loader": "^3.5.3",
+    "file-loader": "^6.0.0",
+    "html-loader": "^1.1.0",
+    "html-webpack-plugin": "^4.3.0",
     "jquery": "^3.5.1",
     "popper.js": "^1.16.1",
     "postcss-loader": "^3.0.0",
