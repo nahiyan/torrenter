@@ -73,6 +73,13 @@ class ViewController: NSViewController {
         // Load torrents from resume data
         let resumeDataDir: URL = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library", isDirectory: true).appendingPathComponent("Application Support", isDirectory: true).appendingPathComponent("Torrenter", isDirectory: true).appendingPathComponent("resume_files", isDirectory: true)
 
+        // Create resume data directory if it doesn't exist
+        do {
+            try FileManager.default.createDirectory(at: resumeDataDir, withIntermediateDirectories: true)
+        } catch {
+            print("Failed to create resume data directory.")
+        }
+
         do {
             let resumeFileNames: [String] = try FileManager.default.contentsOfDirectory(atPath: resumeDataDir.relativePath)
 
