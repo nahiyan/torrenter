@@ -100,174 +100,169 @@ class TorrentDetails: NSTabView, NSTabViewDelegate {
             return
         }
 
+        let torrent: Torrent
+        if ViewController.shared!.torrentsTable.selectedRow != -1 {
+            torrent = ViewController.shared!.torrentsTable.selectedTorrent!
+        } else {
+            return
+        }
+
         switch currentTabSelection {
         case .general:
-            if ViewController.shared!.torrentsTable.selectedRow != -1 {
-                let torrent: Torrent = ViewController.shared!.torrentsTable.selectedTorrent!
+            let torrent: Torrent = ViewController.shared!.torrentsTable.selectedTorrent!
 
-                // progress bar based on status of pieces
-                ViewController.shared!.piecesProgress.pieces = torrent_pieces(Int32(torrent.index)).content
-                ViewController.shared!.piecesProgress.piecesCount = Int(torrent_pieces(Int32(torrent.index)).count)
-                ViewController.shared!.piecesProgress.needsDisplay = true
+            // progress bar based on status of pieces
+            ViewController.shared!.piecesProgress.pieces = torrent_pieces(Int32(torrent.index)).content
+            ViewController.shared!.piecesProgress.piecesCount = Int(torrent_pieces(Int32(torrent.index)).count)
+            ViewController.shared!.piecesProgress.needsDisplay = true
 
-                // progress percentage
-                ViewController.shared!.progressPercentage.stringValue = torrent.downloadProgress
+            // progress percentage
+            ViewController.shared!.progressPercentage.stringValue = torrent.downloadProgress
 
-                // progress bar based on availability of pieces
-                if ViewController.shared!.piecesAvailability.pieces != nil {
-                    free(UnsafeMutableRawPointer(mutating: ViewController.shared!.piecesAvailability.pieces))
-                }
-
-                // availability value
-                ViewController.shared!.piecesAvailability.pieces = torrent_get_availability(Int32(torrent.index)).content
-                ViewController.shared!.piecesAvailability.piecesCount = Int(torrent_get_availability(Int32(torrent.index)).count)
-                ViewController.shared!.piecesAvailability.needsDisplay = true
-
-                ViewController.shared!.piecesAvailabilityValue.stringValue = String(format: "%.2f", Float(torrent_get_availability(Int32(torrent.index)).value))
-
-                // downloaded
-                ViewController.shared!.downloaded.stringValue = torrent.downloaded
-
-                // uploaded
-                ViewController.shared!.uploaded.stringValue = torrent.uploaded
-
-                // download limit
-                ViewController.shared!.downloadLimit.stringValue = torrent.downloadLimit
-
-                // upload limit
-                ViewController.shared!.uploadLimit.stringValue = torrent.uploadLimit
-
-                // download speed
-                ViewController.shared!.downloadSpeed.stringValue = torrent.downloadRate
-
-                // upload speed
-                ViewController.shared!.uploadSpeed.stringValue = torrent.uploadRate
-
-                // share ratio
-                ViewController.shared!.shareRatio.stringValue = torrent.shareRatio
-
-                // reannounce in
-                ViewController.shared!.reannounceIn.stringValue = torrent.nextAnnounce
-
-                // seeds
-                ViewController.shared!.seedsCount.stringValue = torrent.seeds
-
-                // peers
-                ViewController.shared!.peersCount.stringValue = torrent.peers
-
-                // wasted
-                ViewController.shared!.wasted.stringValue = torrent.wasted
-
-                // connections
-                ViewController.shared!.connections.stringValue = torrent.connections
-
-                // active duration
-                ViewController.shared!.activeDuration.stringValue = torrent.activeDuration
-
-                // time remaining
-                ViewController.shared!.timeRemaining.stringValue = torrent.timeRemaining
-
-                // total size
-                ViewController.shared!.totalSize.stringValue = torrent.size
-
-                // torrent hash
-                ViewController.shared!.torrentHash.stringValue = torrent.infoHash
-
-                // pieces
-                ViewController.shared!.pieces.stringValue = torrent.pieces
-
-                // comment
-                ViewController.shared!.comment.stringValue = torrent.comment
-
-                // created by
-                ViewController.shared!.createdBy.stringValue = torrent.creator
-
-                // save path
-                ViewController.shared!.savePath.stringValue = Path.pathAuto(torrent.savePath)
-
-                // added on
-                ViewController.shared!.addedOn.stringValue = torrent.addedOn
-
-                // created on
-                ViewController.shared!.createdOn.stringValue = torrent.createdOn
-
-                // completed on
-                ViewController.shared!.completedOn.stringValue = torrent.completedOn
+            // progress bar based on availability of pieces
+            if ViewController.shared!.piecesAvailability.pieces != nil {
+                free(UnsafeMutableRawPointer(mutating: ViewController.shared!.piecesAvailability.pieces))
             }
+
+            // availability value
+            ViewController.shared!.piecesAvailability.pieces = torrent_get_availability(Int32(torrent.index)).content
+            ViewController.shared!.piecesAvailability.piecesCount = Int(torrent_get_availability(Int32(torrent.index)).count)
+            ViewController.shared!.piecesAvailability.needsDisplay = true
+
+            ViewController.shared!.piecesAvailabilityValue.stringValue = String(format: "%.2f", Float(torrent_get_availability(Int32(torrent.index)).value))
+
+            // downloaded
+            ViewController.shared!.downloaded.stringValue = torrent.downloaded
+
+            // uploaded
+            ViewController.shared!.uploaded.stringValue = torrent.uploaded
+
+            // download limit
+            ViewController.shared!.downloadLimit.stringValue = torrent.downloadLimit
+
+            // upload limit
+            ViewController.shared!.uploadLimit.stringValue = torrent.uploadLimit
+
+            // download speed
+            ViewController.shared!.downloadSpeed.stringValue = torrent.downloadRate
+
+            // upload speed
+            ViewController.shared!.uploadSpeed.stringValue = torrent.uploadRate
+
+            // share ratio
+            ViewController.shared!.shareRatio.stringValue = torrent.shareRatio
+
+            // reannounce in
+            ViewController.shared!.reannounceIn.stringValue = torrent.nextAnnounce
+
+            // seeds
+            ViewController.shared!.seedsCount.stringValue = torrent.seeds
+
+            // peers
+            ViewController.shared!.peersCount.stringValue = torrent.peers
+
+            // wasted
+            ViewController.shared!.wasted.stringValue = torrent.wasted
+
+            // connections
+            ViewController.shared!.connections.stringValue = torrent.connections
+
+            // active duration
+            ViewController.shared!.activeDuration.stringValue = torrent.activeDuration
+
+            // time remaining
+            ViewController.shared!.timeRemaining.stringValue = torrent.timeRemaining
+
+            // total size
+            ViewController.shared!.totalSize.stringValue = torrent.size
+
+            // torrent hash
+            ViewController.shared!.torrentHash.stringValue = torrent.infoHash
+
+            // pieces
+            ViewController.shared!.pieces.stringValue = torrent.pieces
+
+            // comment
+            ViewController.shared!.comment.stringValue = torrent.comment
+
+            // created by
+            ViewController.shared!.createdBy.stringValue = torrent.creator
+
+            // save path
+            ViewController.shared!.savePath.stringValue = Path.pathAuto(torrent.savePath)
+
+            // added on
+            ViewController.shared!.addedOn.stringValue = torrent.addedOn
+
+            // created on
+            ViewController.shared!.createdOn.stringValue = torrent.createdOn
+
+            // completed on
+            ViewController.shared!.completedOn.stringValue = torrent.completedOn
         case .peers:
             // Fetch peers for the selected torrent
-            if ViewController.shared!.torrentsTable.selectedRow != -1 {
-                let torrent: Torrent = ViewController.shared!.torrentsTable.selectedTorrent!
+            torrent_fetch_peers(Int32(torrent.index))
 
-                torrent_fetch_peers(Int32(torrent.index))
+            let peersCount = Int(torrent_peers_count())
+            let peersTableSelectedRow: Int = ViewController.shared!.peersTable.selectedRow
 
-                let peersCount = Int(torrent_peers_count())
-                let peersTableSelectedRow: Int = ViewController.shared!.peersTable.selectedRow
-
-                // Remove peers outside the range & take note of creation of new peers
-                var peersIndexMap = [Bool](repeating: false, count: peersCount)
-                for peer in ViewController.shared!.peers.arrangedObjects as! [Peer] {
-                    if peer.index >= peersCount {
-                        ViewController.shared!.peers.removeObject(peer)
-                    } else {
-                        peersIndexMap[peer.index] = true
-                    }
+            // Remove peers outside the range & take note of creation of new peers
+            var peersIndexMap = [Bool](repeating: false, count: peersCount)
+            for peer in ViewController.shared!.peers.arrangedObjects as! [Peer] {
+                if peer.index >= peersCount {
+                    ViewController.shared!.peers.removeObject(peer)
+                } else {
+                    peersIndexMap[peer.index] = true
                 }
-
-                // Create new peers
-                for i in 0 ..< peersCount {
-                    if !peersIndexMap[i] {
-                        let peer = Peer(i)
-                        ViewController.shared!.peers.addObject(peer)
-                    }
-                }
-
-                for peer in ViewController.shared!.peers.arrangedObjects as! [Peer] {
-                    peer.fetchInfo()
-                }
-
-                // Reload the peers table
-                reloadPeersTable(selectedRow: peersTableSelectedRow)
             }
-        case .content:
-            if ViewController.shared!.torrentsTable.selectedRow != -1 {
-                let torrent: Torrent = ViewController.shared!.torrentsTable.selectedTorrent!
 
-                // Fetch progress (in bytes) of all the torrent files
-                torrent_fetch_files_progress(Int32(torrent.index))
-
-                if torrentContentRowAssociativity != ViewController.shared!.torrentsTable.selectedRow { // Only repopulate table if row selection changes
-                    repopulateContentTable()
-                    torrentContentRowAssociativity = ViewController.shared!.torrentsTable.selectedRow
-                } else { // Else just keep reloading it only
-                    triggerContentItemsRefresh()
-                    reloadContentTable()
+            // Create new peers
+            for i in 0 ..< peersCount {
+                if !peersIndexMap[i] {
+                    let peer = Peer(i)
+                    ViewController.shared!.peers.addObject(peer)
                 }
+            }
+
+            for peer in ViewController.shared!.peers.arrangedObjects as! [Peer] {
+                peer.fetchInfo()
+            }
+
+            // Reload the peers table
+            reloadPeersTable(selectedRow: peersTableSelectedRow)
+        case .content:
+            // Fetch progress (in bytes) of all the torrent files
+            torrent_fetch_files_progress(Int32(torrent.index))
+
+            if torrentContentRowAssociativity != ViewController.shared!.torrentsTable.selectedRow { // Only repopulate table if row selection changes
+                repopulateContentTable()
+                torrentContentRowAssociativity = ViewController.shared!.torrentsTable.selectedRow
+            } else { // Else just keep reloading it only
+                triggerContentItemsRefresh()
+                reloadContentTable()
             }
 
         case .trackers:
-            if ViewController.shared!.torrentsTable.selectedRow != -1 {
-                let trackers: Trackers = torrent_get_trackers(Int32(ViewController.shared!.torrentsTable.selectedTorrent!.index))
+            let trackers: Trackers = torrent_get_trackers(Int32(torrent.index))
 
-                if trackers.count != (ViewController.shared!.trackers.arrangedObjects as! [Tracker]).count {
-                    // Clear trackers array
-                    for tracker in ViewController.shared!.trackers.arrangedObjects as! [Tracker] {
-                        ViewController.shared!.trackers.removeObject(tracker)
-                    }
-
-                    // repopulate it
-                    for i in 0 ..< Int(trackers.count) {
-                        let tracker: Tracker = Tracker(i)
-                        ViewController.shared!.trackers.addObject(tracker)
-                    }
-                } else {
-                    for tracker in ViewController.shared!.trackers.arrangedObjects as! [Tracker] {
-                        tracker.fetchInfo()
-                    }
+            if trackers.count != (ViewController.shared!.trackers.arrangedObjects as! [Tracker]).count {
+                // Clear trackers array
+                for tracker in ViewController.shared!.trackers.arrangedObjects as! [Tracker] {
+                    ViewController.shared!.trackers.removeObject(tracker)
                 }
 
-                reloadTrackersTable()
+                // repopulate it
+                for i in 0 ..< Int(trackers.count) {
+                    let tracker: Tracker = Tracker(i)
+                    ViewController.shared!.trackers.addObject(tracker)
+                }
+            } else {
+                for tracker in ViewController.shared!.trackers.arrangedObjects as! [Tracker] {
+                    tracker.fetchInfo()
+                }
             }
+
+            reloadTrackersTable()
         }
     }
 

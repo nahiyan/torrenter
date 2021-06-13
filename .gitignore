@@ -1,4 +1,3 @@
 *.code-workspace
-Torrenter.xcodeproj/project.xcworkspace/xcuserdata/*.xcuserdatad/UserInterfaceState.xcuserstate
-main_site
-doc_site
+/Torrenter.xcodeproj/project.xcworkspace/xcuserdata/*.xcuserdatad/UserInterfaceState.xcuserstate
+/notes

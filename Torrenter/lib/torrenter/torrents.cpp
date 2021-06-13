@@ -467,9 +467,23 @@ extern "C" bool torrent_is_sequential(int index)
     int64_t mask = 0x0000000000000200;
 
     try {
-        flags = (int)torrents.at(index).handler.flags();
+        auto& handler = torrents.at(index).handler;
+        flags = (int)handler.flags();
 
-        if ((flags & mask) == mask)
+        auto num_pieces = handler.torrent_file()->num_pieces();
+        auto last_piece_index = num_pieces - 1;
+        auto last_piece_priority = handler.piece_priority(last_piece_index);
+        auto first_piece_priority = handler.piece_priority(0);
+
+        if (num_pieces >= 2) {
+            auto second_piece_priority = handler.piece_priority(1);
+            auto second_last_piece_priority = handler.piece_priority(num_pieces - 2);
+
+            if (!(second_piece_priority == libtorrent::top_priority && second_last_piece_priority == libtorrent::top_priority))
+                return false;
+        }
+
+        if ((flags & mask) == mask && last_piece_priority == libtorrent::top_priority && first_piece_priority == libtorrent::top_priority)
             return true;
         else
             return false;
@@ -485,10 +499,32 @@ extern "C" void torrent_sequential(int index, bool sequential)
     try {
         lt::torrent_handle& handler = torrents.at(index).handler;
 
+        auto num_pieces = handler.torrent_file()->num_pieces();
+
         if (sequential) {
             handler.set_flags(lt::torrent_flags::sequential_download, lt::torrent_flags::sequential_download);
+
+            // Give first and last two pieces the highest priority
+            handler.piece_priority(0, libtorrent::top_priority);
+
+            if (num_pieces >= 2) {
+                handler.piece_priority(1, libtorrent::top_priority);
+                handler.piece_priority(num_pieces - 2, libtorrent::top_priority);
+            }
+
+            handler.piece_priority(num_pieces - 1, libtorrent::top_priority);
         } else {
             handler.unset_flags(lt::torrent_flags::sequential_download);
+            
+            // Reset priorities of first and last two pieces
+            handler.piece_priority(0, libtorrent::default_priority);
+            
+            if (num_pieces >= 2) {
+                handler.piece_priority(1, libtorrent::default_priority);
+                handler.piece_priority(num_pieces - 2, libtorrent::default_priority);
+            }
+            
+            handler.piece_priority(num_pieces - 1, libtorrent::default_priority);
         }
     } catch (std::out_of_range) {
         std::cout << "Failed to set/unset torrent to sequential." << std::endl;

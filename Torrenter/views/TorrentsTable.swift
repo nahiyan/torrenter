@@ -35,7 +35,7 @@ class TorrentsTable: NSTableView {
         menu!.addItem(withTitle: "Limit Download Rate", action: nil, keyEquivalent: "")
         menu!.addItem(withTitle: "Limit Upload Rate", action: nil, keyEquivalent: "")
         menu!.addItem(NSMenuItem.separator())
-        menu!.addItem(withTitle: "Download in Sequential Order", action: nil, keyEquivalent: "")
+        menu!.addItem(withTitle: "Stream", action: nil, keyEquivalent: "")
         menu!.addItem(NSMenuItem.separator())
         menu!.addItem(withTitle: "Force Recheck", action: nil, keyEquivalent: "")
         menu!.addItem(withTitle: "Force Reannounce", action: nil, keyEquivalent: "")
@@ -79,8 +79,8 @@ class TorrentsTable: NSTableView {
 
             // Separator
 
-            // Download in sequential order
-            let downloadInSequentialOrderItem: NSMenuItem? = contextMenu.item(withTitle: "Download in Sequential Order")
+            // Stream
+            let downloadInSequentialOrderItem: NSMenuItem? = contextMenu.item(withTitle: "Stream")
 
             if clickedTorrent!.isSequential {
                 downloadInSequentialOrderItem?.state = .on

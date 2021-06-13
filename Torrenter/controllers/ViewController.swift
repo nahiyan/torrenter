@@ -146,39 +146,38 @@ class ViewController: NSViewController {
         if torrentsTable.selectedRow != -1 {
             let torrent: Torrent = (torrents.arrangedObjects as! [Torrent])[torrentsTable.selectedRow]
 
-            // Play/pause button
-            pauseResumeButton.isEnabled = true
-            if torrent.isPaused {
-                pauseResumeButton.image = NSImage(named: "play")
-            } else {
-                pauseResumeButton.image = NSImage(named: "pause")
+            if torrent.info.status.rawValue >= 3, torrent.info.status.rawValue <= 5 {
+                // Play/pause button
+                pauseResumeButton.isEnabled = true
+                if torrent.isPaused {
+                    pauseResumeButton.image = NSImage(named: "play")
+                } else {
+                    pauseResumeButton.image = NSImage(named: "pause")
+                }
+
+                // Remove button
+                removeButton.isEnabled = true
+
+                // Sequential-download toggle button
+                sequentialDownloadToggleButton.isEnabled = true
+                if torrent.isSequential {
+                    sequentialDownloadToggleButton.image = NSImage(named: "sort_ascend_active")
+                } else {
+                    sequentialDownloadToggleButton.image = NSImage(named: "sort_ascend")
+                }
+
+                // Show details of the torrent and refresh content
+                torrentDetails.show()
             }
-
-            // Remove button
-            removeButton.isEnabled = true
-
-            // Sequential-download toggle button
-            sequentialDownloadToggleButton.isEnabled = true
-            if torrent.isSequential {
-                sequentialDownloadToggleButton.image = NSImage(named: "sort_ascend_active")
-            } else {
-                sequentialDownloadToggleButton.image = NSImage(named: "sort_ascend")
-            }
-
-            // Show details of the torrent and refresh content
-            torrentDetails.show()
-
-            // Force refresh to reduce delay of change of progress bar color scheme after selection
-            refreshProgressBars()
         } else {
             windowController.deactivateButtons()
 
             // Hide details of the torrent
             torrentDetails.hide()
-
-            // Force refresh to reduce delay of change of progress bar color scheme after deselection
-            refreshProgressBars()
         }
+
+        // Force refresh to reduce delay of change of progress bar color scheme after selection/deselection
+        refreshProgressBars()
     }
 
     static func get() -> ViewController? {
