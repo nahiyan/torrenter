@@ -586,7 +586,7 @@
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = io.github.hedronium.Torrenter;
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.nahiyan.Torrenter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Torrenter/include/torrenter/Torrenter-Bridging-Header.h";
@@ -623,7 +623,7 @@
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = io.github.hedronium.Torrenter;
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.nahiyan.Torrenter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Torrenter/include/torrenter/Torrenter-Bridging-Header.h";
