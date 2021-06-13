@@ -240,7 +240,7 @@ extern "C" void torrent_initiate_resume_data(const char *file_name)
 
         if (params.ti == NULL)
         {
-            // Get name from database is metadata isn't still downloaded
+            // Get name from database if metadata isn't still downloaded
             std::string hash = hex_encode_sha1_hash(params.info_hash);
             load_names_if_required();
             torrent.name = get_name(hash);

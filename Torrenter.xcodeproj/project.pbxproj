@@ -27,10 +27,8 @@
 		4D35832A23F9A25500C3662D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D35832923F9A25500C3662D /* Assets.xcassets */; };
 		4D35833923F9A25500C3662D /* TorrenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D35833823F9A25500C3662D /* TorrenterTests.swift */; };
 		4D35834423F9A25500C3662D /* TorrenterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D35834323F9A25500C3662D /* TorrenterUITests.swift */; };
-		4D42C51324862A200019AB30 /* libtorrent-rasterbar.1.2.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D3151E12414D5840093FEFB /* libtorrent-rasterbar.1.2.4.dylib */; };
 		4D42C51524862A2B0019AB30 /* libmaxminddb.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D42C51424862A2B0019AB30 /* libmaxminddb.0.dylib */; };
 		4D42C51924862CF00019AB30 /* libmaxminddb.0.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 4D42C51424862A2B0019AB30 /* libmaxminddb.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		4D42C51B24862CF10019AB30 /* libtorrent-rasterbar.1.2.4.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 4D3151E12414D5840093FEFB /* libtorrent-rasterbar.1.2.4.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		4D42C51D248632020019AB30 /* geo_ip.o in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D42C51624862CE00019AB30 /* geo_ip.o */; };
 		4D8F2F10243EE0CD00E23150 /* TorrentDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8F2F0F243EE0CD00E23150 /* TorrentDetails.swift */; };
 		4D98BBB6244E01E2003609F7 /* database in Resources */ = {isa = PBXBuildFile; fileRef = 4D98BBB4244E01CA003609F7 /* database */; };
@@ -40,6 +38,8 @@
 		4DB739282452C66A002CBC2B /* Path.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB739272452C66A002CBC2B /* Path.swift */; };
 		4DC26B3A248BFD19009EB7AB /* MagnetUriTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC26B39248BFD19009EB7AB /* MagnetUriTextView.swift */; };
 		4DD939FE244C6C9E003C343E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D35832B23F9A25500C3662D /* Main.storyboard */; };
+		4DEDB3CB2675C8EF00B1FC13 /* libtorrent-rasterbar.2.0.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DEDB3CA2675C8EF00B1FC13 /* libtorrent-rasterbar.2.0.4.dylib */; };
+		4DEDB3CD2675C90300B1FC13 /* libtorrent-rasterbar.2.0.4.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 4DEDB3CC2675C90300B1FC13 /* libtorrent-rasterbar.2.0.4.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,7 +66,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				4D42C51B24862CF10019AB30 /* libtorrent-rasterbar.1.2.4.dylib in Embed Libraries */,
+				4DEDB3CD2675C90300B1FC13 /* libtorrent-rasterbar.2.0.4.dylib in Embed Libraries */,
 				4D42C51924862CF00019AB30 /* libmaxminddb.0.dylib in Embed Libraries */,
 			);
 			name = "Embed Libraries";
@@ -116,6 +116,8 @@
 		4DB739252452AA56002CBC2B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Torrenter/Base.lproj/Torrent.storyboard; sourceTree = "<group>"; };
 		4DB739272452C66A002CBC2B /* Path.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Path.swift; path = Torrenter/lib/torrenter/Path.swift; sourceTree = "<group>"; };
 		4DC26B39248BFD19009EB7AB /* MagnetUriTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MagnetUriTextView.swift; path = views/MagnetUriTextView.swift; sourceTree = "<group>"; };
+		4DEDB3CA2675C8EF00B1FC13 /* libtorrent-rasterbar.2.0.4.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libtorrent-rasterbar.2.0.4.dylib"; path = "Torrenter/lib/libtorrent/libtorrent-rasterbar.2.0.4.dylib"; sourceTree = "<group>"; };
+		4DEDB3CC2675C90300B1FC13 /* libtorrent-rasterbar.2.0.4.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libtorrent-rasterbar.2.0.4.dylib"; path = "Torrenter/lib/libtorrent/libtorrent-rasterbar.2.0.4.dylib"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,9 +125,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DEDB3CB2675C8EF00B1FC13 /* libtorrent-rasterbar.2.0.4.dylib in Frameworks */,
 				4D42C51D248632020019AB30 /* geo_ip.o in Frameworks */,
 				4D42C51524862A2B0019AB30 /* libmaxminddb.0.dylib in Frameworks */,
-				4D42C51324862A200019AB30 /* libtorrent-rasterbar.1.2.4.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -149,6 +151,7 @@
 		4D3151E02414D5840093FEFB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4DEDB3CA2675C8EF00B1FC13 /* libtorrent-rasterbar.2.0.4.dylib */,
 				4D42C51624862CE00019AB30 /* geo_ip.o */,
 				4D42C51424862A2B0019AB30 /* libmaxminddb.0.dylib */,
 				4D3151E12414D5840093FEFB /* libtorrent-rasterbar.1.2.4.dylib */,
@@ -159,6 +162,7 @@
 		4D35831923F9A25200C3662D = {
 			isa = PBXGroup;
 			children = (
+				4DEDB3CC2675C90300B1FC13 /* libtorrent-rasterbar.2.0.4.dylib */,
 				4DB708A2248E23BA00453508 /* names_database.cpp */,
 				4DA806A12472AA1600819DE0 /* MainMenu.swift */,
 				4DA806A32472AA5E00819DE0 /* MainMenuEditMenu.swift */,
