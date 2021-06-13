@@ -1,6 +1,7 @@
 /*
 
-Copyright (c) 2015, Arvid Norberg
+Copyright (c) 2015-2020, Arvid Norberg
+Copyright (c) 2019, Alden Torres
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -35,6 +36,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
 #include <vector>
 #include <cstdint>
+#include <functional>
 
 #include "libtorrent/aux_/export.hpp"
 #include "libtorrent/units.hpp"
@@ -42,17 +44,17 @@ POSSIBILITY OF SUCH DAMAGE.
 
 #if TORRENT_USE_INVARIANT_CHECKS
 #include "libtorrent/bitfield.hpp"
-#include "libtorrent/invariant_check.hpp"
+#include "libtorrent/aux_/invariant_check.hpp"
 #endif
 
 #if TORRENT_USE_INVARIANT_CHECKS
-#include "libtorrent/invariant_check.hpp"
+#include "libtorrent/aux_/invariant_check.hpp"
 #include "libtorrent/bitfield.hpp"
 #endif
 
 namespace libtorrent {
 
-class piece_picker;
+struct piece_picker;
 class file_storage;
 
 namespace aux {
@@ -82,7 +84,7 @@ namespace aux {
 		vector<std::int64_t, file_index_t> m_file_progress;
 
 #if TORRENT_USE_INVARIANT_CHECKS
-		friend class libtorrent::invariant_access;
+		friend struct libtorrent::invariant_access;
 		void check_invariant() const;
 
 		// this is used to assert we never add the same piece twice

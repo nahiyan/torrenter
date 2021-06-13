@@ -1,6 +1,7 @@
 /*
 
-Copyright (c) 2003-2016, Arvid Norberg
+Copyright (c) 2017-2020, Arvid Norberg
+Copyright (c) 2018, Alden Torres
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -35,6 +36,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
 #include <cstdint>
 #include <string>
+#include <functional>
 
 #include "libtorrent/config.hpp"
 #include "libtorrent/fwd.hpp"
@@ -43,10 +45,10 @@ POSSIBILITY OF SUCH DAMAGE.
 #include "libtorrent/units.hpp"
 #include "libtorrent/storage_defs.hpp" // for status_t
 #include "libtorrent/session_types.hpp"
+#include "libtorrent/error_code.hpp"
 
 namespace libtorrent {
 
-	struct part_file;
 	struct stat_cache;
 
 	// TODO: 3 remove this typedef, and use span<char const> for disk write
@@ -76,9 +78,9 @@ namespace aux {
 	// returns the status code and the new save_path.
 	TORRENT_EXTRA_EXPORT std::pair<status_t, std::string>
 	move_storage(file_storage const& f
-		, std::string const& save_path
+		, std::string save_path
 		, std::string const& destination_save_path
-		, part_file* pf
+		, std::function<void(std::string const&, lt::error_code&)> const& move_partfile
 		, move_flags_t flags, storage_error& ec);
 
 	// deletes the files on fs from save_path according to options. Options may
@@ -101,8 +103,10 @@ namespace aux {
 	TORRENT_EXTRA_EXPORT bool has_any_file(
 		file_storage const& fs
 		, std::string const& save_path
-		, stat_cache& stat
+		, stat_cache& cache
 		, storage_error& ec);
+
+	TORRENT_EXTRA_EXPORT int read_zeroes(span<iovec_t const> bufs);
 }}
 
 #endif

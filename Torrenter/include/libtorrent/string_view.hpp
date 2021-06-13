@@ -1,6 +1,6 @@
 /*
 
-Copyright (c) 2016-2018, Arvid Norberg
+Copyright (c) 2016-2017, 2019-2020, Arvid Norberg
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -36,6 +36,8 @@ POSSIBILITY OF SUCH DAMAGE.
 #include <boost/version.hpp>
 
 #include "libtorrent/aux_/disable_warnings_push.hpp"
+
+// TODO: replace this by the standard string_view in C++17
 
 #if BOOST_VERSION < 106100
 #include <boost/utility/string_ref.hpp>

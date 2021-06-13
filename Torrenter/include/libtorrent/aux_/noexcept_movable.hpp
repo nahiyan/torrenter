@@ -1,6 +1,6 @@
 /*
 
-Copyright (c) 2017, Arvid Norberg
+Copyright (c) 2017-2020, Arvid Norberg
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -56,6 +56,20 @@ namespace aux {
 		noexcept_movable& operator=(noexcept_movable&& rhs) = default;
 		using T::T;
 		using T::operator=;
+	};
+
+	template <typename T>
+	struct noexcept_move_only : T
+	{
+		noexcept_move_only(noexcept_move_only<T>&& rhs) noexcept
+			: T(std::forward<T>(rhs))
+		{}
+		noexcept_move_only(noexcept_move_only<T> const& rhs) = default;
+		noexcept_move_only(T&& rhs) noexcept : T(std::forward<T>(rhs)) {} // NOLINT
+		noexcept_move_only(T const& rhs) : T(rhs) {} // NOLINT
+		noexcept_move_only& operator=(noexcept_move_only const& rhs) = default;
+		noexcept_move_only& operator=(noexcept_move_only&& rhs) = default;
+		using T::T;
 	};
 
 }

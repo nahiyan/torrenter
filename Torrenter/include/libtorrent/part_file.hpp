@@ -1,6 +1,8 @@
 /*
 
-Copyright (c) 2012-2018, Arvid Norberg
+Copyright (c) 2014-2020, Arvid Norberg
+Copyright (c) 2017, Steven Siloti
+Copyright (c) 2018, d-komarov
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -44,6 +46,9 @@ POSSIBILITY OF SUCH DAMAGE.
 #include "libtorrent/file.hpp"
 #include "libtorrent/error_code.hpp"
 #include "libtorrent/units.hpp"
+#include "libtorrent/hasher.hpp"
+#include "libtorrent/aux_/open_mode.hpp"
+#include "libtorrent/aux_/storage_utils.hpp" // for iovec_t
 
 namespace libtorrent {
 
@@ -53,11 +58,13 @@ namespace libtorrent {
 	{
 		// create a part file at ``path``, that can hold ``num_pieces`` pieces.
 		// each piece being ``piece_size`` number of bytes
-		part_file(std::string const& path, std::string const& name, int num_pieces, int piece_size);
+		part_file(std::string path, std::string name, int num_pieces, int piece_size);
 		~part_file();
 
 		int writev(span<iovec_t const> bufs, piece_index_t piece, int offset, error_code& ec);
 		int readv(span<iovec_t const> bufs, piece_index_t piece, int offset, error_code& ec);
+		int hashv(hasher& ph, std::ptrdiff_t len, piece_index_t piece, int offset, error_code& ec);
+		int hashv2(hasher256& ph, std::ptrdiff_t len, piece_index_t piece, int offset, error_code& ec);
 
 		// free the slot the given piece is stored in. We no longer need to store this
 		// piece in the part file
@@ -76,11 +83,17 @@ namespace libtorrent {
 
 	private:
 
-		void open_file(open_mode_t mode, error_code& ec);
+		file open_file(aux::open_mode_t mode, error_code& ec);
 		void flush_metadata_impl(error_code& ec);
 
 		std::int64_t slot_offset(slot_index_t const slot) const
-		{ return m_header_size + static_cast<int>(slot) * m_piece_size; }
+		{
+			return static_cast<int>(slot) * static_cast<std::int64_t>(m_piece_size)
+				+ m_header_size;
+		}
+
+		template <typename Hasher>
+		int do_hashv(Hasher& ph, std::ptrdiff_t len, piece_index_t piece, int offset, error_code& ec);
 
 		std::string m_path;
 		std::string const m_name;
@@ -119,11 +132,6 @@ namespace libtorrent {
 
 		// maps a piece index to the part-file slot it is stored in
 		std::unordered_map<piece_index_t, slot_index_t> m_piece_map;
-
-		// this is the file handle to the part file
-		// it's allocated on the heap and reference counted, to allow it to be
-		// closed and re-opened while other threads are still using it
-		std::shared_ptr<file> m_file;
 	};
 }
 

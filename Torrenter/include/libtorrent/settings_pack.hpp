@@ -1,6 +1,11 @@
 /*
 
-Copyright (c) 2012-2018, Arvid Norberg
+Copyright (c) 2014-2020, Arvid Norberg
+Copyright (c) 2016-2018, Alden Torres
+Copyright (c) 2017, Steven Siloti
+Copyright (c) 2017, Andrei Kurushin
+Copyright (c) 2018, TheOriginalWinCat
+Copyright (c) 2019, Amir Abrams
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -54,6 +59,8 @@ POSSIBILITY OF SUCH DAMAGE.
 // that will be sent to the tracker. The user-agent will also be used to identify the
 // client with other peers.
 //
+// Each configuration option is named with an enum value inside the
+// settings_pack class. These are the available settings:
 namespace libtorrent {
 
 namespace aux {
@@ -66,7 +73,9 @@ namespace aux {
 	struct bdecode_node;
 
 	TORRENT_EXTRA_EXPORT settings_pack load_pack_from_dict(bdecode_node const& settings);
-	TORRENT_EXTRA_EXPORT void save_settings_to_dict(aux::session_settings const& s, entry::dictionary_type& sett);
+
+	TORRENT_EXTRA_EXPORT void save_settings_to_dict(settings_pack const& sett, entry::dictionary_type& out);
+	TORRENT_EXTRA_EXPORT settings_pack non_default_settings(aux::session_settings const& sett);
 	TORRENT_EXTRA_EXPORT void apply_pack(settings_pack const* pack, aux::session_settings& sett
 		, aux::session_impl* ses = nullptr);
 	TORRENT_EXTRA_EXPORT void apply_pack_impl(settings_pack const* pack
@@ -82,16 +91,44 @@ namespace aux {
 	// returns a settings_pack with every setting set to its default value
 	TORRENT_EXPORT settings_pack default_settings();
 
+	// the common interface to settings_pack and the internal representation of
+	// settings.
+	struct TORRENT_EXPORT settings_interface
+	{
+		virtual void set_str(int name, std::string val) = 0;
+		virtual void set_int(int name, int val) = 0;
+		virtual void set_bool(int name, bool val) = 0;
+		virtual bool has_val(int name) const = 0;
+
+		virtual std::string const& get_str(int name) const = 0;
+		virtual int get_int(int name) const = 0;
+		virtual bool get_bool(int name) const = 0;
+
+		template <typename Type, typename Tag>
+		// hidden
+		void set_int(int name, flags::bitfield_flag<Type, Tag> const val)
+		{ set_int(name, static_cast<int>(static_cast<Type>(val))); }
+
+		// hidden
+		// these are here just to suppress the warning about virtual destructors
+		// internal
+		settings_interface() = default;
+		settings_interface(settings_interface const&) = default;
+		settings_interface(settings_interface&&) = default;
+		settings_interface& operator=(settings_interface const&) = default;
+		settings_interface& operator=(settings_interface&&) = default;
+	protected:
+		~settings_interface() = default;
+	};
+
 	// The ``settings_pack`` struct, contains the names of all settings as
 	// enum values. These values are passed in to the ``set_str()``,
 	// ``set_int()``, ``set_bool()`` functions, to specify the setting to
 	// change.
 	//
-	// These are the available settings:
-	//
 	// .. include:: settings-ref.rst
 	//
-	struct TORRENT_EXPORT settings_pack
+	struct TORRENT_EXPORT settings_pack final : settings_interface
 	{
 		friend TORRENT_EXTRA_EXPORT void apply_pack_impl(settings_pack const*
 			, aux::session_settings_single_thread&
@@ -107,9 +144,9 @@ namespace aux {
 		// set a configuration option in the settings_pack. ``name`` is one of
 		// the enum values from string_types, int_types or bool_types. They must
 		// match the respective type of the set_* function.
-		void set_str(int name, std::string val);
-		void set_int(int name, int val);
-		void set_bool(int name, bool val);
+		void set_str(int name, std::string val) override;
+		void set_int(int name, int val) override;
+		void set_bool(int name, bool val) override;
 		template <typename Type, typename Tag>
 		void set_int(int name, flags::bitfield_flag<Type, Tag> const val)
 		{ set_int(name, static_cast<int>(static_cast<Type>(val))); }
@@ -117,7 +154,7 @@ namespace aux {
 		// queries whether the specified configuration option has a value set in
 		// this pack. ``name`` can be any enumeration value from string_types,
 		// int_types or bool_types.
-		bool has_val(int name) const;
+		bool has_val(int name) const override;
 
 		// clear the settings pack from all settings
 		void clear();
@@ -129,9 +166,9 @@ namespace aux {
 		// ``name`` is one of the enumeration values from string_types, int_types
 		// or bool_types. The enum value must match the type of the get_*
 		// function.
-		std::string const& get_str(int name) const;
-		int get_int(int name) const;
-		bool get_bool(int name) const;
+		std::string const& get_str(int name) const override;
+		int get_int(int name) const override;
+		bool get_bool(int name) const override;
 
 		// setting names (indices) are 16 bits. The two most significant
 		// bits indicate what type the setting has. (string, int, bool)
@@ -144,8 +181,16 @@ namespace aux {
 			index_mask =       0x3fff
 		};
 
-		// enumeration values naming string settings in the pack. To be used with
-		// get_str() and set_str().
+		// internal
+		template <typename Fun>
+		void for_each(Fun&& f) const
+		{
+			for (auto const& s : m_strings) f(s.first, s.second);
+			for (auto const& i : m_ints) f(i.first, i.second);
+			for (auto const& b : m_bools) f(b.first, b.second);
+		}
+
+		// hidden
 		enum string_types
 		{
 			// this is the client identification to the tracker. The recommended
@@ -158,6 +203,12 @@ namespace aux {
 			// ``announce_ip`` is the ip address passed along to trackers as the
 			// ``&ip=`` parameter. If left as the default, that parameter is
 			// omitted.
+			//
+			// .. note::
+			//    This setting is only meant for very special cases where a seed is
+			//    running on the same host as the tracker, and the tracker accepts
+			//    the IP parameter (which normal trackers don't). Do not set this
+			//    option unless you also control the tracker.
 			announce_ip,
 
 #if TORRENT_ABI_VERSION == 1
@@ -184,34 +235,80 @@ namespace aux {
 
 			// this is the client name and version identifier sent to peers in the
 			// handshake message. If this is an empty string, the user_agent is
-			// used instead
+			// used instead. This string must be a UTF-8 encoded unicode string.
 			handshake_client_version,
 
-			// sets the network interface this session will use when it opens
-			// outgoing connections. An empty string binds outgoing connections to
-			// INADDR_ANY and port 0 (i.e. let the OS decide). The parameter must
-			// be a string containing one or more, comma separated, adapter names.
-			// Adapter names on Unix systems are of the form "eth0", "eth1",
-			// "tun0", etc. When specifying multiple interfaces, they will be
-			// assigned in round-robin order. This may be useful for clients that
-			// are multi-homed. Binding an outgoing connection to a local IP does
-			// not necessarily make the connection via the associated NIC/Adapter.
-			// Setting this to an empty string will disable binding of outgoing
-			// connections.
+			// This controls which IP address outgoing TCP peer connections are bound
+			// to, in addition to controlling whether such connections are also
+			// bound to a specific network interface/adapter (*bind-to-device*).
+			//
+			// This string is a comma-separated list of IP addresses and
+			// interface names. An empty string will not bind TCP sockets to a
+			// device, and let the network stack assign the local address.
+			//
+			// A list of names will be used to bind outgoing TCP sockets in a
+			// round-robin fashion. An IP address will simply be used to `bind()`
+			// the socket. An interface name will attempt to bind the socket to
+			// that interface. If that fails, or is unsupported, one of the IP
+			// addresses configured for that interface is used to `bind()` the
+			// socket to. If the interface or adapter doesn't exist, the
+			// outgoing peer connection will fail with an error message suggesting
+			// the device cannot be found. Adapter names on Unix systems are of
+			// the form "eth0", "eth1", "tun0", etc. This may be useful for
+			// clients that are multi-homed. Binding an outgoing connection to a
+			// local IP does not necessarily make the connection via the
+			// associated NIC/Adapter.
+			//
+			// When outgoing interfaces are specified, incoming connections or
+			// packets sent to a local interface or IP that's *not* in this list
+			// will be rejected with a peer_blocked_alert with
+			// ``invalid_local_interface`` as the reason.
+			//
+			// Note that these are just interface/adapter names or IP addresses.
+			// There are no ports specified in this list. IPv6 addresses without
+			// port should be specified without enclosing ``[``, ``]``.
 			outgoing_interfaces,
 
 			// a comma-separated list of (IP or device name, port) pairs. These are
 			// the listen ports that will be opened for accepting incoming uTP and
-			// TCP connections. It is possible to listen on multiple interfaces and
+			// TCP peer connections. These are also used for *outgoing* uTP and UDP
+			// tracker connections and DHT nodes.
+			//
+			// It is possible to listen on multiple interfaces and
 			// multiple ports. Binding to port 0 will make the operating system
 			// pick the port.
 			//
-			// a port that has an "s" suffix will accept SSL connections. (note
-			// that SSL sockets are not enabled by default).
+			// .. note::
+			//    There are reasons to stick to the same port across sessions,
+			//    which would mean only using port 0 on the first start, and
+			//    recording the port that was picked for subsequent startups.
+			//    Trackers, the DHT and other peers will remember the port they see
+			//    you use and hand that port out to other peers trying to connect
+			//    to you, as well as trying to connect to you themselves.
 			//
-			// if binding fails, the listen_failed_alert is posted. If or once a
-			// socket binding succeeds, the listen_succeeded_alert is posted. There
-			// may be multiple failures before a success.
+			// A port that has an "s" suffix will accept SSL peer connections. (note
+			// that SSL sockets are only available in builds with SSL support)
+			//
+			// A port that has an "l" suffix will be considered a local network.
+			// i.e. it's assumed to only be able to reach hosts in the same local
+			// network as the IP address (based on the netmask associated with the
+			// IP, queried from the operating system).
+			//
+			// if binding fails, the listen_failed_alert is posted. Once a
+			// socket binding succeeds (if it does), the listen_succeeded_alert
+			// is posted. There may be multiple failures before a success.
+			//
+			// If a device name that does not exist is configured, no listen
+			// socket will be opened for that interface. If this is the only
+			// interface configured, it will be as if no listen ports are
+			// configured.
+			//
+			// If no listen ports are configured (e.g. listen_interfaces is an
+			// empty string), networking will be disabled. No DHT will start, no
+			// outgoing uTP or tracker connections will be made. No incoming TCP
+			// or uTP connections will be accepted. (outgoing TCP connections
+			// will still be possible, depending on
+			// settings_pack::outgoing_interfaces).
 			//
 			// For example:
 			// ``[::1]:8888`` - will only accept connections on the IPv6 loopback
@@ -223,12 +320,18 @@ namespace aux {
 			// ``[::]:0s`` - will accept SSL connections on a port chosen by the
 			// OS. And not accept non-SSL connections at all.
 			//
-			// ``0.0.0.0:6881,[::]:6881`` - binds to all interfaces on port 6881
+			// ``0.0.0.0:6881,[::]:6881`` - binds to all interfaces on port 6881.
 			//
-			// Windows OS network adapter device name can be specified with GUID.
+			// ``10.0.1.13:6881l`` - binds to the local IP address, port 6881, but
+			// only allow talking to peers on the same local network. The netmask
+			// is queried from the operating system. Interfaces marked ``l`` are
+			// not announced to trackers, unless the tracker is also on the same
+			// local network.
+			//
+			// Windows OS network adapter device name must be specified with GUID.
 			// It can be obtained from "netsh lan show interfaces" command output.
 			// GUID must be uppercased string embraced in curly brackets.
-			// ``{E4F0B674-0DFC-48BB-98A5-2AA730BDB6D6}::7777`` - will accept
+			// ``{E4F0B674-0DFC-48BB-98A5-2AA730BDB6D6}:7777`` - will accept
 			// connections on port 7777 on adapter with this GUID.
 			//
 			// For more information, see the `Multi-homed hosts`_ section.
@@ -237,7 +340,14 @@ namespace aux {
 			listen_interfaces,
 
 			// when using a proxy, this is the hostname where the proxy is running
-			// see proxy_type.
+			// see proxy_type. Note that when using a proxy, the
+			// settings_pack::listen_interfaces setting is overridden and only a
+			// single interface is created, just to contact the proxy. This
+			// means a proxy cannot be combined with SSL torrents or multiple
+			// listen interfaces. This proxy listen interface will not accept
+			// incoming TCP connections, will not map ports with any gateway and
+			// will not enable local service discovery. All traffic is supposed
+			// to be channeled through the proxy.
 			proxy_hostname,
 
 			// when using a proxy, these are the credentials (if any) to use when
@@ -270,8 +380,7 @@ namespace aux {
 			max_string_setting_internal
 		};
 
-		// enumeration values naming boolean settings in the pack. To be used with
-		// get_bool() and set_bool().
+		// hidden
 		enum bool_types
 		{
 			// determines if connections from the same IP address as existing
@@ -314,15 +423,11 @@ namespace aux {
 			// trackers fail or not.
 			use_dht_as_fallback,
 
-#if TORRENT_ABI_VERSION == 1
 			// ``upnp_ignore_nonrouters`` indicates whether or not the UPnP
 			// implementation should ignore any broadcast response from a device
-			// whose address is not the configured router for this machine. i.e.
+			// whose address is not on our subnet. i.e.
 			// it's a way to not talk to other people's routers by mistake.
-			upnp_ignore_nonrouters TORRENT_DEPRECATED_ENUM,
-#else
-			deprecated_upnp_ignore_nonrouters,
-#endif
+			upnp_ignore_nonrouters,
 
 			// ``use_parole_mode`` specifies if parole mode should be used. Parole
 			// mode means that peers that participate in pieces that fail the hash
@@ -332,28 +437,31 @@ namespace aux {
 			// passes the hash check, it is taken out of parole mode.
 			use_parole_mode,
 
+#if TORRENT_ABI_VERSION == 1
 			// enable and disable caching of blocks read from disk. the purpose of
 			// the read cache is partly read-ahead of requests but also to avoid
 			// reading blocks back from the disk multiple times for popular
 			// pieces.
-			use_read_cache,
-#if TORRENT_ABI_VERSION == 1
+			use_read_cache TORRENT_DEPRECATED_ENUM,
 			use_write_cache TORRENT_DEPRECATED_ENUM,
 
 			// this will make the disk cache never flush a write piece if it would
 			// cause is to have to re-read it once we want to calculate the piece
 			// hash
 			dont_flush_write_cache TORRENT_DEPRECATED_ENUM,
-#else
-			deprecated_use_write_cache,
-			deprecated_dont_flush_write_cache,
-#endif
 
 			// allocate separate, contiguous, buffers for read and write calls.
 			// Only used where writev/readv cannot be used will use more RAM but
 			// may improve performance
-			coalesce_reads,
-			coalesce_writes,
+			coalesce_reads TORRENT_DEPRECATED_ENUM,
+			coalesce_writes TORRENT_DEPRECATED_ENUM,
+#else
+			deprecated_use_read_cache,
+			deprecated_use_write_cache,
+			deprecated_flush_write_cache,
+			deprecated_coalesce_reads,
+			deprecated_coalesce_writes,
+#endif
 
 			// if true, prefer seeding torrents when determining which torrents to give
 			// active slots to. If false, give preference to downloading torrents
@@ -402,10 +510,14 @@ namespace aux {
 			// preference of one protocol over another.
 			prefer_udp_trackers,
 
+#if TORRENT_ABI_VERSION == 1
 			// ``strict_super_seeding`` when this is set to true, a piece has to
 			// have been forwarded to a third peer before another one is handed
 			// out. This is the traditional definition of super seeding.
-			strict_super_seeding,
+			strict_super_seeding TORRENT_DEPRECATED_ENUM,
+#else
+			deprecated_strict_super_seeding,
+#endif
 
 #if TORRENT_ABI_VERSION == 1
 			// if this is set to true, the memory allocated for the disk cache
@@ -507,9 +619,13 @@ namespace aux {
 			deprecated_broadcast_lsd,
 #endif
 
-			// when set to true, libtorrent will try to make outgoing utp
-			// connections controls whether libtorrent will accept incoming
-			// connections or make outgoing connections of specific type.
+			// Enables incoming and outgoing, TCP and uTP peer connections.
+			// ``false`` is disabled and ``true`` is enabled. When outgoing
+			// connections are disabled, libtorrent will simply not make
+			// outgoing peer connections with the specific transport protocol.
+			// Disabled incoming peer connections will simply be rejected.
+			// These options only apply to peer connections, not tracker- or any
+			// other kinds of connections.
 			enable_outgoing_utp,
 			enable_incoming_utp,
 			enable_outgoing_tcp,
@@ -673,9 +789,15 @@ namespace aux {
 			// if false, prevents libtorrent to advertise share-mode support
 			support_share_mode,
 
+#if TORRENT_ABI_VERSION <= 2
+			// support for BEP 30 merkle torrents has been removed
+
 			// if this is false, don't advertise support for the Tribler merkle
 			// tree piece message
-			support_merkle_torrents,
+			support_merkle_torrents TORRENT_DEPRECATED_ENUM,
+#else
+			deprecated_support_merkle_torrents,
+#endif
 
 			// if this is true, the number of redundant bytes is sent to the
 			// tracker
@@ -766,10 +888,60 @@ namespace aux {
 			// changes are taken in consideration.
 			enable_ip_notifier,
 
-			// when this is true, nodes whose IDs are derived from their source IP
-			// according to BEP 42 (https://www.bittorrent.org/beps/bep_0042.html) are
-			// preferred in the routing table.
+			// when this is true, nodes whose IDs are derived from their source
+			// IP according to `BEP 42`_ are preferred in the routing table.
 			dht_prefer_verified_node_ids,
+
+			// determines if the routing table entries should restrict entries to one
+			// per IP. This defaults to true, which helps mitigate some attacks on
+			// the DHT. It prevents adding multiple nodes with IPs with a very close
+			// CIDR distance.
+			//
+			// when set, nodes whose IP address that's in the same /24 (or /64 for
+			// IPv6) range in the same routing table bucket. This is an attempt to
+			// mitigate node ID spoofing attacks also restrict any IP to only have a
+			// single entry in the whole routing table
+			dht_restrict_routing_ips,
+
+			// determines if DHT searches should prevent adding nodes with IPs with
+			// very close CIDR distance. This also defaults to true and helps
+			// mitigate certain attacks on the DHT.
+			dht_restrict_search_ips,
+
+			// makes the first buckets in the DHT routing table fit 128, 64, 32 and
+			// 16 nodes respectively, as opposed to the standard size of 8. All other
+			// buckets have size 8 still.
+			dht_extended_routing_table,
+
+			// slightly changes the lookup behavior in terms of how many outstanding
+			// requests we keep. Instead of having branch factor be a hard limit, we
+			// always keep *branch factor* outstanding requests to the closest nodes.
+			// i.e. every time we get results back with closer nodes, we query them
+			// right away. It lowers the lookup times at the cost of more outstanding
+			// queries.
+			dht_aggressive_lookups,
+
+			// when set, perform lookups in a way that is slightly more expensive,
+			// but which minimizes the amount of information leaked about you.
+			dht_privacy_lookups,
+
+			// when set, node's whose IDs that are not correctly generated based on
+			// its external IP are ignored. When a query arrives from such node, an
+			// error message is returned with a message saying "invalid node ID".
+			dht_enforce_node_id,
+
+			// ignore DHT messages from parts of the internet we wouldn't expect to
+			// see any traffic from
+			dht_ignore_dark_internet,
+
+			// when set, the other nodes won't keep this node in their routing
+			// tables, it's meant for low-power and/or ephemeral devices that
+			// cannot support the DHT, it is also useful for mobile devices which
+			// are sensitive to network traffic and battery life.
+			// this node no longer responds to 'query' messages, and will place a
+			// 'ro' key (value = 1) in the top-level message dictionary of outgoing
+			// query messages.
+			dht_read_only,
 
 			// when this is true, create an affinity for downloading 4 MiB extents
 			// of adjacent pieces. This is an attempt to achieve better disk I/O
@@ -777,11 +949,49 @@ namespace aux {
 			// small piece sizes
 			piece_extent_affinity,
 
+			// when set to true, the certificate of HTTPS trackers and HTTPS web
+			// seeds will be validated against the system's certificate store
+			// (as defined by OpenSSL). If the system does not have a
+			// certificate store, this option may have to be disabled in order
+			// to get trackers and web seeds to work).
+			validate_https_trackers,
+
+			// when enabled, tracker and web seed requests are subject to
+			// certain restrictions.
+			//
+			// An HTTP(s) tracker requests to localhost (loopback)
+			// must have the request path start with "/announce". This is the
+			// conventional bittorrent tracker request. Any other HTTP(S)
+			// tracker request to loopback will be rejected. This applies to
+			// trackers that redirect to loopback as well.
+			//
+			// Web seeds that end up on the client's local network (i.e. in a
+			// private IP address range) may not include query string arguments.
+			// This applies to web seeds redirecting to the local network as
+			// well.
+			//
+			// Web seeds on global IPs (i.e. not local network) may not redirect
+			// to a local network address
+			ssrf_mitigation,
+
+			// when disabled, any tracker or web seed with an IDNA hostname
+			// (internationalized domain name) is ignored. This is a security
+			// precaution to avoid various unicode encoding attacks that might
+			// happen at the application level.
+			allow_idna,
+
+			// when set to true, enables the attempt to use SetFileValidData()
+			// to pre-allocate disk space. This system call will only work when
+			// running with Administrator privileges on Windows, and so this
+			// setting is only relevant in that scenario. Using
+			// SetFileValidData() poses a security risk, as it may reveal
+			// previously deleted information from the disk.
+			enable_set_file_valid_data,
+
 			max_bool_setting_internal
 		};
 
-		// enumeration values naming integer settings in the pack. To be used with
-		// get_int() and set_int().
+		// hidden
 		enum int_types
 		{
 			// ``tracker_completion_timeout`` is the number of seconds the tracker
@@ -866,7 +1076,7 @@ namespace aux {
 
 			// number of seconds until a new retry of a url-seed takes place.
 			// Default retry value for http-seeds that don't provide
-                        // a valid ``retry-after`` header.
+			// a valid ``retry-after`` header.
 			urlseed_wait_retry,
 
 			// sets the upper limit on the total number of files this session will
@@ -878,12 +1088,12 @@ namespace aux {
 			// of file descriptors a process may have open.
 			file_pool_size,
 
-                        // ``max_failcount`` is the maximum times we try to
-                        // connect to a peer before stop connecting again. If a
-                        // peer succeeds, the failure counter is reset. If a
-                        // peer is retrieved from a peer source (other than DHT)
-                        // the failcount is decremented by one, allowing another
-                        // try.
+			// ``max_failcount`` is the maximum times we try to
+			// connect to a peer before stop connecting again. If a
+			// peer succeeds, the failure counter is reset. If a
+			// peer is retrieved from a peer source (other than DHT)
+			// the failcount is decremented by one, allowing another
+			// try.
 			max_failcount,
 
 			// the number of seconds to wait to reconnect to a peer. this time is
@@ -982,48 +1192,22 @@ namespace aux {
 			send_buffer_watermark_factor,
 
 			// ``choking_algorithm`` specifies which algorithm to use to determine
-			// which peers to unchoke.
+			// how many peers to unchoke. The unchoking algorithm for
+			// downloading torrents is always "tit-for-tat", i.e. the peers we
+			// download the fastest from are unchoked.
 			//
-			// The options for choking algorithms are:
-			//
-			// * ``fixed_slots_choker`` is the traditional choker with a fixed
-			//   number of unchoke slots (as specified by
-			//   ``settings_pack::unchoke_slots_limit``).
-			//
-			// * ``rate_based_choker`` opens up unchoke slots based on the upload
-			//   rate achieved to peers. The more slots that are opened, the
-			//   marginal upload rate required to open up another slot increases.
-			//
-			// * ``bittyrant_choker`` attempts to optimize download rate by
-			//   finding the reciprocation rate of each peer individually and
-			//   prefers peers that gives the highest *return on investment*. It
-			//   still allocates all upload capacity, but shuffles it around to
-			//   the best peers first. For this choker to be efficient, you need
-			//   to set a global upload rate limit
-			//   (``settings_pack::upload_rate_limit``). For more information
-			//   about this choker, see the paper_. This choker is not fully
-			//   implemented nor tested.
-			//
-			// .. _paper: http://bittyrant.cs.washington.edu/#papers
+			// The options for choking algorithms are defined in the
+			// choking_algorithm_t enum.
 			//
 			// ``seed_choking_algorithm`` controls the seeding unchoke behavior.
-			// The available options are:
-			//
-			// * ``round_robin`` which round-robins the peers that are unchoked
-			//   when seeding. This distributes the upload bandwidth uniformly and
-			//   fairly. It minimizes the ability for a peer to download everything
-			//   without redistributing it.
-			//
-			// * ``fastest_upload`` unchokes the peers we can send to the fastest.
-			//   This might be a bit more reliable in utilizing all available
-			//   capacity.
-			//
-			// * ``anti_leech`` prioritizes peers who have just started or are
-			//   just about to finish the download. The intention is to force
-			//   peers in the middle of the download to trade with each other.
+			// i.e. How we select which peers to unchoke for seeding torrents.
+			// Since a seeding torrent isn't downloading anything, the
+			// tit-for-tat mechanism cannot be used. The available options are
+			// defined in the seed_choking_algorithm_t enum.
 			choking_algorithm,
 			seed_choking_algorithm,
 
+#if TORRENT_ABI_VERSION == 1
 			// ``cache_size`` is the disk write and read cache. It is specified
 			// in units of 16 kiB blocks. Buffers that are part of a peer's send
 			// or receive buffer also count against this limit. Send and receive
@@ -1033,19 +1217,28 @@ namespace aux {
 			// physical RAM on the machine. If the amount of physical RAM cannot
 			// be determined, it's set to 1024 (= 16 MiB).
 			//
-			// ``cache_expiry`` is the number of seconds from the last cached write
-			// to a piece in the write cache, to when it's forcefully flushed to
-			// disk.
-			//
 			// On 32 bit builds, the effective cache size will be limited to 3/4 of
 			// 2 GiB to avoid exceeding the virtual address space limit.
-			cache_size,
-#if TORRENT_ABI_VERSION == 1
+			cache_size TORRENT_DEPRECATED_ENUM,
+
+			// Disk buffers are allocated using a pool allocator, the number of
+			// blocks that are allocated at a time when the pool needs to grow can
+			// be specified in ``cache_buffer_chunk_size``. Lower numbers saves
+			// memory at the expense of more heap allocations. If it is set to 0,
+			// the effective chunk size is proportional to the total cache size,
+			// attempting to strike a good balance between performance and memory
+			// usage. It defaults to 0.
 			cache_buffer_chunk_size TORRENT_DEPRECATED_ENUM,
+
+			// ``cache_expiry`` is the number of seconds
+			// from the last cached write to a piece in the write cache, to when
+			// it's forcefully flushed to disk.
+			cache_expiry TORRENT_DEPRECATED_ENUM,
 #else
+			deprecated_cache_size,
 			deprecated_cache_buffer_chunk_size,
+			deprecated_cache_expiry,
 #endif
-			cache_expiry,
 
 			// determines how files are opened when they're in read only mode
 			// versus read and write mode. The options are:
@@ -1298,6 +1491,7 @@ namespace aux {
 			// allowed upload slots as optimistic unchoke slots.
 			num_optimistic_unchoke_slots,
 
+#if TORRENT_ABI_VERSION == 1
 			// ``default_est_reciprocation_rate`` is the assumed reciprocation
 			// rate from peers when using the BitTyrant choker. If set too high,
 			// you will over-estimate your peers and be
@@ -1314,9 +1508,14 @@ namespace aux {
 			// estimated reciprocation rate should be decreased by each unchoke
 			// interval a peer unchokes us. This only applies
 			// to the BitTyrant choker.
-			default_est_reciprocation_rate,
-			increase_est_reciprocation_rate,
-			decrease_est_reciprocation_rate,
+			default_est_reciprocation_rate TORRENT_DEPRECATED_ENUM,
+			increase_est_reciprocation_rate TORRENT_DEPRECATED_ENUM,
+			decrease_est_reciprocation_rate TORRENT_DEPRECATED_ENUM,
+#else
+			deprecated_default_est_reciprocation_rate,
+			deprecated_increase_est_reciprocation_rate,
+			deprecated_decrease_est_reciprocation_rate,
+#endif
 
 			// the max number of peers we accept from pex messages from a single
 			// peer. this limits the number of concurrent peers any of our peers
@@ -1362,15 +1561,10 @@ namespace aux {
 			deprecated_local_download_rate_limit,
 #endif
 
-#if TORRENT_ABI_VERSION == 1
-			// ``dht_upload_rate_limit`` sets the rate limit on the DHT. This is
-			// specified in bytes per second. For busy boxes
-			// with lots of torrents that requires more DHT traffic, this should
-			// be raised.
-			dht_upload_rate_limit TORRENT_DEPRECATED_ENUM,
-#else
-			deprecated_dht_upload_rate_limit,
-#endif
+			// the number of bytes per second (on average) the DHT is allowed to send.
+			// If the incoming requests causes to many bytes to be sent in responses,
+			// incoming requests will be dropped until the quota has been replenished.
+			dht_upload_rate_limit,
 
 			// ``unchoke_slots_limit`` is the max number of unchoked peers in the
 			// session. The number of unchoke slots may be ignored depending on
@@ -1497,19 +1691,13 @@ namespace aux {
 			// received by the metadata extension, i.e. magnet links.
 			max_metadata_size,
 
-#if TORRENT_ABI_VERSION == 1
-			// DEPRECATED: use aio_threads instead
-
-			// ``hashing_threads`` is the number of threads to use for piece hash
-			// verification. For very high download rates, on
-			// machines with multiple cores, this could be incremented. Setting it
-			// higher than the number of CPU cores would presumably not provide
-			// any benefit of setting it to the number of cores. If it's set to 0,
-			// hashing is done in the disk thread.
-			hashing_threads TORRENT_DEPRECATED_ENUM,
-#else
-			deprecated_hashing_threads,
-#endif
+			// ``hashing_threads`` is the number of disk I/O threads to use for
+			// piece hash verification. These threads are *in addition* to the
+			// regular disk I/O threads specified by settings_pack::aio_threads.
+			// The hasher threads do not only compute hashes, but also perform
+			// the read from disk. On storage optimal for sequential access,
+			// such as hard drives, this setting should probably be set to 1.
+			hashing_threads,
 
 			// the number of blocks to keep outstanding at any given time when
 			// checking torrents. Higher numbers give faster re-checks but uses
@@ -1613,7 +1801,7 @@ namespace aux {
 			// retry a failed port bind
 			max_retry_port_bind,
 
-			// a bitmask combining flags from alert::category_t defining which
+			// a bitmask combining flags from alert_category_t defining which
 			// kinds of alerts to receive
 			alert_mask,
 
@@ -1661,6 +1849,7 @@ namespace aux {
 			// .. _i2p: http://www.i2p2.de
 			i2p_port,
 
+#if TORRENT_ABI_VERSION == 1
 			// this determines the max number of volatile disk cache blocks. If the
 			// number of volatile blocks exceed this limit, other volatile blocks
 			// will start to be evicted. A disk cache block is volatile if it has
@@ -1670,6 +1859,9 @@ namespace aux {
 			// represent potential interest among peers, so the value of keeping
 			// them in the cache is limited.
 			cache_size_volatile,
+#else
+			deprecated_cache_size_volatile,
+#endif
 
 			// The maximum request range of an url seed in bytes. This value
 			// defines the largest possible sequential web seed request. Lower values
@@ -1711,29 +1903,141 @@ namespace aux {
 			// as zero.
 			resolver_cache_timeout,
 
+			// specify the not-sent low watermark for socket send buffers. This
+			// corresponds to the, Linux-specific, ``TCP_NOTSENT_LOWAT`` TCP socket
+			// option.
+			send_not_sent_low_watermark,
+
+			// the rate based choker compares the upload rate to peers against a
+			// threshold that increases proportionally by its size for every
+			// peer it visits, visiting peers in decreasing upload rate. The
+			// number of upload slots is determined by the number of peers whose
+			// upload rate exceeds the threshold. This option sets the start
+			// value for this threshold. A higher value leads to fewer unchoke
+			// slots, a lower value leads to more.
+			rate_choker_initial_threshold,
+
+			// The expiration time of UPnP port-mappings, specified in seconds. 0
+			// means permanent lease. Some routers do not support expiration times
+			// on port-maps (nor correctly returning an error indicating lack of
+			// support). In those cases, set this to 0. Otherwise, don't set it any
+			// lower than 5 minutes.
+			upnp_lease_duration,
+
+			// limits the number of concurrent HTTP tracker announces. Once the
+			// limit is hit, tracker requests are queued and issued when an
+			// outstanding announce completes.
+			max_concurrent_http_announces,
+
+			// the maximum number of peers to send in a reply to ``get_peers``
+			dht_max_peers_reply,
+
+			// the number of concurrent search request the node will send when
+			// announcing and refreshing the routing table. This parameter is called
+			// alpha in the kademlia paper
+			dht_search_branching,
+
+			// the maximum number of failed tries to contact a node before it is
+			// removed from the routing table. If there are known working nodes that
+			// are ready to replace a failing node, it will be replaced immediately,
+			// this limit is only used to clear out nodes that don't have any node
+			// that can replace them.
+			dht_max_fail_count,
+
+			// the total number of torrents to track from the DHT. This is simply an
+			// upper limit to make sure malicious DHT nodes cannot make us allocate
+			// an unbounded amount of memory.
+			dht_max_torrents,
+
+			// max number of items the DHT will store
+			dht_max_dht_items,
+
+			// the max number of peers to store per torrent (for the DHT)
+			dht_max_peers,
+
+			// the max number of torrents to return in a torrent search query to the
+			// DHT
+			dht_max_torrent_search_reply,
+
+			// the number of seconds a DHT node is banned if it exceeds the rate
+			// limit. The rate limit is averaged over 10 seconds to allow for bursts
+			// above the limit.
+			dht_block_timeout,
+
+			// the max number of packets per second a DHT node is allowed to send
+			// without getting banned.
+			dht_block_ratelimit,
+
+			// the number of seconds a immutable/mutable item will be expired.
+			// default is 0, means never expires.
+			dht_item_lifetime,
+
+			// the info-hashes sample recomputation interval (in seconds).
+			// The node will precompute a subset of the tracked info-hashes and return
+			// that instead of calculating it upon each request. The permissible range
+			// is between 0 and 21600 seconds (inclusive).
+			dht_sample_infohashes_interval,
+
+			// the maximum number of elements in the sampled subset of info-hashes.
+			// If this number is too big, expect the DHT storage implementations
+			// to clamp it in order to allow UDP packets go through
+			dht_max_infohashes_sample_count,
+
+			// ``max_piece_count`` is the maximum allowed number of pieces in
+			// metadata received via magnet links. Loading large torrents (with
+			// more pieces than the default limit) may also require passing in
+			// a higher limit to read_resume_data() and
+			// torrent_info::parse_info_section(), if those are used.
+			max_piece_count,
+
 			max_int_setting_internal
 		};
 
-		enum settings_counts_t : int
-		{
-			num_string_settings = int(max_string_setting_internal) - int(string_type_base),
-			num_bool_settings = int(max_bool_setting_internal) - int(bool_type_base),
-			num_int_settings = int(max_int_setting_internal) - int(int_type_base)
-		};
+		// hidden
+		constexpr static int num_string_settings = int(max_string_setting_internal) - int(string_type_base);
+		constexpr static int num_bool_settings = int(max_bool_setting_internal) - int(bool_type_base);
+		constexpr static int num_int_settings = int(max_int_setting_internal) - int(int_type_base);
 
 		enum suggest_mode_t : std::uint8_t { no_piece_suggestions = 0, suggest_read_cache = 1 };
 
 		enum choking_algorithm_t : std::uint8_t
 		{
+			// This is the traditional choker with a fixed number of unchoke
+			// slots (as specified by settings_pack::unchoke_slots_limit).
 			fixed_slots_choker = 0,
+
+			// This opens up unchoke slots based on the upload rate achieved to
+			// peers. The more slots that are opened, the marginal upload rate
+			// required to open up another slot increases. Configure the initial
+			// threshold with settings_pack::rate_choker_initial_threshold.
+			//
+			// For more information, see `rate based choking`_.
 			rate_based_choker = 2,
-			bittyrant_choker = 3
+#if TORRENT_ABI_VERSION == 1
+			bittyrant_choker TORRENT_DEPRECATED_ENUM = 3
+#else
+			deprecated_bittyrant_choker = 3
+#endif
 		};
 
 		enum seed_choking_algorithm_t : std::uint8_t
 		{
+			// which round-robins the peers that are unchoked
+			// when seeding. This distributes the upload bandwidth uniformly and
+			// fairly. It minimizes the ability for a peer to download everything
+			// without redistributing it.
 			round_robin,
+
+			// unchokes the peers we can send to the fastest. This might be a
+			// bit more reliable in utilizing all available capacity.
 			fastest_upload,
+
+			// prioritizes peers who have just started or are
+			// just about to finish the download. The intention is to force
+			// peers in the middle of the download to trade with each other.
+			// This does not just take into account the pieces a peer is
+			// reporting having downloaded, but also the pieces we have sent
+			// to it.
 			anti_leech
 		};
 
