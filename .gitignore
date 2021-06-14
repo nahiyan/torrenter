@@ -1,3 +1,4 @@
 *.code-workspace
 /Torrenter.xcodeproj/project.xcworkspace/xcuserdata/*.xcuserdatad/UserInterfaceState.xcuserstate
 /notes
+.vscode

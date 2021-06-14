@@ -14,6 +14,7 @@
 #include <fstream>
 #include <iostream>
 #include <memory>
+#include <sstream>
 #include <string>
 #include <thread>
 #include <unordered_map>
@@ -218,20 +219,21 @@ extern "C" void torrent_initiate_resume_data(const char* file_name)
     std::vector<char> buf { std::istream_iterator<char>(ifs), std::istream_iterator<char>() };
 
     // Torrent params
-    lt::add_torrent_params params;
     try {
-        params = lt::read_resume_data(buf);
+        lt::add_torrent_params params = lt::read_resume_data(buf);
 
         Torrent torrent;
         torrent.handler = torrent_session.add_torrent(params);
 
         if (params.ti == NULL) {
             // Get name from database if metadata isn't still downloaded
-            std::string hash = hex_encode_sha1_hash(params.info_hash);
+            std::stringstream ss;
+            ss << params.info_hashes.get_best();
+            std::string hash = ss.str();
             load_names_if_required();
             torrent.name = get_name(hash);
         } else {
-            torrent.name = torrent.handler.status().name;
+            torrent.name = params.ti->name();
         }
 
         // Default pieces information
@@ -515,15 +517,15 @@ extern "C" void torrent_sequential(int index, bool sequential)
             handler.piece_priority(num_pieces - 1, libtorrent::top_priority);
         } else {
             handler.unset_flags(lt::torrent_flags::sequential_download);
-            
+
             // Reset priorities of first and last two pieces
             handler.piece_priority(0, libtorrent::default_priority);
-            
+
             if (num_pieces >= 2) {
                 handler.piece_priority(1, libtorrent::default_priority);
                 handler.piece_priority(num_pieces - 2, libtorrent::default_priority);
             }
-            
+
             handler.piece_priority(num_pieces - 1, libtorrent::default_priority);
         }
     } catch (std::out_of_range) {
@@ -580,7 +582,7 @@ extern "C" int get_torrent_from_file(const char* loadPath)
 extern "C" int get_torrent_from_magnet_uri(const char* magnet_uri)
 {
     lt::add_torrent_params params = lt::parse_magnet_uri(magnet_uri);
-    lt::sha1_hash hash = params.info_hash;
+    lt::sha1_hash hash = params.info_hashes.get_best();
 
     return get_torrent_from_hash(hash);
 }
@@ -1030,27 +1032,28 @@ extern "C" Trackers torrent_get_trackers(int index)
             tracker->peers = 0;
             tracker->downloaded = 0;
 
-            for (lt::announce_endpoint endpoint : _tracker.endpoints) {
-                if (endpoint.is_working()) {
-                    tracker->is_working = true;
-                }
-                if (endpoint.updating) {
-                    tracker->is_updating = true;
-                }
-                if (endpoint.message.size() >= 1) {
-                    free((char*)tracker->message);
-                    tracker->message = c_string(endpoint.message);
-                }
+            for (lt::announce_endpoint& endpoint : _tracker.endpoints) {
+                for (auto& announce_infohash : endpoint.info_hashes) {
+                    if (announce_infohash.scrape_complete != -1)
+                        tracker->seeds += announce_infohash.scrape_complete;
 
-                // scrape data
-                if (endpoint.scrape_complete != -1)
-                    tracker->seeds += endpoint.scrape_complete;
+                    if (announce_infohash.scrape_incomplete != -1)
+                        tracker->peers += announce_infohash.scrape_incomplete;
 
-                if (endpoint.scrape_incomplete != -1)
-                    tracker->peers += endpoint.scrape_incomplete;
+                    if (announce_infohash.scrape_downloaded != -1)
+                        tracker->downloaded += announce_infohash.scrape_downloaded;
 
-                if (endpoint.scrape_downloaded != -1)
-                    tracker->downloaded += endpoint.scrape_downloaded;
+                    if (announce_infohash.message.size() >= 1) {
+                        free((char*)tracker->message);
+                        tracker->message = c_string(announce_infohash.message);
+                    }
+
+                    if (announce_infohash.start_sent && announce_infohash.fails == 0)
+                        tracker->is_working = true;
+
+                    if (announce_infohash.updating)
+                        tracker->is_updating = true;
+                }
             }
 
             trackers.items[i] = tracker;
