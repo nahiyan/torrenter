@@ -4,9 +4,8 @@
   "description": "",
   "main": "webpack.config.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npx webpack --mode development --watch-stdin",
-    "build-production": "npx webpack --mode production"
+    "watch:dev": "npx webpack --mode development --watch-stdin",
+    "build:prod": "npx webpack --mode production"
   },
   "author": "Nahiyan Alamgir <nahiyan.alamgir@live.com> (http://github.com/hedronium)",
   "license": "ISC",
@@ -25,7 +24,7 @@
     "sass-loader": "^8.0.2",
     "style-loader": "^1.2.1",
     "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.11"
+    "webpack-cli": "^3.3.12"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.13.0"
